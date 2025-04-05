@@ -1,8 +1,8 @@
 # 🌟 Auralize: Yaratıcı Auranızı AI ile Keşfedin 🌟
 
-![Auralize Logo](https://via.placeholder.com/150) <!-- ✨ Logo eklenecekse URL buraya gelecek ✨ -->
+![Auralize Logo](public/auralize_logo.jpg) <!-- ✨ Logo eklenecekse URL buraya gelecek ✨ -->
 
-**Auralize** 🎨, kullanıcıların yaratıcı "auralarını" keşfetmelerine ve geliştirmelerine olanak tanıyan interaktif bir web platformudur. Görsel quiz’ler 🎥, kişisel tercihler 🌈 ve serbest girdilerle yapay zeka destekli **sanat eserleri** 🖼️, **hikayeler** 📖 ve **sesler** 🎶 üreterek herkesin içindeki yaratıcılığı ortaya çıkarmayı hedefliyoruz. Lenovo’nun *"Senin auran sınırsız"* kampanyasına paralel olarak, bu proje kullanıcıların yaratıcı potansiyelini AI ile görselleştiriyor ve topluluk odaklı bir deneyim sunuyor! 🚀
+**Auralize** 🎨, kullanıcıların yaratıcı "auralarını" keşfetmelerine ve geliştirmelerine olanak tanıyan interaktif bir web platformudur. Görsel quiz'ler 🎥, kişisel tercihler 🌈 ve serbest girdilerle yapay zeka destekli **sanat eserleri** 🖼️, **hikayeler** 📖 ve **sesler** 🎶 üreterek herkesin içindeki yaratıcılığı ortaya çıkarmayı hedefliyoruz. Lenovo'nun *"Senin auran sınırsız"* kampanyasına paralel olarak, bu proje kullanıcıların yaratıcı potansiyelini AI ile görselleştiriyor ve topluluk odaklı bir deneyim sunuyor! 🚀
 
 ---
 
@@ -14,7 +14,7 @@ Auralize, tek seferlik bir sanat eseri üreten bir uygulamadan çok daha fazlas�
 ## ✨ Temel Özellikler ✨
 1. **🎮 Dinamik ve Etkileşimli Giriş Arayüzü**  
    - Çok adımlı, oyunlaştırılmış bir *"Yaratıcı Keşif Yolculuğu"*.  
-   - Görsel quiz’ler 🖼️, renk paletleri 🎨 ve serbest girdilerle ruh halleri ve yaratıcı eğilimler analiz edilir.
+   - Görsel quiz'ler 🖼️, renk paletleri 🎨 ve serbest girdilerle ruh halleri ve yaratıcı eğilimler analiz edilir.
 
 2. **🌟 Zengin ve Evrilen Çıktılar**  
    - AI tarafından üretilen sanat eserleri 🎨, hikayeler/şiirler 📜 ve ses klipleri 🎵.  
@@ -44,7 +44,7 @@ Bu teknolojiler, kullanıcı girdilerini **zengin ve yaratıcı içeriklere** d�
 ---
 
 ## 🤝 Kampanyaya Katkı
-"Auralize", Lenovo’nun *"Senin auran sınırsız"* kampanyasını destekleyerek yaratıcılığı teşvik etmeyi ve geniş kitlelere ulaşmayı hedefler. Sosyal medya paylaşım özellikleri 📲 ve topluluk galerisi ile kampanyanın viral yayılımını artırırken, **Lenovo Yoga Aura Edition**’ın yapay zeka gücünü vurgular. 🌍
+"Auralize", Lenovo'nun *"Senin auran sınırsız"* kampanyasını destekleyerek yaratıcılığı teşvik etmeyi ve geniş kitlelere ulaşmayı hedefler. Sosyal medya paylaşım özellikleri 📲 ve topluluk galerisi ile kampanyanın viral yayılımını artırırken, **Lenovo Yoga Aura Edition**'ın yapay zeka gücünü vurgular. 🌍
 
 ---
 
