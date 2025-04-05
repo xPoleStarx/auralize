@@ -35,6 +35,27 @@ const Gallery: React.FC = () => {
 
     window.addEventListener('scroll', handleScroll);
     
+    // CSS değişkenlerini belirle
+    document.documentElement.style.setProperty('--color-creative-light', '#FF61D2');
+    document.documentElement.style.setProperty('--color-creative-dark', '#FE9090');
+    document.documentElement.style.setProperty('--color-creative-light-rgb', '255, 97, 210');
+    document.documentElement.style.setProperty('--color-creative-dark-rgb', '254, 144, 144');
+    
+    document.documentElement.style.setProperty('--color-analytical-light', '#5B8CFF');
+    document.documentElement.style.setProperty('--color-analytical-dark', '#36C5F0');
+    document.documentElement.style.setProperty('--color-analytical-light-rgb', '91, 140, 255');
+    document.documentElement.style.setProperty('--color-analytical-dark-rgb', '54, 197, 240');
+    
+    document.documentElement.style.setProperty('--color-empathetic-light', '#41D5A8');
+    document.documentElement.style.setProperty('--color-empathetic-dark', '#30BFDD');
+    document.documentElement.style.setProperty('--color-empathetic-light-rgb', '65, 213, 168');
+    document.documentElement.style.setProperty('--color-empathetic-dark-rgb', '48, 191, 221');
+    
+    document.documentElement.style.setProperty('--color-energetic-light', '#FFB046');
+    document.documentElement.style.setProperty('--color-energetic-dark', '#FF7070');
+    document.documentElement.style.setProperty('--color-energetic-light-rgb', '255, 176, 70');
+    document.documentElement.style.setProperty('--color-energetic-dark-rgb', '255, 112, 112');
+    
     // Kullanıcı ID'sini al
     const currentUserId = localStorage.getItem('auralize_user_id') || '';
     setUserId(currentUserId);
@@ -131,24 +152,28 @@ const Gallery: React.FC = () => {
         light: '#FF61D2',
         dark: '#FE9090',
         gradient: 'linear-gradient(135deg, #FF61D2, #FE9090)',
+        bgLight: '#FFF6FA',
         icon: '✨'
       },
       analytical: {
         light: '#5B8CFF',
         dark: '#36C5F0',
         gradient: 'linear-gradient(135deg, #5B8CFF, #36C5F0)',
+        bgLight: '#F0F7FF',
         icon: '🔍'
       },
       empathetic: {
         light: '#41D5A8',
         dark: '#30BFDD',
         gradient: 'linear-gradient(135deg, #41D5A8, #30BFDD)',
+        bgLight: '#F0FFF8',
         icon: '💗'
       },
       energetic: {
         light: '#FFB046',
         dark: '#FF7070',
         gradient: 'linear-gradient(135deg, #FFB046, #FF7070)',
+        bgLight: '#FFF8F0',
         icon: '⚡'
       }
     };
@@ -580,18 +605,31 @@ const Gallery: React.FC = () => {
             transition={{ type: "spring", damping: 30, stiffness: 300 }}
             onClick={(e) => e.stopPropagation()}
             style={{
-              background: '#111827', // Koyu arka plan rengi
+              background: currentArt.auraType === 'creative' ? '#FFF6FA' :
+                        currentArt.auraType === 'analytical' ? '#F0F7FF' :
+                        currentArt.auraType === 'empathetic' ? '#F0FFF8' :
+                        currentArt.auraType === 'energetic' ? '#FFF8F0' : '#FFFFFF',
               borderRadius: '24px',
               overflow: 'hidden',
               width: '100%',
               maxWidth: '700px',
               maxHeight: '85vh',
-              boxShadow: '0 20px 50px rgba(0, 0, 0, 0.3)',
+              boxShadow: `0 20px 50px ${
+                currentArt.auraType === 'creative' ? 'rgba(254, 144, 144, 0.25)' :
+                currentArt.auraType === 'analytical' ? 'rgba(91, 140, 255, 0.25)' :
+                currentArt.auraType === 'empathetic' ? 'rgba(65, 213, 168, 0.25)' :
+                currentArt.auraType === 'energetic' ? 'rgba(255, 176, 70, 0.25)' : 'rgba(0, 0, 0, 0.2)'
+              }`,
               position: 'relative',
-              border: '1px solid rgba(255, 255, 255, 0.1)'
+              border: `1px solid ${
+                currentArt.auraType === 'creative' ? 'rgba(254, 144, 144, 0.3)' :
+                currentArt.auraType === 'analytical' ? 'rgba(91, 140, 255, 0.3)' :
+                currentArt.auraType === 'empathetic' ? 'rgba(65, 213, 168, 0.3)' :
+                currentArt.auraType === 'energetic' ? 'rgba(255, 176, 70, 0.3)' : 'rgba(255, 255, 255, 0.2)'
+              }`
             }}
           >
-            {/* Belirgin Kapatma butonu - Modal'ın sağ üst köşesine taşındı */}
+            {/* Belirgin Kapatma butonu */}
             <button 
               onClick={closeDetail} 
               aria-label="Kapat"
@@ -599,23 +637,22 @@ const Gallery: React.FC = () => {
                 position: 'absolute',
                 top: '15px',
                 right: '15px',
-                background: 'rgba(255, 255, 255, 0.15)',
+                background: 'rgba(255, 255, 255, 0.8)',
                 border: 'none',
-                width: '40px',
-                height: '40px',
+                width: '36px',
+                height: '36px',
                 borderRadius: '50%',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 cursor: 'pointer',
-                color: 'white',
+                color: '#333',
                 fontSize: '20px',
                 zIndex: 50,
-                boxShadow: '0 2px 10px rgba(0, 0, 0, 0.3)',
-                backdropFilter: 'blur(8px)'
+                boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)'
               }}
             >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M18 6L6 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 <path d="M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
@@ -627,7 +664,7 @@ const Gallery: React.FC = () => {
                 style={{ 
                   position: 'relative', 
                   background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light), var(--color-${currentArt.auraType}-dark))`,
-                  padding: '40px 30px 100px',
+                  padding: '40px 30px 60px',
                   color: 'white',
                   overflow: 'hidden'
                 }}
@@ -707,48 +744,56 @@ const Gallery: React.FC = () => {
                 
                 <div style={{
                   position: 'absolute',
-                  bottom: '-50px',
+                  bottom: '-35px',
                   right: '40px',
-                  width: '100px',
-                  height: '100px',
+                  width: '70px',
+                  height: '70px',
                   borderRadius: '50%',
-                  background: 'rgba(255, 255, 255, 0.9)',
+                  background: 'rgba(255, 255, 255, 0.95)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  boxShadow: '0 10px 30px rgba(0, 0, 0, 0.2)',
+                  boxShadow: '0 8px 25px rgba(0, 0, 0, 0.15)',
                   zIndex: 20,
-                  fontSize: '36px',
+                  fontSize: '28px',
                   lineHeight: 1,
-                  border: '2px solid rgba(255, 255, 255, 0.6)'
+                  border: '2px solid rgba(255, 255, 255, 1)'
                 }}>
-                  <span style={{ 
-                    transform: 'translateY(-2px)', 
-                    position: 'relative' 
-                  }}>
-                    {currentArt.auraType === 'creative' && '✨'}
-                    {currentArt.auraType === 'analytical' && '🔍'}
-                    {currentArt.auraType === 'empathetic' && '💗'}
-                    {currentArt.auraType === 'energetic' && '⚡'}
-                  </span>
+                  {currentArt.auraType === 'creative' && '✨'}
+                  {currentArt.auraType === 'analytical' && '🔍'}
+                  {currentArt.auraType === 'empathetic' && '💗'}
+                  {currentArt.auraType === 'energetic' && '⚡'}
                 </div>
               </div>
               
               <div className="aura-detail-body" style={{ 
                 padding: '40px 30px', 
                 position: 'relative', 
-                marginTop: '-60px',
+                marginTop: '-20px',
                 overflow: 'auto',
-                background: '#111827' // Koyu arka plan rengi
+                background: currentArt.auraType === 'creative' ? '#FFF6FA' :
+                          currentArt.auraType === 'analytical' ? '#F0F7FF' :
+                          currentArt.auraType === 'empathetic' ? '#F0FFF8' :
+                          currentArt.auraType === 'energetic' ? '#FFF8F0' : '#FFFFFF',
               }}>
                 <div className="aura-detail-card" style={{
-                  background: 'rgba(30, 41, 59, 0.8)', // Daha koyu arka plan
+                  background: 'rgba(255, 255, 255, 0.8)',
                   borderRadius: '16px',
-                  boxShadow: '0 10px 30px rgba(0, 0, 0, 0.2)',
+                  boxShadow: `0 10px 30px ${
+                    currentArt.auraType === 'creative' ? 'rgba(254, 144, 144, 0.15)' :
+                    currentArt.auraType === 'analytical' ? 'rgba(91, 140, 255, 0.15)' :
+                    currentArt.auraType === 'empathetic' ? 'rgba(65, 213, 168, 0.15)' :
+                    currentArt.auraType === 'energetic' ? 'rgba(255, 176, 70, 0.15)' : 'rgba(0, 0, 0, 0.1)'
+                  }`,
                   padding: '30px',
                   marginBottom: '30px',
                   backdropFilter: 'blur(10px)',
-                  border: '1px solid rgba(255, 255, 255, 0.1)'
+                  border: `1px solid ${
+                    currentArt.auraType === 'creative' ? 'rgba(254, 144, 144, 0.2)' :
+                    currentArt.auraType === 'analytical' ? 'rgba(91, 140, 255, 0.2)' :
+                    currentArt.auraType === 'empathetic' ? 'rgba(65, 213, 168, 0.2)' :
+                    currentArt.auraType === 'energetic' ? 'rgba(255, 176, 70, 0.2)' : 'rgba(0, 0, 0, 0.1)'
+                  }`
                 }}>
                   <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
                     <div style={{
@@ -762,7 +807,7 @@ const Gallery: React.FC = () => {
                       justifyContent: 'center',
                       fontWeight: 'bold',
                       fontSize: '18px',
-                      boxShadow: `0 5px 15px rgba(0, 0, 0, 0.3)`
+                      boxShadow: `0 5px 15px rgba(0, 0, 0, 0.2)`
                     }}>
                       {currentArt.username.charAt(0).toUpperCase()}
                     </div>
@@ -772,16 +817,11 @@ const Gallery: React.FC = () => {
                         margin: '0 0 4px 0', 
                         fontSize: '18px', 
                         fontWeight: '600',
-                        color: 'white' 
+                        color: '#333'
                       }}>
-                        <span style={{ 
-                          background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light), var(--color-${currentArt.auraType}-dark))`,
-                          WebkitBackgroundClip: 'text',
-                          WebkitTextFillColor: 'transparent',
-                          textShadow: '0 2px 4px rgba(0, 0, 0, 0.2)'
-                        }}>@{currentArt.username}</span>
+                        <span>@{currentArt.username}</span>
                       </h3>
-                      <p style={{ margin: 0, fontSize: '14px', color: 'rgba(255, 255, 255, 0.7)' }}>
+                      <p style={{ margin: 0, fontSize: '14px', color: '#666' }}>
                         {new Date(currentArt.createdAt).toLocaleDateString()} • 
                         {new Date(currentArt.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                       </p>
@@ -791,14 +831,14 @@ const Gallery: React.FC = () => {
                       <div style={{
                         display: 'flex',
                         alignItems: 'center',
-                        background: 'rgba(255, 255, 255, 0.1)',
+                        background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light)33, var(--color-${currentArt.auraType}-dark)22)`,
                         padding: '8px 16px',
                         borderRadius: '100px',
-                        color: 'white',
+                        color: `var(--color-${currentArt.auraType}-dark)`,
                         fontWeight: '500',
-                        border: '1px solid rgba(255, 255, 255, 0.1)'
+                        border: `1px solid var(--color-${currentArt.auraType}-light)33`
                       }}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#FFF" stroke="#FFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '6px' }}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '6px' }}>
                           <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"></path>
                         </svg>
                         {currentArt.likes} beğeni
@@ -811,20 +851,18 @@ const Gallery: React.FC = () => {
                       fontSize: '16px', 
                       fontWeight: '600', 
                       marginBottom: '10px', 
-                      color: 'rgba(255, 255, 255, 0.9)',
+                      color: '#444',
                       letterSpacing: '0.5px',
                       textTransform: 'uppercase'
                     }}>
                       <span style={{
-                        background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light), var(--color-${currentArt.auraType}-dark))`,
-                        WebkitBackgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent',
+                        color: `var(--color-${currentArt.auraType}-dark)`,
                         fontWeight: '700'
                       }}>Aura Açıklaması</span>
                     </h4>
-                    <p style={{ fontSize: '16px', lineHeight: '1.6', color: 'rgba(255, 255, 255, 0.8)' }}>
+                    <p style={{ fontSize: '16px', lineHeight: '1.6', color: '#555' }}>
                       Bu aura <strong style={{ 
-                        color: `var(--color-${currentArt.auraType}-light)` 
+                        color: `var(--color-${currentArt.auraType}-dark)` 
                       }}>{currentArt.auraType.charAt(0).toUpperCase() + currentArt.auraType.slice(1)}</strong> özellikleri taşıyor.
                       {currentArt.auraType === 'creative' && ' Yaratıcılık ve ilham ile parlıyor. Yenilikçi fikirlerle dolu bir ruh hali yansıtıyor.'}
                       {currentArt.auraType === 'analytical' && ' Mantık ve düzen ile parlıyor. Detaylara dikkat eden, problem çözücü bir ruh hali yansıtıyor.'}
@@ -838,28 +876,26 @@ const Gallery: React.FC = () => {
                       fontSize: '16px', 
                       fontWeight: '600', 
                       marginBottom: '10px', 
-                      color: 'rgba(255, 255, 255, 0.9)',
+                      color: '#444',
                       letterSpacing: '0.5px',
                       textTransform: 'uppercase'
                     }}>
                       <span style={{
-                        background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light), var(--color-${currentArt.auraType}-dark))`,
-                        WebkitBackgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent',
+                        color: `var(--color-${currentArt.auraType}-dark)`,
                         fontWeight: '700'
                       }}>Özellikler</span>
                     </h4>
                     <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
                       <div style={{
-                        background: 'rgba(255, 255, 255, 0.08)',
+                        background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light)15, var(--color-${currentArt.auraType}-dark)05)`,
                         padding: '12px',
                         borderRadius: '12px',
                         display: 'flex',
                         alignItems: 'center',
                         fontSize: '14px',
-                        color: 'rgba(255, 255, 255, 0.9)',
+                        color: '#444',
                         fontWeight: '500',
-                        border: '1px solid rgba(255, 255, 255, 0.1)'
+                        border: `1px solid var(--color-${currentArt.auraType}-light)33`
                       }}>
                         <span style={{ 
                           width: '28px', 
@@ -872,7 +908,7 @@ const Gallery: React.FC = () => {
                           color: 'white',
                           marginRight: '8px',
                           fontSize: '12px',
-                          boxShadow: '0 2px 8px rgba(0, 0, 0, 0.3)',
+                          boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)',
                           zIndex: 2
                         }}>
                           {currentArt.auraType === 'creative' && '🎨'}
@@ -887,15 +923,15 @@ const Gallery: React.FC = () => {
                       </div>
                       
                       <div style={{
-                        background: 'rgba(255, 255, 255, 0.08)',
+                        background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light)15, var(--color-${currentArt.auraType}-dark)05)`,
                         padding: '12px',
                         borderRadius: '12px',
                         display: 'flex',
                         alignItems: 'center',
                         fontSize: '14px',
-                        color: 'rgba(255, 255, 255, 0.9)',
+                        color: '#444',
                         fontWeight: '500',
-                        border: '1px solid rgba(255, 255, 255, 0.1)'
+                        border: `1px solid var(--color-${currentArt.auraType}-light)33`
                       }}>
                         <span style={{ 
                           width: '28px', 
@@ -908,7 +944,7 @@ const Gallery: React.FC = () => {
                           color: 'white',
                           marginRight: '8px',
                           fontSize: '12px',
-                          boxShadow: '0 2px 8px rgba(0, 0, 0, 0.3)',
+                          boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)',
                           zIndex: 2
                         }}>
                           {currentArt.auraType === 'creative' && '✨'}
@@ -923,15 +959,15 @@ const Gallery: React.FC = () => {
                       </div>
                       
                       <div style={{
-                        background: 'rgba(255, 255, 255, 0.08)',
+                        background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light)15, var(--color-${currentArt.auraType}-dark)05)`,
                         padding: '12px',
                         borderRadius: '12px',
                         display: 'flex',
                         alignItems: 'center',
                         fontSize: '14px',
-                        color: 'rgba(255, 255, 255, 0.9)',
+                        color: '#444',
                         fontWeight: '500',
-                        border: '1px solid rgba(255, 255, 255, 0.1)'
+                        border: `1px solid var(--color-${currentArt.auraType}-light)33`
                       }}>
                         <span style={{ 
                           width: '28px', 
@@ -944,7 +980,7 @@ const Gallery: React.FC = () => {
                           color: 'white',
                           marginRight: '8px',
                           fontSize: '12px',
-                          boxShadow: '0 2px 8px rgba(0, 0, 0, 0.3)',
+                          boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)',
                           zIndex: 2
                         }}>
                           {currentArt.auraType === 'creative' && '🌈'}
@@ -980,17 +1016,21 @@ const Gallery: React.FC = () => {
                       padding: '12px 24px',
                       borderRadius: '12px',
                       background: currentArt.likedBy.includes(userId) 
-                        ? `rgba(var(--color-${currentArt.auraType}-light-rgb), 0.3)` 
-                        : 'rgba(255, 255, 255, 0.1)',
+                        ? `var(--color-${currentArt.auraType}-light)22` 
+                        : 'rgba(255, 255, 255, 0.8)',
                       color: currentArt.likedBy.includes(userId) 
-                        ? `var(--color-${currentArt.auraType}-light)` 
-                        : 'white',
-                      boxShadow: '0 5px 15px rgba(0, 0, 0, 0.2)',
+                        ? `var(--color-${currentArt.auraType}-dark)` 
+                        : '#555',
+                      boxShadow: '0 5px 15px rgba(0, 0, 0, 0.05)',
                       cursor: currentArt.likedBy.includes(userId) ? 'default' : 'pointer',
                       fontSize: '15px',
                       fontWeight: '500',
                       transition: 'all 0.2s',
-                      border: '1px solid rgba(255, 255, 255, 0.1)'
+                      border: `1px solid ${
+                        currentArt.likedBy.includes(userId) 
+                          ? `var(--color-${currentArt.auraType}-light)33` 
+                          : 'rgba(0, 0, 0, 0.1)'
+                      }`
                     }}
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill={currentArt.likedBy.includes(userId) ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -1014,49 +1054,22 @@ const Gallery: React.FC = () => {
                       position: 'relative',
                       color: 'white',
                       textDecoration: 'none',
-                      boxShadow: `0 8px 20px rgba(0, 0, 0, 0.3)`,
+                      boxShadow: `0 8px 20px ${
+                        currentArt.auraType === 'creative' ? 'rgba(254, 144, 144, 0.3)' :
+                        currentArt.auraType === 'analytical' ? 'rgba(91, 140, 255, 0.3)' :
+                        currentArt.auraType === 'empathetic' ? 'rgba(65, 213, 168, 0.3)' :
+                        currentArt.auraType === 'energetic' ? 'rgba(255, 176, 70, 0.3)' : 'rgba(0, 0, 0, 0.2)'
+                      }`,
                       fontSize: '15px',
                       fontWeight: '600',
                       border: '1px solid rgba(255, 255, 255, 0.2)',
                       overflow: 'visible'
                     }}>
-                      {/* Buton içeriğini içeren yarı saydam panel */}
-                      <div style={{ 
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        bottom: 0,
-                        background: 'rgba(0, 0, 0, 0.2)',
-                        borderRadius: '12px',
-                        zIndex: 1
-                      }}></div>
-                      
-                      {/* Emoji container */}
-                      <div style={{ 
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        position: 'relative',
-                        zIndex: 2
-                      }}>
-                        <span style={{ 
-                          fontSize: '20px', 
-                          lineHeight: 1,
-                          textShadow: '0 2px 4px rgba(0, 0, 0, 0.3)'
-                        }}>✨</span>
-                      </div>
-                      
-                      {/* Text container */}
-                      <div style={{
-                        position: 'relative',
-                        zIndex: 2
-                      }}>
-                        <span style={{ 
-                          textShadow: '0 2px 4px rgba(0, 0, 0, 0.3)',
-                          whiteSpace: 'nowrap'
-                        }}>Kendi Auranı Oluştur</span>
-                      </div>
+                      <span style={{ 
+                        fontSize: '20px', 
+                        lineHeight: 1
+                      }}>✨</span>
+                      <span>Kendi Auranı Oluştur</span>
                     </Link>
                   </motion.div>
                 </div>
