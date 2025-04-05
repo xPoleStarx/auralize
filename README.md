@@ -55,7 +55,7 @@ Bu teknolojiler, kullanıcı girdilerini **zengin ve yaratıcı içeriklere** d�
 - Stable Diffusion, GPT ve AudioLDM modelleri için API erişimi veya yerel kurulum  
 
 ### 🚀 Adımlar
-1. Depoyu klonlayın:
+1. Depoyu klonlayın ve çalıştırın:
    ```bash
    git clone https://github.com/xPoleStarx/auralize.git
    cd auralize
