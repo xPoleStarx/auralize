@@ -531,8 +531,8 @@ const Profile: React.FC = () => {
                         position: 'absolute',
                         top: 0,
                         left: 0,
-                        right: 0,
-                        bottom: 0,
+                        width: '100%',
+                        height: '100%',
                         borderRadius: '50%',
                         border: '2px solid rgba(255, 255, 255, 0.1)',
                         borderTopColor: 'rgba(255, 255, 255, 0.8)',
@@ -542,7 +542,11 @@ const Profile: React.FC = () => {
                     
                     <div className="profile-avatar" style={{
                       position: 'absolute',
-                      inset: '8px',
+                      top: '50%',
+                      left: '50%',
+                      transform: 'translate(-50%, -50%)',
+                      width: 'calc(100% - 16px)',
+                      height: 'calc(100% - 16px)',
                       background: 'linear-gradient(135deg, #9D6FFF, #536DFE)',
                       borderRadius: '50%',
                       display: 'flex',

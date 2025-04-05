@@ -195,6 +195,9 @@ const AuraResult: React.FC = () => {
   const [isShared, setIsShared] = useState<boolean>(false);
   const [showUsernameModal, setShowUsernameModal] = useState<boolean>(false);
   const [customUsername, setCustomUsername] = useState<string>('');
+  const [hashtags, setHashtags] = useState<string[]>([]);
+  const [hashtagInput, setHashtagInput] = useState<string>('');
+  const [description, setDescription] = useState<string>('');
   
   // Quiz cevaplarını alıyoruz
   const answers = location.state?.answers || {};
@@ -258,10 +261,34 @@ const AuraResult: React.FC = () => {
     };
   }, [answers]);
   
-  // Aura paylaşım işlevi
-  const shareAura = () => {
-    // Her zaman kullanıcı adı modalını göster
-    setShowUsernameModal(true);
+  // Hashtag işleme 
+  const handleHashtagInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = e.target.value;
+    setHashtagInput(inputValue);
+    
+    // Eğer son karakter boşluksa ve giriş boş değilse
+    if (inputValue.endsWith(' ') && inputValue.trim() !== '') {
+      // Son boşluğu kaldır ve hashtag olarak ekle
+      const newTag = inputValue.trim();
+      
+      // Hashtag zaten ekli değilse ve 5'ten az hashtag varsa ekle
+      if (!hashtags.includes(newTag) && hashtags.length < 5) {
+        setHashtags([...hashtags, newTag]);
+      } else if (hashtags.length >= 5) {
+        // Maksimum sınıra ulaşıldığında en eski hashtag'i kaldır
+        const updatedTags = [...hashtags.slice(1), newTag];
+        setHashtags(updatedTags);
+      }
+      
+      // Input alanını temizle
+      setHashtagInput('');
+    }
+  };
+  
+  // Hashtag kaldırma
+  const removeHashtag = (tagToRemove: string) => {
+    const updatedTags = hashtags.filter(tag => tag !== tagToRemove);
+    setHashtags(updatedTags);
   };
   
   // Kullanıcı adı değiştirme işlevi
@@ -280,7 +307,9 @@ const AuraResult: React.FC = () => {
         title: `${customUsername}'ın ${auraData.title}`,
         createdAt: new Date(),
         likes: 0,
-        likedBy: []
+        likedBy: [],
+        description: description,
+        hashtags: [...hashtags, auraType] // Aura tipi otomatik olarak hashtag olarak ekleniyor
       };
       
       // Mevcut paylaşımları al
@@ -520,7 +549,7 @@ const AuraResult: React.FC = () => {
               </Link>
               <button 
                 className={`btn ${isShared ? 'btn-success' : 'btn-share'}`}
-                onClick={shareAura}
+                onClick={() => setShowUsernameModal(true)}
                 disabled={isShared}
               >
                 <span className="btn-icon">
@@ -664,6 +693,8 @@ const AuraResult: React.FC = () => {
                 </label>
                 <textarea
                   id="description"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
                   placeholder="Auranız hakkında kısa bir açıklama ekleyin"
                   style={{ 
                     width: '100%',
@@ -676,6 +707,8 @@ const AuraResult: React.FC = () => {
                     transition: 'all 0.2s',
                     outline: 'none',
                   }}
+                  onFocus={(e) => e.target.style.borderColor = auraData?.particleColor || '#5B8CFF'}
+                  onBlur={(e) => e.target.style.borderColor = '#ddd'}
                 />
               </div>
               
@@ -689,13 +722,15 @@ const AuraResult: React.FC = () => {
                     color: '#555'
                   }}
                 >
-                  Etiketler
+                  Etiketler (Maksimum 5)
                 </label>
-                <div style={{ 
-                  display: 'flex', 
+                <div style={{
+                  display: 'flex',
                   flexWrap: 'wrap',
-                  gap: '8px'
+                  gap: '8px',
+                  marginBottom: '10px'
                 }}>
+                  {/* Otomatik eklenen aura tipi etiketi */}
                   <div style={{
                     padding: '6px 12px',
                     borderRadius: '100px',
@@ -703,10 +738,13 @@ const AuraResult: React.FC = () => {
                     background: `${auraData?.particleColor}22`,
                     color: auraData?.particleColor,
                     display: 'inline-flex',
-                    alignItems: 'center'
+                    alignItems: 'center',
+                    fontWeight: '500'
                   }}>
                     #{auraType}
                   </div>
+                  
+                  {/* Auralize etiketi */}
                   <div style={{
                     padding: '6px 12px',
                     borderRadius: '100px',
@@ -718,7 +756,87 @@ const AuraResult: React.FC = () => {
                   }}>
                     #auralize
                   </div>
+                  
+                  {/* Kullanıcının eklediği etiketler */}
+                  {hashtags.map((tag, index) => (
+                    <div 
+                      key={index}
+                      style={{
+                        padding: '6px 12px',
+                        borderRadius: '100px',
+                        fontSize: '13px',
+                        background: `${auraData?.particleColor}15`,
+                        color: '#555',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '6px'
+                      }}
+                    >
+                      #{tag}
+                      <button
+                        onClick={() => removeHashtag(tag)}
+                        style={{
+                          background: 'none',
+                          border: 'none',
+                          cursor: 'pointer',
+                          color: '#999',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          padding: '0',
+                          width: '16px',
+                          height: '16px',
+                          borderRadius: '50%'
+                        }}
+                      >
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M18 6L6 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                          <path d="M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      </button>
+                    </div>
+                  ))}
                 </div>
+                
+                {/* Yeni etiket giriş alanı */}
+                <div style={{ position: 'relative' }}>
+                  <input 
+                    type="text"
+                    value={hashtagInput}
+                    onChange={handleHashtagInputChange}
+                    placeholder="Etiketleri boşlukla ayırarak ekleyin"
+                    style={{
+                      width: '100%',
+                      padding: '12px 16px',
+                      paddingLeft: '24px',
+                      borderRadius: '8px',
+                      border: '1px solid #ddd',
+                      fontSize: '14px',
+                      transition: 'all 0.2s',
+                      outline: 'none'
+                    }}
+                    onFocus={(e) => e.target.style.borderColor = auraData?.particleColor || '#5B8CFF'}
+                    onBlur={(e) => e.target.style.borderColor = '#ddd'}
+                  />
+                  <span style={{
+                    position: 'absolute',
+                    left: '12px',
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    color: '#aaa',
+                    fontSize: '14px'
+                  }}>
+                    #
+                  </span>
+                </div>
+                <p style={{ 
+                  margin: '8px 0 0 0',
+                  fontSize: '12px',
+                  color: '#999',
+                  fontStyle: 'italic'
+                }}>
+                  {5 - hashtags.length} etiket daha ekleyebilirsiniz
+                </p>
               </div>
             </div>
             
