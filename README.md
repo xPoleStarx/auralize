@@ -57,5 +57,10 @@ Bu teknolojiler, kullanıcı girdilerini **zengin ve yaratıcı içeriklere** d�
 ### 🚀 Adımlar
 1. Depoyu klonlayın:
    ```bash
-   git clone https://github.com/kullaniciadi/auralize.git
+   git clone https://github.com/xPoleStarx/auralize.git
    cd auralize
+
+   npm install
+   pip install -r requirements.txt
+
+   npm start
