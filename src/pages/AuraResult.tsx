@@ -198,6 +198,7 @@ const AuraResult: React.FC = () => {
   const [hashtags, setHashtags] = useState<string[]>([]);
   const [hashtagInput, setHashtagInput] = useState<string>('');
   const [description, setDescription] = useState<string>('');
+  const [gameStats, setGameStats] = useState<{highScore: number, badges: string[]}>({ highScore: 0, badges: [] });
   
   // Quiz cevaplarını alıyoruz
   const answers = location.state?.answers || {};
@@ -247,6 +248,18 @@ const AuraResult: React.FC = () => {
       setAuraType(determinedType);
       setAuraData(auraTypes[determinedType as keyof typeof auraTypes]);
       setAuraStory(generateStory(determinedType));
+      
+      // Aura tipini localStorage'a kaydet
+      localStorage.setItem('auralize_aura_type', determinedType);
+
+      // Oyun istatistiklerini yükle
+      const highScore = localStorage.getItem(`auralize_game_highscore_${determinedType}`) || '0';
+      const badges = JSON.parse(localStorage.getItem('auralize_badges') || '[]');
+      setGameStats({
+        highScore: parseInt(highScore),
+        badges: badges.filter((badge: string) => badge.startsWith(determinedType))
+      });
+      
       clearInterval(loadingInterval);
       setLoadingProgress(100);
       
@@ -530,11 +543,91 @@ const AuraResult: React.FC = () => {
               </div>
             </motion.div>
             
+            {/* Aura Oyun Bölümü */}
+            <motion.div 
+              className="aura-game-section"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 1.4 }}
+            >
+              <div className="aura-section-header">
+                <h2 className="aura-section-title">
+                  <span className="aura-section-icon">🎮</span>
+                  Aura Gücünü Test Et
+                </h2>
+              </div>
+              <div className="aura-game-container">
+                <div className="aura-game-card glass-card">
+                  <div className="aura-game-icon" style={{ background: auraData?.gradient }}>
+                    <span>{auraData?.icon}</span>
+                  </div>
+                  <div className="aura-game-info">
+                    <h3 className="aura-game-title">Aura Kristalleri</h3>
+                    <p className="aura-game-description">
+                      Auranın gücünü test etmek için özel olarak tasarlanmış mini oyunu dene! 
+                      {auraType === 'creative' && ' Yaratıcı auranı kullanarak ilham kristallerini topla.'}
+                      {auraType === 'analytical' && ' Analitik auranı kullanarak mantık kristallerini topla.'}
+                      {auraType === 'empathetic' && ' Empatik auranı kullanarak kalp kristallerini topla.'}
+                      {auraType === 'energetic' && ' Enerjik auranı kullanarak güç kristallerini topla.'}
+                    </p>
+                    
+                    {gameStats.highScore > 0 && (
+                      <div className="aura-game-stats">
+                        <div className="aura-game-stat">
+                          <span className="aura-game-stat-label">En Yüksek Skor</span>
+                          <span className="aura-game-stat-value">{gameStats.highScore}</span>
+                        </div>
+                        
+                        {gameStats.badges.length > 0 && (
+                          <div className="aura-game-badges">
+                            <span className="aura-game-badge-label">Rozetler</span>
+                            <div className="aura-game-badge-list">
+                              {gameStats.badges.map((badge, index) => {
+                                const [_, level] = badge.split('_');
+                                const badgeLabels: {[key: string]: string} = {
+                                  novice: 'Başlangıç',
+                                  adept: 'İleri',
+                                  expert: 'Uzman',
+                                  master: 'Usta'
+                                };
+                                return (
+                                  <div 
+                                    key={index} 
+                                    className="aura-game-badge"
+                                    style={{ background: auraData?.gradient }}
+                                  >
+                                    <span className="aura-game-badge-icon">{auraData?.icon}</span>
+                                    <span className="aura-game-badge-name">{badgeLabels[level] || level}</span>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    )}
+                    
+                    <Link 
+                      to="/aura-game" 
+                      className="btn btn-game"
+                      style={{ 
+                        background: auraData?.gradient,
+                        boxShadow: `0 4px 15px ${auraData?.particleColor}40` 
+                      }}
+                    >
+                      <span className="btn-icon">🎮</span>
+                      Hemen Oyna
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+            
             <motion.div 
               className="aura-actions"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 1.4 }}
+              transition={{ duration: 0.5, delay: 1.6 }}
             >
               <Link to="/" className="btn btn-primary">
                 Ana Sayfaya Dön

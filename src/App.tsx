@@ -5,6 +5,7 @@ import Quiz from './pages/Quiz';
 import AuraResult from './pages/AuraResult';
 import Gallery from './pages/Gallery';
 import Profile from './pages/Profile';
+import AuraGame from './pages/AuraGame';
 import './App.css';
 
 const App: React.FC = () => {
@@ -18,6 +19,7 @@ const App: React.FC = () => {
           <Route path="/aura-result" element={<AuraResult />} />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/aura-game" element={<AuraGame />} />
         </Routes>
       </div>
     </Router>

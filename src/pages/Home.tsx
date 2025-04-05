@@ -115,6 +115,7 @@ const Home: React.FC = () => {
             <nav>
               <ul className="flex space-x-6">
                 <li><Link to="/gallery" className="nav-link">Galeri</Link></li>
+                <li><Link to="/aura-game" className="nav-link">Aura Oyunu</Link></li>
                 <li><Link to="/profile" className="nav-link">Profilim</Link></li>
               </ul>
             </nav>
@@ -233,6 +234,20 @@ const Home: React.FC = () => {
               description="Sizin gibi kullanıcıların oluşturduğu aura sanat eserlerinden oluşan galerimizi keşfedin."
               delay={0.5}
             />
+            
+            <FeatureCard 
+              icon={
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+                  <line x1="9" y1="9" x2="9.01" y2="9"></line>
+                  <line x1="15" y1="9" x2="15.01" y2="9"></line>
+                </svg>
+              } 
+              title="Aura Kristalleri Oyunu" 
+              description="Auranızı eğlenceli bir oyunla test edin, kristalleri toplayarak rozetler kazanın ve skorunuzu yükseltin."
+              delay={0.7}
+            />
           </div>
         </div>
       </section>
@@ -305,13 +320,25 @@ const Home: React.FC = () => {
           >
             <h3 className="cta-title">Kendi Auranızı Keşfetmeye Hazır mısınız?</h3>
             <p className="cta-text">Yapay zeka destekli platformumuz ile benzersiz yaratıcı potansiyelinizi ortaya çıkarın. Hemen şimdi quiz'imize katılın ve auranızı görselleştirin.</p>
-            <Link to="/quiz" className="btn btn-primary cta-button">
-              Quiz'e Başla
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-                <polyline points="12 5 19 12 12 19"></polyline>
-              </svg>
-            </Link>
+            <div className="cta-buttons">
+              <Link to="/quiz" className="btn btn-primary cta-button">
+                Quiz'e Başla
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </Link>
+              <Link to="/aura-game" className="btn btn-secondary cta-button">
+                Aura Oyununu Dene
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M17.5 9.5C18.9 9.5 20 8.4 20 7s-1.1-2.5-2.5-2.5C16.1 4.5 15 5.6 15 7s1.1 2.5 2.5 2.5z"/>
+                  <path d="M6.5 9.5C5.1 9.5 4 8.4 4 7s1.1-2.5 2.5-2.5C7.9 4.5 9 5.6 9 7s-1.1 2.5-2.5 2.5z"/>
+                  <path d="M3 19h4c1.1 0 2-.9 2-2v-3a2 2 0 0 0-2-2H3c-1.1 0-2 .9-2 2v3c0 1.1.9 2 2 2Z"/>
+                  <path d="M17 19h4c1.1 0 2-.9 2-2v-3a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v3c0 1.1.9 2 2 2Z"/>
+                  <path d="M15 13a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-3z"/>
+                </svg>
+              </Link>
+            </div>
           </motion.div>
         </div>
       </section>

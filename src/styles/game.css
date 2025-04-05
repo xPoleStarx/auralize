@@ -1,0 +1,897 @@
+/* Aura Oyun CSS */
+
+/* Genel oyun stilleri */
+.game-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.game-main {
+  min-height: calc(100vh - 300px);
+  padding: 40px 0;
+  position: relative;
+  z-index: 1;
+}
+
+.game-particle-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+}
+
+.game-particle {
+  position: absolute;
+  border-radius: 50%;
+  animation: float 15s infinite ease-in-out;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) translateX(0);
+  }
+  25% {
+    transform: translateY(-50px) translateX(20px);
+  }
+  50% {
+    transform: translateY(-20px) translateX(-30px);
+  }
+  75% {
+    transform: translateY(30px) translateX(40px);
+  }
+}
+
+/* Başlık stilleri */
+.game-title-section {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.game-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.game-title-icon {
+  font-size: 2rem;
+}
+
+.game-subtitle {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.8);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Ana oyun içeriği */
+.game-content {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 30px;
+  margin-top: 30px;
+}
+
+@media (max-width: 992px) {
+  .game-content {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Yan panel stilleri */
+.game-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.game-info-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.game-info-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.game-info-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.game-info-content {
+  padding: 20px;
+}
+
+.game-stat {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.game-stat:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.game-stat-label {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.game-stat-value {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.game-controls {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.difficulty-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.difficulty-selector label {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.difficulty-selector select {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 10px 12px;
+  border-radius: 8px;
+  color: white;
+  font-size: 0.9rem;
+  outline: none;
+  appearance: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+.difficulty-selector select:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.game-btn {
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-game {
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  gap: 8px;
+}
+
+.btn-game:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #7C4DFF, #536DFE);
+  color: white;
+  border: none;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.btn-outline {
+  background: transparent;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.btn-secondary:hover, .btn-outline:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Oyun alanı stilleri */
+.game-area {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(5px);
+  border-radius: 16px;
+  height: 500px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Kristal stilleri */
+.crystal {
+  position: absolute;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.crystal:hover {
+  transform: scale(1.1);
+}
+
+.crystal.collected {
+  pointer-events: none;
+}
+
+/* Öğretici stilleri */
+.game-tutorial {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.tutorial-content {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 30px;
+  border-radius: 16px;
+  max-width: 500px;
+  text-align: center;
+  color: #333;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.tutorial-title {
+  font-size: 1.5rem;
+  margin-bottom: 16px;
+  color: #444;
+}
+
+.tutorial-text {
+  margin-bottom: 20px;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.tutorial-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.tutorial-step {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-align: left;
+}
+
+.tutorial-step-number {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #7C4DFF, #536DFE);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.tutorial-step-text {
+  font-size: 0.95rem;
+}
+
+.tutorial-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #7C4DFF, #536DFE);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tutorial-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Oyun duraklatıldı stilleri */
+.game-paused {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  backdrop-filter: blur(5px);
+}
+
+.paused-content {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 30px;
+  border-radius: 16px;
+  max-width: 400px;
+  text-align: center;
+  color: #333;
+}
+
+.paused-title {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+/* Oyun sonu stilleri */
+.game-over {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  backdrop-filter: blur(5px);
+}
+
+.game-over-content {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 30px;
+  border-radius: 16px;
+  max-width: 450px;
+  text-align: center;
+  color: #333;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.game-over-title {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+
+.game-over-score {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  background: linear-gradient(135deg, #7C4DFF, #536DFE);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.game-over-text {
+  margin-bottom: 16px;
+  font-size: 1rem;
+}
+
+.game-over-btn {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  margin-top: 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+  text-align: center;
+}
+
+/* Ödül modalı stilleri */
+.reward-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(8px);
+}
+
+.reward-modal {
+  background: white;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 450px;
+  overflow: hidden;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+.reward-header {
+  padding: 20px;
+  text-align: center;
+  color: white;
+}
+
+.reward-header h3 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.reward-content {
+  padding: 30px;
+  text-align: center;
+}
+
+.reward-badge {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+}
+
+.reward-badge-icon {
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.7));
+}
+
+.reward-title {
+  font-size: 1.5rem;
+  margin-bottom: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.reward-description {
+  color: #666;
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+
+.reward-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 30px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+/* Aura sonuç sayfasındaki oyun kartı stilleri */
+.aura-game-section {
+  margin-bottom: 40px;
+}
+
+.aura-game-container {
+  overflow: hidden;
+}
+
+.aura-game-card {
+  display: flex;
+  padding: 0;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.aura-game-icon {
+  width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  color: white;
+}
+
+.aura-game-info {
+  flex: 1;
+  padding: 25px;
+  background: white;
+}
+
+.aura-game-title {
+  font-size: 1.5rem;
+  margin: 0 0 10px;
+  font-weight: 600;
+  color: #333;
+}
+
+.aura-game-description {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+.aura-game-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 20px;
+  padding: 15px;
+  background: #f8f8f8;
+  border-radius: 12px;
+}
+
+.aura-game-stat {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.aura-game-stat-label {
+  font-size: 0.9rem;
+  color: #777;
+}
+
+.aura-game-stat-value {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.aura-game-badges {
+  margin-top: 10px;
+}
+
+.aura-game-badge-label {
+  display: block;
+  font-size: 0.9rem;
+  color: #777;
+  margin-bottom: 8px;
+}
+
+.aura-game-badge-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.aura-game-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 100px;
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.aura-game-badge-icon {
+  font-size: 1rem;
+}
+
+/* Profil sayfasındaki rozet stilleri */
+.profile-game-section {
+  margin: 40px 0;
+}
+
+.profile-badges {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  padding: 20px;
+  margin-bottom: 30px;
+}
+
+.badges-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.badges-header h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+.badge-count {
+  background: #f0f0f0;
+  padding: 5px 10px;
+  border-radius: 100px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #555;
+}
+
+.badges-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 15px;
+}
+
+.badge-card {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  border-radius: 12px;
+  background: #f9f9f9;
+  transition: all 0.2s;
+}
+
+.badge-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.05);
+}
+
+.badge-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: white;
+  flex-shrink: 0;
+}
+
+.badge-info {
+  flex: 1;
+}
+
+.badge-name {
+  margin: 0 0 5px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.badge-date {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #888;
+}
+
+.game-statistics {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  padding: 20px;
+}
+
+.game-statistics h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+@media (max-width: 768px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.stat-card {
+  background: #f7f7f7;
+  padding: 15px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.stat-header {
+  font-size: 0.9rem;
+  color: #777;
+  margin-bottom: 8px;
+}
+
+.stat-value {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #333;
+}
+
+.high-scores h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.high-scores-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.high-score-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 15px;
+  border-radius: 12px;
+  background: #f9f9f9;
+  transition: all 0.2s;
+}
+
+.high-score-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.05);
+}
+
+.high-score-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: white;
+  flex-shrink: 0;
+}
+
+.high-score-info {
+  flex: 1;
+}
+
+.high-score-type {
+  margin: 0 0 5px;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.high-score-value {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #333;
+}
+
+.no-badges {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.no-badges-message h3 {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.no-badges-message p {
+  margin-bottom: 20px;
+  color: #666;
+}
+
+/* Responssive tasarım */
+@media (max-width: 768px) {
+  .game-content {
+    grid-template-columns: 1fr;
+  }
+  
+  .aura-game-card {
+    flex-direction: column;
+  }
+  
+  .aura-game-icon {
+    width: 100%;
+    height: 100px;
+  }
+  
+  .game-title {
+    font-size: 2rem;
+  }
+  
+  .game-subtitle {
+    font-size: 1rem;
+  }
+  
+  .badges-grid, .high-scores-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 576px) {
+  .game-main {
+    padding: 20px 0;
+  }
+  
+  .game-title {
+    font-size: 1.8rem;
+  }
+  
+  .game-area {
+    height: 400px;
+  }
+  
+  .tutorial-content, .game-over-content, .reward-modal {
+    padding: 20px;
+    max-width: 90%;
+  }
+} 
