@@ -286,9 +286,34 @@ const Quiz: React.FC = () => {
       case 'spiral':
         return <div className="shape-option spiral"></div>;
       case 'wave':
-        return <div className="shape-option wave"></div>;
+        return (
+          <div className="shape-option wave">
+            <svg viewBox="0 0 100 30" xmlns="http://www.w3.org/2000/svg">
+              <path 
+                d="M0,15 Q15,0 30,15 Q45,30 60,15 Q75,0 90,15 Q105,30 120,15" 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth="3"
+                className="wave-line-animation"
+              />
+            </svg>
+          </div>
+        );
       case 'random':
-        return <div className="shape-option random"></div>;
+        return (
+          <div className="shape-option random">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <path 
+                d="M20,50 Q40,20 50,40 T70,30 Q80,60 60,80 T30,70 Q20,90 40,90 T60,50" 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth="3"
+                strokeLinecap="round"
+                className="random-sketch-animation"
+              />
+            </svg>
+          </div>
+        );
       default:
         return <div className="shape-option circle"></div>;
     }
