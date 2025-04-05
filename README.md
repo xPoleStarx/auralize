@@ -1,46 +1,52 @@
-# Getting Started with Create React App
+cat << 'EOF' > README.md
+# Auralize: Yaratıcı Auranızı AI ile Keşfedin
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![Auralize Logo](https://via.placeholder.com/150) <!-- Logo eklenecekse URL buraya gelecek -->
 
-## Available Scripts
+**Auralize**, kullanıcıların yaratıcı "auralarını" keşfetmelerine ve geliştirmelerine olanak tanıyan interaktif bir web platformudur. Görsel quiz’ler, kişisel tercihler ve serbest girdilerle yapay zeka destekli sanat eserleri, hikayeler ve sesler üreterek herkesin içindeki yaratıcılığı ortaya çıkarmayı hedefliyoruz. Lenovo’nun "Senin auran sınırsız" kampanyasına paralel olarak, bu proje kullanıcıların yaratıcı potansiyelini yapay zeka ile görselleştiriyor ve topluluk odaklı bir deneyim sunuyor.
 
-In the project directory, you can run:
+## Hedef
+Auralize, tek seferlik bir sanat eseri üreten bir uygulamadan çok daha fazlasıdır. Kullanıcıların yaratıcı yolculuklarını keşfedebilecekleri, zamanla gelişen ve kişiselleştirilmiş bir deneyim sunan bir platform olmayı amaçlar. Her ziyarette yeni bir şeyler keşfetmek ve yaratıcılığı farklı şekillerde ifade etmek, kullanıcıları düzenli olarak geri dönmeye teşvik eder.
 
-### `npm start`
+## Temel Özellikler
+1. **Dinamik ve Etkileşimli Giriş Arayüzü**  
+   - Çok adımlı, oyunlaştırılmış bir "Yaratıcı Keşif Yolculuğu".  
+   - Görsel quiz’ler, renk paletleri ve serbest girdilerle kullanıcıların ruh halleri ve yaratıcı eğilimleri analiz edilir.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+2. **Zengin ve Evrilen Çıktılar**  
+   - AI tarafından üretilen sanat eserleri, hikayeler/şiirler ve ses klipleri.  
+   - Kullanıcılar, eserlerini zamanla "evrimleştirebilir" (örneğin, stil değiştirme, detay ekleme).
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+3. **Kişisel Aura Profili**  
+   - Kullanıcıların geçmiş eserlerini ve tercihlerini saklayan bir "Yaratıcı Günlük".  
+   - "Aura Evrimi" grafiği ile yaratıcı eğilimlerin zaman içindeki değişimi görselleştirilir.
 
-### `npm test`
+4. **Topluluk ve Sosyal Etkileşim**  
+   - Kullanıcıların eserlerini paylaşabileceği bir galeri.  
+   - Yorum, beğeni ve haftalık temalarla sosyal bir boyut.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+5. **Oyunlaştırma ve Ödüller**  
+   - Rozetler, puan sistemi ve lider tablolarıyla kullanıcı motivasyonu.  
+   - Haftalık yarışmalar ve etkileşim ödülleri.
 
-### `npm run build`
+## Kullanılan Yapay Zeka Teknolojileri
+- **Görüntü Üretimi:** Stable Diffusion ile benzersiz sanat eserleri.  
+- **Metin Üretimi:** GPT tabanlı modellerle kişiselleştirilmiş hikayeler ve şiirler.  
+- **Ses Üretimi (Opsiyonel):** AudioLDM ile aura temalı melodiler.  
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Bu teknolojiler, kullanıcı girdilerini zengin ve yaratıcı içeriklere dönüştürmek için bir araya getirilmiştir.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Kampanyaya Katkı
+"Auralize", Lenovo’nun "Senin auran sınırsız" kampanyasını destekleyerek yaratıcılığı teşvik etmeyi ve geniş kitlelere ulaşmayı hedefler. Sosyal medya paylaşım özellikleri ve topluluk galerisi ile kampanyanın viral yayılımını artırırken, Lenovo Yoga Aura Edition’ın yapay zeka gücünü vurgular.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Kurulum
+### Gereksinimler
+- Node.js (v16 veya üstü)  
+- Python (v3.8 veya üstü)  
+- Stable Diffusion, GPT ve AudioLDM modelleri için API erişimi veya yerel kurulum  
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Adımlar
+1. Depoyu klonlayın:
+   ```bash
+   git clone https://github.com/kullaniciadi/auralize.git
+   cd auralize
