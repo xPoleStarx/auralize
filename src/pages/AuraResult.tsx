@@ -396,8 +396,30 @@ const AuraResult: React.FC = () => {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="aura-result-intro text-center"
           >
-            <h1 className="aura-main-title text-shadow">Auran Hazır!</h1>
-            <p className="aura-subtitle text-shadow">İçindeki aurayı ortaya çıkardık. İşte senin benzersiz aura profili.</p>
+            <h1 
+              className="aura-main-title" 
+              style={{ 
+                background: auraData?.gradient || 'linear-gradient(135deg, #FF61D2, #7000FF)', 
+                WebkitBackgroundClip: 'text',
+                backgroundClip: 'text',
+                color: 'transparent',
+                fontWeight: 700
+              }}
+            >
+              Auran Hazır!
+            </h1>
+            <p 
+              className="aura-subtitle" 
+              style={{ 
+                background: auraData?.gradient || 'linear-gradient(135deg, #FF61D2, #7000FF)',
+                WebkitBackgroundClip: 'text',
+                backgroundClip: 'text',
+                color: 'transparent',
+                fontWeight: 500
+              }}
+            >
+              İçindeki aurayı ortaya çıkardık. İşte senin benzersiz aura profili.
+            </p>
           </motion.div>
           
           <motion.div
