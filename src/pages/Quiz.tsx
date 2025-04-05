@@ -89,23 +89,33 @@ const quizQuestions = [
   // Adım 3: Serbest Yaratım (Kişisel İfade)
   {
     id: 9,
-    question: "Sana ilham veren bir kelime veya kısa bir cümle yaz:",
-    isTextField: true
+    question: "Sana en çok ilham veren duygu hangisi?",
+    options: [
+      { id: 'a', value: 'Sevgi ve mutluluk' },
+      { id: 'b', value: 'Merak ve keşif' },
+      { id: 'c', value: 'Hüzün ve düşünce' },
+      { id: 'd', value: 'Coşku ve heyecan' }
+    ]
   },
   {
     id: 10,
     question: "Basit bir çizim yapabilsen, ne çizerdin?",
     options: [
       { id: 'a', value: 'Bir daire', shape: 'circle' },
-      { id: 'b', value: 'Dalgalı bir çizgi', shape: 'wave' },
+      { id: 'b', value: 'Dalgalı bir çizgi', shape: 'wave', image: 'wave-line.jpg' },
       { id: 'c', value: 'Keskin bir üçgen', shape: 'triangle' },
-      { id: 'd', value: 'Rastgele bir karalama', shape: 'random' }
+      { id: 'd', value: 'Rastgele bir karalama', shape: 'random', image: 'random-sketch.jpg' }
     ]
   },
   {
     id: 11,
-    question: "Bir an için gözlerini kapat ve kendini bir yerde hayal et. Nasıldı?",
-    isTextField: true
+    question: "Gözlerini kapattığında kendini hangi mekanda hayal ediyorsun?",
+    options: [
+      { id: 'a', value: 'Uçsuz bucaksız bir sahil' },
+      { id: 'b', value: 'Sıcak ve samimi bir ev' },
+      { id: 'c', value: 'Gizemli bir orman' },
+      { id: 'd', value: 'Kozmik bir uzay boşluğu' }
+    ]
   },
   {
     id: 12,
@@ -191,8 +201,13 @@ const quizQuestions = [
   },
   {
     id: 20,
-    question: "Auran için son bir kelime veya sembol eklemek istesen, ne olurdu?",
-    isTextField: true
+    question: "Auran için son bir kelime veya sembol seçmen gerekse, hangisi olurdu?",
+    options: [
+      { id: 'a', value: 'Sonsuzluk ∞' },
+      { id: 'b', value: 'Işık ✨' },
+      { id: 'c', value: 'Denge ☯' },
+      { id: 'd', value: 'Özgürlük 🕊️' }
+    ]
   }
 ];
 
@@ -221,11 +236,9 @@ const ParticleBackground = () => {
 const Quiz: React.FC = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<{ [key: number]: string }>({});
-  const [textAnswers, setTextAnswers] = useState<{ [key: number]: string }>({});
   const [showResultButton, setShowResultButton] = useState(false);
   const [animateOut, setAnimateOut] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [textInput, setTextInput] = useState('');
   const navigate = useNavigate();
 
   // Scroll olayını dinleyen etki
@@ -251,25 +264,6 @@ const Quiz: React.FC = () => {
       setTimeout(() => {
         setCurrentQuestion(currentQuestion + 1);
         setAnimateOut(false);
-        setTextInput('');
-      }, 500);
-    } else {
-      setShowResultButton(true);
-    }
-  };
-
-  const handleTextSubmit = (questionId: number) => {
-    if (textInput.trim() === '') return;
-    
-    const newTextAnswers = { ...textAnswers, [questionId]: textInput };
-    setTextAnswers(newTextAnswers);
-    
-    if (currentQuestion < quizQuestions.length - 1) {
-      setAnimateOut(true);
-      setTimeout(() => {
-        setCurrentQuestion(currentQuestion + 1);
-        setAnimateOut(false);
-        setTextInput('');
       }, 500);
     } else {
       setShowResultButton(true);
@@ -277,13 +271,8 @@ const Quiz: React.FC = () => {
   };
 
   const goToResults = () => {
-    // Tüm cevapları birleştir
-    const allAnswers = {
-      multipleChoice: answers,
-      textAnswers: textAnswers
-    };
     // Aura result sayfasına yönlendir
-    navigate('/aura-result', { state: { answers: allAnswers } });
+    navigate('/aura-result', { state: { answers } });
   };
 
   const renderShapeOption = (option: any) => {
@@ -383,46 +372,22 @@ const Quiz: React.FC = () => {
               {currentQ.question}
             </motion.h2>
             
-            {currentQ.isTextField ? (
-              <motion.div 
-                className="text-input-container"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-              >
-                <textarea
-                  value={textInput}
-                  onChange={(e) => setTextInput(e.target.value)}
-                  className="quiz-text-input"
-                  placeholder="Düşüncelerini buraya yaz..."
-                  rows={4}
-                />
-                <button 
-                  onClick={() => handleTextSubmit(currentQ.id)}
-                  className="btn btn-primary mt-4"
-                  disabled={textInput.trim() === ''}
+            <div className="quiz-options">
+              {currentQ.options && currentQ.options.map((option, index) => (
+                <motion.button
+                  key={option.id}
+                  className={`quiz-option ${answers[currentQ.id] === option.id ? 'selected' : ''}`}
+                  onClick={() => handleAnswerSelect(currentQ.id, option.id)}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  whileHover={{ y: -5 }}
                 >
-                  Devam Et
-                </button>
-              </motion.div>
-            ) : (
-              <div className="quiz-options">
-                {currentQ.options && currentQ.options.map((option, index) => (
-                  <motion.button
-                    key={option.id}
-                    className={`quiz-option ${answers[currentQ.id] === option.id ? 'selected' : ''}`}
-                    onClick={() => handleAnswerSelect(currentQ.id, option.id)}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    whileHover={{ y: -5 }}
-                  >
-                    {renderOption(option)}
-                    <span className="quiz-option-label">{option.value}</span>
-                  </motion.button>
-                ))}
-              </div>
-            )}
+                  {renderOption(option)}
+                  <span className="quiz-option-label">{option.value}</span>
+                </motion.button>
+              ))}
+            </div>
 
             {showResultButton && (
               <motion.div 
