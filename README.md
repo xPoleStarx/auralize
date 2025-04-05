@@ -1,8 +1,8 @@
 # 🌟 Auralize: Yaratıcı Auranızı AI ile Keşfedin 🌟
 
-*[English](README_EN.md) ∙ [Türkçe](../README.md) ∙ [中文](README_ZH.md) ∙ [Français](README_FR.md) ∙ [Русский](README_RU.md) ∙ [Español](README_ES.md) ∙ [Italiano](README_IT.md) ∙ [日本語](README_JP.md) ∙ [한국어](README_KR.md) ∙ [العربية](README_AR.md) ∙ [Português](README_PT.md)*
+*[English](docs/README_EN.md) ∙ [Türkçe](README.md) ∙ [中文](docs/README_ZH.md) ∙ [Français](docs/README_FR.md) ∙ [Русский](docs/README_RU.md) ∙ [Español](docs/README_ES.md) ∙ [Italiano](docs/README_IT.md) ∙ [日本語](docs/README_JP.md) ∙ [한국어](docs/README_KR.md) ∙ [العربية](docs/README_AR.md) ∙ [Português](docs/README_PT.md)*
 
-![Auralize Logo](../public/auralize_logo.jpg) <!-- ✨ Logo URL goes here ✨ -->
+![Auralize Logo](public/auralize_logo.jpg) <!-- ✨ Logo eklenecekse URL buraya gelecek ✨ -->
 
 **Auralize** 🎨, kullanıcıların yaratıcı "auralarını" keşfetmelerine ve geliştirmelerine olanak tanıyan interaktif bir web platformudur. Görsel quiz'ler 🎥, kişisel tercihler 🌈 ve serbest girdilerle yapay zeka destekli **sanat eserleri** 🖼️, **hikayeler** 📖 ve **sesler** 🎶 üreterek herkesin içindeki yaratıcılığı ortaya çıkarmayı hedefliyoruz. Lenovo'nun *"Senin auran sınırsız"* kampanyasına paralel olarak, bu proje kullanıcıların yaratıcı potansiyelini AI ile görselleştiriyor ve topluluk odaklı bir deneyim sunuyor! 🚀
 
