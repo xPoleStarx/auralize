@@ -145,7 +145,7 @@ const AuraGame: React.FC = () => {
   const [gameStarted, setGameStarted] = useState<boolean>(false);
   const [gameOver, setGameOver] = useState<boolean>(false);
   const [score, setScore] = useState<number>(0);
-  const [timeLeft, setTimeLeft] = useState<number>(60);
+  const [timeLeft, setTimeLeft] = useState<number>(20);
   const [crystals, setCrystals] = useState<any[]>([]);
   const [collectedCrystals, setCollectedCrystals] = useState<number[]>([]);
   const [highScore, setHighScore] = useState<number>(0);
@@ -197,7 +197,7 @@ const AuraGame: React.FC = () => {
       case 'hard':
         return { crystalCount: 15, speed: 2, timeLimit: 45 };
       default: // normal
-        return { crystalCount: 10, speed: 1.5, timeLimit: 60 };
+        return { crystalCount: 10, speed: 1.5, timeLimit: 20 };
     }
   };
 
