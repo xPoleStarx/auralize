@@ -1,8 +1,8 @@
 # 🌟 Auralize: AI로 당신의 창의적인 오라를 발견하세요 🌟
 
-*[English](README_EN.md) ∙ [Türkçe](README.md) ∙ [中文](README_ZH.md) ∙ [Français](README_FR.md) ∙ [Русский](README_RU.md) ∙ [Español](README_ES.md) ∙ [Italiano](README_IT.md) ∙ [日本語](README_JP.md) ∙ [한국어](README_KR.md) ∙ [العربية](README_AR.md) ∙ [Português](README_PT.md)*
+*[English](README_EN.md) ∙ [Türkçe](../README.md) ∙ [中文](README_ZH.md) ∙ [Français](README_FR.md) ∙ [Русский](README_RU.md) ∙ [Español](README_ES.md) ∙ [Italiano](README_IT.md) ∙ [日本語](README_JP.md) ∙ [한국어](README_KR.md) ∙ [العربية](README_AR.md) ∙ [Português](README_PT.md)*
 
-![Auralize 로고](public/auralize_logo.jpg) <!-- ✨ 로고 URL은 여기에 ✨ -->
+![Auralize 로고](../public/auralize_logo.jpg) <!-- ✨ 로고 URL은 여기에 ✨ -->
 
 **Auralize** 🎨 는 사용자가 창의적인 "오라"를 발견하고 발전시킬 수 있는 인터랙티브 웹 플랫폼입니다. 시각적 퀴즈 🎥, 개인 선호도 🌈, 자유 입력을 통해 AI 기반의 **예술 작품** 🖼️, **이야기** 📖, **소리** 🎶 를 생성하여 모든 사람의 내면 창의성을 드러내는 것을 목표로 합니다. 레노버의 *"당신의 오라는 무한합니다"* 캠페인과 함께, 이 프로젝트는 AI로 사용자의 창의적 잠재력을 시각화하고 커뮤니티 중심의 경험을 제공합니다! 🚀
 

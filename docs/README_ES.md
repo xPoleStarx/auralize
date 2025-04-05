@@ -1,8 +1,8 @@
 # 🌟 Auralize: Descubre Tu Aura Creativa con IA 🌟
 
-*[English](README_EN.md) ∙ [Türkçe](README.md) ∙ [中文](README_ZH.md) ∙ [Français](README_FR.md) ∙ [Русский](README_RU.md) ∙ [Español](README_ES.md) ∙ [Italiano](README_IT.md) ∙ [日本語](README_JP.md) ∙ [한국어](README_KR.md) ∙ [العربية](README_AR.md) ∙ [Português](README_PT.md)*
+*[English](README_EN.md) ∙ [Türkçe](../README.md) ∙ [中文](README_ZH.md) ∙ [Français](README_FR.md) ∙ [Русский](README_RU.md) ∙ [Español](README_ES.md) ∙ [Italiano](README_IT.md) ∙ [日本語](README_JP.md) ∙ [한국어](README_KR.md) ∙ [العربية](README_AR.md) ∙ [Português](README_PT.md)*
 
-![Logo de Auralize](public/auralize_logo.jpg) <!-- ✨ URL del logo aquí ✨ -->
+![Logo de Auralize](../public/auralize_logo.jpg) <!-- ✨ URL del logo aquí ✨ -->
 
 **Auralize** 🎨 es una plataforma web interactiva que permite a los usuarios descubrir y desarrollar sus "auras" creativas. A través de cuestionarios visuales 🎥, preferencias personales 🌈 y entradas libres, nuestro objetivo es revelar la creatividad interior de cada persona generando **obras de arte** 🖼️, **historias** 📖 y **sonidos** 🎶 impulsados por IA. En línea con la campaña de Lenovo *"Tu aura es ilimitada"*, este proyecto visualiza el potencial creativo de los usuarios con IA y ofrece una experiencia centrada en la comunidad. 🚀
 

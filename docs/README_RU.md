@@ -1,8 +1,8 @@
 # 🌟 Auralize: Откройте Вашу Творческую Ауру с Помощью ИИ 🌟
 
-*[English](README_EN.md) ∙ [Türkçe](README.md) ∙ [中文](README_ZH.md) ∙ [Français](README_FR.md) ∙ [Русский](README_RU.md) ∙ [Español](README_ES.md) ∙ [Italiano](README_IT.md) ∙ [日本語](README_JP.md) ∙ [한국어](README_KR.md) ∙ [العربية](README_AR.md) ∙ [Português](README_PT.md)*
+*[English](README_EN.md) ∙ [Türkçe](../README.md) ∙ [中文](README_ZH.md) ∙ [Français](README_FR.md) ∙ [Русский](README_RU.md) ∙ [Español](README_ES.md) ∙ [Italiano](README_IT.md) ∙ [日本語](README_JP.md) ∙ [한국어](README_KR.md) ∙ [العربية](README_AR.md) ∙ [Português](README_PT.md)*
 
-![Логотип Auralize](public/auralize_logo.jpg) <!-- ✨ URL логотипа здесь ✨ -->
+![Логотип Auralize](../public/auralize_logo.jpg) <!-- ✨ URL логотипа здесь ✨ -->
 
 **Auralize** 🎨 - это интерактивная веб-платформа, которая позволяет пользователям открывать и развивать свои творческие "ауры". С помощью визуальных тестов 🎥, личных предпочтений 🌈 и свободного ввода, мы стремимся раскрыть внутреннюю креативность каждого человека, генерируя **произведения искусства** 🖼️, **истории** 📖 и **звуки** 🎶, созданные искусственным интеллектом. В соответствии с кампанией Lenovo *"Ваша аура безгранична"*, этот проект визуализирует творческий потенциал пользователей с помощью ИИ и предлагает опыт, ориентированный на сообщество! 🚀
 

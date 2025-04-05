@@ -1,8 +1,8 @@
 # 🌟 Auralize: AIであなたのクリエイティブなオーラを発見しよう 🌟
 
-*[English](README_EN.md) ∙ [Türkçe](README.md) ∙ [中文](README_ZH.md) ∙ [Français](README_FR.md) ∙ [Русский](README_RU.md) ∙ [Español](README_ES.md) ∙ [Italiano](README_IT.md) ∙ [日本語](README_JP.md) ∙ [한국어](README_KR.md) ∙ [العربية](README_AR.md) ∙ [Português](README_PT.md)*
+*[English](README_EN.md) ∙ [Türkçe](../README.md) ∙ [中文](README_ZH.md) ∙ [Français](README_FR.md) ∙ [Русский](README_RU.md) ∙ [Español](README_ES.md) ∙ [Italiano](README_IT.md) ∙ [日本語](README_JP.md) ∙ [한국어](README_KR.md) ∙ [العربية](README_AR.md) ∙ [Português](README_PT.md)*
 
-![Auralizeロゴ](public/auralize_logo.jpg) <!-- ✨ ロゴURLはここに ✨ -->
+![Auralizeロゴ](../public/auralize_logo.jpg) <!-- ✨ ロゴURLはここに ✨ -->
 
 **Auralize** 🎨 は、ユーザーが創造的な「オーラ」を発見し、発展させることができるインタラクティブなウェブプラットフォームです。ビジュアルクイズ 🎥、個人的な好み 🌈、自由入力を通じて、AIを活用した**アート作品** 🖼️、**ストーリー** 📖、**サウンド** 🎶 を生成し、誰もが持つ内なる創造性を引き出すことを目指しています。レノボの *「あなたのオーラは無限」* キャンペーンに合わせて、このプロジェクトはAIでユーザーの創造的なポテンシャルを視覚化し、コミュニティ中心の体験を提供します！ 🚀
 

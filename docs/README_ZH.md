@@ -1,8 +1,8 @@
 # 🌟 Auralize: 用AI探索您的创意光环 🌟
 
-*[English](README_EN.md) ∙ [Türkçe](README.md) ∙ [中文](README_ZH.md) ∙ [Français](README_FR.md) ∙ [Русский](README_RU.md) ∙ [Español](README_ES.md) ∙ [Italiano](README_IT.md) ∙ [日本語](README_JP.md) ∙ [한국어](README_KR.md) ∙ [العربية](README_AR.md) ∙ [Português](README_PT.md)*
+*[English](README_EN.md) ∙ [Türkçe](../README.md) ∙ [中文](README_ZH.md) ∙ [Français](README_FR.md) ∙ [Русский](README_RU.md) ∙ [Español](README_ES.md) ∙ [Italiano](README_IT.md) ∙ [日本語](README_JP.md) ∙ [한국어](README_KR.md) ∙ [العربية](README_AR.md) ∙ [Português](README_PT.md)*
 
-![Auralize Logo](public/auralize_logo.jpg) <!-- ✨ Logo URL goes here ✨ -->
+![Auralize Logo](../public/auralize_logo.jpg) <!-- ✨ Logo URL goes here ✨ -->
 
 **Auralize** 🎨 是一个互动网络平台，允许用户发现并发展他们的创意"光环"。通过视觉测验 🎥、个人偏好 🌈 和自由输入，我们旨在通过生成AI驱动的**艺术作品** 🖼️、**故事** 📖 和**声音** 🎶 来揭示每个人内在的创造力。与联想的*"您的光环无限"*活动相呼应，这个项目利用AI可视化用户的创意潜能，并提供以社区为中心的体验！🚀
 
