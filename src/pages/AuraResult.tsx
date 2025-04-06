@@ -429,42 +429,69 @@ const AuraResult: React.FC = () => {
   };
   
   // Kullanıcı adı değiştirme işlevi
-  const handleUsernameChange = () => {
-    if (customUsername.trim() !== '') {
-      setUsername(customUsername);
-      localStorage.setItem('auralize_username', customUsername);
-      setShowUsernameModal(false);
-      
-      // Paylaşım verilerini hazırla
-      const shareData = {
-        id: `aura_${Date.now()}`,
-        userId: userId,
-        username: customUsername,
-        auraType: auraType,
-        title: `${customUsername}'ın ${auraData.title}`,
-        createdAt: new Date(),
-        likes: 0,
-        likedBy: [],
-        description: description,
-        hashtags: [...hashtags, auraType] // Aura tipi otomatik olarak hashtag olarak ekleniyor
-      };
-      
-      // Mevcut paylaşımları al
-      const existingShares = JSON.parse(localStorage.getItem('auralize_shared_auras') || '[]');
-      
-      // Yeni paylaşımı ekle
-      existingShares.push(shareData);
-      
-      // Güncellenmiş paylaşımları kaydet
-      localStorage.setItem('auralize_shared_auras', JSON.stringify(existingShares));
-      
-      // Paylaşım durumunu işaretle
-      localStorage.setItem(`auralize_shared_${userId}_${Date.now()}`, 'true');
-      setIsShared(true);
-      
-      // Galeri sayfasına yönlendir
-      navigate('/gallery');
+  const handleUsernameChange = (username: string) => {
+    if (!username || username.trim() === '') {
+      alert('Lütfen geçerli bir kullanıcı adı girin.');
+      return;
     }
+    
+    // Kullanıcı adını kaydet
+    setUsername(username);
+    localStorage.setItem('auralize_username', username);
+    setShowUsernameModal(false);
+    
+    // Paylaşım için veri hazırla
+    const shareData = {
+      id: crypto.randomUUID(),
+      title: auraTitle, 
+      userId: userId,
+      username: username,
+      auraType: auraType || 'creative',
+      createdAt: new Date(),
+      likes: 0,
+      likedBy: [],
+      hashtags: [auraType || 'creative', "auralize", "enerji"],
+      description: auraData?.description || ""
+    };
+    
+    // Mevcut paylaşımları al
+    const existingShares = JSON.parse(localStorage.getItem('auralize_shared_auras') || '[]');
+    
+    // Yeni paylaşımı ekle
+    const updatedShares = [...existingShares, shareData];
+    
+    // LocalStorage'a kaydet
+    localStorage.setItem('auralize_shared_auras', JSON.stringify(updatedShares));
+    
+    // LLaMA tarafından oluşturulan hikaye ve içgörüleri özel bir key ile kaydet
+    if (insights) {
+      // Hikayeyi kaydet
+      if (auraStory) {
+        localStorage.setItem(`auralize_story_${shareData.id}`, auraStory);
+      }
+      
+      // Güçlü yanları kaydet
+      if (insights.strengths) {
+        localStorage.setItem(`auralize_strengths_${shareData.id}`, JSON.stringify(insights.strengths));
+      }
+      
+      // Potansiyeli kaydet
+      if (insights.potential) {
+        localStorage.setItem(`auralize_potential_${shareData.id}`, JSON.stringify(insights.potential));
+      }
+      
+      // Düşünme tarzını kaydet
+      if (insights.thinkingStyle) {
+        localStorage.setItem(`auralize_thinking_${shareData.id}`, JSON.stringify(insights.thinkingStyle));
+      }
+    }
+    
+    // Paylaşım durumunu işaretle
+    setIsShared(true);
+    localStorage.setItem('auralize_last_shared', 'true');
+    
+    // Galeri sayfasına yönlendir
+    navigate('/gallery');
   };
   
   if (loading) {
@@ -1373,7 +1400,7 @@ const AuraResult: React.FC = () => {
                   İptal
                 </button>
                 <button
-                  onClick={handleUsernameChange}
+                  onClick={() => handleUsernameChange(customUsername)}
                   style={{ 
                     padding: '10px 24px',
                     borderRadius: '8px',
