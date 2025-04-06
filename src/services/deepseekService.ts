@@ -169,8 +169,7 @@ export const getAuraStoryFromLlama = async (
         {
           headers: {
             'Content-Type': 'application/json'
-          },
-          timeout: 3000000 // 30 saniye timeout
+          }
         }
       );
       
@@ -508,8 +507,7 @@ const getQuickLlamaSummary = async (
         {
           headers: {
             'Content-Type': 'application/json'
-          },
-          timeout: 1500000 // 15 saniye timeout
+          }
         }
       );
       
