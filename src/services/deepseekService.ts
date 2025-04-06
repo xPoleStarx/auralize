@@ -163,12 +163,19 @@ export const getAuraStoryFromLlama = async (
         {
           model: 'llama3.1:latest',
           messages: messages,
-          temperature: 0.7,
+          temperature: 0.5,
+          max_tokens: 1000,
           stream: false
         },
         {
           headers: {
             'Content-Type': 'application/json'
+          },
+          timeout: 300000, // 5 dakika timeout
+          maxBodyLength: Infinity,
+          maxContentLength: Infinity,
+          validateStatus: function (status) {
+            return status >= 200 && status < 500; // 500den küçük tüm durumları kabul et
           }
         }
       );
@@ -196,7 +203,13 @@ export const getAuraStoryFromLlama = async (
         console.log('[LLAMA] Basit yanıt formatı kullanıldı');
       } else {
         console.error('[LLAMA] Bilinmeyen API yanıt formatı:', response.data);
-        return `__default__${auraTypes[auraType as keyof typeof auraTypes]?.description || 'Varsayılan aura hikayesi.'}`;
+        throw new Error('Bilinmeyen API yanıt formatı');
+      }
+      
+      // Eğer storyContent boşsa veya çok kısaysa hata fırlat
+      if (!storyContent || storyContent.length < 10) {
+        console.error('[LLAMA] Geçersiz hikaye içeriği:', storyContent);
+        throw new Error('Geçersiz hikaye içeriği');
       }
       
       // Llama yanıtını işaretle ve döndür
@@ -205,7 +218,11 @@ export const getAuraStoryFromLlama = async (
       console.error('');
       console.error('==== LLAMA API HATASI ====');
       console.error('[LLAMA] API isteği sırasında hata oluştu:', requestError.message);
-      if (requestError.response) {
+      
+      // Timeout hatası özel olarak ele alınıyor
+      if (requestError.code === 'ECONNABORTED') {
+        console.error('[LLAMA] İstek zaman aşımına uğradı (timeout). Süre artırılabilir veya model parametreleri optimize edilebilir.');
+      } else if (requestError.response) {
         console.error('[LLAMA] Hata yanıtı:', {
           status: requestError.response.status,
           data: requestError.response.data
@@ -216,7 +233,9 @@ export const getAuraStoryFromLlama = async (
       }
       console.error('==========================');
       console.error('');
-      throw requestError; // Dış try/catch'e ilet
+      
+      // Hata detayını günlüğe kaydet ve varsayılan hikayeye dön
+      return `__default__${auraTypes[auraType as keyof typeof auraTypes]?.description || 'Varsayılan aura hikayesi.'}`;
     }
   } catch (error: any) {
     console.error('');
@@ -507,6 +526,12 @@ const getQuickLlamaSummary = async (
         {
           headers: {
             'Content-Type': 'application/json'
+          },
+          timeout: 300000, // 5 dakika timeout
+          maxBodyLength: Infinity,
+          maxContentLength: Infinity,
+          validateStatus: function (status) {
+            return status >= 200 && status < 500;
           }
         }
       );
@@ -545,7 +570,11 @@ const getQuickLlamaSummary = async (
       console.error('');
       console.error('==== LLAMA ÖZET HATASI ====');
       console.error('[LLAMA_SUMMARY] API isteği sırasında hata oluştu:', requestError.message);
-      if (requestError.response) {
+      
+      // Timeout hatası özel olarak ele alınıyor
+      if (requestError.code === 'ECONNABORTED') {
+        console.error('[LLAMA_SUMMARY] İstek zaman aşımına uğradı (timeout). Varsayılan özete dönülüyor.');
+      } else if (requestError.response) {
         console.error('[LLAMA_SUMMARY] Hata yanıtı:', {
           status: requestError.response.status,
           data: requestError.response.data
@@ -556,7 +585,9 @@ const getQuickLlamaSummary = async (
       }
       console.error('===========================');
       console.error('');
-      throw requestError; // Dış try/catch'e ilet
+      
+      // Varsayılan özete dön
+      return getQuickDefaultSummary(auraType, username);
     }
   } catch (error) {
     console.error('');
