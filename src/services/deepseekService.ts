@@ -713,4 +713,167 @@ const generateDefaultStory = (auraType: string, username: string = 'Seyyah', ans
   
   // Üç paragraftan oluşan hikayeyi oluştur
   return `${intro} ${middle} ${ending}`;
+};
+
+// Llama API ile aura içgörülerini alma fonksiyonu
+export const getAuraInsightsFromLlama = async (
+  auraType: string,
+  username: string,
+  answers: { [key: number]: string }
+): Promise<{
+  strengths: string,
+  potential: string,
+  thinkingStyle: string,
+  source: 'llama' | 'default'
+}> => {
+  console.log('[LLAMA_INSIGHTS] İçgörüler isteniyor', { auraType, username });
+  
+  try {
+    // Cevap özeti oluştur
+    const answerSummary = getAnswerSummary(answers);
+    
+    // İçgörüler için prompt hazırla
+    const prompt = `
+Sen bir aura analiz uzmanısın. Aşağıdaki bilgilere dayanarak kişiselleştirilmiş aura içgörüleri oluşturacaksın.
+
+Kullanıcı: ${username}
+Aura tipi: ${auraType}
+
+Cevap eğilimi: 
+A şıkkı: ${answerSummary.answerCounts.a} kez
+B şıkkı: ${answerSummary.answerCounts.b} kez
+C şıkkı: ${answerSummary.answerCounts.c} kez
+D şıkkı: ${answerSummary.answerCounts.d} kez
+
+Önemli sorulara verilen cevaplar: ${answerSummary.keyAnswers}
+
+Lütfen kullanıcının ${auraType} aurasına dayanarak şu üç kategoride KISA ve ÖZLÜ içgörüler oluştur:
+
+1. Güçlü Yönleri (maksimum 60 karakter)
+2. Potansiyeli (maksimum 70 karakter)
+3. Düşünme Tarzı (maksimum 60 karakter)
+
+Her kategori için sadece virgüllerle ayrılmış anahtar kelimeler veya çok kısa ifadeler kullan, tam cümleler KURMA.
+Yanıtını aşağıdaki formatta JSON olarak yapılandır:
+
+{
+  "strengths": "örnek, örnek, örnek",
+  "potential": "örnek, örnek, örnek",
+  "thinkingStyle": "örnek, örnek, örnek"
+}
+
+Yanıtın SADECE bu JSON'ı içermeli, başka açıklama ya da metin içermemelidir.
+`;
+
+    console.log('');
+    console.log('==== LLAMA İÇGÖRÜLER İSTEĞİ GÖNDERİLİYOR ====');
+    console.log('[LLAMA_INSIGHTS] API URL:', LLAMA_API_URL);
+    console.log('[LLAMA_INSIGHTS] Model:', 'llama3.1:latest');
+    console.log('[LLAMA_INSIGHTS] İstek gövdesi hazır');
+    console.log('====================================');
+    console.log('');
+    
+    // Llama API'sine istek gönder
+    const response = await axios.post(
+      LLAMA_API_URL,
+      {
+        model: 'llama3.1:latest',
+        messages: [
+          { role: 'user', content: prompt }
+        ],
+        temperature: 0.3, // Tutarlı yanıtlar için düşük temperature
+        max_tokens: 300, // Kısa yanıtlar için yeterli
+        stream: false
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        timeout: 200000,// 20 saniye
+        maxBodyLength: Infinity,
+        maxContentLength: Infinity,
+        validateStatus: function (status) {
+          return status >= 200 && status < 500;
+        }
+      }
+    );
+    
+    console.log('');
+    console.log('==== LLAMA İÇGÖRÜLER YANITI ALINDI ====');
+    console.log('[LLAMA_INSIGHTS] Yanıt durumu:', response.status);
+    console.log('====================================');
+    console.log('');
+    
+    // Yanıtı işle
+    let responseContent = '';
+    if (response.data && response.data.message && response.data.message.content) {
+      responseContent = response.data.message.content;
+    } else if (response.data && response.data.content) {
+      responseContent = response.data.content;
+    } else {
+      throw new Error('Bilinmeyen API yanıt formatı');
+    }
+    
+    // JSON yanıtı çıkarmak için düzenli ifade kullan (model bazen ek metin ekleyebilir)
+    const jsonMatch = responseContent.match(/\{[\s\S]*\}/);
+    if (!jsonMatch) {
+      throw new Error('JSON formatında yanıt alınamadı');
+    }
+    
+    try {
+      const insightsData = JSON.parse(jsonMatch[0]);
+      console.log('[LLAMA_INSIGHTS] İçgörüler başarıyla alındı:', insightsData);
+      
+      return {
+        strengths: insightsData.strengths || getDefaultInsights(auraType).strengths,
+        potential: insightsData.potential || getDefaultInsights(auraType).potential,
+        thinkingStyle: insightsData.thinkingStyle || getDefaultInsights(auraType).thinkingStyle,
+        source: 'llama'
+      };
+    } catch (parseError) {
+      console.error('[LLAMA_INSIGHTS] JSON ayrıştırma hatası:', parseError);
+      throw parseError;
+    }
+    
+  } catch (error: any) {
+    console.error('');
+    console.error('==== LLAMA İÇGÖRÜLER HATASI ====');
+    console.error('[LLAMA_INSIGHTS] Hata oluştu:', error.message);
+    console.error('================================');
+    console.error('');
+    
+    // Hata durumunda varsayılan içgörüleri döndür
+    return {
+      ...getDefaultInsights(auraType),
+      source: 'default'
+    };
+  }
+};
+
+// Varsayılan içgörüler
+const getDefaultInsights = (auraType: string) => {
+  const defaults = {
+    creative: {
+      strengths: 'Yenilikçi düşünce, bağlantı kurma, sezgisel yaklaşım',
+      potential: 'Benzersiz fikirler üretme, sanatsal ifade, ilham verici projeler',
+      thinkingStyle: 'Sezgisel, yanal düşünme, çok yönlü bakış açısı'
+    },
+    analytical: {
+      strengths: 'Mantıksal analiz, detaylara dikkat, problem çözme',
+      potential: 'Karmaşık sistemleri çözümleme, verimli stratejiler geliştirme',
+      thinkingStyle: 'Sistematik, yapısal, mantıksal ve metodolojik'
+    },
+    empathetic: {
+      strengths: 'Duygusal anlayış, aktif dinleme, ilişki kurabilme',
+      potential: 'Güçlü bağlar oluşturma, topluluklar inşa etme, ilham verme',
+      thinkingStyle: 'Duygusal, sezgisel, ilişkisel ve bütünsel'
+    },
+    energetic: {
+      strengths: 'Dinamizm, motivasyon, hareket enerjisi, inisiyatif',
+      potential: 'Zorlu projeleri tamamlama, hızlı sonuçlar alma, ilham verme',
+      thinkingStyle: 'Pratik, sonuç odaklı, hızlı ve aksiyon bazlı'
+    }
+  };
+  
+  return defaults[auraType as keyof typeof defaults] || defaults.creative;
 }; 

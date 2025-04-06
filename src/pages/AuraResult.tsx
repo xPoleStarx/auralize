@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useLocation, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 // DeepSeek servisini import ediyorum
-import { getAuraStoryFromDeepSeek, getQuickAuraSummary } from '../services/deepseekService';
+import { getAuraStoryFromDeepSeek, getQuickAuraSummary, getAuraInsightsFromLlama } from '../services/deepseekService';
 
 // Debug modu
 const DEBUG_MODE = true;
@@ -17,7 +17,10 @@ const auraTypes = {
     darkGradient: 'linear-gradient(135deg, #A13E95, #D75A5A)',
     particleColor: '#FF61D2',
     image: '/creative-aura.jpg',
-    icon: '✨'
+    icon: '✨',
+    strengths: 'Yenilikçi düşünme, bağlantılar kurma, sezgisel anlayış',
+    potential: 'Benzersiz sanat eserleri, orijinal fikirler, yenilikçi çözümler üretme',
+    thinkingStyle: 'Yanal düşünme, bağlantılar kurma, sınırların dışına çıkma'
   },
   analytical: {
     title: 'Analitik Aura',
@@ -27,7 +30,10 @@ const auraTypes = {
     darkGradient: 'linear-gradient(135deg, #345C99, #1F7799)',
     particleColor: '#5B8CFF',
     image: '/analytical-aura.jpg',
-    icon: '🔍'
+    icon: '🔍',
+    strengths: 'Detaylara dikkat, mantıksal düşünme, problem çözme',
+    potential: 'Karmaşık sistemleri anlama, etkili stratejiler geliştirme, verimli çözümler bulma',
+    thinkingStyle: 'Sistematik, yapısal, mantıksal ve detaylı düşünme'
   },
   empathetic: {
     title: 'Empatik Aura',
@@ -37,7 +43,10 @@ const auraTypes = {
     darkGradient: 'linear-gradient(135deg, #228A6B, #1F7995)',
     particleColor: '#41D5A8',
     image: '/empathetic-aura.jpg',
-    icon: '💗'
+    icon: '💗',
+    strengths: 'Duygusal zeka, dinleme, insanları anlama',
+    potential: 'Güçlü ilişkiler kurma, insanları motive etme, duygusal destek sağlama',
+    thinkingStyle: 'Duygusal, sezgisel, ilişkisel ve anlamsal düşünme'
   },
   energetic: {
     title: 'Enerjik Aura',
@@ -47,7 +56,10 @@ const auraTypes = {
     darkGradient: 'linear-gradient(135deg, #D7812F, #D75050)',
     particleColor: '#FFB046',
     image: '/energetic-aura.jpg',
-    icon: '⚡'
+    icon: '⚡',
+    strengths: 'İnitiasif alma, tutkulu çalışma, enerji yayma',
+    potential: 'Zorlu projeleri tamamlama, ekipleri harekete geçirme, hızlı sonuçlar elde etme',
+    thinkingStyle: 'Pratik, sonuç odaklı, hızlı ve aksiyon bazlı düşünme'
   }
 };
 
@@ -196,6 +208,19 @@ const AuraResult: React.FC = () => {
   const [isFullStoryLoading, setIsFullStoryLoading] = useState(false);
   const [hasQuickSummary, setHasQuickSummary] = useState(false);
   const [apiCacheStat, setApiCacheStat] = useState<'cache' | 'api' | 'llama' | 'default' | null>(null);
+  // İçgörüler için yeni state değişkenleri
+  const [insights, setInsights] = useState<{
+    strengths: string;
+    potential: string;
+    thinkingStyle: string;
+    source: 'llama' | 'default' | null;
+  }>({
+    strengths: '',
+    potential: '',
+    thinkingStyle: '',
+    source: null
+  });
+  const [isInsightsLoading, setIsInsightsLoading] = useState(false);
   
   // Quiz cevaplarını alıyoruz
   const answers = location.state?.answers || {};
@@ -269,7 +294,31 @@ const AuraResult: React.FC = () => {
           if (DEBUG_MODE) console.log("[DEBUG] Hızlı özet alındı:", quickSummary);
         }
         
-        // 2. Aşama: Tam hikaye yükle
+        // 2. Aşama: İçgörüleri yükle
+        setIsInsightsLoading(true);
+        try {
+          if (DEBUG_MODE) console.log("[DEBUG] İçgörüler isteniyor");
+          const insightsData = await getAuraInsightsFromLlama(determinedType, currentUsername, answers);
+          if (DEBUG_MODE) console.log("[DEBUG] İçgörüler alındı:", insightsData);
+          setInsights(insightsData);
+        } catch (insightsError) {
+          console.error("İçgörüler alınırken hata oluştu:", insightsError);
+          if (DEBUG_MODE) console.log("[DEBUG] İçgörüler yüklenirken hata:", insightsError);
+          // Varsayılan içgörüleri kullan
+          setInsights({
+            strengths: auraTypes[determinedType as keyof typeof auraTypes].strengths || '',
+            potential: auraTypes[determinedType as keyof typeof auraTypes].potential || '',
+            thinkingStyle: auraTypes[determinedType as keyof typeof auraTypes].thinkingStyle || '',
+            source: 'default'
+          });
+        } finally {
+          // İçgörüler yükleme durumunu kapat (animasyonlu görünmesi için kısa gecikme)
+          setTimeout(() => {
+            setIsInsightsLoading(false);
+          }, 1000);
+        }
+        
+        // 3. Aşama: Tam hikaye yükle
         setIsFullStoryLoading(true);
         
         // DeepSeek API'dan tam hikaye alma işlemine başlamadan önce küçük bir bekleme
@@ -588,6 +637,59 @@ const AuraResult: React.FC = () => {
           from { opacity: 0; }
           to { opacity: 1; }
         }
+        
+        .insights-pulse-container {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          min-height: 80px;
+        }
+        
+        .insights-pulse {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          background: linear-gradient(45deg, #FF61D2, #FE9090);
+          animation: insight-pulse 1.5s infinite;
+        }
+        
+        @keyframes insight-pulse {
+          0% { transform: scale(0.8); opacity: 0.5; }
+          50% { transform: scale(1.2); opacity: 0.8; }
+          100% { transform: scale(0.8); opacity: 0.5; }
+        }
+        
+        .insights-loading-text {
+          margin-top: 0.8rem;
+          font-size: 0.9rem;
+          color: #666;
+        }
+        
+        .insight-content {
+          animation: fadeInUp 0.6s forwards;
+          opacity: 0;
+        }
+        
+        @keyframes fadeInUp {
+          from { 
+            opacity: 0;
+            transform: translateY(10px);
+          }
+          to { 
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        
+        .insight-icon-container {
+          animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-10px); }
+        }
       `}</style>
       <div className="page-wrapper">
         <div className="aura-background" style={{ background: auraData?.darkGradient || 'linear-gradient(135deg, #333, #111)' }}></div>
@@ -795,42 +897,91 @@ const AuraResult: React.FC = () => {
                     <span className="aura-section-icon">💡</span>
                     Aura İçgörülerin
                   </h2>
+                  {isInsightsLoading && (
+                    <div className="loading-indicator">
+                      <div className="loading-spinner-crystal" style={{ 
+                        background: auraData?.gradient || 'linear-gradient(45deg, #FF61D2, #FE9090)'
+                      }}></div>
+                      <p className="loading-text-animated">
+                        İçgörülerin oluşturuluyor
+                        <span className="loading-dots">...</span>
+                      </p>
+                    </div>
+                  )}
                 </div>
                 <div className="aura-insights-container">
                   <div className="aura-insights-grid">
                     <div className="aura-insight-card glass-card">
-                      <div className="aura-insight-icon" style={{ background: auraData?.gradient }}>🌟</div>
+                      <div className="aura-insight-icon insight-icon-container" style={{ background: auraData?.gradient }}>🌟</div>
                       <h3 className="aura-insight-title">Güçlü Yönlerin</h3>
-                      <p className="aura-insight-text">
-                        {auraType === 'creative' && 'Yenilikçi düşünme, bağlantılar kurma, sezgisel anlayış'}
-                        {auraType === 'analytical' && 'Detaylara dikkat, mantıksal düşünme, problem çözme'}
-                        {auraType === 'empathetic' && 'Duygusal zeka, dinleme, insanları anlama'}
-                        {auraType === 'energetic' && 'İnitiasif alma, tutkulu çalışma, enerji yayma'}
-                      </p>
+                      {isInsightsLoading ? (
+                        <div className="insights-pulse-container">
+                          <div className="insights-pulse" style={{ background: auraData?.gradient }}></div>
+                          <p className="insights-loading-text">Güçlü yönlerin analiz ediliyor<span className="loading-dots">...</span></p>
+                        </div>
+                      ) : (
+                        <p className="aura-insight-text insight-content">
+                          {insights.strengths || 
+                           (auraType === 'creative' && 'Yenilikçi düşünme, bağlantılar kurma, sezgisel anlayış') ||
+                           (auraType === 'analytical' && 'Detaylara dikkat, mantıksal düşünme, problem çözme') ||
+                           (auraType === 'empathetic' && 'Duygusal zeka, dinleme, insanları anlama') ||
+                           (auraType === 'energetic' && 'İnitiasif alma, tutkulu çalışma, enerji yayma')
+                          }
+                        </p>
+                      )}
                     </div>
                     
                     <div className="aura-insight-card glass-card">
-                      <div className="aura-insight-icon" style={{ background: auraData?.gradient }}>🚀</div>
+                      <div className="aura-insight-icon insight-icon-container" style={{ background: auraData?.gradient }}>🚀</div>
                       <h3 className="aura-insight-title">Potansiyelin</h3>
-                      <p className="aura-insight-text">
-                        {auraType === 'creative' && 'Benzersiz sanat eserleri, orijinal fikirler, yenilikçi çözümler üretme'}
-                        {auraType === 'analytical' && 'Karmaşık sistemleri anlama, etkili stratejiler geliştirme, verimli çözümler bulma'}
-                        {auraType === 'empathetic' && 'Güçlü ilişkiler kurma, insanları motive etme, duygusal destek sağlama'}
-                        {auraType === 'energetic' && 'Zorlu projeleri tamamlama, ekipleri harekete geçirme, hızlı sonuçlar elde etme'}
-                      </p>
+                      {isInsightsLoading ? (
+                        <div className="insights-pulse-container">
+                          <div className="insights-pulse" style={{ background: auraData?.gradient }}></div>
+                          <p className="insights-loading-text">Potansiyelin keşfediliyor<span className="loading-dots">...</span></p>
+                        </div>
+                      ) : (
+                        <p className="aura-insight-text insight-content">
+                          {insights.potential || 
+                           (auraType === 'creative' && 'Benzersiz sanat eserleri, orijinal fikirler, yenilikçi çözümler üretme') ||
+                           (auraType === 'analytical' && 'Karmaşık sistemleri anlama, etkili stratejiler geliştirme, verimli çözümler bulma') ||
+                           (auraType === 'empathetic' && 'Güçlü ilişkiler kurma, insanları motive etme, duygusal destek sağlama') ||
+                           (auraType === 'energetic' && 'Zorlu projeleri tamamlama, ekipleri harekete geçirme, hızlı sonuçlar elde etme')
+                          }
+                        </p>
+                      )}
                     </div>
                     
                     <div className="aura-insight-card glass-card">
-                      <div className="aura-insight-icon" style={{ background: auraData?.gradient }}>🧠</div>
+                      <div className="aura-insight-icon insight-icon-container" style={{ background: auraData?.gradient }}>🧠</div>
                       <h3 className="aura-insight-title">Düşünme Tarzın</h3>
-                      <p className="aura-insight-text">
-                        {auraType === 'creative' && 'Yanal düşünme, bağlantılar kurma, sınırların dışına çıkma'}
-                        {auraType === 'analytical' && 'Sistematik, yapısal, mantıksal ve detaylı düşünme'}
-                        {auraType === 'empathetic' && 'Duygusal, sezgisel, ilişkisel ve anlamsal düşünme'}
-                        {auraType === 'energetic' && 'Pratik, sonuç odaklı, hızlı ve aksiyon bazlı düşünme'}
-                      </p>
+                      {isInsightsLoading ? (
+                        <div className="insights-pulse-container">
+                          <div className="insights-pulse" style={{ background: auraData?.gradient }}></div>
+                          <p className="insights-loading-text">Düşünme tarzın belirleniyor<span className="loading-dots">...</span></p>
+                        </div>
+                      ) : (
+                        <p className="aura-insight-text insight-content">
+                          {insights.thinkingStyle || 
+                           (auraType === 'creative' && 'Yanal düşünme, bağlantılar kurma, sınırların dışına çıkma') ||
+                           (auraType === 'analytical' && 'Sistematik, yapısal, mantıksal ve detaylı düşünme') ||
+                           (auraType === 'empathetic' && 'Duygusal, sezgisel, ilişkisel ve anlamsal düşünme') ||
+                           (auraType === 'energetic' && 'Pratik, sonuç odaklı, hızlı ve aksiyon bazlı düşünme')
+                          }
+                        </p>
+                      )}
                     </div>
                   </div>
+                  
+                  {insights.source === 'llama' && (
+                    <div className="cache-indicator" style={{ textAlign: 'center', marginTop: '1rem' }}>
+                      <span className="llama-badge">Kişiselleştirilmiş içgörüler</span>
+                    </div>
+                  )}
+                  {insights.source === 'default' && (
+                    <div className="cache-indicator" style={{ textAlign: 'center', marginTop: '1rem' }}>
+                      <span className="default-badge">Varsayılan içgörüler</span>
+                    </div>
+                  )}
                 </div>
               </motion.div>
               
