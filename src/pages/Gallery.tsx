@@ -21,6 +21,8 @@ const Gallery: React.FC = () => {
   const [userId, setUserId] = useState<string>('');
   const [showArtDetail, setShowArtDetail] = useState<string | null>(null);
   const [currentArt, setCurrentArt] = useState<AuraArt | null>(null);
+  const [activeTab, setActiveTab] = useState<string>('description');
+  const [showConfirmDialog, setShowConfirmDialog] = useState<boolean>(false);
   const navigate = useNavigate();
   
   useEffect(() => {
@@ -138,6 +140,13 @@ const Gallery: React.FC = () => {
   const closeDetail = () => {
     setShowArtDetail(null);
     setCurrentArt(null);
+  };
+  
+  // Galeriyi temizleme fonksiyonu
+  const clearGallery = () => {
+    localStorage.removeItem('auralize_shared_auras');
+    setAuraArts([]);
+    setShowConfirmDialog(false);
   };
   
   // Aura kartları için güncelleme
@@ -357,7 +366,127 @@ const Gallery: React.FC = () => {
           <div className="gallery-header">
             <h1 className="section-title gradient-text">Aura Galerisi</h1>
             <p className="gallery-subtitle">Topluluk tarafından oluşturulan auralara göz atın ve ilham alın</p>
+            
+            {/* Admin İşlemleri */}
+            {userId && (
+              <div style={{
+                display: 'flex',
+                justifyContent: 'center',
+                marginTop: '20px',
+                marginBottom: '20px'
+              }}>
+                <button 
+                  onClick={() => setShowConfirmDialog(true)}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    padding: '8px 16px',
+                    borderRadius: '8px',
+                    background: 'rgba(255, 80, 80, 0.1)',
+                    color: '#ff5050',
+                    border: '1px solid rgba(255, 80, 80, 0.3)',
+                    cursor: 'pointer',
+                    fontSize: '14px',
+                    transition: 'all 0.2s'
+                  }}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="3 6 5 6 21 6"></polyline>
+                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                    <line x1="10" y1="11" x2="10" y2="17"></line>
+                    <line x1="14" y1="11" x2="14" y2="17"></line>
+                  </svg>
+                  Galeriyi Temizle
+                </button>
+              </div>
+            )}
           </div>
+          
+          {/* Onay Dialogu */}
+          {showConfirmDialog && (
+            <div style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              background: 'rgba(0, 0, 0, 0.5)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              zIndex: 1000,
+              backdropFilter: 'blur(5px)'
+            }}>
+              <div style={{
+                background: 'white',
+                borderRadius: '12px',
+                padding: '24px',
+                maxWidth: '400px',
+                width: '90%',
+                boxShadow: '0 10px 25px rgba(0, 0, 0, 0.2)'
+              }}>
+                <h3 style={{
+                  margin: '0 0 16px 0',
+                  color: '#333',
+                  fontSize: '18px',
+                  fontWeight: '600'
+                }}>Galeriyi Temizle</h3>
+                
+                <p style={{
+                  margin: '0 0 24px 0',
+                  color: '#666',
+                  fontSize: '14px',
+                  lineHeight: '1.5'
+                }}>
+                  Tüm paylaşılmış auraları silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.
+                </p>
+                
+                <div style={{
+                  display: 'flex',
+                  justifyContent: 'flex-end',
+                  gap: '12px'
+                }}>
+                  <button 
+                    onClick={() => setShowConfirmDialog(false)}
+                    style={{
+                      padding: '10px 16px',
+                      borderRadius: '8px',
+                      background: '#f0f0f0',
+                      color: '#666',
+                      border: 'none',
+                      cursor: 'pointer',
+                      fontSize: '14px'
+                    }}
+                  >
+                    İptal
+                  </button>
+                  
+                  <button 
+                    onClick={clearGallery}
+                    style={{
+                      padding: '10px 16px',
+                      borderRadius: '8px',
+                      background: '#ff5050',
+                      color: 'white',
+                      border: 'none',
+                      cursor: 'pointer',
+                      fontSize: '14px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '8px'
+                    }}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="3 6 5 6 21 6"></polyline>
+                      <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                    </svg>
+                    Evet, Temizle
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
           
           <div className="gallery-filters" style={{
             display: 'flex',
@@ -776,302 +905,459 @@ const Gallery: React.FC = () => {
                           currentArt.auraType === 'empathetic' ? '#F0FFF8' :
                           currentArt.auraType === 'energetic' ? '#FFF8F0' : '#FFFFFF',
               }}>
-                <div className="aura-detail-card" style={{
-                  background: 'rgba(255, 255, 255, 0.8)',
-                  borderRadius: '16px',
-                  boxShadow: `0 10px 30px ${
-                    currentArt.auraType === 'creative' ? 'rgba(254, 144, 144, 0.15)' :
-                    currentArt.auraType === 'analytical' ? 'rgba(91, 140, 255, 0.15)' :
-                    currentArt.auraType === 'empathetic' ? 'rgba(65, 213, 168, 0.15)' :
-                    currentArt.auraType === 'energetic' ? 'rgba(255, 176, 70, 0.15)' : 'rgba(0, 0, 0, 0.1)'
-                  }`,
-                  padding: '30px',
+                {/* Sekmeler */}
+                <div className="aura-tabs" style={{
+                  display: 'flex',
+                  gap: '10px',
                   marginBottom: '30px',
-                  backdropFilter: 'blur(10px)',
-                  border: `1px solid ${
+                  borderBottom: `2px solid ${
                     currentArt.auraType === 'creative' ? 'rgba(254, 144, 144, 0.2)' :
                     currentArt.auraType === 'analytical' ? 'rgba(91, 140, 255, 0.2)' :
                     currentArt.auraType === 'empathetic' ? 'rgba(65, 213, 168, 0.2)' :
                     currentArt.auraType === 'energetic' ? 'rgba(255, 176, 70, 0.2)' : 'rgba(0, 0, 0, 0.1)'
-                  }`
+                  }`,
+                  paddingBottom: '10px'
                 }}>
-                  <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
-                    <div style={{
-                      width: '48px',
-                      height: '48px',
-                      borderRadius: '50%',
-                      background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light), var(--color-${currentArt.auraType}-dark))`,
-                      color: 'white',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      fontWeight: 'bold',
-                      fontSize: '18px',
-                      boxShadow: `0 5px 15px rgba(0, 0, 0, 0.2)`
+                  <button
+                    onClick={() => setActiveTab('description')}
+                    style={{
+                      padding: '10px 20px',
+                      borderRadius: '8px',
+                      border: 'none',
+                      background: activeTab === 'description' 
+                        ? `linear-gradient(135deg, var(--color-${currentArt.auraType}-light), var(--color-${currentArt.auraType}-dark))`
+                        : 'transparent',
+                      color: activeTab === 'description' ? 'white' : '#666',
+                      cursor: 'pointer',
+                      fontWeight: '500',
+                      transition: 'all 0.2s',
+                      fontSize: '14px'
+                    }}
+                  >
+                    Açıklama
+                  </button>
+                  <button
+                    onClick={() => setActiveTab('story')}
+                    style={{
+                      padding: '10px 20px',
+                      borderRadius: '8px',
+                      border: 'none',
+                      background: activeTab === 'story'
+                        ? `linear-gradient(135deg, var(--color-${currentArt.auraType}-light), var(--color-${currentArt.auraType}-dark))`
+                        : 'transparent',
+                      color: activeTab === 'story' ? 'white' : '#666',
+                      cursor: 'pointer',
+                      fontWeight: '500',
+                      transition: 'all 0.2s',
+                      fontSize: '14px'
+                    }}
+                  >
+                    Aura Hikayesi
+                  </button>
+                  <button
+                    onClick={() => setActiveTab('insights')}
+                    style={{
+                      padding: '10px 20px',
+                      borderRadius: '8px',
+                      border: 'none',
+                      background: activeTab === 'insights'
+                        ? `linear-gradient(135deg, var(--color-${currentArt.auraType}-light), var(--color-${currentArt.auraType}-dark))`
+                        : 'transparent',
+                      color: activeTab === 'insights' ? 'white' : '#666',
+                      cursor: 'pointer',
+                      fontWeight: '500',
+                      transition: 'all 0.2s',
+                      fontSize: '14px'
+                    }}
+                  >
+                    İç Görüler
+                  </button>
+                </div>
+
+                {/* Sekme İçerikleri */}
+                <div className="aura-tab-content">
+                  {activeTab === 'description' && (
+                    <div className="aura-detail-card" style={{
+                      background: 'rgba(255, 255, 255, 0.8)',
+                      borderRadius: '16px',
+                      boxShadow: `0 10px 30px ${
+                        currentArt.auraType === 'creative' ? 'rgba(254, 144, 144, 0.15)' :
+                        currentArt.auraType === 'analytical' ? 'rgba(91, 140, 255, 0.15)' :
+                        currentArt.auraType === 'empathetic' ? 'rgba(65, 213, 168, 0.15)' :
+                        currentArt.auraType === 'energetic' ? 'rgba(255, 176, 70, 0.15)' : 'rgba(0, 0, 0, 0.1)'
+                      }`,
+                      padding: '30px',
+                      marginBottom: '30px',
+                      backdropFilter: 'blur(10px)',
+                      border: `1px solid ${
+                        currentArt.auraType === 'creative' ? 'rgba(254, 144, 144, 0.2)' :
+                        currentArt.auraType === 'analytical' ? 'rgba(91, 140, 255, 0.2)' :
+                        currentArt.auraType === 'empathetic' ? 'rgba(65, 213, 168, 0.2)' :
+                        currentArt.auraType === 'energetic' ? 'rgba(255, 176, 70, 0.2)' : 'rgba(0, 0, 0, 0.1)'
+                      }`
                     }}>
-                      {currentArt.username.charAt(0).toUpperCase()}
-                    </div>
-                    
-                    <div style={{ marginLeft: '15px' }}>
-                      <h3 style={{ 
-                        margin: '0 0 4px 0', 
-                        fontSize: '18px', 
-                        fontWeight: '600',
-                        color: '#333'
-                      }}>
-                        <span>@{currentArt.username}</span>
-                      </h3>
-                      <p style={{ margin: 0, fontSize: '14px', color: '#666' }}>
-                        {new Date(currentArt.createdAt).toLocaleDateString()} • 
-                        {new Date(currentArt.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                      </p>
-                    </div>
-                    
-                    <div style={{ marginLeft: 'auto' }}>
-                      <div style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light)33, var(--color-${currentArt.auraType}-dark)22)`,
-                        padding: '8px 16px',
-                        borderRadius: '100px',
-                        color: `var(--color-${currentArt.auraType}-dark)`,
-                        fontWeight: '500',
-                        border: `1px solid var(--color-${currentArt.auraType}-light)33`
-                      }}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '6px' }}>
-                          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"></path>
-                        </svg>
-                        {currentArt.likes} beğeni
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div style={{ marginBottom: '20px' }}>
-                    <h4 style={{ 
-                      fontSize: '16px', 
-                      fontWeight: '600', 
-                      marginBottom: '10px', 
-                      color: '#444',
-                      letterSpacing: '0.5px',
-                      textTransform: 'uppercase'
-                    }}>
-                      <span style={{
-                        color: `var(--color-${currentArt.auraType}-dark)`,
-                        fontWeight: '700'
-                      }}>Aura Açıklaması</span>
-                    </h4>
-                    <p style={{ fontSize: '16px', lineHeight: '1.6', color: '#555' }}>
-                      Bu aura <strong style={{ 
-                        color: `var(--color-${currentArt.auraType}-dark)` 
-                      }}>{currentArt.auraType.charAt(0).toUpperCase() + currentArt.auraType.slice(1)}</strong> özellikleri taşıyor.
-                      {currentArt.auraType === 'creative' && ' Yaratıcılık ve ilham ile parlıyor. Yenilikçi fikirlerle dolu bir ruh hali yansıtıyor.'}
-                      {currentArt.auraType === 'analytical' && ' Mantık ve düzen ile parlıyor. Detaylara dikkat eden, problem çözücü bir ruh hali yansıtıyor.'}
-                      {currentArt.auraType === 'empathetic' && ' Merhamet ve anlayış ile parlıyor. Duygusal zekanın yüksek olduğu bir ruh hali yansıtıyor.'}
-                      {currentArt.auraType === 'energetic' && ' Dinamizm ve canlılık ile parlıyor. Enerjik ve hareketli bir ruh hali yansıtıyor.'}
-                    </p>
-                  </div>
-                  
-                  <div style={{ marginBottom: '20px' }}>
-                    <h4 style={{ 
-                      fontSize: '16px', 
-                      fontWeight: '600', 
-                      marginBottom: '10px', 
-                      color: '#444',
-                      letterSpacing: '0.5px',
-                      textTransform: 'uppercase'
-                    }}>
-                      <span style={{
-                        color: `var(--color-${currentArt.auraType}-dark)`,
-                        fontWeight: '700'
-                      }}>Özellikler</span>
-                    </h4>
-                    <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-                      <div style={{
-                        background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light)15, var(--color-${currentArt.auraType}-dark)05)`,
-                        padding: '12px',
-                        borderRadius: '12px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        fontSize: '14px',
-                        color: '#444',
-                        fontWeight: '500',
-                        border: `1px solid var(--color-${currentArt.auraType}-light)33`
-                      }}>
-                        <span style={{ 
-                          width: '28px', 
-                          height: '28px', 
-                          borderRadius: '50%', 
-                          background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light), var(--color-${currentArt.auraType}-dark))`,
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          color: 'white',
-                          marginRight: '8px',
-                          fontSize: '12px',
-                          boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)',
-                          zIndex: 2
+                      <div style={{ marginBottom: '20px' }}>
+                        <h4 style={{ 
+                          fontSize: '16px', 
+                          fontWeight: '600', 
+                          marginBottom: '10px', 
+                          color: '#444',
+                          letterSpacing: '0.5px',
+                          textTransform: 'uppercase'
                         }}>
-                          {currentArt.auraType === 'creative' && '🎨'}
-                          {currentArt.auraType === 'analytical' && '🧠'}
-                          {currentArt.auraType === 'empathetic' && '❤️'}
-                          {currentArt.auraType === 'energetic' && '🔥'}
-                        </span>
-                        {currentArt.auraType === 'creative' && 'Yaratıcı düşünme'}
-                        {currentArt.auraType === 'analytical' && 'Analitik düşünme'}
-                        {currentArt.auraType === 'empathetic' && 'Duygusal zeka'}
-                        {currentArt.auraType === 'energetic' && 'Yüksek enerji'}
+                          <span style={{
+                            color: `var(--color-${currentArt.auraType}-dark)`,
+                            fontWeight: '700'
+                          }}>Aura Açıklaması</span>
+                        </h4>
+                        <p style={{ fontSize: '16px', lineHeight: '1.6', color: '#555' }}>
+                          Bu aura <strong style={{ 
+                            color: `var(--color-${currentArt.auraType}-dark)` 
+                          }}>{currentArt.auraType.charAt(0).toUpperCase() + currentArt.auraType.slice(1)}</strong> özellikleri taşıyor.
+                          {currentArt.auraType === 'creative' && ' Yaratıcılık ve ilham ile parlıyor. Yenilikçi fikirlerle dolu bir ruh hali yansıtıyor.'}
+                          {currentArt.auraType === 'analytical' && ' Mantık ve düzen ile parlıyor. Detaylara dikkat eden, problem çözücü bir ruh hali yansıtıyor.'}
+                          {currentArt.auraType === 'empathetic' && ' Merhamet ve anlayış ile parlıyor. Duygusal zekanın yüksek olduğu bir ruh hali yansıtıyor.'}
+                          {currentArt.auraType === 'energetic' && ' Dinamizm ve canlılık ile parlıyor. Enerjik ve hareketli bir ruh hali yansıtıyor.'}
+                        </p>
                       </div>
                       
-                      <div style={{
-                        background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light)15, var(--color-${currentArt.auraType}-dark)05)`,
-                        padding: '12px',
-                        borderRadius: '12px',
+                      <div style={{ marginBottom: '20px' }}>
+                        <h4 style={{ 
+                          fontSize: '16px', 
+                          fontWeight: '600', 
+                          marginBottom: '10px', 
+                          color: '#444',
+                          letterSpacing: '0.5px',
+                          textTransform: 'uppercase'
+                        }}>
+                          <span style={{
+                            color: `var(--color-${currentArt.auraType}-dark)`,
+                            fontWeight: '700'
+                          }}>Özellikler</span>
+                        </h4>
+                        <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+                          <div style={{
+                            background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light)15, var(--color-${currentArt.auraType}-dark)05)`,
+                            padding: '12px',
+                            borderRadius: '12px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            fontSize: '14px',
+                            color: '#444',
+                            fontWeight: '500',
+                            border: `1px solid var(--color-${currentArt.auraType}-light)33`
+                          }}>
+                            <span style={{ 
+                              width: '28px', 
+                              height: '28px', 
+                              borderRadius: '50%', 
+                              background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light), var(--color-${currentArt.auraType}-dark))`,
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              color: 'white',
+                              marginRight: '8px',
+                              fontSize: '12px',
+                              boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)',
+                              zIndex: 2
+                            }}>
+                              {currentArt.auraType === 'creative' && '🎨'}
+                              {currentArt.auraType === 'analytical' && '🧠'}
+                              {currentArt.auraType === 'empathetic' && '❤️'}
+                              {currentArt.auraType === 'energetic' && '🔥'}
+                            </span>
+                            {currentArt.auraType === 'creative' && 'Yaratıcı düşünme'}
+                            {currentArt.auraType === 'analytical' && 'Analitik düşünme'}
+                            {currentArt.auraType === 'empathetic' && 'Duygusal zeka'}
+                            {currentArt.auraType === 'energetic' && 'Yüksek enerji'}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {activeTab === 'story' && (
+                    <div className="aura-detail-card" style={{
+                      background: 'rgba(255, 255, 255, 0.8)',
+                      borderRadius: '16px',
+                      boxShadow: `0 10px 30px ${
+                        currentArt.auraType === 'creative' ? 'rgba(254, 144, 144, 0.15)' :
+                        currentArt.auraType === 'analytical' ? 'rgba(91, 140, 255, 0.15)' :
+                        currentArt.auraType === 'empathetic' ? 'rgba(65, 213, 168, 0.15)' :
+                        currentArt.auraType === 'energetic' ? 'rgba(255, 176, 70, 0.15)' : 'rgba(0, 0, 0, 0.1)'
+                      }`,
+                      padding: '30px',
+                      marginBottom: '30px',
+                      backdropFilter: 'blur(10px)',
+                      border: `1px solid ${
+                        currentArt.auraType === 'creative' ? 'rgba(254, 144, 144, 0.2)' :
+                        currentArt.auraType === 'analytical' ? 'rgba(91, 140, 255, 0.2)' :
+                        currentArt.auraType === 'empathetic' ? 'rgba(65, 213, 168, 0.2)' :
+                        currentArt.auraType === 'energetic' ? 'rgba(255, 176, 70, 0.2)' : 'rgba(0, 0, 0, 0.1)'
+                      }`
+                    }}>
+                      <h4 style={{ 
+                        fontSize: '20px', 
+                        fontWeight: '600', 
+                        marginBottom: '20px', 
+                        color: '#333',
                         display: 'flex',
                         alignItems: 'center',
-                        fontSize: '14px',
-                        color: '#444',
-                        fontWeight: '500',
-                        border: `1px solid var(--color-${currentArt.auraType}-light)33`
+                        gap: '10px'
                       }}>
-                        <span style={{ 
-                          width: '28px', 
-                          height: '28px', 
-                          borderRadius: '50%', 
-                          background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light), var(--color-${currentArt.auraType}-dark))`,
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          color: 'white',
-                          marginRight: '8px',
-                          fontSize: '12px',
-                          boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)',
-                          zIndex: 2
+                        <span style={{
+                          fontSize: '24px',
+                          lineHeight: 1
                         }}>
                           {currentArt.auraType === 'creative' && '✨'}
                           {currentArt.auraType === 'analytical' && '🔍'}
-                          {currentArt.auraType === 'empathetic' && '🤝'}
+                          {currentArt.auraType === 'empathetic' && '💗'}
                           {currentArt.auraType === 'energetic' && '⚡'}
                         </span>
-                        {currentArt.auraType === 'creative' && 'İnovasyon'}
-                        {currentArt.auraType === 'analytical' && 'Problem çözme'}
-                        {currentArt.auraType === 'empathetic' && 'İletişim yeteneği'}
-                        {currentArt.auraType === 'energetic' && 'Dinamizm'}
-                      </div>
+                        Aura Hikayesi
+                      </h4>
                       
                       <div style={{
-                        background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light)15, var(--color-${currentArt.auraType}-dark)05)`,
-                        padding: '12px',
-                        borderRadius: '12px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        fontSize: '14px',
-                        color: '#444',
-                        fontWeight: '500',
-                        border: `1px solid var(--color-${currentArt.auraType}-light)33`
+                        fontSize: '16px',
+                        lineHeight: '1.8',
+                        color: '#555',
+                        marginBottom: '20px'
                       }}>
-                        <span style={{ 
-                          width: '28px', 
-                          height: '28px', 
-                          borderRadius: '50%', 
-                          background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light), var(--color-${currentArt.auraType}-dark))`,
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          color: 'white',
-                          marginRight: '8px',
-                          fontSize: '12px',
-                          boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)',
-                          zIndex: 2
-                        }}>
-                          {currentArt.auraType === 'creative' && '🌈'}
-                          {currentArt.auraType === 'analytical' && '📊'}
-                          {currentArt.auraType === 'empathetic' && '💗'}
-                          {currentArt.auraType === 'energetic' && '🚀'}
-                        </span>
-                        {currentArt.auraType === 'creative' && 'Hayal gücü'}
-                        {currentArt.auraType === 'analytical' && 'Detaylara önem'}
-                        {currentArt.auraType === 'empathetic' && 'Empati yeteneği'}
-                        {currentArt.auraType === 'energetic' && 'Hız ve çeviklik'}
+                        {currentArt.auraType === 'creative' && (
+                          <p>
+                            Bu yaratıcı aura, sanatsal ruhun ve yenilikçi düşüncenin bir yansımasıdır. 
+                            Renkli ve dinamik bir enerji akışıyla, yaratıcılığın sınırlarını zorlayan 
+                            bir ruh hali yansıtır. Her an yeni fikirler üretebilen, ilham verici ve 
+                            özgün bir karaktere sahiptir.
+                          </p>
+                        )}
+                        {currentArt.auraType === 'analytical' && (
+                          <p>
+                            Bu analitik aura, mantıksal düşüncenin ve sistematik yaklaşımın 
+                            bir temsilidir. Düzenli ve organize bir enerji akışıyla, detaylara 
+                            önem veren ve problem çözme yeteneği yüksek bir ruh hali yansıtır. 
+                            Her durumu analiz edebilen, stratejik düşünen ve çözüm odaklı bir 
+                            karaktere sahiptir.
+                          </p>
+                        )}
+                        {currentArt.auraType === 'empathetic' && (
+                          <p>
+                            Bu empatik aura, duygusal zekanın ve anlayışın bir yansımasıdır. 
+                            Yumuşak ve sıcak bir enerji akışıyla, başkalarının duygularını 
+                            anlayabilen ve onlarla bağ kurabilen bir ruh hali yansıtır. 
+                            Merhametli, destekleyici ve iletişim yeteneği yüksek bir 
+                            karaktere sahiptir.
+                          </p>
+                        )}
+                        {currentArt.auraType === 'energetic' && (
+                          <p>
+                            Bu enerjik aura, dinamizmin ve canlılığın bir temsilidir. 
+                            Güçlü ve hareketli bir enerji akışıyla, yüksek motivasyon ve 
+                            heyecan dolu bir ruh hali yansıtır. Her an harekete hazır, 
+                            coşkulu ve pozitif bir karaktere sahiptir.
+                          </p>
+                        )}
                       </div>
                     </div>
-                  </div>
-                </div>
-                
-                <div className="aura-detail-actions" style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  gap: '16px',
-                  marginTop: '20px'
-                }}>
-                  <motion.button 
-                    onClick={() => handleLike(currentArt.id)} 
-                    className={`btn ${currentArt.likedBy.includes(userId) ? 'btn-liked' : 'btn-like'}`}
-                    disabled={currentArt.likedBy.includes(userId)}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '8px',
-                      padding: '12px 24px',
-                      borderRadius: '12px',
-                      background: currentArt.likedBy.includes(userId) 
-                        ? `var(--color-${currentArt.auraType}-light)22` 
-                        : 'rgba(255, 255, 255, 0.8)',
-                      color: currentArt.likedBy.includes(userId) 
-                        ? `var(--color-${currentArt.auraType}-dark)` 
-                        : '#555',
-                      boxShadow: '0 5px 15px rgba(0, 0, 0, 0.05)',
-                      cursor: currentArt.likedBy.includes(userId) ? 'default' : 'pointer',
-                      fontSize: '15px',
-                      fontWeight: '500',
-                      transition: 'all 0.2s',
-                      border: `1px solid ${
-                        currentArt.likedBy.includes(userId) 
-                          ? `var(--color-${currentArt.auraType}-light)33` 
-                          : 'rgba(0, 0, 0, 0.1)'
-                      }`
-                    }}
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill={currentArt.likedBy.includes(userId) ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"></path>
-                    </svg>
-                    <span>{currentArt.likedBy.includes(userId) ? 'Beğenildi' : 'Beğen'}</span>
-                  </motion.button>
-                  
-                  <motion.div
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <Link to="/quiz" style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      gap: '10px',
-                      padding: '14px 24px',
-                      borderRadius: '12px',
-                      background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light), var(--color-${currentArt.auraType}-dark))`,
-                      position: 'relative',
-                      color: 'white',
-                      textDecoration: 'none',
-                      boxShadow: `0 8px 20px ${
-                        currentArt.auraType === 'creative' ? 'rgba(254, 144, 144, 0.3)' :
-                        currentArt.auraType === 'analytical' ? 'rgba(91, 140, 255, 0.3)' :
-                        currentArt.auraType === 'empathetic' ? 'rgba(65, 213, 168, 0.3)' :
-                        currentArt.auraType === 'energetic' ? 'rgba(255, 176, 70, 0.3)' : 'rgba(0, 0, 0, 0.2)'
+                  )}
+
+                  {activeTab === 'insights' && (
+                    <div className="aura-detail-card" style={{
+                      background: 'rgba(255, 255, 255, 0.8)',
+                      borderRadius: '16px',
+                      boxShadow: `0 10px 30px ${
+                        currentArt.auraType === 'creative' ? 'rgba(254, 144, 144, 0.15)' :
+                        currentArt.auraType === 'analytical' ? 'rgba(91, 140, 255, 0.15)' :
+                        currentArt.auraType === 'empathetic' ? 'rgba(65, 213, 168, 0.15)' :
+                        currentArt.auraType === 'energetic' ? 'rgba(255, 176, 70, 0.15)' : 'rgba(0, 0, 0, 0.1)'
                       }`,
-                      fontSize: '15px',
-                      fontWeight: '600',
-                      border: '1px solid rgba(255, 255, 255, 0.2)',
-                      overflow: 'visible'
+                      padding: '30px',
+                      marginBottom: '30px',
+                      backdropFilter: 'blur(10px)',
+                      border: `1px solid ${
+                        currentArt.auraType === 'creative' ? 'rgba(254, 144, 144, 0.2)' :
+                        currentArt.auraType === 'analytical' ? 'rgba(91, 140, 255, 0.2)' :
+                        currentArt.auraType === 'empathetic' ? 'rgba(65, 213, 168, 0.2)' :
+                        currentArt.auraType === 'energetic' ? 'rgba(255, 176, 70, 0.2)' : 'rgba(0, 0, 0, 0.1)'
+                      }`
                     }}>
-                      <span style={{ 
+                      <h4 style={{ 
                         fontSize: '20px', 
-                        lineHeight: 1
-                      }}>✨</span>
-                      <span>Kendi Auranı Oluştur</span>
-                    </Link>
-                  </motion.div>
+                        fontWeight: '600', 
+                        marginBottom: '20px', 
+                        color: '#333',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '10px'
+                      }}>
+                        <span style={{
+                          fontSize: '24px',
+                          lineHeight: 1
+                        }}>
+                          {currentArt.auraType === 'creative' && '🎯'}
+                          {currentArt.auraType === 'analytical' && '📊'}
+                          {currentArt.auraType === 'empathetic' && '💫'}
+                          {currentArt.auraType === 'energetic' && '🌟'}
+                        </span>
+                        İç Görüler ve Potansiyel
+                      </h4>
+
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                        {/* Güçlü Yönler */}
+                        <div>
+                          <h5 style={{
+                            fontSize: '16px',
+                            fontWeight: '600',
+                            color: `var(--color-${currentArt.auraType}-dark)`,
+                            marginBottom: '10px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '8px'
+                          }}>
+                            <span style={{ fontSize: '18px' }}>💪</span>
+                            Güçlü Yönler
+                          </h5>
+                          <ul style={{
+                            listStyle: 'none',
+                            padding: 0,
+                            margin: 0,
+                            display: 'flex',
+                            flexWrap: 'wrap',
+                            gap: '10px'
+                          }}>
+                            {currentArt.auraType === 'creative' && (
+                              <>
+                                <li style={{
+                                  background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light)15, var(--color-${currentArt.auraType}-dark)05)`,
+                                  padding: '8px 16px',
+                                  borderRadius: '20px',
+                                  fontSize: '14px',
+                                  color: '#444',
+                                  border: `1px solid var(--color-${currentArt.auraType}-light)33`
+                                }}>Yaratıcı Düşünme</li>
+                                <li style={{
+                                  background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light)15, var(--color-${currentArt.auraType}-dark)05)`,
+                                  padding: '8px 16px',
+                                  borderRadius: '20px',
+                                  fontSize: '14px',
+                                  color: '#444',
+                                  border: `1px solid var(--color-${currentArt.auraType}-light)33`
+                                }}>İnovasyon</li>
+                                <li style={{
+                                  background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light)15, var(--color-${currentArt.auraType}-dark)05)`,
+                                  padding: '8px 16px',
+                                  borderRadius: '20px',
+                                  fontSize: '14px',
+                                  color: '#444',
+                                  border: `1px solid var(--color-${currentArt.auraType}-light)33`
+                                }}>Hayal Gücü</li>
+                              </>
+                            )}
+                          </ul>
+                        </div>
+
+                        {/* Potansiyel */}
+                        <div>
+                          <h5 style={{
+                            fontSize: '16px',
+                            fontWeight: '600',
+                            color: `var(--color-${currentArt.auraType}-dark)`,
+                            marginBottom: '10px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '8px'
+                          }}>
+                            <span style={{ fontSize: '18px' }}>🚀</span>
+                            Potansiyel
+                          </h5>
+                          <p style={{
+                            fontSize: '14px',
+                            lineHeight: '1.6',
+                            color: '#555',
+                            background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light)10, var(--color-${currentArt.auraType}-dark)05)`,
+                            padding: '15px',
+                            borderRadius: '12px',
+                            border: `1px solid var(--color-${currentArt.auraType}-light)22`
+                          }}>
+                            {currentArt.auraType === 'creative' && 
+                              "Bu aura tipi, yaratıcı projelerde ve yenilikçi fikirlerin geliştirilmesinde büyük potansiyel taşır. Sanatsal ve tasarım alanlarında öne çıkabilir."}
+                            {currentArt.auraType === 'analytical' && 
+                              "Bu aura tipi, karmaşık problemlerin çözümünde ve stratejik planlamada üstün yetenekler sergiler. Veri analizi ve araştırma alanlarında başarılı olabilir."}
+                            {currentArt.auraType === 'empathetic' && 
+                              "Bu aura tipi, insan ilişkilerinde ve iletişimde doğal bir yetenek gösterir. Danışmanlık ve liderlik alanlarında başarılı olabilir."}
+                            {currentArt.auraType === 'energetic' && 
+                              "Bu aura tipi, dinamik projelerde ve hızlı tempolu ortamlarda üstün performans sergiler. Spor ve organizasyon alanlarında başarılı olabilir."}
+                          </p>
+                        </div>
+
+                        {/* İç Görüler */}
+                        <div>
+                          <h5 style={{
+                            fontSize: '16px',
+                            fontWeight: '600',
+                            color: `var(--color-${currentArt.auraType}-dark)`,
+                            marginBottom: '10px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '8px'
+                          }}>
+                            <span style={{ fontSize: '18px' }}>💡</span>
+                            İç Görüler
+                          </h5>
+                          <div style={{
+                            display: 'grid',
+                            gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+                            gap: '15px'
+                          }}>
+                            {currentArt.auraType === 'creative' && (
+                              <>
+                                <div style={{
+                                  background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light)10, var(--color-${currentArt.auraType}-dark)05)`,
+                                  padding: '15px',
+                                  borderRadius: '12px',
+                                  border: `1px solid var(--color-${currentArt.auraType}-light)22`
+                                }}>
+                                  <h6 style={{
+                                    fontSize: '14px',
+                                    fontWeight: '600',
+                                    color: '#333',
+                                    marginBottom: '8px'
+                                  }}>Yaratıcılık Döngüsü</h6>
+                                  <p style={{
+                                    fontSize: '13px',
+                                    lineHeight: '1.5',
+                                    color: '#666'
+                                  }}>
+                                    En yaratıcı fikirlerin sabah erken saatlerde geldiğini fark edebilirsiniz.
+                                  </p>
+                                </div>
+                                <div style={{
+                                  background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light)10, var(--color-${currentArt.auraType}-dark)05)`,
+                                  padding: '15px',
+                                  borderRadius: '12px',
+                                  border: `1px solid var(--color-${currentArt.auraType}-light)22`
+                                }}>
+                                  <h6 style={{
+                                    fontSize: '14px',
+                                    fontWeight: '600',
+                                    color: '#333',
+                                    marginBottom: '8px'
+                                  }}>İlham Kaynakları</h6>
+                                  <p style={{
+                                    fontSize: '13px',
+                                    lineHeight: '1.5',
+                                    color: '#666'
+                                  }}>
+                                    Doğa ve sanat, yaratıcılığınızı besleyen en güçlü kaynaklardır.
+                                  </p>
+                                </div>
+                              </>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
