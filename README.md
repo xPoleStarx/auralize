@@ -66,3 +66,37 @@ Bu teknolojiler, kullanıcı girdilerini **zengin ve yaratıcı içeriklere** d�
    pip install -r requirements.txt
 
    npm start
+
+```
+
+## DeepSeek API Entegrasyonu
+
+Auralize projesini DeepSeek API ile entegre etmek için aşağıdaki adımları izleyin:
+
+1. [DeepSeek](https://deepseek.ai/) platformuna kayıt olup bir API anahtarı alın.
+2. `.env` dosyasını açıp `REACT_APP_DEEPSEEK_API_KEY` değişkenine aldığınız API anahtarını ekleyin:
+
+```
+REACT_APP_DEEPSEEK_API_KEY=size_verilen_api_anahtari
+```
+
+3. Uygulamayı başlatmak için:
+
+```bash
+npm install   # Bağımlılıkları yükleyin
+npm start     # Uygulamayı başlatın
+```
+
+4. Tarayıcınızda http://localhost:3000 adresine giderek uygulamayı açın.
+5. Quiz'i tamamlayın ve DeepSeek'in sizin cevaplarınıza göre özel olarak oluşturduğu aura hikayenizi görün!
+
+### DeepSeek API Nasıl Çalışıyor?
+
+Quiz cevaplarınızı tamamladığınızda, sistem şu adımları takip eder:
+
+1. Cevaplarınız analiz edilerek bir aura tipi belirlenir (Yaratıcı, Analitik, Empatik veya Enerjik).
+2. Cevaplarınız ve aura tipiniz DeepSeek API'sine gönderilir.
+3. DeepSeek AI, bu bilgileri kullanarak size özel bir aura hikayesi oluşturur.
+4. Oluşturulan hikaye ekranınızda görüntülenir.
+
+Bu entegrasyon sayesinde, her kullanıcı için tamamen benzersiz ve kişiselleştirilmiş bir aura hikayesi sunulur!

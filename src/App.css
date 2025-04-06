@@ -2141,3 +2141,133 @@
     width: 100%;
   }
 }
+
+/* DeepSeek API ile ilgili stiller */
+.aura-api-badge {
+  display: inline-block;
+  background-color: rgba(0, 0, 0, 0.1);
+  padding: 4px 10px;
+  border-radius: 15px;
+  font-size: 12px;
+  margin-left: 10px;
+  color: #666;
+  font-weight: 500;
+  animation: pulse 1.5s infinite;
+}
+
+.aura-source-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 15px;
+  font-size: 12px;
+  margin-left: 10px;
+  font-weight: 500;
+}
+
+.aura-source-badge.cache {
+  background-color: rgba(0, 150, 136, 0.1);
+  color: #009688;
+}
+
+.aura-source-badge.api {
+  background-color: rgba(33, 150, 243, 0.1);
+  color: #2196F3;
+}
+
+.aura-loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 150px;
+  padding: 20px;
+}
+
+.aura-loading-spinner {
+  width: 30px;
+  height: 30px;
+  border: 3px solid rgba(150, 150, 150, 0.2);
+  border-radius: 50%;
+  border-top-color: #FF61D2; /* Varsayılan renk, dinamik olarak değişecek */
+  animation: spin 1s ease-in-out infinite;
+  margin-bottom: 15px;
+}
+
+.aura-loading-text {
+  font-size: 16px;
+  color: #666;
+  text-align: center;
+  font-weight: 500;
+  max-width: 80%;
+  line-height: 1.5;
+}
+
+/* Aşamalı yükleme stilleri */
+.aura-story-content {
+  position: relative;
+}
+
+.aura-story-loading-more {
+  margin-top: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.aura-story-loading-more p {
+  font-size: 14px;
+  color: #666;
+  margin: 0 0 0 10px;
+}
+
+.aura-loading-dots {
+  display: flex;
+  align-items: center;
+}
+
+.aura-loading-dots span {
+  width: 6px;
+  height: 6px;
+  margin: 0 2px;
+  background-color: #666;
+  border-radius: 50%;
+  display: inline-block;
+  animation: dotPulse 1.4s infinite ease-in-out both;
+}
+
+.aura-loading-dots span:nth-child(1) {
+  animation-delay: -0.32s;
+}
+
+.aura-loading-dots span:nth-child(2) {
+  animation-delay: -0.16s;
+}
+
+@keyframes dotPulse {
+  0%, 80%, 100% { 
+    transform: scale(0);
+  } 
+  40% { 
+    transform: scale(1.0);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}
