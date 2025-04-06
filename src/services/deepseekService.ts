@@ -39,11 +39,13 @@ interface StoryCacheItem {
   auraType: string;
 }
 
-// Cevaplanmış soruları özetleme fonksiyonu
+// Cevaplanmış soruları özetleme fonksiyonu - tüm cevapları dahil edecek şekilde geliştirildi
 interface AnswerSummary {
   answerCounts: { a: number; b: number; c: number; d: number };
   answerPattern: string;
-  keyAnswers: string;
+  answerDetails: string;
+  dominantTrait: string;
+  secondaryTrait: string;
 }
 
 const getAnswerSummary = (answers: { [key: number]: string }): AnswerSummary => {
@@ -53,18 +55,30 @@ const getAnswerSummary = (answers: { [key: number]: string }): AnswerSummary => 
   const cCount = Object.values(answers).filter(val => val === 'c').length;
   const dCount = Object.values(answers).filter(val => val === 'd').length;
   
-  // Önemli sorular (1, 5, 10, 15, 20 gibi dönüm noktası soruları)
-  const keyQuestions = [1, 5, 10, 15, 20];
-  const keyAnswers = keyQuestions
-    .filter(q => answers[q])
-    .map(q => `Soru ${q}: ${answers[q]}`)
+  // Tüm cevapları detaylı olarak formatlama
+  const answerDetails = Object.entries(answers)
+    .sort((a, b) => Number(a[0]) - Number(b[0])) // Soru numarasına göre sırala
+    .map(([questionNum, answer]) => `Soru ${questionNum}: ${answer}`)
     .join(', ');
+  
+  // Baskın ve ikincil özelliği belirleme
+  const countMap = [
+    { trait: 'analitik', count: aCount },
+    { trait: 'yaratıcı', count: bCount },
+    { trait: 'empatik', count: cCount },
+    { trait: 'enerjik', count: dCount }
+  ].sort((a, b) => b.count - a.count);
+  
+  const dominantTrait = countMap[0].trait;
+  const secondaryTrait = countMap[1].trait;
   
   // Cevap eğilimini gösteren özet
   return {
     answerCounts: { a: aCount, b: bCount, c: cCount, d: dCount },
     answerPattern: `A${aCount}B${bCount}C${cCount}D${dCount}`,
-    keyAnswers
+    answerDetails,
+    dominantTrait,
+    secondaryTrait
   };
 };
 
@@ -84,33 +98,97 @@ const LLAMA_API_URL = 'http://localhost:11434/api/chat';
 // Aura tipleri ve varsayılan açıklamaları
 export const auraTypes = {
   'mor': {
-    name: 'Mor',
+    name: 'Mor Aura',
     description: 'Mor aura enerjin, ruhsal bir yolculuğa çıktığını gösteriyor. Mor enerji, yüksek bilinci, maneviyatı ve içgörüyü temsil eder. Bu aura, dünya ile ruhsal dünya arasında bir köprü kurabilme yeteneğine sahip olduğunu gösterir. Yaratıcı ve sezgisel yeteneklerin oldukça güçlü. Hayalperest yapın ve estetik zevkin, sanatsal ifade biçimlerine olan ilgini artırıyor.'
   },
   'mavi': {
-    name: 'Mavi',
+    name: 'Mavi Aura',
     description: 'Mavi aura enerjin, derin bir iç huzur ve ifade yeteneğine sahip olduğunu gösteriyor. Mavi enerji, iletişim, kendini ifade etme ve iç huzuru temsil eder. Dürüstlük ve güvenilirlik senin en önemli değerlerin arasında. Duygularını ifade etmekte ustasın ve çevrene ilham veriyorsun. Analitik düşünce yapın, problem çözmede sana büyük avantaj sağlıyor.'
   },
   'yeşil': {
-    name: 'Yeşil',
+    name: 'Yeşil Aura',
     description: 'Yeşil aura enerjin, iyileştirici ve dengeleyici bir güce sahip olduğunu gösteriyor. Yeşil enerji, büyüme, iyileşme ve dengeyi temsil eder. Doğa ile güçlü bir bağın var ve bu bağ sana dinginlik veriyor. Empati yeteneğin oldukça gelişmiş durumda. Şefkat ve anlayış, senin en belirgin özelliklerinden. Sosyal ilişkilerde denge kurmada ve çatışmaları çözmede oldukça yeteneklisin.'
   },
   'sarı': {
-    name: 'Sarı',
+    name: 'Sarı Aura',
     description: 'Sarı aura enerjin, zihinsel parlaklık ve özgüven dolu bir kişiliğe sahip olduğunu gösteriyor. Sarı enerji, zeka, neşe ve yaratıcılığı temsil eder. Analitik düşünce yapın ve problem çözme yeteneğin seni öne çıkarıyor. Merak duygun ve öğrenme açlığın, sürekli yeni bilgiler edinmeni sağlıyor. İyimser bakış açın, çevrendeki insanlara da olumlu enerji veriyor.'
   },
   'turuncu': {
-    name: 'Turuncu',
+    name: 'Turuncu Aura',
     description: 'Turuncu aura enerjin, yaşam dolu ve yaratıcı bir ruha sahip olduğunu gösteriyor. Turuncu enerji, tutku, yaratıcılık ve canlılığı temsil eder. Hayata karşı enerjik ve maceracı bir yaklaşımın var. Risk almaktan çekinmiyor ve yeni deneyimlere açık bir yapıya sahipsin. Sosyal yanın oldukça gelişmiş durumda. Çevrende her zaman eğlence ve neşe ortamı yaratıyorsun.'
   },
   'kırmızı': {
-    name: 'Kırmızı',
+    name: 'Kırmızı Aura',
     description: 'Kırmızı aura enerjin, güçlü bir yaşam enerjisi ve tutkuya sahip olduğunu gösteriyor. Kırmızı enerji, güç, hayatta kalma ve tutkuyu temsil eder. Kararlı ve cesaretli yapın, zorluklarla yüzleşmekten kaçınmadığını gösteriyor. Liderlik özelliklerin ve inisiyatif alma yeteneğin oldukça gelişmiş. Hedeflerine ulaşma konusunda gösterdiğin kararlılık, hayatta başarılı olmanı sağlıyor.'
+  },
+  'indigo': {
+    name: 'İndigo Aura',
+    description: 'İndigo aura enerjin, derin bir sezgisel anlayış ve içgörü yeteneğine sahip olduğunu gösteriyor. İndigo enerji, güçlü bir sezgisel zeka, içgörü ve yaratıcı düşünceyi temsil eder. Klasik düşünce kalıplarının dışına çıkabilme ve alternatif bakış açıları geliştirebilme yeteneğine sahipsin. Doğruyu arama konusunda tutkulu ve kararlısın. Derin düşünce yapın, seni güçlü bir filozofa dönüştürüyor.'
+  },
+  'altın': {
+    name: 'Altın Aura',
+    description: 'Altın aura enerjin, bilgelik ve aydınlanma yolunda ilerlediğini gösteriyor. Altın enerji, yüksek bilinci, bilgeliği ve manevi gelişimi temsil eder. Olaylara geniş perspektiften bakabilme ve bütünsel düşünebilme yeteneğine sahipsin. İç huzur ve denge senin için önemli değerler. Etrafındakilere ilham veriyor ve onlara rehberlik ediyorsun. Özgün düşünce yapın, seni benzersiz kılıyor.'
+  },
+  'gümüş': {
+    name: 'Gümüş Aura',
+    description: 'Gümüş aura enerjin, yansıtıcı ve uyumlu bir ruha sahip olduğunu gösteriyor. Gümüş enerji, esneklik, uyum ve değişime açıklığı temsil eder. Farklı durumlara hızla adapte olabilme ve çevrendeki enerjiyi yansıtabilme yeteneğine sahipsin. Duygusal zekan oldukça gelişmiş. Denge ve uyum senin için önemli değerler. Çevrendeki insanların ihtiyaçlarını anlama ve onlara destek olma konusunda yeteneklisin.'
+  },
+  'kristal': {
+    name: 'Kristal Aura',
+    description: 'Kristal aura enerjin, saflık ve netlik dolu bir ruha sahip olduğunu gösteriyor. Kristal enerji, şeffaflık, saflık ve enerji aktarımını temsil eder. İletişim yeteneğin oldukça gelişmiş durumda. Düşüncelerini ve duygularını net bir şekilde ifade edebiliyorsun. Yüksek enerjileri algılama ve aktarma yeteneğine sahipsin. Dürüstlük ve açıklık senin için önemli değerler. Etrafındakilere pozitif enerji yayıyorsun.'
+  },
+  'gökkuşağı': {
+    name: 'Gökkuşağı Aura',
+    description: 'Gökkuşağı aura enerjin, çok yönlü ve dengeli bir ruha sahip olduğunu gösteriyor. Gökkuşağı enerji, bütünlük, denge ve uyumu temsil eder. Tüm enerji merkezlerinin uyum içinde çalıştığı, dengeli bir yapıya sahipsin. Farklı durumlara uygun enerjiyi aktarabilme yeteneğin var. Esneklik ve uyum senin için önemli değerler. Etrafındakilerin ihtiyaçlarına göre destek olabilme yeteneğine sahipsin.'
+  },
+  'beyaz': {
+    name: 'Beyaz Aura',
+    description: 'Beyaz aura enerjin, saflık ve berraklık dolu bir ruha sahip olduğunu gösteriyor. Beyaz enerji, saflık, temizlik ve yüksek titreşimi temsil eder. Yüksek seviyede manevi farkındalık ve bilgeliğe sahipsin. Sezgisel yeteneklerin oldukça gelişmiş durumda. Doğruluk ve dürüstlük senin için önemli değerler. Etrafındakilere şifa ve huzur verme yeteneğine sahipsin.'
   }
 };
 
-// Aura tipine göre sistem talimatını hazırla
-const getSystemPromptForAuraType = (auraType: string): string => {
+// Aura tipini dinamik olarak belirleyen yeni fonksiyon
+export const determineDynamicAuraType = (answers: { [key: number]: string }): string => {
+  const summary = getAnswerSummary(answers);
+  const { dominantTrait, secondaryTrait } = summary;
+  
+  // Baskın ve ikincil özelliklere göre aura tipini belirleme
+  // Bu eşleştirmeleri dinamik olarak yapıyoruz
+  const auraMap = {
+    'analitik-yaratıcı': 'indigo',
+    'analitik-empatik': 'mavi',
+    'analitik-enerjik': 'sarı',
+    'yaratıcı-analitik': 'kristal',
+    'yaratıcı-empatik': 'mor',
+    'yaratıcı-enerjik': 'gökkuşağı',
+    'empatik-analitik': 'gümüş',
+    'empatik-yaratıcı': 'yeşil',
+    'empatik-enerjik': 'beyaz',
+    'enerjik-analitik': 'turuncu',
+    'enerjik-yaratıcı': 'kırmızı',
+    'enerjik-empatik': 'altın'
+  };
+  
+  // Baskın ve ikincil özellik kombinasyonunu kontrol et
+  const combinationKey = `${dominantTrait}-${secondaryTrait}`;
+  const auraType = auraMap[combinationKey as keyof typeof auraMap];
+  
+  // Eşleşme bulunamazsa baskın özelliğe göre varsayılan eşleştirmeyi kullan
+  if (!auraType) {
+    const defaultMap: { [key: string]: string } = {
+      'analitik': 'mavi',
+      'yaratıcı': 'mor',
+      'empatik': 'yeşil',
+      'enerjik': 'kırmızı'
+    };
+    return defaultMap[dominantTrait] || 'gökkuşağı'; // En son çare olarak gökkuşağı
+  }
+  
+  return auraType;
+};
+
+// Aura tipine göre sistem talimatını hazırla - tüm cevaplar detaylı kullanılıyor
+const getSystemPromptForAuraType = (auraType: string, answerDetails: string): string => {
   const basePrompt = `
 Sen bir ruhsal rehber ve aura uzmanısın. Kullanıcının quiz cevaplarına dayanarak onun için 
 kişiselleştirilmiş bir ${auraType} aura hikayesi oluşturacaksın.
@@ -118,7 +196,10 @@ kişiselleştirilmiş bir ${auraType} aura hikayesi oluşturacaksın.
 ${auraType} aura şu özellikleri içerir:
 ${auraTypes[auraType as keyof typeof auraTypes]?.description || 'Bu aura tipi hakkında özel bilgi yok.'}
 
-Kullanıcının cevaplarına dayanarak, onun benzersiz kişiliğini yansıtan, içgörü dolu ve ilham verici bir aura hikayesi oluştur.
+Kullanıcının cevaplarının tamamı aşağıdadır, her birini ayrı ayrı değerlendirerek kişiselleştirilmiş bir analiz yap:
+${answerDetails}
+
+Kullanıcının yukarıdaki TÜM cevaplarını detaylı analiz ederek, onun benzersiz kişiliğini yansıtan, içgörü dolu ve ilham verici bir aura hikayesi oluştur.
 Hikaye şu bileşenleri içermeli:
 1. Kullanıcının kişiliğine dair içgörüler
 2. Ruhsal yolculuğuna dair sembolik bir anlatım
@@ -126,13 +207,414 @@ Hikaye şu bileşenleri içermeli:
 4. İçten, derin ve anlamlı bir ton
 
 Hikaye akıcı, şiirsel ve kişiye özel olmalı. 8-12 paragraf arasında ve Türkçe dilinde olmalıdır.
+Sürreal ve gerçek dışı bir hikaye oluşturmaktan kaçın, gerçekçi ve uygulanabilir içgörüler sun.
 `;
 
   return basePrompt;
 };
 
+// Llama API için mesaj formatını hazırla - tüm sorular detaylı olarak dahil ediliyor
+const prepareMessagesForLlama = (auraType: string, username: string, answers: any): any[] => {
+  console.log('[LLAMA_PREP] Llama için mesajlar hazırlanıyor');
+  
+  // Cevapların detaylı analizini yap
+  const answerSummary = getAnswerSummary(answers || {});
+  
+  console.log('[LLAMA_PREP] Quiz cevapları formatlandı:', 
+    Object.keys(answers || {}).length, 'cevap bulundu');
+
+  // Aura tipine göre sistem talimatını hazırla - tüm cevapların detaylarını dahil et
+  const systemPrompt = getSystemPromptForAuraType(auraType, answerSummary.answerDetails);
+  console.log('[LLAMA_PREP] Sistem promptu hazırlandı, uzunluk:', systemPrompt.length, 'karakter');
+  
+  // Kullanıcı mesajı oluşturma
+  const userMessage = `
+Merhaba, ben ${username || 'bir kullanıcı'}. 
+Aşağıdaki quiz cevaplarıma göre benim için bir ${auraType} Aura hikayesi yazar mısın?
+
+Quiz Cevaplarım:
+${answerSummary.answerDetails}
+
+Cevaplarıma göre baskın özelliğim "${answerSummary.dominantTrait}", ikincil özelliğim "${answerSummary.secondaryTrait}".
+
+Lütfen benim için türkçe olarak, içten, derin, anlamlı ve kişiselleştirilmiş bir aura hikayesi yaz. 
+Hikaye ruhsal bir yolculuğu ifade etmeli ancak gerçekçi ve uygulanabilir içgörüler de sunmalı.
+Sürreal ya da çok soyut bir hikayeden ziyade hayatıma uygulanabilecek gerçekçi içgörüler içeren bir hikaye olsun.
+Hikayeler 8-12 paragraf arası olmalı ve tamamen benim cevaplarıma göre kişiselleştirilmiş olmalı.
+`;
+
+  console.log('[LLAMA_PREP] Kullanıcı mesajı hazırlandı, uzunluk:', userMessage.length, 'karakter');
+  
+  // Llama'nın beklediği formatta mesajları döndür
+  const messages = [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: userMessage }
+  ];
+  
+  console.log('[LLAMA_PREP] Mesajlar formatlandı ve hazır');
+  console.log(`[LLAMA_PREP] Toplam mesaj sayısı: ${messages.length}`);
+  
+  return messages;
+};
+
+// Ana hikaye alma fonksiyonunu güncelle
+export const getAuraStoryFromDeepSeek = async (
+  auraType: string,
+  username: string,
+  answers: { [key: number]: string }
+): Promise<string> => {
+  try {
+    console.log(`[AURA_SERVICE] Hikaye isteniyor - Kullanıcı: ${username}, Aura: ${auraType}`);
+    console.log(`[AURA_SERVICE] Cevaplar:`, JSON.stringify(answers));
+    
+    // Cevaplar geçerli mi kontrol et
+    if (!answers || Object.keys(answers).length === 0) {
+      console.error('[AURA_SERVICE] Geçersiz cevaplar, varsayılan hikayeye dönülüyor');
+      return `__default__${generateDefaultStory(auraType, username, {})}`;
+    }
+    
+    // Önbellek kontrolü
+    const answerSummary = getAnswerSummary(answers);
+    const cacheKey = createCacheKey(auraType, answerSummary.answerPattern);
+    console.log(`[AURA_SERVICE] Önbellek anahtarı: ${cacheKey}`);
+    
+    let generatedStory: string;
+    let source: 'api' | 'cache' | 'llama' | 'default' = 'api';
+
+    // Önbellek kontrolü
+    const cachedStoryJSON = localStorage.getItem(cacheKey);
+    if (cachedStoryJSON) {
+      try {
+        const cachedItem: StoryCacheItem = JSON.parse(cachedStoryJSON);
+        const now = Date.now();
+        
+        if (now - cachedItem.timestamp < CACHE_EXPIRY_TIME && cachedItem.auraType === auraType) {
+          console.log('[AURA_SERVICE] Hikaye önbellekten alındı');
+          const personalizedStory = cachedItem.story.replace(/\[USERNAME\]/g, username);
+          return `__cached__${personalizedStory}`;
+        } else {
+          console.log('[AURA_SERVICE] Önbellek süresi dolmuş, yeni hikaye isteniyor');
+        }
+      } catch (e) {
+        console.error('[AURA_SERVICE] Önbellek okuma hatası:', e);
+        localStorage.removeItem(cacheKey);
+      }
+    } else {
+      console.log('[AURA_SERVICE] Önbellekte hikaye bulunamadı');
+    }
+
+    // DeepSeek API anahtarı varsa DeepSeek'i kullan, yoksa Llama'yı kullan
+    if (DEEPSEEK_API_KEY) {
+      console.log('[DEEPSEEK] API isteği gönderiliyor');
+      console.time('deepseek_request_time');
+      
+      const prompt = `Sen bir aura analiz uzmanısın. Aşağıdaki bilgilere dayanarak kişiselleştirilmiş bir aura hikayesi oluşturacaksın.
+        
+        Kullanıcı: ${username}
+        Aura tipi: ${auraType}
+        
+        Cevap eğilimi: 
+        A şıkkı: ${answerSummary.answerCounts.a} kez
+        B şıkkı: ${answerSummary.answerCounts.b} kez
+        C şıkkı: ${answerSummary.answerCounts.c} kez
+        D şıkkı: ${answerSummary.answerCounts.d} kez
+        
+        Önemli sorulara verilen cevaplar: ${answerSummary.answerDetails}
+        
+        Lütfen kullanıcının ${auraType} aurasını tanımlayan ilham verici ve şiirsel bir kısa hikaye yaz.
+        Hikaye üçüncü şahıs anlatımıyla olmalı, kullanıcının ismini içermeli ve 3 paragrafı geçmemeli.
+        Son kısımda kullanıcının güçlü yönlerini ve gelişim alanlarını kısaca belirt.`;
+      
+      console.log('[DEEPSEEK] Prompt:', prompt);
+      
+      const response = await axios.post<DeepSeekResponse>(
+        DEEPSEEK_API_URL,
+        {
+          model: 'deepseek-chat',
+          messages: [
+            {
+              role: 'user',
+              content: prompt
+            }
+          ],
+          temperature: 0.7,
+          max_tokens: 600
+        } as DeepSeekRequestBody,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${DEEPSEEK_API_KEY}`
+          }
+        }
+      );
+      
+      console.timeEnd('deepseek_request_time');
+      console.log('[DEEPSEEK] API yanıtı alındı:', response.data);
+      generatedStory = response.data.choices[0]?.message.content || '';
+    } else {
+      console.log('');
+      console.log('************************************************************');
+      console.log('[AURA_SERVICE] DeepSeek API anahtarı bulunamadı, Llama kullanılıyor...');
+      console.log(`[AURA_SERVICE] Ollama API isteği gönderilecek: http://localhost:11434/api/chat`);
+      console.log('************************************************************');
+      console.log('');
+      
+      generatedStory = await getAuraStoryFromLlama(auraType, username, answers);
+      
+      // Cevabın kaynağını belirle
+      if (generatedStory.startsWith('__llama__')) {
+        source = 'llama';
+        generatedStory = generatedStory.replace('__llama__', '');
+        console.log('[AURA_SERVICE] Llama yanıtı alındı:', generatedStory.substring(0, 100) + '...');
+      } else if (generatedStory.startsWith('__default__')) {
+        source = 'default';
+        generatedStory = generatedStory.replace('__default__', '');
+        console.log('[AURA_SERVICE] Varsayılan hikaye kullanılıyor');
+      }
+    }
+    
+    // Hikayeyi önbelleğe alma (varsayılan hikaye değilse)
+    if (generatedStory && source !== 'default') {
+      console.log('[AURA_SERVICE] Hikaye önbelleğe kaydediliyor');
+      const genericStory = generatedStory.replace(new RegExp(username, 'g'), '[USERNAME]');
+      const cacheItem: StoryCacheItem = {
+        story: genericStory,
+        timestamp: Date.now(),
+        auraType
+      };
+      localStorage.setItem(cacheKey, JSON.stringify(cacheItem));
+    }
+    
+    // Kaynağı işaretle ve hikayeyi döndür
+    console.log(`[AURA_SERVICE] Hikaye tamamlandı, kaynak: ${source}`);
+    if (source === 'llama') {
+      return `__llama__${generatedStory.trim()}`;
+    } else if (source === 'default') {
+      return `__default__${generatedStory.trim()}`;
+    }
+    return generatedStory.trim();
+  } catch (error) {
+    console.error('[AURA_SERVICE] API çağrısı başarısız:', error);
+    // Hata durumunda varsayılan hikayeyi quiz yanıtlarını da kullanarak oluştur
+    return `__default__${generateDefaultStory(auraType, username, answers)}`;
+  }
+};
+
+// Llama API ile aura içgörülerini alma fonksiyonu - tüm cevaplar detaylı analize dahil edildi
+export const getAuraInsightsFromLlama = async (
+  auraType: string,
+  username: string,
+  answers: { [key: number]: string }
+): Promise<{
+  strengths: string,
+  potential: string,
+  thinkingStyle: string,
+  auraTitle: string, // Dinamik aura başlığı için yeni alan
+  source: 'llama' | 'default'
+}> => {
+  console.log('[LLAMA_INSIGHTS] İçgörüler isteniyor', { auraType, username });
+  
+  try {
+    // Cevap özeti oluştur - tüm cevapları dahil et
+    const answerSummary = getAnswerSummary(answers);
+    
+    // İçgörüler için prompt hazırla
+    const prompt = `
+Sen bir aura analiz uzmanısın. Aşağıdaki bilgilere dayanarak kişiselleştirilmiş aura içgörüleri ve benzersiz bir aura başlığı oluşturacaksın.
+
+Kullanıcı: ${username}
+Aura tipi: ${auraType}
+Baskın özellik: ${answerSummary.dominantTrait}
+İkincil özellik: ${answerSummary.secondaryTrait}
+
+Cevap eğilimi: 
+A şıkkı (analitik): ${answerSummary.answerCounts.a} kez
+B şıkkı (yaratıcı): ${answerSummary.answerCounts.b} kez
+C şıkkı (empatik): ${answerSummary.answerCounts.c} kez
+D şıkkı (enerjik): ${answerSummary.answerCounts.d} kez
+
+Kullanıcının TÜM cevapları: ${answerSummary.answerDetails}
+
+Lütfen kullanıcının ${auraType} aurasına ve yukarıdaki TÜM cevaplara dayanarak şu dört kategoride KISA ve ÖZLÜ içgörüler oluştur:
+
+1. Güçlü Yönleri (maksimum 60 karakter)
+2. Potansiyeli (maksimum 70 karakter)
+3. Düşünme Tarzı (maksimum 60 karakter)
+4. Benzersiz Aura Başlığı (kullanıcı için özgün oluşturulmuş özel bir aura başlığı, "X Aurası" formatında)
+
+Her kategori için sadece virgüllerle ayrılmış anahtar kelimeler veya çok kısa ifadeler kullan, tam cümleler KURMA.
+Yanıtını aşağıdaki formatta JSON olarak yapılandır:
+
+{
+  "strengths": "örnek, örnek, örnek",
+  "potential": "örnek, örnek, örnek",
+  "thinkingStyle": "örnek, örnek, örnek",
+  "auraTitle": "Benzersiz Özel Aura Başlığı"
+}
+
+Aura başlığı, kişinin kombinasyonuna dayalı tamamen benzersiz olmalı. Başlık "X Aurası" formatında olmalı ve önceden tanımlanmış standart aura isimleri (mor, mavi, kırmızı vb) OLMAMALI.
+
+Yanıtın SADECE bu JSON'ı içermeli, başka açıklama ya da metin içermemelidir.
+`;
+
+    console.log('');
+    console.log('==== LLAMA İÇGÖRÜLER İSTEĞİ GÖNDERİLİYOR ====');
+    console.log('[LLAMA_INSIGHTS] API URL:', LLAMA_API_URL);
+    console.log('[LLAMA_INSIGHTS] Model:', 'llama3.1:latest');
+    console.log('[LLAMA_INSIGHTS] İstek gövdesi hazır');
+    console.log('====================================');
+    console.log('');
+    
+    // Llama API'sine istek gönder
+    const response = await axios.post(
+      LLAMA_API_URL,
+      {
+        model: 'llama3.1:latest',
+        messages: [
+          { role: 'user', content: prompt }
+        ],
+        temperature: 0.3, // Tutarlı yanıtlar için düşük temperature
+        max_tokens: 300, // Kısa yanıtlar için yeterli
+        stream: false
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        timeout: 200000,// 20 saniye
+        maxBodyLength: Infinity,
+        maxContentLength: Infinity,
+        validateStatus: function (status) {
+          return status >= 200 && status < 500;
+        }
+      }
+    );
+    
+    console.log('');
+    console.log('==== LLAMA İÇGÖRÜLER YANITI ALINDI ====');
+    console.log('[LLAMA_INSIGHTS] Yanıt durumu:', response.status);
+    console.log('====================================');
+    console.log('');
+    
+    // Yanıtı işle
+    let responseContent = '';
+    if (response.data && response.data.message && response.data.message.content) {
+      responseContent = response.data.message.content;
+    } else if (response.data && response.data.content) {
+      responseContent = response.data.content;
+    } else {
+      throw new Error('Bilinmeyen API yanıt formatı');
+    }
+    
+    // JSON yanıtı çıkarmak için düzenli ifade kullan (model bazen ek metin ekleyebilir)
+    const jsonMatch = responseContent.match(/\{[\s\S]*\}/);
+    if (!jsonMatch) {
+      throw new Error('JSON formatında yanıt alınamadı');
+    }
+    
+    try {
+      const insightsData = JSON.parse(jsonMatch[0]);
+      console.log('[LLAMA_INSIGHTS] İçgörüler başarıyla alındı:', insightsData);
+      
+      return {
+        strengths: insightsData.strengths || getDefaultInsights(auraType).strengths,
+        potential: insightsData.potential || getDefaultInsights(auraType).potential,
+        thinkingStyle: insightsData.thinkingStyle || getDefaultInsights(auraType).thinkingStyle,
+        auraTitle: insightsData.auraTitle || `${auraType.charAt(0).toUpperCase() + auraType.slice(1)} Aurası`,
+        source: 'llama'
+      };
+    } catch (parseError) {
+      console.error('[LLAMA_INSIGHTS] JSON ayrıştırma hatası:', parseError);
+      throw parseError;
+    }
+    
+  } catch (error: any) {
+    console.error('');
+    console.error('==== LLAMA İÇGÖRÜLER HATASI ====');
+    console.error('[LLAMA_INSIGHTS] Hata oluştu:', error.message);
+    console.error('================================');
+    console.error('');
+    
+    // Hata durumunda varsayılan içgörüleri döndür
+    const defaultInsight = getDefaultInsights(auraType);
+    return {
+      ...defaultInsight,
+      auraTitle: `${auraType.charAt(0).toUpperCase() + auraType.slice(1)} Aurası`,
+      source: 'default'
+    };
+  }
+};
+
+// Varsayılan içgörüler - genişletilmiş aura tipleri için
+const getDefaultInsights = (auraType: string) => {
+  const defaults = {
+    mor: {
+      strengths: 'Sezgisel, maneviyata yatkın, yaratıcı, vizyoner',
+      potential: 'Ruhsal liderlik, sanatsal ifade, metafizik anlayış geliştirme',
+      thinkingStyle: 'Sezgisel, bütünsel, sembolik, metafiziksel'
+    },
+    mavi: {
+      strengths: 'İletişim uzmanı, sakin, dengeli, analitik',
+      potential: 'Etkileyici konuşmalar, yazılı ifade, problem çözme',
+      thinkingStyle: 'Mantıksal, metodolojik, sakin, planlı'
+    },
+    yeşil: {
+      strengths: 'Empatik, şefkatli, iyileştirici, dengeleyici',
+      potential: 'İyileştirme yeteneği, ilişki kurma, sosyal denge sağlama',
+      thinkingStyle: 'Duygusal, empatik, ilişkisel, bütünsel'
+    },
+    sarı: {
+      strengths: 'Analitik zeka, meraklı, öğrenmeye açık, özgüvenli',
+      potential: 'Entelektüel projeler, problem çözme, yenilikçi fikirler',
+      thinkingStyle: 'Analitik, meraklı, sistematik, mantıksal'
+    },
+    turuncu: {
+      strengths: 'Enerjik, yaratıcı, sosyal, maceracı',
+      potential: 'Liderlik, sosyal etki, yaratıcı projeler geliştirme',
+      thinkingStyle: 'Pratik, canlı, dinamik, deneyimsel'
+    },
+    kırmızı: {
+      strengths: 'Kararlı, tutkulu, lider ruhlu, cesur',
+      potential: 'Liderlik, inisiyatif alma, tutkulu projeler başlatma',
+      thinkingStyle: 'Kararlı, hızlı, hedef odaklı, pragmatik'
+    },
+    indigo: {
+      strengths: 'Derin sezgisel, alternatif düşünce, içgörülü',
+      potential: 'Felsefi anlayış, paradigma değişimi, yenilikçi çözümler',
+      thinkingStyle: 'Felsefi, sezgisel, derin, yaratıcı-analitik'
+    },
+    altın: {
+      strengths: 'Bilgelik, dengeli kişilik, ilham verici, olgun',
+      potential: 'Rehberlik etme, ilham verme, bütünsel anlayış',
+      thinkingStyle: 'Bilge, dengeli, stratejik, bütünsel'
+    },
+    gümüş: {
+      strengths: 'Uyumlu, esnek, yansıtıcı, adaptif',
+      potential: 'Denge kurma, farklı ortamlarda başarılı olma',
+      thinkingStyle: 'Esnek, uyumlu, duyarlı, analitik-empatik'
+    },
+    kristal: {
+      strengths: 'Net iletişim, şeffaf kişilik, dürüst, berrak',
+      potential: 'Berrak iletişim, fikirleri netleştirme, analitik çözümler',
+      thinkingStyle: 'Net, berrak, analitik, mantıksal-yaratıcı'
+    },
+    gökkuşağı: {
+      strengths: 'Çok yönlü, uyumlu, dengeli, yaratıcı',
+      potential: 'Çok disiplinli projeler, çeşitli alanlarda başarı',
+      thinkingStyle: 'Bütünsel, çok yönlü, entegre, adaptif'
+    },
+    beyaz: {
+      strengths: 'Saf, dürüst, manevi, empatik-enerjik',
+      potential: 'Ruhsal destek, ilham verme, şifa verme',
+      thinkingStyle: 'Saf, berrak, empatik, sezgisel-enerjik'
+    }
+  };
+  
+  return defaults[auraType as keyof typeof defaults] || defaults.gökkuşağı;
+};
+
 // Llama API'sine istek gönderme fonksiyonu
-export const getAuraStoryFromLlama = async (
+const getAuraStoryFromLlama = async (
   auraType: string,
   username: string,
   answers: any
@@ -250,194 +732,8 @@ export const getAuraStoryFromLlama = async (
   }
 };
 
-// Llama API için mesaj formatını hazırla
-const prepareMessagesForLlama = (auraType: string, username: string, answers: any): any[] => {
-  console.log('[LLAMA_PREP] Llama için mesajlar hazırlanıyor');
-  
-  // Quiz cevaplarını metin formatına dönüştür
-  const answersText = Object.entries(answers || {})
-    .map(([key, value]) => `${key}: ${value}`)
-    .join('\n');
-  
-  console.log('[LLAMA_PREP] Quiz cevapları formatlandı:', 
-    Object.keys(answers || {}).length, 'cevap bulundu');
-
-  // Aura tipine göre sistem talimatını hazırla
-  const systemPrompt = getSystemPromptForAuraType(auraType);
-  console.log('[LLAMA_PREP] Sistem promptu hazırlandı, uzunluk:', systemPrompt.length, 'karakter');
-  
-  // Kullanıcı mesajı oluşturma
-  const userMessage = `
-Merhaba, ben ${username || 'bir kullanıcı'}. 
-Aşağıdaki quiz cevaplarıma göre benim için bir ${auraType} Aura hikayesi yazar mısın?
-
-Quiz Cevaplarım:
-${answersText}
-
-Lütfen benim için türkçe olarak, içten, derin, anlamlı ve kişiselleştirilmiş bir aura hikayesi yaz. 
-Hikaye ruhsal bir yolculuğu ifade etmeli.
-Hikayeler 8-12 paragraf arası olmalı ve kişiselleştirilmiş olmalı.
-`;
-
-  console.log('[LLAMA_PREP] Kullanıcı mesajı hazırlandı, uzunluk:', userMessage.length, 'karakter');
-  
-  // Llama'nın beklediği formatta mesajları döndür
-  const messages = [
-    { role: "system", content: systemPrompt },
-    { role: "user", content: userMessage }
-  ];
-  
-  console.log('[LLAMA_PREP] Mesajlar formatlandı ve hazır');
-  console.log(`[LLAMA_PREP] Toplam mesaj sayısı: ${messages.length}`);
-  
-  return messages;
-};
-
-// Ana hikaye alma fonksiyonunu güncelle
-export const getAuraStoryFromDeepSeek = async (
-  auraType: string,
-  username: string,
-  answers: { [key: number]: string }
-): Promise<string> => {
-  try {
-    console.log(`[AURA_SERVICE] Hikaye isteniyor - Kullanıcı: ${username}, Aura: ${auraType}`);
-    console.log(`[AURA_SERVICE] Cevaplar:`, JSON.stringify(answers));
-    
-    // Cevaplar geçerli mi kontrol et
-    if (!answers || Object.keys(answers).length === 0) {
-      console.error('[AURA_SERVICE] Geçersiz cevaplar, varsayılan hikayeye dönülüyor');
-      return `__default__${generateDefaultStory(auraType, username, {})}`;
-    }
-    
-    // Önbellek kontrolü
-    const answerSummary = getAnswerSummary(answers);
-    const cacheKey = createCacheKey(auraType, answerSummary.answerPattern);
-    console.log(`[AURA_SERVICE] Önbellek anahtarı: ${cacheKey}`);
-    
-    let generatedStory: string;
-    let source: 'api' | 'cache' | 'llama' | 'default' = 'api';
-
-    // Önbellek kontrolü
-    const cachedStoryJSON = localStorage.getItem(cacheKey);
-    if (cachedStoryJSON) {
-      try {
-        const cachedItem: StoryCacheItem = JSON.parse(cachedStoryJSON);
-        const now = Date.now();
-        
-        if (now - cachedItem.timestamp < CACHE_EXPIRY_TIME && cachedItem.auraType === auraType) {
-          console.log('[AURA_SERVICE] Hikaye önbellekten alındı');
-          const personalizedStory = cachedItem.story.replace(/\[USERNAME\]/g, username);
-          return `__cached__${personalizedStory}`;
-        } else {
-          console.log('[AURA_SERVICE] Önbellek süresi dolmuş, yeni hikaye isteniyor');
-        }
-      } catch (e) {
-        console.error('[AURA_SERVICE] Önbellek okuma hatası:', e);
-        localStorage.removeItem(cacheKey);
-      }
-    } else {
-      console.log('[AURA_SERVICE] Önbellekte hikaye bulunamadı');
-    }
-
-    // DeepSeek API anahtarı varsa DeepSeek'i kullan, yoksa Llama'yı kullan
-    if (DEEPSEEK_API_KEY) {
-      console.log('[DEEPSEEK] API isteği gönderiliyor');
-      console.time('deepseek_request_time');
-      
-      const prompt = `Sen bir aura analiz uzmanısın. Aşağıdaki bilgilere dayanarak kişiselleştirilmiş bir aura hikayesi oluşturacaksın.
-        
-        Kullanıcı: ${username}
-        Aura tipi: ${auraType}
-        
-        Cevap eğilimi: 
-        A şıkkı: ${answerSummary.answerCounts.a} kez
-        B şıkkı: ${answerSummary.answerCounts.b} kez
-        C şıkkı: ${answerSummary.answerCounts.c} kez
-        D şıkkı: ${answerSummary.answerCounts.d} kez
-        
-        Önemli sorulara verilen cevaplar: ${answerSummary.keyAnswers}
-        
-        Lütfen kullanıcının ${auraType} aurasını tanımlayan ilham verici ve şiirsel bir kısa hikaye yaz.
-        Hikaye üçüncü şahıs anlatımıyla olmalı, kullanıcının ismini içermeli ve 3 paragrafı geçmemeli.
-        Son kısımda kullanıcının güçlü yönlerini ve gelişim alanlarını kısaca belirt.`;
-      
-      console.log('[DEEPSEEK] Prompt:', prompt);
-      
-      const response = await axios.post<DeepSeekResponse>(
-        DEEPSEEK_API_URL,
-        {
-          model: 'deepseek-chat',
-          messages: [
-            {
-              role: 'user',
-              content: prompt
-            }
-          ],
-          temperature: 0.7,
-          max_tokens: 600
-        } as DeepSeekRequestBody,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${DEEPSEEK_API_KEY}`
-          }
-        }
-      );
-      
-      console.timeEnd('deepseek_request_time');
-      console.log('[DEEPSEEK] API yanıtı alındı:', response.data);
-      generatedStory = response.data.choices[0]?.message.content || '';
-    } else {
-      console.log('');
-      console.log('************************************************************');
-      console.log('[AURA_SERVICE] DeepSeek API anahtarı bulunamadı, Llama kullanılıyor...');
-      console.log(`[AURA_SERVICE] Ollama API isteği gönderilecek: http://localhost:11434/api/chat`);
-      console.log('************************************************************');
-      console.log('');
-      
-      generatedStory = await getAuraStoryFromLlama(auraType, username, answers);
-      
-      // Cevabın kaynağını belirle
-      if (generatedStory.startsWith('__llama__')) {
-        source = 'llama';
-        generatedStory = generatedStory.replace('__llama__', '');
-        console.log('[AURA_SERVICE] Llama yanıtı alındı:', generatedStory.substring(0, 100) + '...');
-      } else if (generatedStory.startsWith('__default__')) {
-        source = 'default';
-        generatedStory = generatedStory.replace('__default__', '');
-        console.log('[AURA_SERVICE] Varsayılan hikaye kullanılıyor');
-      }
-    }
-    
-    // Hikayeyi önbelleğe alma (varsayılan hikaye değilse)
-    if (generatedStory && source !== 'default') {
-      console.log('[AURA_SERVICE] Hikaye önbelleğe kaydediliyor');
-      const genericStory = generatedStory.replace(new RegExp(username, 'g'), '[USERNAME]');
-      const cacheItem: StoryCacheItem = {
-        story: genericStory,
-        timestamp: Date.now(),
-        auraType
-      };
-      localStorage.setItem(cacheKey, JSON.stringify(cacheItem));
-    }
-    
-    // Kaynağı işaretle ve hikayeyi döndür
-    console.log(`[AURA_SERVICE] Hikaye tamamlandı, kaynak: ${source}`);
-    if (source === 'llama') {
-      return `__llama__${generatedStory.trim()}`;
-    } else if (source === 'default') {
-      return `__default__${generatedStory.trim()}`;
-    }
-    return generatedStory.trim();
-  } catch (error) {
-    console.error('[AURA_SERVICE] API çağrısı başarısız:', error);
-    // Hata durumunda varsayılan hikayeyi quiz yanıtlarını da kullanarak oluştur
-    return `__default__${generateDefaultStory(auraType, username, answers)}`;
-  }
-};
-
 // Kısa özet hikaye oluşturma (hızlı yükleme için)
-export const getQuickAuraSummary = async (
+const getQuickAuraSummary = async (
   auraType: string,
   username: string
 ): Promise<string> => {
@@ -620,7 +916,7 @@ const generateDefaultStory = (auraType: string, username: string = 'Seyyah', ans
   // Eğer cevaplar varsa, onları kullanarak daha kişiselleştirilmiş bir hikaye oluştur
   const answerSummary = answers && Object.keys(answers).length > 0 
     ? getAnswerSummary(answers) 
-    : { answerCounts: { a: 0, b: 0, c: 0, d: 0 }, answerPattern: '', keyAnswers: '' };
+    : { answerCounts: { a: 0, b: 0, c: 0, d: 0 }, answerPattern: '', answerDetails: '', dominantTrait: '', secondaryTrait: '' };
   
   const mostCommonAnswer = 
     answerSummary.answerCounts.a >= answerSummary.answerCounts.b && 
@@ -713,167 +1009,4 @@ const generateDefaultStory = (auraType: string, username: string = 'Seyyah', ans
   
   // Üç paragraftan oluşan hikayeyi oluştur
   return `${intro} ${middle} ${ending}`;
-};
-
-// Llama API ile aura içgörülerini alma fonksiyonu
-export const getAuraInsightsFromLlama = async (
-  auraType: string,
-  username: string,
-  answers: { [key: number]: string }
-): Promise<{
-  strengths: string,
-  potential: string,
-  thinkingStyle: string,
-  source: 'llama' | 'default'
-}> => {
-  console.log('[LLAMA_INSIGHTS] İçgörüler isteniyor', { auraType, username });
-  
-  try {
-    // Cevap özeti oluştur
-    const answerSummary = getAnswerSummary(answers);
-    
-    // İçgörüler için prompt hazırla
-    const prompt = `
-Sen bir aura analiz uzmanısın. Aşağıdaki bilgilere dayanarak kişiselleştirilmiş aura içgörüleri oluşturacaksın.
-
-Kullanıcı: ${username}
-Aura tipi: ${auraType}
-
-Cevap eğilimi: 
-A şıkkı: ${answerSummary.answerCounts.a} kez
-B şıkkı: ${answerSummary.answerCounts.b} kez
-C şıkkı: ${answerSummary.answerCounts.c} kez
-D şıkkı: ${answerSummary.answerCounts.d} kez
-
-Önemli sorulara verilen cevaplar: ${answerSummary.keyAnswers}
-
-Lütfen kullanıcının ${auraType} aurasına dayanarak şu üç kategoride KISA ve ÖZLÜ içgörüler oluştur:
-
-1. Güçlü Yönleri (maksimum 60 karakter)
-2. Potansiyeli (maksimum 70 karakter)
-3. Düşünme Tarzı (maksimum 60 karakter)
-
-Her kategori için sadece virgüllerle ayrılmış anahtar kelimeler veya çok kısa ifadeler kullan, tam cümleler KURMA.
-Yanıtını aşağıdaki formatta JSON olarak yapılandır:
-
-{
-  "strengths": "örnek, örnek, örnek",
-  "potential": "örnek, örnek, örnek",
-  "thinkingStyle": "örnek, örnek, örnek"
-}
-
-Yanıtın SADECE bu JSON'ı içermeli, başka açıklama ya da metin içermemelidir.
-`;
-
-    console.log('');
-    console.log('==== LLAMA İÇGÖRÜLER İSTEĞİ GÖNDERİLİYOR ====');
-    console.log('[LLAMA_INSIGHTS] API URL:', LLAMA_API_URL);
-    console.log('[LLAMA_INSIGHTS] Model:', 'llama3.1:latest');
-    console.log('[LLAMA_INSIGHTS] İstek gövdesi hazır');
-    console.log('====================================');
-    console.log('');
-    
-    // Llama API'sine istek gönder
-    const response = await axios.post(
-      LLAMA_API_URL,
-      {
-        model: 'llama3.1:latest',
-        messages: [
-          { role: 'user', content: prompt }
-        ],
-        temperature: 0.3, // Tutarlı yanıtlar için düşük temperature
-        max_tokens: 300, // Kısa yanıtlar için yeterli
-        stream: false
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        timeout: 200000,// 20 saniye
-        maxBodyLength: Infinity,
-        maxContentLength: Infinity,
-        validateStatus: function (status) {
-          return status >= 200 && status < 500;
-        }
-      }
-    );
-    
-    console.log('');
-    console.log('==== LLAMA İÇGÖRÜLER YANITI ALINDI ====');
-    console.log('[LLAMA_INSIGHTS] Yanıt durumu:', response.status);
-    console.log('====================================');
-    console.log('');
-    
-    // Yanıtı işle
-    let responseContent = '';
-    if (response.data && response.data.message && response.data.message.content) {
-      responseContent = response.data.message.content;
-    } else if (response.data && response.data.content) {
-      responseContent = response.data.content;
-    } else {
-      throw new Error('Bilinmeyen API yanıt formatı');
-    }
-    
-    // JSON yanıtı çıkarmak için düzenli ifade kullan (model bazen ek metin ekleyebilir)
-    const jsonMatch = responseContent.match(/\{[\s\S]*\}/);
-    if (!jsonMatch) {
-      throw new Error('JSON formatında yanıt alınamadı');
-    }
-    
-    try {
-      const insightsData = JSON.parse(jsonMatch[0]);
-      console.log('[LLAMA_INSIGHTS] İçgörüler başarıyla alındı:', insightsData);
-      
-      return {
-        strengths: insightsData.strengths || getDefaultInsights(auraType).strengths,
-        potential: insightsData.potential || getDefaultInsights(auraType).potential,
-        thinkingStyle: insightsData.thinkingStyle || getDefaultInsights(auraType).thinkingStyle,
-        source: 'llama'
-      };
-    } catch (parseError) {
-      console.error('[LLAMA_INSIGHTS] JSON ayrıştırma hatası:', parseError);
-      throw parseError;
-    }
-    
-  } catch (error: any) {
-    console.error('');
-    console.error('==== LLAMA İÇGÖRÜLER HATASI ====');
-    console.error('[LLAMA_INSIGHTS] Hata oluştu:', error.message);
-    console.error('================================');
-    console.error('');
-    
-    // Hata durumunda varsayılan içgörüleri döndür
-    return {
-      ...getDefaultInsights(auraType),
-      source: 'default'
-    };
-  }
-};
-
-// Varsayılan içgörüler
-const getDefaultInsights = (auraType: string) => {
-  const defaults = {
-    creative: {
-      strengths: 'Yenilikçi düşünce, bağlantı kurma, sezgisel yaklaşım',
-      potential: 'Benzersiz fikirler üretme, sanatsal ifade, ilham verici projeler',
-      thinkingStyle: 'Sezgisel, yanal düşünme, çok yönlü bakış açısı'
-    },
-    analytical: {
-      strengths: 'Mantıksal analiz, detaylara dikkat, problem çözme',
-      potential: 'Karmaşık sistemleri çözümleme, verimli stratejiler geliştirme',
-      thinkingStyle: 'Sistematik, yapısal, mantıksal ve metodolojik'
-    },
-    empathetic: {
-      strengths: 'Duygusal anlayış, aktif dinleme, ilişki kurabilme',
-      potential: 'Güçlü bağlar oluşturma, topluluklar inşa etme, ilham verme',
-      thinkingStyle: 'Duygusal, sezgisel, ilişkisel ve bütünsel'
-    },
-    energetic: {
-      strengths: 'Dinamizm, motivasyon, hareket enerjisi, inisiyatif',
-      potential: 'Zorlu projeleri tamamlama, hızlı sonuçlar alma, ilham verme',
-      thinkingStyle: 'Pratik, sonuç odaklı, hızlı ve aksiyon bazlı'
-    }
-  };
-  
-  return defaults[auraType as keyof typeof defaults] || defaults.creative;
 }; 

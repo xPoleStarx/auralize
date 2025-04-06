@@ -37,7 +37,7 @@ const Gallery: React.FC = () => {
 
     window.addEventListener('scroll', handleScroll);
     
-    // CSS değişkenlerini belirle
+    // CSS değişkenlerini belirle - mevcut aura tipleri
     document.documentElement.style.setProperty('--color-creative-light', '#FF61D2');
     document.documentElement.style.setProperty('--color-creative-dark', '#FE9090');
     document.documentElement.style.setProperty('--color-creative-light-rgb', '255, 97, 210');
@@ -57,6 +57,67 @@ const Gallery: React.FC = () => {
     document.documentElement.style.setProperty('--color-energetic-dark', '#FF7070');
     document.documentElement.style.setProperty('--color-energetic-light-rgb', '255, 176, 70');
     document.documentElement.style.setProperty('--color-energetic-dark-rgb', '255, 112, 112');
+    
+    // Yeni aura tipleri için CSS değişkenleri
+    document.documentElement.style.setProperty('--color-mor-light', '#9D4EDD');
+    document.documentElement.style.setProperty('--color-mor-dark', '#7B2CBF');
+    document.documentElement.style.setProperty('--color-mor-light-rgb', '157, 78, 221');
+    document.documentElement.style.setProperty('--color-mor-dark-rgb', '123, 44, 191');
+    
+    document.documentElement.style.setProperty('--color-mavi-light', '#4361EE');
+    document.documentElement.style.setProperty('--color-mavi-dark', '#3A0CA3');
+    document.documentElement.style.setProperty('--color-mavi-light-rgb', '67, 97, 238');
+    document.documentElement.style.setProperty('--color-mavi-dark-rgb', '58, 12, 163');
+    
+    document.documentElement.style.setProperty('--color-yeşil-light', '#2DC653');
+    document.documentElement.style.setProperty('--color-yeşil-dark', '#148F77');
+    document.documentElement.style.setProperty('--color-yeşil-light-rgb', '45, 198, 83');
+    document.documentElement.style.setProperty('--color-yeşil-dark-rgb', '20, 143, 119');
+    
+    document.documentElement.style.setProperty('--color-sarı-light', '#FFDD00');
+    document.documentElement.style.setProperty('--color-sarı-dark', '#FFA200');
+    document.documentElement.style.setProperty('--color-sarı-light-rgb', '255, 221, 0');
+    document.documentElement.style.setProperty('--color-sarı-dark-rgb', '255, 162, 0');
+    
+    document.documentElement.style.setProperty('--color-turuncu-light', '#FF9F1C');
+    document.documentElement.style.setProperty('--color-turuncu-dark', '#E85D04');
+    document.documentElement.style.setProperty('--color-turuncu-light-rgb', '255, 159, 28');
+    document.documentElement.style.setProperty('--color-turuncu-dark-rgb', '232, 93, 4');
+    
+    document.documentElement.style.setProperty('--color-kırmızı-light', '#E63946');
+    document.documentElement.style.setProperty('--color-kırmızı-dark', '#A31621');
+    document.documentElement.style.setProperty('--color-kırmızı-light-rgb', '230, 57, 70');
+    document.documentElement.style.setProperty('--color-kırmızı-dark-rgb', '163, 22, 33');
+    
+    document.documentElement.style.setProperty('--color-indigo-light', '#6610F2');
+    document.documentElement.style.setProperty('--color-indigo-dark', '#4B0082');
+    document.documentElement.style.setProperty('--color-indigo-light-rgb', '102, 16, 242');
+    document.documentElement.style.setProperty('--color-indigo-dark-rgb', '75, 0, 130');
+    
+    document.documentElement.style.setProperty('--color-altın-light', '#FFD700');
+    document.documentElement.style.setProperty('--color-altın-dark', '#DAA520');
+    document.documentElement.style.setProperty('--color-altın-light-rgb', '255, 215, 0');
+    document.documentElement.style.setProperty('--color-altın-dark-rgb', '218, 165, 32');
+    
+    document.documentElement.style.setProperty('--color-gümüş-light', '#C0C0C0');
+    document.documentElement.style.setProperty('--color-gümüş-dark', '#A9A9A9');
+    document.documentElement.style.setProperty('--color-gümüş-light-rgb', '192, 192, 192');
+    document.documentElement.style.setProperty('--color-gümüş-dark-rgb', '169, 169, 169');
+    
+    document.documentElement.style.setProperty('--color-kristal-light', '#88BDBC');
+    document.documentElement.style.setProperty('--color-kristal-dark', '#6FABB0');
+    document.documentElement.style.setProperty('--color-kristal-light-rgb', '136, 189, 188');
+    document.documentElement.style.setProperty('--color-kristal-dark-rgb', '111, 171, 176');
+    
+    document.documentElement.style.setProperty('--color-gökkuşağı-light', '#6A0572');
+    document.documentElement.style.setProperty('--color-gökkuşağı-dark', '#AB83A1');
+    document.documentElement.style.setProperty('--color-gökkuşağı-light-rgb', '106, 5, 114');
+    document.documentElement.style.setProperty('--color-gökkuşağı-dark-rgb', '171, 131, 161');
+    
+    document.documentElement.style.setProperty('--color-beyaz-light', '#E0E0E0');
+    document.documentElement.style.setProperty('--color-beyaz-dark', '#BDBDBD');
+    document.documentElement.style.setProperty('--color-beyaz-light-rgb', '224, 224, 224');
+    document.documentElement.style.setProperty('--color-beyaz-dark-rgb', '189, 189, 189');
     
     // Kullanıcı ID'sini al
     const currentUserId = localStorage.getItem('auralize_user_id') || '';
@@ -184,10 +245,107 @@ const Gallery: React.FC = () => {
         gradient: 'linear-gradient(135deg, #FFB046, #FF7070)',
         bgLight: '#FFF8F0',
         icon: '⚡'
+      },
+      // Yeni aura tipleri için renkler
+      mor: {
+        light: '#9D4EDD',
+        dark: '#7B2CBF',
+        gradient: 'linear-gradient(135deg, #9D4EDD, #7B2CBF)',
+        bgLight: '#F8F0FF',
+        icon: '🔮'
+      },
+      mavi: {
+        light: '#4361EE',
+        dark: '#3A0CA3',
+        gradient: 'linear-gradient(135deg, #4361EE, #3A0CA3)',
+        bgLight: '#F0F4FF',
+        icon: '🌊'
+      },
+      yeşil: {
+        light: '#2DC653',
+        dark: '#148F77',
+        gradient: 'linear-gradient(135deg, #2DC653, #148F77)',
+        bgLight: '#F0FFF4',
+        icon: '🌿'
+      },
+      sarı: {
+        light: '#FFDD00',
+        dark: '#FFA200',
+        gradient: 'linear-gradient(135deg, #FFDD00, #FFA200)',
+        bgLight: '#FFFEF0',
+        icon: '☀️'
+      },
+      turuncu: {
+        light: '#FF9F1C',
+        dark: '#E85D04',
+        gradient: 'linear-gradient(135deg, #FF9F1C, #E85D04)',
+        bgLight: '#FFF6EC',
+        icon: '🔥'
+      },
+      kırmızı: {
+        light: '#E63946',
+        dark: '#A31621',
+        gradient: 'linear-gradient(135deg, #E63946, #A31621)',
+        bgLight: '#FFF0F0',
+        icon: '❤️'
+      },
+      indigo: {
+        light: '#6610F2',
+        dark: '#4B0082',
+        gradient: 'linear-gradient(135deg, #6610F2, #4B0082)',
+        bgLight: '#F0EBFF',
+        icon: '🌌'
+      },
+      altın: {
+        light: '#FFD700',
+        dark: '#DAA520',
+        gradient: 'linear-gradient(135deg, #FFD700, #DAA520)',
+        bgLight: '#FFFBEB',
+        icon: '✨'
+      },
+      gümüş: {
+        light: '#C0C0C0',
+        dark: '#A9A9A9',
+        gradient: 'linear-gradient(135deg, #C0C0C0, #A9A9A9)',
+        bgLight: '#F8F8F8',
+        icon: '🌙'
+      },
+      kristal: {
+        light: '#88BDBC',
+        dark: '#6FABB0',
+        gradient: 'linear-gradient(135deg, #88BDBC, #6FABB0)',
+        bgLight: '#F0F8FA',
+        icon: '💎'
+      },
+      gökkuşağı: {
+        light: '#6A0572',
+        dark: '#AB83A1',
+        gradient: 'linear-gradient(135deg, #AB83A1, #6A0572)',
+        bgLight: '#FFF0FC',
+        icon: '🌈'
+      },
+      beyaz: {
+        light: '#E0E0E0',
+        dark: '#BDBDBD',
+        gradient: 'linear-gradient(135deg, #E0E0E0, #BDBDBD)',
+        bgLight: '#FFFFFF',
+        icon: '☁️'
       }
     };
 
-    const colors = auraColors[art.auraType as keyof typeof auraColors];
+    // Varsayılan aura renkleri (undefined olma durumuna karşı)
+    const defaultColors = {
+      light: '#7C4DFF',
+      dark: '#536DFE',
+      gradient: 'linear-gradient(135deg, #7C4DFF, #536DFE)',
+      bgLight: '#F0F5FF',
+      icon: '✨'
+    };
+    
+    // art.auraType'in auraColors içinde olup olmadığını kontrol et, yoksa varsayılan değeri kullan
+    const colors = art.auraType && auraColors[art.auraType as keyof typeof auraColors] ? 
+                  auraColors[art.auraType as keyof typeof auraColors] : 
+                  defaultColors;
 
     return (
       <motion.div 
@@ -580,6 +738,110 @@ const Gallery: React.FC = () => {
             >
               Enerjik
             </button>
+            
+            {/* Yeni aura tipleri için filtreler */}
+            <button 
+              onClick={() => setFilter('mor')}
+              className={`filter-btn ${filter === 'mor' ? 'active' : ''}`}
+              style={{
+                padding: '10px 20px',
+                borderRadius: '100px',
+                border: 'none',
+                background: filter === 'mor' ? 'linear-gradient(135deg, #9D4EDD, #7B2CBF)' : '#f0f0f0',
+                color: filter === 'mor' ? 'white' : '#666',
+                fontSize: '14px',
+                fontWeight: '500',
+                cursor: 'pointer',
+                transition: 'all 0.2s'
+              }}
+            >
+              Mor
+            </button>
+            <button 
+              onClick={() => setFilter('mavi')}
+              className={`filter-btn ${filter === 'mavi' ? 'active' : ''}`}
+              style={{
+                padding: '10px 20px',
+                borderRadius: '100px',
+                border: 'none',
+                background: filter === 'mavi' ? 'linear-gradient(135deg, #4361EE, #3A0CA3)' : '#f0f0f0',
+                color: filter === 'mavi' ? 'white' : '#666',
+                fontSize: '14px',
+                fontWeight: '500',
+                cursor: 'pointer',
+                transition: 'all 0.2s'
+              }}
+            >
+              Mavi
+            </button>
+            <button 
+              onClick={() => setFilter('yeşil')}
+              className={`filter-btn ${filter === 'yeşil' ? 'active' : ''}`}
+              style={{
+                padding: '10px 20px',
+                borderRadius: '100px',
+                border: 'none',
+                background: filter === 'yeşil' ? 'linear-gradient(135deg, #2DC653, #148F77)' : '#f0f0f0',
+                color: filter === 'yeşil' ? 'white' : '#666',
+                fontSize: '14px',
+                fontWeight: '500',
+                cursor: 'pointer',
+                transition: 'all 0.2s'
+              }}
+            >
+              Yeşil
+            </button>
+            <button 
+              onClick={() => setFilter('sarı')}
+              className={`filter-btn ${filter === 'sarı' ? 'active' : ''}`}
+              style={{
+                padding: '10px 20px',
+                borderRadius: '100px',
+                border: 'none',
+                background: filter === 'sarı' ? 'linear-gradient(135deg, #FFDD00, #FFA200)' : '#f0f0f0',
+                color: filter === 'sarı' ? 'white' : '#666',
+                fontSize: '14px',
+                fontWeight: '500',
+                cursor: 'pointer',
+                transition: 'all 0.2s'
+              }}
+            >
+              Sarı
+            </button>
+            <button 
+              onClick={() => setFilter('turuncu')}
+              className={`filter-btn ${filter === 'turuncu' ? 'active' : ''}`}
+              style={{
+                padding: '10px 20px',
+                borderRadius: '100px',
+                border: 'none',
+                background: filter === 'turuncu' ? 'linear-gradient(135deg, #FF9F1C, #E85D04)' : '#f0f0f0',
+                color: filter === 'turuncu' ? 'white' : '#666',
+                fontSize: '14px',
+                fontWeight: '500',
+                cursor: 'pointer',
+                transition: 'all 0.2s'
+              }}
+            >
+              Turuncu
+            </button>
+            <button 
+              onClick={() => setFilter('kırmızı')}
+              className={`filter-btn ${filter === 'kırmızı' ? 'active' : ''}`}
+              style={{
+                padding: '10px 20px',
+                borderRadius: '100px',
+                border: 'none',
+                background: filter === 'kırmızı' ? 'linear-gradient(135deg, #E63946, #A31621)' : '#f0f0f0',
+                color: filter === 'kırmızı' ? 'white' : '#666',
+                fontSize: '14px',
+                fontWeight: '500',
+                cursor: 'pointer',
+                transition: 'all 0.2s'
+              }}
+            >
+              Kırmızı
+            </button>
           </div>
           
           {loading ? (
@@ -855,6 +1117,18 @@ const Gallery: React.FC = () => {
                         {currentArt.auraType === 'analytical' && '🔍'}
                         {currentArt.auraType === 'empathetic' && '💗'}
                         {currentArt.auraType === 'energetic' && '⚡'}
+                        {currentArt.auraType === 'mor' && '🔮'}
+                        {currentArt.auraType === 'mavi' && '🌊'}
+                        {currentArt.auraType === 'yeşil' && '🌿'}
+                        {currentArt.auraType === 'sarı' && '☀️'}
+                        {currentArt.auraType === 'turuncu' && '🔥'}
+                        {currentArt.auraType === 'kırmızı' && '❤️'}
+                        {currentArt.auraType === 'indigo' && '🌌'}
+                        {currentArt.auraType === 'altın' && '✨'}
+                        {currentArt.auraType === 'gümüş' && '🌙'}
+                        {currentArt.auraType === 'kristal' && '💎'}
+                        {currentArt.auraType === 'gökkuşağı' && '🌈'}
+                        {currentArt.auraType === 'beyaz' && '☁️'}
                       </span>
                     </div>
                     {currentArt.auraType.charAt(0).toUpperCase() + currentArt.auraType.slice(1)} Aura
@@ -892,6 +1166,18 @@ const Gallery: React.FC = () => {
                   {currentArt.auraType === 'analytical' && '🔍'}
                   {currentArt.auraType === 'empathetic' && '💗'}
                   {currentArt.auraType === 'energetic' && '⚡'}
+                  {currentArt.auraType === 'mor' && '🔮'}
+                  {currentArt.auraType === 'mavi' && '🌊'}
+                  {currentArt.auraType === 'yeşil' && '🌿'}
+                  {currentArt.auraType === 'sarı' && '☀️'}
+                  {currentArt.auraType === 'turuncu' && '🔥'}
+                  {currentArt.auraType === 'kırmızı' && '❤️'}
+                  {currentArt.auraType === 'indigo' && '🌌'}
+                  {currentArt.auraType === 'altın' && '✨'}
+                  {currentArt.auraType === 'gümüş' && '🌙'}
+                  {currentArt.auraType === 'kristal' && '💎'}
+                  {currentArt.auraType === 'gökkuşağı' && '🌈'}
+                  {currentArt.auraType === 'beyaz' && '☁️'}
                 </div>
               </div>
               
@@ -1157,6 +1443,103 @@ const Gallery: React.FC = () => {
                             coşkulu ve pozitif bir karaktere sahiptir.
                           </p>
                         )}
+                        {currentArt.auraType === 'mor' && (
+                          <p>
+                            Bu mor aura, ruhsallığın ve sezgisel yeteneklerin bir yansımasıdır. 
+                            Derin ve mistik bir enerji akışıyla, içsel bilgeliğin ve 
+                            manevi farkındalığın güçlü olduğu bir ruh hali yansıtır. 
+                            Sezgileri kuvvetli, vizyoner ve transformasyonel bir 
+                            karaktere sahiptir.
+                          </p>
+                        )}
+                        {currentArt.auraType === 'mavi' && (
+                          <p>
+                            Bu mavi aura, sakinliğin ve iletişimin bir temsilidir. 
+                            Huzurlu ve berrak bir enerji akışıyla, dürüstlüğün ve 
+                            kendini ifade etmenin ön planda olduğu bir ruh hali yansıtır. 
+                            Sakin, güvenilir ve iyi bir dinleyici olan bir karaktere sahiptir.
+                          </p>
+                        )}
+                        {currentArt.auraType === 'yeşil' && (
+                          <p>
+                            Bu yeşil aura, dengenin ve iyileşmenin bir temsilidir. 
+                            Canlandırıcı ve uyumlu bir enerji akışıyla, sevginin ve 
+                            doğayla bağlantının güçlü olduğu bir ruh hali yansıtır. 
+                            Şefkatli, iyileştirici ve adaptif bir karaktere sahiptir.
+                          </p>
+                        )}
+                        {currentArt.auraType === 'sarı' && (
+                          <p>
+                            Bu sarı aura, mutluluğun ve zihinsel aktivitenin bir temsilidir. 
+                            Parlak ve neşeli bir enerji akışıyla, pozitif düşüncenin ve 
+                            entelektüel merakın yüksek olduğu bir ruh hali yansıtır. 
+                            Optimist, aydınlık ve iletişimi güçlü bir karaktere sahiptir.
+                          </p>
+                        )}
+                        {currentArt.auraType === 'turuncu' && (
+                          <p>
+                            Bu turuncu aura, yaratıcılığın ve sosyalliğin bir temsilidir. 
+                            Sıcak ve canlı bir enerji akışıyla, neşenin ve sosyal 
+                            etkileşimin ön planda olduğu bir ruh hali yansıtır. 
+                            Maceraperest, tutkulu ve girişimci bir karaktere sahiptir.
+                          </p>
+                        )}
+                        {currentArt.auraType === 'kırmızı' && (
+                          <p>
+                            Bu kırmızı aura, gücün ve tutkunun bir temsilidir. 
+                            Yoğun ve dinamik bir enerji akışıyla, kararlılığın ve 
+                            cesaretin ön planda olduğu bir ruh hali yansıtır. 
+                            Güçlü, kararlı ve lider ruhlu bir karaktere sahiptir.
+                          </p>
+                        )}
+                        {currentArt.auraType === 'indigo' && (
+                          <p>
+                            Bu indigo aura, sezginin ve ruhsal farkındalığın bir temsilidir. 
+                            Derin ve yoğun bir enerji akışıyla, içsel bilgeliğin ve 
+                            psişik yeteneklerin güçlü olduğu bir ruh hali yansıtır. 
+                            Sezgisel, içgörülü ve vizyoner bir karaktere sahiptir.
+                          </p>
+                        )}
+                        {currentArt.auraType === 'altın' && (
+                          <p>
+                            Bu altın aura, bilgeliğin ve aydınlanmanın bir temsilidir. 
+                            Parlak ve asil bir enerji akışıyla, ruhsal gelişimin ve 
+                            yüksek bilincin ön planda olduğu bir ruh hali yansıtır. 
+                            Bilge, ilham verici ve koruyucu bir karaktere sahiptir.
+                          </p>
+                        )}
+                        {currentArt.auraType === 'gümüş' && (
+                          <p>
+                            Bu gümüş aura, değişimin ve esnekliğin bir temsilidir. 
+                            Parlak ve akışkan bir enerji akışıyla, dönüşümün ve 
+                            adaptasyonun ön planda olduğu bir ruh hali yansıtır. 
+                            Uyumlu, yenilikçi ve diplomatik bir karaktere sahiptir.
+                          </p>
+                        )}
+                        {currentArt.auraType === 'kristal' && (
+                          <p>
+                            Bu kristal aura, saflığın ve yüksek titreşimin bir temsilidir. 
+                            Berrak ve parlak bir enerji akışıyla, şeffaflığın ve 
+                            ışık taşıyıcılığının ön planda olduğu bir ruh hali yansıtır. 
+                            Saf, güçlü bir enerji alanına sahip ve yüksek bilinçli bir karakteri vardır.
+                          </p>
+                        )}
+                        {currentArt.auraType === 'gökkuşağı' && (
+                          <p>
+                            Bu gökkuşağı aura, çok boyutluluğun ve bütünlüğün bir temsilidir. 
+                            Çok renkli ve dinamik bir enerji akışıyla, tüm spektrumun 
+                            dengesini taşıyan bir ruh hali yansıtır. 
+                            Çok yönlü, kapsayıcı ve bütünleştirici bir karaktere sahiptir.
+                          </p>
+                        )}
+                        {currentArt.auraType === 'beyaz' && (
+                          <p>
+                            Bu beyaz aura, saflığın ve yüksek titreşimin bir temsilidir. 
+                            Parlak ve berrak bir enerji akışıyla, ruhsal uyanışın ve 
+                            koruyucu enerjinin ön planda olduğu bir ruh hali yansıtır. 
+                            Koruyucu, iyileştirici ve yüksek bilinçli bir karaktere sahiptir.
+                          </p>
+                        )}
                       </div>
                     </div>
                   )}
@@ -1253,6 +1636,426 @@ const Gallery: React.FC = () => {
                                 }}>Hayal Gücü</li>
                               </>
                             )}
+                            {currentArt.auraType === 'analytical' && (
+                              <>
+                                <li style={{
+                                  background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light)15, var(--color-${currentArt.auraType}-dark)05)`,
+                                  padding: '8px 16px',
+                                  borderRadius: '20px',
+                                  fontSize: '14px',
+                                  color: '#444',
+                                  border: `1px solid var(--color-${currentArt.auraType}-light)33`
+                                }}>Mantıksal Düşünme</li>
+                                <li style={{
+                                  background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light)15, var(--color-${currentArt.auraType}-dark)05)`,
+                                  padding: '8px 16px',
+                                  borderRadius: '20px',
+                                  fontSize: '14px',
+                                  color: '#444',
+                                  border: `1px solid var(--color-${currentArt.auraType}-light)33`
+                                }}>Problem Çözme</li>
+                                <li style={{
+                                  background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light)15, var(--color-${currentArt.auraType}-dark)05)`,
+                                  padding: '8px 16px',
+                                  borderRadius: '20px',
+                                  fontSize: '14px',
+                                  color: '#444',
+                                  border: `1px solid var(--color-${currentArt.auraType}-light)33`
+                                }}>Stratejik Planlama</li>
+                              </>
+                            )}
+                            {currentArt.auraType === 'empathetic' && (
+                              <>
+                                <li style={{
+                                  background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light)15, var(--color-${currentArt.auraType}-dark)05)`,
+                                  padding: '8px 16px',
+                                  borderRadius: '20px',
+                                  fontSize: '14px',
+                                  color: '#444',
+                                  border: `1px solid var(--color-${currentArt.auraType}-light)33`
+                                }}>Duygusal Zeka</li>
+                                <li style={{
+                                  background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light)15, var(--color-${currentArt.auraType}-dark)05)`,
+                                  padding: '8px 16px',
+                                  borderRadius: '20px',
+                                  fontSize: '14px',
+                                  color: '#444',
+                                  border: `1px solid var(--color-${currentArt.auraType}-light)33`
+                                }}>Anlayış</li>
+                                <li style={{
+                                  background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light)15, var(--color-${currentArt.auraType}-dark)05)`,
+                                  padding: '8px 16px',
+                                  borderRadius: '20px',
+                                  fontSize: '14px',
+                                  color: '#444',
+                                  border: `1px solid var(--color-${currentArt.auraType}-light)33`
+                                }}>İlişki Kurma</li>
+                              </>
+                            )}
+                            {currentArt.auraType === 'energetic' && (
+                              <>
+                                <li style={{
+                                  background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light)15, var(--color-${currentArt.auraType}-dark)05)`,
+                                  padding: '8px 16px',
+                                  borderRadius: '20px',
+                                  fontSize: '14px',
+                                  color: '#444',
+                                  border: `1px solid var(--color-${currentArt.auraType}-light)33`
+                                }}>Motivasyon</li>
+                                <li style={{
+                                  background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light)15, var(--color-${currentArt.auraType}-dark)05)`,
+                                  padding: '8px 16px',
+                                  borderRadius: '20px',
+                                  fontSize: '14px',
+                                  color: '#444',
+                                  border: `1px solid var(--color-${currentArt.auraType}-light)33`
+                                }}>Pozitif Enerji</li>
+                                <li style={{
+                                  background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light)15, var(--color-${currentArt.auraType}-dark)05)`,
+                                  padding: '8px 16px',
+                                  borderRadius: '20px',
+                                  fontSize: '14px',
+                                  color: '#444',
+                                  border: `1px solid var(--color-${currentArt.auraType}-light)33`
+                                }}>Dinamizm</li>
+                              </>
+                            )}
+                            {currentArt.auraType === 'mor' && (
+                              <>
+                                <li style={{
+                                  background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light)15, var(--color-${currentArt.auraType}-dark)05)`,
+                                  padding: '8px 16px',
+                                  borderRadius: '20px',
+                                  fontSize: '14px',
+                                  color: '#444',
+                                  border: `1px solid var(--color-${currentArt.auraType}-light)33`
+                                }}>Ruhsal Farkındalık</li>
+                                <li style={{
+                                  background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light)15, var(--color-${currentArt.auraType}-dark)05)`,
+                                  padding: '8px 16px',
+                                  borderRadius: '20px',
+                                  fontSize: '14px',
+                                  color: '#444',
+                                  border: `1px solid var(--color-${currentArt.auraType}-light)33`
+                                }}>Sezgisel Yetenek</li>
+                                <li style={{
+                                  background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light)15, var(--color-${currentArt.auraType}-dark)05)`,
+                                  padding: '8px 16px',
+                                  borderRadius: '20px',
+                                  fontSize: '14px',
+                                  color: '#444',
+                                  border: `1px solid var(--color-${currentArt.auraType}-light)33`
+                                }}>Derin Düşünce</li>
+                              </>
+                            )}
+                            {currentArt.auraType === 'mavi' && (
+                              <>
+                                <li style={{
+                                  background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light)15, var(--color-${currentArt.auraType}-dark)05)`,
+                                  padding: '8px 16px',
+                                  borderRadius: '20px',
+                                  fontSize: '14px',
+                                  color: '#444',
+                                  border: `1px solid var(--color-${currentArt.auraType}-light)33`
+                                }}>İletişim</li>
+                                <li style={{
+                                  background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light)15, var(--color-${currentArt.auraType}-dark)05)`,
+                                  padding: '8px 16px',
+                                  borderRadius: '20px',
+                                  fontSize: '14px',
+                                  color: '#444',
+                                  border: `1px solid var(--color-${currentArt.auraType}-light)33`
+                                }}>Dürüstlük</li>
+                                <li style={{
+                                  background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light)15, var(--color-${currentArt.auraType}-dark)05)`,
+                                  padding: '8px 16px',
+                                  borderRadius: '20px',
+                                  fontSize: '14px',
+                                  color: '#444',
+                                  border: `1px solid var(--color-${currentArt.auraType}-light)33`
+                                }}>İç Huzur</li>
+                              </>
+                            )}
+                            {currentArt.auraType === 'yeşil' && (
+                              <>
+                                <li style={{
+                                  background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light)15, var(--color-${currentArt.auraType}-dark)05)`,
+                                  padding: '8px 16px',
+                                  borderRadius: '20px',
+                                  fontSize: '14px',
+                                  color: '#444',
+                                  border: `1px solid var(--color-${currentArt.auraType}-light)33`
+                                }}>Şifa Verici</li>
+                                <li style={{
+                                  background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light)15, var(--color-${currentArt.auraType}-dark)05)`,
+                                  padding: '8px 16px',
+                                  borderRadius: '20px',
+                                  fontSize: '14px',
+                                  color: '#444',
+                                  border: `1px solid var(--color-${currentArt.auraType}-light)33`
+                                }}>Denge</li>
+                                <li style={{
+                                  background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light)15, var(--color-${currentArt.auraType}-dark)05)`,
+                                  padding: '8px 16px',
+                                  borderRadius: '20px',
+                                  fontSize: '14px',
+                                  color: '#444',
+                                  border: `1px solid var(--color-${currentArt.auraType}-light)33`
+                                }}>Doğayla Bağlantı</li>
+                              </>
+                            )}
+                            {currentArt.auraType === 'sarı' && (
+                              <>
+                                <li style={{
+                                  background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light)15, var(--color-${currentArt.auraType}-dark)05)`,
+                                  padding: '8px 16px',
+                                  borderRadius: '20px',
+                                  fontSize: '14px',
+                                  color: '#444',
+                                  border: `1px solid var(--color-${currentArt.auraType}-light)33`
+                                }}>Pozitif Düşünce</li>
+                                <li style={{
+                                  background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light)15, var(--color-${currentArt.auraType}-dark)05)`,
+                                  padding: '8px 16px',
+                                  borderRadius: '20px',
+                                  fontSize: '14px',
+                                  color: '#444',
+                                  border: `1px solid var(--color-${currentArt.auraType}-light)33`
+                                }}>Zihinsel Netlik</li>
+                                <li style={{
+                                  background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light)15, var(--color-${currentArt.auraType}-dark)05)`,
+                                  padding: '8px 16px',
+                                  borderRadius: '20px',
+                                  fontSize: '14px',
+                                  color: '#444',
+                                  border: `1px solid var(--color-${currentArt.auraType}-light)33`
+                                }}>Neşe</li>
+                              </>
+                            )}
+                            {currentArt.auraType === 'turuncu' && (
+                              <>
+                                <li style={{
+                                  background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light)15, var(--color-${currentArt.auraType}-dark)05)`,
+                                  padding: '8px 16px',
+                                  borderRadius: '20px',
+                                  fontSize: '14px',
+                                  color: '#444',
+                                  border: `1px solid var(--color-${currentArt.auraType}-light)33`
+                                }}>Sosyallik</li>
+                                <li style={{
+                                  background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light)15, var(--color-${currentArt.auraType}-dark)05)`,
+                                  padding: '8px 16px',
+                                  borderRadius: '20px',
+                                  fontSize: '14px',
+                                  color: '#444',
+                                  border: `1px solid var(--color-${currentArt.auraType}-light)33`
+                                }}>Girişimcilik</li>
+                                <li style={{
+                                  background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light)15, var(--color-${currentArt.auraType}-dark)05)`,
+                                  padding: '8px 16px',
+                                  borderRadius: '20px',
+                                  fontSize: '14px',
+                                  color: '#444',
+                                  border: `1px solid var(--color-${currentArt.auraType}-light)33`
+                                }}>Macera Ruhu</li>
+                              </>
+                            )}
+                            {currentArt.auraType === 'kırmızı' && (
+                              <>
+                                <li style={{
+                                  background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light)15, var(--color-${currentArt.auraType}-dark)05)`,
+                                  padding: '8px 16px',
+                                  borderRadius: '20px',
+                                  fontSize: '14px',
+                                  color: '#444',
+                                  border: `1px solid var(--color-${currentArt.auraType}-light)33`
+                                }}>Güç</li>
+                                <li style={{
+                                  background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light)15, var(--color-${currentArt.auraType}-dark)05)`,
+                                  padding: '8px 16px',
+                                  borderRadius: '20px',
+                                  fontSize: '14px',
+                                  color: '#444',
+                                  border: `1px solid var(--color-${currentArt.auraType}-light)33`
+                                }}>Cesaret</li>
+                                <li style={{
+                                  background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light)15, var(--color-${currentArt.auraType}-dark)05)`,
+                                  padding: '8px 16px',
+                                  borderRadius: '20px',
+                                  fontSize: '14px',
+                                  color: '#444',
+                                  border: `1px solid var(--color-${currentArt.auraType}-light)33`
+                                }}>Kararlılık</li>
+                              </>
+                            )}
+                            {currentArt.auraType === 'indigo' && (
+                              <>
+                                <li style={{
+                                  background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light)15, var(--color-${currentArt.auraType}-dark)05)`,
+                                  padding: '8px 16px',
+                                  borderRadius: '20px',
+                                  fontSize: '14px',
+                                  color: '#444',
+                                  border: `1px solid var(--color-${currentArt.auraType}-light)33`
+                                }}>Sezgisel Algı</li>
+                                <li style={{
+                                  background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light)15, var(--color-${currentArt.auraType}-dark)05)`,
+                                  padding: '8px 16px',
+                                  borderRadius: '20px',
+                                  fontSize: '14px',
+                                  color: '#444',
+                                  border: `1px solid var(--color-${currentArt.auraType}-light)33`
+                                }}>Ruhsal Görü</li>
+                                <li style={{
+                                  background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light)15, var(--color-${currentArt.auraType}-dark)05)`,
+                                  padding: '8px 16px',
+                                  borderRadius: '20px',
+                                  fontSize: '14px',
+                                  color: '#444',
+                                  border: `1px solid var(--color-${currentArt.auraType}-light)33`
+                                }}>İçsel Bilgi</li>
+                              </>
+                            )}
+                            {currentArt.auraType === 'altın' && (
+                              <>
+                                <li style={{
+                                  background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light)15, var(--color-${currentArt.auraType}-dark)05)`,
+                                  padding: '8px 16px',
+                                  borderRadius: '20px',
+                                  fontSize: '14px',
+                                  color: '#444',
+                                  border: `1px solid var(--color-${currentArt.auraType}-light)33`
+                                }}>Bilgelik</li>
+                                <li style={{
+                                  background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light)15, var(--color-${currentArt.auraType}-dark)05)`,
+                                  padding: '8px 16px',
+                                  borderRadius: '20px',
+                                  fontSize: '14px',
+                                  color: '#444',
+                                  border: `1px solid var(--color-${currentArt.auraType}-light)33`
+                                }}>Koruma</li>
+                                <li style={{
+                                  background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light)15, var(--color-${currentArt.auraType}-dark)05)`,
+                                  padding: '8px 16px',
+                                  borderRadius: '20px',
+                                  fontSize: '14px',
+                                  color: '#444',
+                                  border: `1px solid var(--color-${currentArt.auraType}-light)33`
+                                }}>Yüksek Bilinç</li>
+                              </>
+                            )}
+                            {currentArt.auraType === 'gümüş' && (
+                              <>
+                                <li style={{
+                                  background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light)15, var(--color-${currentArt.auraType}-dark)05)`,
+                                  padding: '8px 16px',
+                                  borderRadius: '20px',
+                                  fontSize: '14px',
+                                  color: '#444',
+                                  border: `1px solid var(--color-${currentArt.auraType}-light)33`
+                                }}>Değişime Uyum</li>
+                                <li style={{
+                                  background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light)15, var(--color-${currentArt.auraType}-dark)05)`,
+                                  padding: '8px 16px',
+                                  borderRadius: '20px',
+                                  fontSize: '14px',
+                                  color: '#444',
+                                  border: `1px solid var(--color-${currentArt.auraType}-light)33`
+                                }}>Diplomasi</li>
+                                <li style={{
+                                  background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light)15, var(--color-${currentArt.auraType}-dark)05)`,
+                                  padding: '8px 16px',
+                                  borderRadius: '20px',
+                                  fontSize: '14px',
+                                  color: '#444',
+                                  border: `1px solid var(--color-${currentArt.auraType}-light)33`
+                                }}>Esneklik</li>
+                              </>
+                            )}
+                            {currentArt.auraType === 'kristal' && (
+                              <>
+                                <li style={{
+                                  background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light)15, var(--color-${currentArt.auraType}-dark)05)`,
+                                  padding: '8px 16px',
+                                  borderRadius: '20px',
+                                  fontSize: '14px',
+                                  color: '#444',
+                                  border: `1px solid var(--color-${currentArt.auraType}-light)33`
+                                }}>Saflık</li>
+                                <li style={{
+                                  background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light)15, var(--color-${currentArt.auraType}-dark)05)`,
+                                  padding: '8px 16px',
+                                  borderRadius: '20px',
+                                  fontSize: '14px',
+                                  color: '#444',
+                                  border: `1px solid var(--color-${currentArt.auraType}-light)33`
+                                }}>Işık Taşıyıcılık</li>
+                                <li style={{
+                                  background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light)15, var(--color-${currentArt.auraType}-dark)05)`,
+                                  padding: '8px 16px',
+                                  borderRadius: '20px',
+                                  fontSize: '14px',
+                                  color: '#444',
+                                  border: `1px solid var(--color-${currentArt.auraType}-light)33`
+                                }}>Yüksek Titreşim</li>
+                              </>
+                            )}
+                            {currentArt.auraType === 'gökkuşağı' && (
+                              <>
+                                <li style={{
+                                  background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light)15, var(--color-${currentArt.auraType}-dark)05)`,
+                                  padding: '8px 16px',
+                                  borderRadius: '20px',
+                                  fontSize: '14px',
+                                  color: '#444',
+                                  border: `1px solid var(--color-${currentArt.auraType}-light)33`
+                                }}>Çok Yönlülük</li>
+                                <li style={{
+                                  background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light)15, var(--color-${currentArt.auraType}-dark)05)`,
+                                  padding: '8px 16px',
+                                  borderRadius: '20px',
+                                  fontSize: '14px',
+                                  color: '#444',
+                                  border: `1px solid var(--color-${currentArt.auraType}-light)33`
+                                }}>Bütünleştirme</li>
+                                <li style={{
+                                  background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light)15, var(--color-${currentArt.auraType}-dark)05)`,
+                                  padding: '8px 16px',
+                                  borderRadius: '20px',
+                                  fontSize: '14px',
+                                  color: '#444',
+                                  border: `1px solid var(--color-${currentArt.auraType}-light)33`
+                                }}>Denge</li>
+                              </>
+                            )}
+                            {currentArt.auraType === 'beyaz' && (
+                              <>
+                                <li style={{
+                                  background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light)15, var(--color-${currentArt.auraType}-dark)05)`,
+                                  padding: '8px 16px',
+                                  borderRadius: '20px',
+                                  fontSize: '14px',
+                                  color: '#444',
+                                  border: `1px solid var(--color-${currentArt.auraType}-light)33`
+                                }}>Saflık</li>
+                                <li style={{
+                                  background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light)15, var(--color-${currentArt.auraType}-dark)05)`,
+                                  padding: '8px 16px',
+                                  borderRadius: '20px',
+                                  fontSize: '14px',
+                                  color: '#444',
+                                  border: `1px solid var(--color-${currentArt.auraType}-light)33`
+                                }}>Koruma</li>
+                                <li style={{
+                                  background: `linear-gradient(135deg, var(--color-${currentArt.auraType}-light)15, var(--color-${currentArt.auraType}-dark)05)`,
+                                  padding: '8px 16px',
+                                  borderRadius: '20px',
+                                  fontSize: '14px',
+                                  color: '#444',
+                                  border: `1px solid var(--color-${currentArt.auraType}-light)33`
+                                }}>Ruhsal Uyanış</li>
+                              </>
+                            )}
                           </ul>
                         </div>
 
@@ -1287,6 +2090,30 @@ const Gallery: React.FC = () => {
                               "Bu aura tipi, insan ilişkilerinde ve iletişimde doğal bir yetenek gösterir. Danışmanlık ve liderlik alanlarında başarılı olabilir."}
                             {currentArt.auraType === 'energetic' && 
                               "Bu aura tipi, dinamik projelerde ve hızlı tempolu ortamlarda üstün performans sergiler. Spor ve organizasyon alanlarında başarılı olabilir."}
+                            {currentArt.auraType === 'mor' && 
+                              "Bu aura tipi, ruhsal çalışmalarda ve transformasyonel süreçlerde büyük potansiyel taşır. Koçluk, terapi ve manevi rehberlik alanlarında başarılı olabilir."}
+                            {currentArt.auraType === 'mavi' && 
+                              "Bu aura tipi, iletişim ve ifade gerektiren alanlarda üstün yetenekler sergiler. Öğretmenlik, yazarlık ve müzakerecilik alanlarında başarılı olabilir."}
+                            {currentArt.auraType === 'yeşil' && 
+                              "Bu aura tipi, iyileştirme ve denge oluşturma konularında büyük potansiyel taşır. Sağlık hizmetleri, çevre koruma ve arabuluculuk alanlarında başarılı olabilir."}
+                            {currentArt.auraType === 'sarı' && 
+                              "Bu aura tipi, bilgi paylaşımı ve zihinsel çalışmalarda üstün yetenekler sergiler. Eğitim, araştırma ve iletişim alanlarında başarılı olabilir."}
+                            {currentArt.auraType === 'turuncu' && 
+                              "Bu aura tipi, yaratıcı işbirliği ve sosyal organizasyon konularında büyük potansiyel taşır. Etkinlik yönetimi, pazarlama ve sosyal medya alanlarında başarılı olabilir."}
+                            {currentArt.auraType === 'kırmızı' && 
+                              "Bu aura tipi, liderlik ve inisiyatif gerektiren alanlarda üstün yetenekler sergiler. Girişimcilik, spor ve yöneticilik alanlarında başarılı olabilir."}
+                            {currentArt.auraType === 'indigo' && 
+                              "Bu aura tipi, sezgisel anlayış ve vizyonerlik konularında büyük potansiyel taşır. Sanat, teknoloji inovasyonu ve manevi rehberlik alanlarında başarılı olabilir."}
+                            {currentArt.auraType === 'altın' && 
+                              "Bu aura tipi, bilgelik aktarımı ve koruyucu liderlik konularında üstün yetenekler sergiler. Mentorluk, stratejik danışmanlık ve topluluk liderliği alanlarında başarılı olabilir."}
+                            {currentArt.auraType === 'gümüş' && 
+                              "Bu aura tipi, değişimin yönetimi ve esnek adaptasyon konularında büyük potansiyel taşır. Diplomasi, proje yönetimi ve inovasyon alanlarında başarılı olabilir."}
+                            {currentArt.auraType === 'kristal' && 
+                              "Bu aura tipi, bilgiyi net bir şekilde aktarma ve yüksek titreşimli enerji çalışmalarında üstün yetenekler sergiler. Eğitim, enerji şifacılığı ve teknoloji alanlarında başarılı olabilir."}
+                            {currentArt.auraType === 'gökkuşağı' && 
+                              "Bu aura tipi, çok yönlü yetenekleri birleştirme ve bütünleştirici yaklaşımlar konusunda büyük potansiyel taşır. Multidisipliner projeler, kültürel arabuluculuk ve sanatsal üretim alanlarında başarılı olabilir."}
+                            {currentArt.auraType === 'beyaz' && 
+                              "Bu aura tipi, saflaştırıcı ve arındırıcı çalışmalar konusunda üstün yetenekler sergiler. Manevi öğretim, şifacılık ve derin meditasyon uygulamaları alanlarında başarılı olabilir."}
                           </p>
                         </div>
 

@@ -2,82 +2,15 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useLocation, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 // DeepSeek servisini import ediyorum
-import { getAuraStoryFromDeepSeek, getQuickAuraSummary, getAuraInsightsFromLlama } from '../services/deepseekService';
+import { getAuraStoryFromDeepSeek, getAuraInsightsFromLlama, determineDynamicAuraType, auraTypes } from '../services/deepseekService';
 
 // Debug modu
 const DEBUG_MODE = true;
 
-// Gelişmiş aura tipleri
-const auraTypes = {
-  creative: {
-    title: 'Yaratıcı Aura',
-    description: 'Sizin auranız yaratıcılık ve ilham ile parlıyor. Yenilikçi fikirleriniz ve dünyayı benzersiz perspektifinizle görme yeteneğiniz sizi özel kılıyor.',
-    color: 'creative-gradient',
-    gradient: 'linear-gradient(135deg, #FF61D2, #FE9090)',
-    darkGradient: 'linear-gradient(135deg, #A13E95, #D75A5A)',
-    particleColor: '#FF61D2',
-    image: '/creative-aura.jpg',
-    icon: '✨',
-    strengths: 'Yenilikçi düşünme, bağlantılar kurma, sezgisel anlayış',
-    potential: 'Benzersiz sanat eserleri, orijinal fikirler, yenilikçi çözümler üretme',
-    thinkingStyle: 'Yanal düşünme, bağlantılar kurma, sınırların dışına çıkma'
-  },
-  analytical: {
-    title: 'Analitik Aura',
-    description: 'Sizin auranız mantık ve düzen ile parlıyor. Detaylara olan dikkatiniz ve karmaşık problemleri çözme yeteneğiniz sizi farklı kılıyor.',
-    color: 'analytical-gradient',
-    gradient: 'linear-gradient(135deg, #5B8CFF, #36C5F0)',
-    darkGradient: 'linear-gradient(135deg, #345C99, #1F7799)',
-    particleColor: '#5B8CFF',
-    image: '/analytical-aura.jpg',
-    icon: '🔍',
-    strengths: 'Detaylara dikkat, mantıksal düşünme, problem çözme',
-    potential: 'Karmaşık sistemleri anlama, etkili stratejiler geliştirme, verimli çözümler bulma',
-    thinkingStyle: 'Sistematik, yapısal, mantıksal ve detaylı düşünme'
-  },
-  empathetic: {
-    title: 'Empatik Aura',
-    description: 'Sizin auranız merhamet ve anlayış ile parlıyor. Başkalarının duygularını algılama ve onlarla bağlantı kurma yeteneğiniz sizi özel kılıyor.',
-    color: 'empathetic-gradient',
-    gradient: 'linear-gradient(135deg, #41D5A8, #30BFDD)',
-    darkGradient: 'linear-gradient(135deg, #228A6B, #1F7995)',
-    particleColor: '#41D5A8',
-    image: '/empathetic-aura.jpg',
-    icon: '💗',
-    strengths: 'Duygusal zeka, dinleme, insanları anlama',
-    potential: 'Güçlü ilişkiler kurma, insanları motive etme, duygusal destek sağlama',
-    thinkingStyle: 'Duygusal, sezgisel, ilişkisel ve anlamsal düşünme'
-  },
-  energetic: {
-    title: 'Enerjik Aura',
-    description: 'Sizin auranız dinamizm ve canlılık ile parlıyor. Hayata karşı tutkunuz ve sürekli hareket halinde olma isteğiniz sizi farklı kılıyor.',
-    color: 'energetic-gradient',
-    gradient: 'linear-gradient(135deg, #FFB046, #FF7070)',
-    darkGradient: 'linear-gradient(135deg, #D7812F, #D75050)',
-    particleColor: '#FFB046',
-    image: '/energetic-aura.jpg',
-    icon: '⚡',
-    strengths: 'İnitiasif alma, tutkulu çalışma, enerji yayma',
-    potential: 'Zorlu projeleri tamamlama, ekipleri harekete geçirme, hızlı sonuçlar elde etme',
-    thinkingStyle: 'Pratik, sonuç odaklı, hızlı ve aksiyon bazlı düşünme'
-  }
-};
-
 // Yardımcı fonksiyon: Cevaplara göre aura tipini belirler
 const determineAuraType = (answers: {[key: number]: string}) => {
-  // Yanıtlardaki seçenek sayısını sayalım
-  const aCount = Object.values(answers).filter(val => val === 'a').length;
-  const bCount = Object.values(answers).filter(val => val === 'b').length;
-  const cCount = Object.values(answers).filter(val => val === 'c').length;
-  const dCount = Object.values(answers).filter(val => val === 'd').length;
-  
-  // En yüksek sayıya göre aura tipini belirleyelim
-  const maxCount = Math.max(aCount, bCount, cCount, dCount);
-  
-  if (maxCount === aCount) return 'analytical';
-  if (maxCount === bCount) return 'creative';
-  if (maxCount === cCount) return 'empathetic';
-  return 'energetic';
+  // Yeni dinamik aura tipi belirleme fonksiyonunu kullan
+  return determineDynamicAuraType(answers);
 };
 
 // Aura parçacık efekti bileşeni
@@ -155,6 +88,12 @@ const AuraParticles = ({ color }: { color: string }) => {
   return <canvas ref={canvasRef} className="aura-particles"></canvas>;
 };
 
+// Hızlı özet fonksiyonu - servisten erişim olmadığı için local tanımlama
+const getQuickAuraSummary = async (auraType: string, username: string): Promise<string> => {
+  // Basit bir özet döndür
+  return `${username}'ın ${auraType} aurası analiz ediliyor...`;
+};
+
 // Benzersiz kullanıcı ID'si oluşturmak için yardımcı fonksiyon
 const generateUserId = () => {
   const storedUserId = localStorage.getItem('auralize_user_id');
@@ -213,14 +152,17 @@ const AuraResult: React.FC = () => {
     strengths: string;
     potential: string;
     thinkingStyle: string;
+    auraTitle: string;
     source: 'llama' | 'default' | null;
   }>({
     strengths: '',
     potential: '',
     thinkingStyle: '',
+    auraTitle: '',
     source: null
   });
   const [isInsightsLoading, setIsInsightsLoading] = useState(false);
+  const [auraTitle, setAuraTitle] = useState<string>('');
   
   // Quiz cevaplarını alıyoruz
   const answers = location.state?.answers || {};
@@ -266,7 +208,34 @@ const AuraResult: React.FC = () => {
     // Aura tipini belirle
     const determinedType = determineAuraType(answers);
     setAuraType(determinedType);
-    setAuraData(auraTypes[determinedType as keyof typeof auraTypes]);
+    
+    // Dinamik aura başlığı için varsayılan değer
+    const defaultTitle = `${determinedType.charAt(0).toUpperCase() + determinedType.slice(1)} Aurası`;
+    setAuraTitle(defaultTitle);
+    
+    // Mevcut aura tiplerinden uygun veriyi seç veya varsayılan değerleri kullan
+    const auraTypeData = auraTypes[determinedType as keyof typeof auraTypes];
+    if (auraTypeData) {
+      setAuraData({
+        title: auraTypeData.name || defaultTitle,
+        description: auraTypeData.description,
+        // Varsayılan bir gradient renkler seti
+        gradient: 'linear-gradient(135deg, #FF61D2, #FE9090)',
+        darkGradient: 'linear-gradient(135deg, #A13E95, #D75A5A)',
+        particleColor: '#FF61D2',
+        icon: '✨'
+      });
+    } else {
+      // Varsayılan değerler
+      setAuraData({
+        title: defaultTitle,
+        description: 'Senin auran özel ve benzersiz bir enerji taşıyor.',
+        gradient: 'linear-gradient(135deg, #FF61D2, #FE9090)',
+        darkGradient: 'linear-gradient(135deg, #A13E95, #D75A5A)',
+        particleColor: '#FF61D2',
+        icon: '✨'
+      });
+    }
     
     // Aşamalı hikaye yükleme stratejisi
     const loadStoryInStages = async () => {
@@ -301,14 +270,20 @@ const AuraResult: React.FC = () => {
           const insightsData = await getAuraInsightsFromLlama(determinedType, currentUsername, answers);
           if (DEBUG_MODE) console.log("[DEBUG] İçgörüler alındı:", insightsData);
           setInsights(insightsData);
+          
+          // Dinamik aura başlığını güncelle
+          if (insightsData.auraTitle) {
+            setAuraTitle(insightsData.auraTitle);
+          }
         } catch (insightsError) {
           console.error("İçgörüler alınırken hata oluştu:", insightsError);
           if (DEBUG_MODE) console.log("[DEBUG] İçgörüler yüklenirken hata:", insightsError);
           // Varsayılan içgörüleri kullan
           setInsights({
-            strengths: auraTypes[determinedType as keyof typeof auraTypes].strengths || '',
-            potential: auraTypes[determinedType as keyof typeof auraTypes].potential || '',
-            thinkingStyle: auraTypes[determinedType as keyof typeof auraTypes].thinkingStyle || '',
+            strengths: '',
+            potential: '',
+            thinkingStyle: '',
+            auraTitle: `${determinedType.charAt(0).toUpperCase() + determinedType.slice(1)} Aurası`,
             source: 'default'
           });
         } finally {
@@ -729,7 +704,7 @@ const AuraResult: React.FC = () => {
                   fontWeight: 700
                 }}
               >
-                Auran Hazır!
+                {auraTitle || auraData?.title || 'Aura Analizin'}
               </h1>
               <p 
                 className="aura-subtitle" 
