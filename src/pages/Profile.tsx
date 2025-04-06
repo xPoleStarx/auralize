@@ -270,10 +270,94 @@ const Profile: React.FC = () => {
         dark: '#FF7070',
         gradient: 'linear-gradient(135deg, #FFB046, #FF7070)',
         altGradient: 'linear-gradient(to right, #FFB046 0%, #FF7070 100%)'
+      },
+      // Yeni aura tipleri için renkler ekleyelim
+      mor: {
+        light: '#9D4EDD',
+        dark: '#7B2CBF',
+        gradient: 'linear-gradient(135deg, #9D4EDD, #7B2CBF)',
+        altGradient: 'linear-gradient(to right, #9D4EDD 0%, #7B2CBF 100%)'
+      },
+      mavi: {
+        light: '#4361EE',
+        dark: '#3A0CA3',
+        gradient: 'linear-gradient(135deg, #4361EE, #3A0CA3)',
+        altGradient: 'linear-gradient(to right, #4361EE 0%, #3A0CA3 100%)'
+      },
+      yeşil: {
+        light: '#2DC653',
+        dark: '#148F77',
+        gradient: 'linear-gradient(135deg, #2DC653, #148F77)',
+        altGradient: 'linear-gradient(to right, #2DC653 0%, #148F77 100%)'
+      },
+      sarı: {
+        light: '#FFDD00',
+        dark: '#FFA200',
+        gradient: 'linear-gradient(135deg, #FFDD00, #FFA200)',
+        altGradient: 'linear-gradient(to right, #FFDD00 0%, #FFA200 100%)'
+      },
+      turuncu: {
+        light: '#FF9F1C',
+        dark: '#E85D04',
+        gradient: 'linear-gradient(135deg, #FF9F1C, #E85D04)',
+        altGradient: 'linear-gradient(to right, #FF9F1C 0%, #E85D04 100%)'
+      },
+      kırmızı: {
+        light: '#E63946',
+        dark: '#A31621',
+        gradient: 'linear-gradient(135deg, #E63946, #A31621)',
+        altGradient: 'linear-gradient(to right, #E63946 0%, #A31621 100%)'
+      },
+      indigo: {
+        light: '#6610F2',
+        dark: '#4B0082',
+        gradient: 'linear-gradient(135deg, #6610F2, #4B0082)',
+        altGradient: 'linear-gradient(to right, #6610F2 0%, #4B0082 100%)'
+      },
+      altın: {
+        light: '#FFD700',
+        dark: '#DAA520',
+        gradient: 'linear-gradient(135deg, #FFD700, #DAA520)',
+        altGradient: 'linear-gradient(to right, #FFD700 0%, #DAA520 100%)'
+      },
+      gümüş: {
+        light: '#C0C0C0',
+        dark: '#A9A9A9',
+        gradient: 'linear-gradient(135deg, #C0C0C0, #A9A9A9)',
+        altGradient: 'linear-gradient(to right, #C0C0C0 0%, #A9A9A9 100%)'
+      },
+      kristal: {
+        light: '#88BDBC',
+        dark: '#6FABB0',
+        gradient: 'linear-gradient(135deg, #88BDBC, #6FABB0)',
+        altGradient: 'linear-gradient(to right, #88BDBC 0%, #6FABB0 100%)'
+      },
+      gökkuşağı: {
+        light: '#6A0572',
+        dark: '#AB83A1',
+        gradient: 'linear-gradient(135deg, #AB83A1, #6A0572)',
+        altGradient: 'linear-gradient(to right, #AB83A1 0%, #6A0572 100%)'
+      },
+      beyaz: {
+        light: '#E0E0E0',
+        dark: '#BDBDBD',
+        gradient: 'linear-gradient(135deg, #E0E0E0, #BDBDBD)',
+        altGradient: 'linear-gradient(to right, #E0E0E0 0%, #BDBDBD 100%)'
       }
     };
 
-    const colors = auraColors[aura.auraType as keyof typeof auraColors];
+    // Varsayılan renkler - aura tipi eşleşmediğinde kullanılacak
+    const defaultColors = {
+      light: '#7C4DFF',
+      dark: '#536DFE',
+      gradient: 'linear-gradient(135deg, #7C4DFF, #536DFE)',
+      altGradient: 'linear-gradient(to right, #7C4DFF 0%, #536DFE 100%)'
+    };
+    
+    // aura.auraType için auraColors'da bir eşleşme varsa onu kullan, yoksa varsayılan değerleri kullan
+    const colors = aura.auraType && auraColors[aura.auraType as keyof typeof auraColors]
+      ? auraColors[aura.auraType as keyof typeof auraColors]
+      : defaultColors;
 
     return (
       <motion.div 
@@ -294,6 +378,18 @@ const Profile: React.FC = () => {
               {aura.auraType === 'analytical' && '🔍'}
               {aura.auraType === 'empathetic' && '💗'}
               {aura.auraType === 'energetic' && '⚡'}
+              {aura.auraType === 'mor' && '🔮'}
+              {aura.auraType === 'mavi' && '🌊'}
+              {aura.auraType === 'yeşil' && '🌿'}
+              {aura.auraType === 'sarı' && '☀️'}
+              {aura.auraType === 'turuncu' && '🔥'}
+              {aura.auraType === 'kırmızı' && '❤️'}
+              {aura.auraType === 'indigo' && '🌌'}
+              {aura.auraType === 'altın' && '✨'}
+              {aura.auraType === 'gümüş' && '🌙'}
+              {aura.auraType === 'kristal' && '💎'}
+              {aura.auraType === 'gökkuşağı' && '🌈'}
+              {aura.auraType === 'beyaz' && '☁️'}
             </span>
           </div>
         </div>
