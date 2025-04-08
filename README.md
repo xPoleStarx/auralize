@@ -68,7 +68,7 @@ Bu teknolojiler, kullanıcı girdilerini **zengin ve yaratıcı içeriklere** d�
    npm start
 
 ```
-
+```
 ## DeepSeek API Entegrasyonu
 
 Auralize projesini DeepSeek API ile entegre etmek için aşağıdaki adımları izleyin:
