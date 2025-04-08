@@ -82,7 +82,7 @@ REACT_APP_DEEPSEEK_API_KEY=size_verilen_api_anahtari
 
 3. Uygulamayı başlatmak için:
 
-```
+```bash
 npm install   # Bağımlılıkları yükleyin
 npm start     # Uygulamayı başlatın
 ```
