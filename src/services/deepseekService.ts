@@ -48,7 +48,7 @@ interface AnswerSummary {
   secondaryTrait: string;
 }
 
-const getAnswerSummary = (answers: { [key: number]: string }): AnswerSummary => {
+export const getAnswerSummary = (answers: { [key: number]: string }): AnswerSummary => {
   // Her şık için sayıları hesapla
   const aCount = Object.values(answers).filter(val => val === 'a').length;
   const bCount = Object.values(answers).filter(val => val === 'b').length;
@@ -199,7 +199,7 @@ export const determineDynamicAuraType = (answers: { [key: number]: string }): st
 };
 
 // Aura tipine göre sistem talimatını hazırla - tüm cevaplar detaylı kullanılıyor
-const getSystemPromptForAuraType = (auraType: string, answerDetails: string): string => {
+export const getSystemPromptForAuraType = (auraType: string, answerDetails: string): string => {
   switch (auraType) {
     case 'creative':
       return `Sen Auralize adlı yaratıcı kişilik analiz platformu için içerik üreten bir yaratıcı yazarsın. 
@@ -235,34 +235,47 @@ DÜŞÜNME STİLİ: [virgülle ayrılmış liste]
 BAŞLIK: [3-5 kelimelik başlık]`;
 
     case 'personal':
-      return `Sen Auralize adlı kişisel gelişim platformu için içerik üreten bir kişisel gelişim koçusun.
-Kullanıcı bir kişisel gelişim testi tamamladı ve aşağıdaki cevapları verdi:
+      return `Sen Auralize adlı kişisel gelişim platformu için içgörü üreten bir kişisel gelişim koçusun.
+Kullanıcı bir kişisel gelişim analiz testi tamamladı ve aşağıdaki cevapları verdi:
 
 ${answerDetails}
 
-Bu cevaplara dayanarak, kullanıcının kişisel gelişim alanlarını analiz eden, DETAYLI ve kapsamlı bir değerlendirme yaz.
-ÖNEMLİ: Yanıtın en az 300 kelime uzunluğunda olmalı ve kullanıcının gelişim potansiyelini derinlemesine incelemeli.
-Hikaye doğru uzunlukta, ilgi çekici ve kapsamlı olmalı. Kullanıcıya anlamlı içgörüler ve pratik öneriler sunmalı.`;
+Bu cevaplara dayanarak, kullanıcının kişisel potansiyeli hakkında dört spesifik içgörü üret:
+1. GÜÇLÜ YÖNLERİ: Kullanıcının kişisel gelişim yolculuğundaki en güçlü yanları.
+2. POTANSİYELİ: Kullanıcının geliştirebileceği potansiyel alanlar.
+3. GELİŞİM YAKLAŞIMI: Kullanıcının öğrenme ve kişisel gelişim yaklaşımı.
+4. GELİŞİM BAŞLIĞI: Kullanıcının kişisel gelişim yolunu en iyi tanımlayan 3-5 kelimelik özgün bir başlık.
+
+Her içgörü çok kısa, özlü ve kullanıcıya özgü olmalıdır. İçgörüler somut ve uygulanabilir olmalıdır.`;
 
     case 'career':
-      return `Sen Auralize adlı kariyer analiz platformu için içerik üreten bir kariyer danışmanısın.
+      return `Sen Auralize adlı kariyer analiz platformu için içgörü üreten bir kariyer danışmanısın.
 Kullanıcı bir kariyer yönlendirme testi tamamladı ve aşağıdaki cevapları verdi:
 
 ${answerDetails}
 
-Bu cevaplara dayanarak, kullanıcının kariyer eğilimlerini analiz eden, DETAYLI ve kapsamlı bir değerlendirme yaz.
-ÖNEMLİ: Yanıtın en az 300 kelime uzunluğunda olmalı ve kullanıcının kariyer potansiyelini derinlemesine incelemeli.
-Hikaye doğru uzunlukta, ilgi çekici ve kapsamlı olmalı. Kullanıcıya anlamlı içgörüler ve kariyer tavsiyeleri sunmalı.`;
+Bu cevaplara dayanarak, kullanıcının profesyonel profili hakkında dört spesifik içgörü üret:
+1. GÜÇLÜ YÖNLERİ: Kullanıcının profesyonel anlamda en güçlü yanları.
+2. POTANSİYELİ: Kullanıcının keşfedebileceği kariyer alanları ve fırsatlar.
+3. ÇALIŞMA STİLİ: Kullanıcının iş yaklaşımı ve profesyonel ortamdaki düşünme tarzı.
+4. KARİYER BAŞLIĞI: Kullanıcının kariyer yolunu en iyi tanımlayan 3-5 kelimelik özgün bir başlık.
+
+Her içgörü çok kısa, özlü, gerçekçi ve kullanıcıya özgü olmalıdır.`;
 
     default:
-      return `Sen Auralize adlı kişilik analiz platformu için içerik üreten bir uzmansın.
-Kullanıcı bir test tamamladı ve aşağıdaki cevapları verdi:
+      return `Sen Auralize adlı platformun içerik uzmanısın. Kullanıcının verdiği yanıtlara göre
+kişiselleştirilmiş bir hikaye oluşturacaksın.
+
+Kullanıcının cevapları:
 
 ${answerDetails}
 
-Bu cevaplara dayanarak, kullanıcıyı analiz eden, kişiselleştirilmiş, DETAYLI ve kapsamlı bir değerlendirme yaz.
-ÖNEMLİ: Yanıtın en az 300 kelime uzunluğunda olmalı ve kullanıcının potansiyelini derinlemesine incelemeli.
-Hikaye doğru uzunlukta, ilgi çekici ve kapsamlı olmalı. Kullanıcıya anlamlı içgörüler sunmalı.`;
+Bu yanıtlara dayanarak, kullanıcı için:
+1. Kullanıcının kişiliğini anlatan, kapsamlı ve derin bir hikaye hazırla. Bu hikaye en az 24 paragraf uzunluğunda olmalı.
+2. Hikaye kişiselleştirilmiş, ilham verici ve içgörü dolu olmalı.
+3. Hikaye kullanıcının karakterini, potansiyelini ve yaşam yolculuğunu yansıtmalı.
+
+Yanıtın detaylı, kapsamlı ve kullanıcıya özel olmalıdır.`;
   }
 };
 
@@ -459,7 +472,7 @@ export const getAuraStoryFromDeepSeek = async (
 };
 
 // Varsayılan içgörüler için yardımcı fonksiyon
-const getDefaultInsights = (auraType: string) => {
+export const getDefaultInsights = (auraType: string) => {
   const defaults: Record<string, { strengths: string, potential: string, thinkingStyle: string, auraTitle: string }> = {
     creative: {
       strengths: 'Yaratıcı düşünme, hayal gücü, özgün fikirler üretme',
@@ -739,7 +752,7 @@ export const getAuraInsightsFromLlama = async (
 };
 
 // Insights için system prompt
-const getInsightsPromptForAuraType = (auraType: string, answerDetails: string): string => {
+export const getInsightsPromptForAuraType = (auraType: string, answerDetails: string): string => {
   switch (auraType) {
     case 'creative':
       return `Sen Auralize adlı yaratıcı kişilik analiz platformu için içgörü üreten bir uzmansın.
@@ -1614,7 +1627,7 @@ export const getCombinedAuraDataFromLlama = async (
 };
 
 // Birleştirilmiş içerik için prompt
-const getCombinedPromptForAuraType = (auraType: string, answerDetails: string, username: string): string => {
+export const getCombinedPromptForAuraType = (auraType: string, answerDetails: string, username: string): string => {
   switch (auraType) {
     case 'creative':
       return `Sen Auralize adlı yaratıcı kişilik analiz platformu için içerik üreten bir uzmansın.
@@ -1640,7 +1653,7 @@ Yanıtını şu JSON formatında ver:
 
 Eğer JSON formatında yanıt veremezsen, aşağıdaki formatta yanıt ver:
 
-HİKAYE:
+AURA HİKAYEN:
 (Uzun, detaylı ve kapsamlı hikaye metni - en az 800-1000 kelime)
 
 GÜÇLÜ YÖNLERİ:
@@ -1681,7 +1694,7 @@ Yanıtını şu JSON formatında ver:
 
 Eğer JSON formatında yanıt veremezsen, aşağıdaki formatta yanıt ver:
 
-HİKAYE:
+AURA HİKAYEN:
 (Uzun, detaylı ve kapsamlı hikaye metni - en az 800-1000 kelime)
 
 GÜÇLÜ YÖNLERİ:
@@ -1722,7 +1735,7 @@ Yanıtını şu JSON formatında ver:
 
 Eğer JSON formatında yanıt veremezsen, aşağıdaki formatta yanıt ver:
 
-HİKAYE:
+AURA HİKAYEN:
 (Uzun, detaylı ve kapsamlı hikaye metni - en az 800-1000 kelime)
 
 GÜÇLÜ YÖNLERİ:
@@ -1763,7 +1776,7 @@ Yanıtını şu JSON formatında ver:
 
 Eğer JSON formatında yanıt veremezsen, aşağıdaki formatta yanıt ver:
 
-HİKAYE:
+AURA HİKAYEN:
 (Uzun, detaylı ve kapsamlı hikaye metni - en az 800-1000 kelime)
 
 GÜÇLÜ YÖNLERİ:
@@ -1781,30 +1794,23 @@ AURA BAŞLIĞI:
 Hikaye kısmının uzun ve detaylı olması en önemli önceliktir - kullanıcının kariyer potansiyelini derinlemesine anlatan, en az 800-1000 kelimelik, ilham verici bir metin olmalıdır. Tüm içerikler ${username} için özel olarak kişiselleştirilmelidir.`;
 
     default:
-      return `Sen Auralize adlı kişilik analiz platformu için içerik üreten bir uzmansın.
-Kullanıcı bir test tamamladı ve aşağıdaki cevapları verdi:
+      return `Sen Auralize adlı platformun içerik uzmanısın. Kullanıcının verdiği yanıtlara göre
+kişiselleştirilmiş bir hikaye ve içgörüler oluşturacaksın.
+
+Kullanıcının cevapları:
 
 ${answerDetails}
 
-Bu cevaplara dayanarak, kullanıcı için aşağıdaki bilgileri JSON formatında hazırla:
-1. HİKAYE: Kullanıcının aurasını analiz eden kişiselleştirilmiş, DERİN ve KAPSAMLI bir öykü. Hikaye en az 800-1000 kelime uzunluğunda olmalı, zengin metaforlar ve içgörüler içermeli, kullanıcının kişiliğini, potansiyelini ve yaşam yolculuğunu derinlemesine ele almalı.
+Bu yanıtlara dayanarak, kullanıcı için aşağıdaki bilgileri hazırla:
+1. HİKAYE: Kullanıcının kişiliğini ve potansiyelini anlatan, kapsamlı ve derin bir hikaye. Bu hikaye en az 800-1000 kelime uzunluğunda olmalı.
 2. GÜÇLÜ YÖNLERİ: Kullanıcının en güçlü yanları (1-2 cümle)
-3. POTANSİYELİ: Kullanıcının keşfedebileceği potansiyel alanları (1-2 cümle)
+3. POTANSİYELİ: Kullanıcının keşfedebileceği potansiyel alanlar (1-2 cümle)
 4. DÜŞÜNME STİLİ: Kullanıcının düşünme ve problem çözme yaklaşımı (1-2 cümle)
-5. AURA BAŞLIĞI: Kullanıcının aurasını en iyi tanımlayan 3-5 kelimelik özgün bir başlık
+5. AURA BAŞLIĞI: Kullanıcıyı en iyi tanımlayan 3-5 kelimelik özgün bir başlık
 
-Yanıtını şu JSON formatında ver:
-{
-  "story": "Hikaye metni burada olacak (uzun ve kapsamlı)...",
-  "strengths": "Güçlü yönler burada olacak...",
-  "potential": "Potansiyel burada olacak...",
-  "thinkingStyle": "Düşünme stili burada olacak...",
-  "auraTitle": "Aura başlığı burada olacak..."
-}
+Yanıtını aşağıdaki formatta ver:
 
-Eğer JSON formatında yanıt veremezsen, aşağıdaki formatta yanıt ver:
-
-HİKAYE:
+AURA HİKAYEN:
 (Uzun, detaylı ve kapsamlı hikaye metni - en az 800-1000 kelime)
 
 GÜÇLÜ YÖNLERİ:
@@ -1819,6 +1825,6 @@ DÜŞÜNME STİLİ:
 AURA BAŞLIĞI:
 (Aura başlığı)
 
-Hikaye kısmının uzun ve detaylı olması en önemli önceliktir - kullanıcının kişiliğini derinlemesine anlatan, en az 800-1000 kelimelik, ilham verici bir metin olmalıdır. Tüm içerikler ${username} için özel olarak kişiselleştirilmelidir.`;
+Hikaye kısmının uzun ve detaylı olması en önemli önceliktir. Tüm içerikler ${username} için özel olarak kişiselleştirilmelidir.`;
   }
 };
