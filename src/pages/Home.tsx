@@ -154,7 +154,7 @@ const Home: React.FC = () => {
                 custom={2} 
                 variants={fadeInUp}
               >
-                <Link to="/quiz" className="btn btn-primary">
+                <Link to="/quiz-selection" className="btn btn-primary">
                   <span className="btn-text">Yolculuğa Başla</span>
                   <span className="btn-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -321,7 +321,7 @@ const Home: React.FC = () => {
             <h3 className="cta-title">Kendi Auranızı Keşfetmeye Hazır mısınız?</h3>
             <p className="cta-text">Yapay zeka destekli platformumuz ile benzersiz yaratıcı potansiyelinizi ortaya çıkarın. Hemen şimdi quiz'imize katılın ve auranızı görselleştirin.</p>
             <div className="cta-buttons">
-              <Link to="/quiz" className="btn btn-primary cta-button">
+              <Link to="/quiz-selection" className="btn btn-primary cta-button">
                 Quiz'e Başla
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <line x1="5" y1="12" x2="19" y2="12"></line>

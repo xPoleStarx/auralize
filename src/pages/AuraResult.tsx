@@ -2,7 +2,8 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useLocation, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 // DeepSeek servisini import ediyorum
-import { getAuraStoryFromDeepSeek, getAuraInsightsFromLlama, determineDynamicAuraType, auraTypes } from '../services/deepseekService';
+import { getAuraStoryFromDeepSeek, getAuraInsightsFromLlama, determineDynamicAuraType, auraTypes, getCombinedAuraDataFromLlama } from '../services/deepseekService';
+import { saveAuraStory } from '../services/auraDataService';
 
 // Debug modu
 const DEBUG_MODE = true;
@@ -94,6 +95,87 @@ const getQuickAuraSummary = async (auraType: string, username: string): Promise<
   return `${username}'ın ${auraType} aurası analiz ediliyor...`;
 };
 
+// Aura türüne göre gradient renk oluşturan yardımcı fonksiyonlar
+const getGradientForAuraType = (auraType: string): string => {
+  const gradients = {
+    creative: 'linear-gradient(135deg, #FF61D2, #FE9090)',
+    analytical: 'linear-gradient(135deg, #4158D0, #C850C0)',
+    empathetic: 'linear-gradient(135deg, #43C6AC, #F8FFAE)',
+    visionary: 'linear-gradient(135deg, #0093E9, #80D0C7)',
+    leadership: 'linear-gradient(135deg, #8A2387, #F27121)',
+    balanced: 'linear-gradient(135deg, #00B4DB, #0083B0)',
+    passionate: 'linear-gradient(135deg, #FF416C, #FF4B2B)',
+    serene: 'linear-gradient(135deg, #16A085, #F4D03F)',
+    energetic: 'linear-gradient(135deg, #FF0099, #493240)',
+    mindful: 'linear-gradient(135deg, #1FA2FF, #12D8FA, #A6FFCB)',
+    career: 'linear-gradient(135deg, #4158D0, #C850C0)',
+    mood: 'linear-gradient(135deg, #43C6AC, #F8FFAE)',
+    personal: 'linear-gradient(135deg, #0093E9, #80D0C7)'
+  };
+  
+  return gradients[auraType as keyof typeof gradients] || 'linear-gradient(135deg, #FF61D2, #FE9090)';
+};
+
+const getDarkGradientForAuraType = (auraType: string): string => {
+  const darkGradients = {
+    creative: 'linear-gradient(135deg, #A13E95, #D75A5A)',
+    analytical: 'linear-gradient(135deg, #2A3A80, #7D3D7A)',
+    empathetic: 'linear-gradient(135deg, #2E7A6F, #9FA86C)',
+    visionary: 'linear-gradient(135deg, #005E94, #518D86)',
+    leadership: 'linear-gradient(135deg, #591756, #994716)',
+    balanced: 'linear-gradient(135deg, #00718A, #005571)',
+    passionate: 'linear-gradient(135deg, #A32A46, #A3301D)',
+    serene: 'linear-gradient(135deg, #0F6B58, #A4912D)',
+    energetic: 'linear-gradient(135deg, #A00062, #2F2029)',
+    mindful: 'linear-gradient(135deg, #156CA2, #0C91A5, #6EAA86)',
+    career: 'linear-gradient(135deg, #293D8C, #862E82)',
+    mood: 'linear-gradient(135deg, #2B7F6E, #A5AB4A)',
+    personal: 'linear-gradient(135deg, #00608F, #518D86)'
+  };
+  
+  return darkGradients[auraType as keyof typeof darkGradients] || 'linear-gradient(135deg, #A13E95, #D75A5A)';
+};
+
+const getParticleColorForAuraType = (auraType: string): string => {
+  const particleColors = {
+    creative: '#FF61D2',
+    analytical: '#4158D0',
+    empathetic: '#43C6AC',
+    visionary: '#0093E9',
+    leadership: '#8A2387',
+    balanced: '#00B4DB',
+    passionate: '#FF416C',
+    serene: '#16A085',
+    energetic: '#FF0099',
+    mindful: '#1FA2FF',
+    career: '#4158D0',
+    mood: '#43C6AC',
+    personal: '#0093E9'
+  };
+  
+  return particleColors[auraType as keyof typeof particleColors] || '#FF61D2';
+};
+
+const getIconForAuraType = (auraType: string): string => {
+  const icons = {
+    creative: '✨',
+    analytical: '🔍',
+    empathetic: '💗',
+    visionary: '👁️',
+    leadership: '👑',
+    balanced: '☯️',
+    passionate: '🔥',
+    serene: '🌊',
+    energetic: '⚡',
+    mindful: '🧠',
+    career: '💼',
+    mood: '😊',
+    personal: '🌟'
+  };
+  
+  return icons[auraType as keyof typeof icons] || '✨';
+};
+
 // Benzersiz kullanıcı ID'si oluşturmak için yardımcı fonksiyon
 const generateUserId = () => {
   const storedUserId = localStorage.getItem('auralize_user_id');
@@ -125,11 +207,47 @@ const getUserName = () => {
   return username;
 };
 
+// Yükleme animasyonu bileşeni
+const LoadingAnimation = ({ text, color }: { text: string, color?: string }) => (
+  <div className="loading-crystal">
+    <div 
+      className="loading-crystal-spinner" 
+      style={{ 
+        background: color || 'linear-gradient(135deg, #FF61D2, #FE9090)'
+      }}
+    ></div>
+    <div className="loading-crystal-text">
+      {text}<span className="loading-crystal-dots"></span>
+    </div>
+  </div>
+);
+
+// İçgörü yükleme bileşeni - daha özel animasyonlu versiyon
+const InsightLoadingSkeleton = ({ icon, title, color }: { icon: string, title: string, color?: string }) => (
+  <div className="insight-loading-skeleton">
+    <div className="insight-loading-icon-container">
+      <div 
+        className="insight-loading-icon-placeholder" 
+        style={{ background: color || 'linear-gradient(135deg, #FF61D2, #FE9090)' }}
+      >
+        <span className="insight-loading-icon">{icon}</span>
+      </div>
+    </div>
+    <h3 className="insight-loading-title">{title}</h3>
+    <div className="insight-loading-content-placeholder">
+      <div className="insight-loading-crystal-container">
+        <div className="insight-loading-crystal"></div>
+      </div>
+      <p className="insight-loading-text">İçgörüler yükleniyor<span className="insight-loading-dots"></span></p>
+    </div>
+  </div>
+);
+
 const AuraResult: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
-  const [auraType, setAuraType] = useState<string>('');
+  const [auraType, setAuraType] = useState<string>('creative');
   const [auraData, setAuraData] = useState<any>(null);
   const [auraStory, setAuraStory] = useState<string>('');
   const [scrolled, setScrolled] = useState(false);
@@ -143,7 +261,7 @@ const AuraResult: React.FC = () => {
   const [hashtagInput, setHashtagInput] = useState<string>('');
   const [description, setDescription] = useState<string>('');
   const [gameStats, setGameStats] = useState<{highScore: number, badges: string[]}>({ highScore: 0, badges: [] });
-  const [isStoryLoading, setIsStoryLoading] = useState(false);
+  const [isStoryLoading, setIsStoryLoading] = useState(true);
   const [isFullStoryLoading, setIsFullStoryLoading] = useState(false);
   const [hasQuickSummary, setHasQuickSummary] = useState(false);
   const [apiCacheStat, setApiCacheStat] = useState<'cache' | 'api' | 'llama' | 'default' | null>(null);
@@ -161,11 +279,13 @@ const AuraResult: React.FC = () => {
     auraTitle: '',
     source: null
   });
-  const [isInsightsLoading, setIsInsightsLoading] = useState(false);
+  const [isInsightsLoading, setIsInsightsLoading] = useState(true);
   const [auraTitle, setAuraTitle] = useState<string>('');
+  const [isApiReady, setIsApiReady] = useState(false);
   
   // Quiz cevaplarını alıyoruz
-  const answers = location.state?.answers || {};
+  const locationState = location.state as any;
+  const quizAnswers = locationState?.answers || {};
   
   useEffect(() => {
     // Kullanıcı kimliği oluştur veya al
@@ -197,189 +317,207 @@ const AuraResult: React.FC = () => {
     // Yükleme animasyonu
     const loadingInterval = setInterval(() => {
       setLoadingProgress(prev => {
-        if (prev >= 100) {
-          clearInterval(loadingInterval);
-          return 100;
-        }
-        return prev + 5;
+        if (prev >= 100) return 100;
+        return prev + 1;
       });
-    }, 100);
+    }, 25);
     
     // Aura tipini belirle
-    const determinedType = determineAuraType(answers);
-    setAuraType(determinedType);
-    
-    // Dinamik aura başlığı için varsayılan değer
-    const defaultTitle = `${determinedType.charAt(0).toUpperCase() + determinedType.slice(1)} Aurası`;
-    setAuraTitle(defaultTitle);
-    
-    // Mevcut aura tiplerinden uygun veriyi seç veya varsayılan değerleri kullan
-    const auraTypeData = auraTypes[determinedType as keyof typeof auraTypes];
-    if (auraTypeData) {
-      setAuraData({
-        title: auraTypeData.name || defaultTitle,
-        description: auraTypeData.description,
-        // Varsayılan bir gradient renkler seti
-        gradient: 'linear-gradient(135deg, #FF61D2, #FE9090)',
-        darkGradient: 'linear-gradient(135deg, #A13E95, #D75A5A)',
-        particleColor: '#FF61D2',
-        icon: '✨'
-      });
-    } else {
-      // Varsayılan değerler
-      setAuraData({
-        title: defaultTitle,
-        description: 'Senin auran özel ve benzersiz bir enerji taşıyor.',
-        gradient: 'linear-gradient(135deg, #FF61D2, #FE9090)',
-        darkGradient: 'linear-gradient(135deg, #A13E95, #D75A5A)',
-        particleColor: '#FF61D2',
-        icon: '✨'
-      });
+    let determinedType = locationState?.quizType || 'creative';
+    if (determinedType === 'creative') {
+      determinedType = determineDynamicAuraType(quizAnswers);
     }
     
-    // Aşamalı hikaye yükleme stratejisi
-    const loadStoryInStages = async () => {
+    setAuraType(determinedType);
+    
+    // Aura veri bilgilerini hazırla
+    setAuraData({
+      title: `${determinedType.charAt(0).toUpperCase() + determinedType.slice(1)} Aurası`,
+      description: auraTypes[determinedType as keyof typeof auraTypes]?.description || 'Senin auran özel ve benzersiz bir enerji taşıyor.',
+      gradient: getGradientForAuraType(determinedType),
+      darkGradient: getDarkGradientForAuraType(determinedType),
+      particleColor: getParticleColorForAuraType(determinedType),
+      icon: getIconForAuraType(determinedType)
+    });
+    
+    // Önbellekten en son kaydedilen aura verilerini kontrol et
+    const cacheKey = `auralize_user_${currentUserId}_latest`;
+    const cachedAuraData = localStorage.getItem(cacheKey);
+    
+    if (cachedAuraData) {
+      try {
+        const parsedData = JSON.parse(cachedAuraData);
+        
+        // Önbellekten alınan veriyi göster
+        if (parsedData.story) {
+          setAuraStory(parsedData.story);
+          setHasQuickSummary(true);
+          
+          // İçgörüleri de güncelleyelim
+          setInsights({
+            strengths: parsedData.strengths || "Analiz ediliyor...",
+            potential: parsedData.potential || "Analiz ediliyor...",
+            thinkingStyle: parsedData.thinkingStyle || "Analiz ediliyor...",
+            auraTitle: parsedData.auraTitle || `${determinedType.charAt(0).toUpperCase() + determinedType.slice(1)} Aurası`,
+            source: 'llama'
+          });
+          
+          // Aura başlığını güncelle
+          if (parsedData.auraTitle) {
+            setAuraTitle(parsedData.auraTitle);
+          }
+          
+          console.log("Önbellekten aura verileri yüklendi");
+        }
+      } catch (cacheError) {
+        console.error("Önbellek verileri ayrıştırılamadı:", cacheError);
+      }
+    }
+    
+    // Birleştirilmiş aura verileri yükleme fonksiyonu
+    const loadCombinedAuraData = async () => {
       setIsStoryLoading(true);
+      setIsInsightsLoading(true);
+      setIsApiReady(false);
       
-      if (DEBUG_MODE) console.log("[DEBUG] Hikaye yükleme başladı");
-      if (DEBUG_MODE) console.log("[DEBUG] Quiz cevapları:", JSON.stringify(answers));
+      if (DEBUG_MODE) console.log("[DEBUG] Birleştirilmiş aura verileri yükleme başladı:", new Date().toLocaleTimeString());
+      if (DEBUG_MODE) console.log("[DEBUG] Quiz cevapları:", JSON.stringify(quizAnswers));
       
       // Quiz cevapları geçerli mi kontrol et
-      if (!answers || Object.keys(answers).length === 0) {
+      if (!quizAnswers || Object.keys(quizAnswers).length === 0) {
         console.error("[DEBUG] Quiz cevapları boş veya geçersiz!");
         setAuraStory("Quiz cevaplarınız alınamadı. Lütfen tekrar deneyin.");
         setApiCacheStat('default');
         setIsStoryLoading(false);
+        setIsInsightsLoading(false);
+        setIsApiReady(false); // Paylaşım butonu devre dışı kalsın
         return;
       }
-      
-      try {
-        // 1. Aşama: Hızlı bir özet yükle
-        if (DEBUG_MODE) console.log("[DEBUG] Hızlı özet isteniyor");
-        const quickSummary = await getQuickAuraSummary(determinedType, currentUsername);
-        if (quickSummary) {
-          setAuraStory(quickSummary);
+
+      // Maksimum deneme sayısı ve mevcut deneme sayacı
+      const MAX_RETRIES = 2;
+      let retryCount = 0;
+      let success = false;
+
+      // Veri alınana kadar deneme yapılan döngü
+      while (retryCount <= MAX_RETRIES && !success) {
+        try {
+          if (retryCount > 0) {
+            if (DEBUG_MODE) console.log(`[DEBUG] API isteği yeniden deneniyor (${retryCount}/${MAX_RETRIES})...`);
+          }
+
+          // Maksimum bekleme süresi (milisaniye)
+          const MAX_WAIT_TIME = 180000; // 3 dakika
+          const startTime = Date.now();
+          
+          // Tek istekle tüm verileri alma
+          if (DEBUG_MODE) console.log("[DEBUG] Birleştirilmiş veri isteniyor");
+          
+          // Promise.race kullanarak istek veya zaman aşımından hangisi önce gelirse onu işle
+          const resultPromise = Promise.race([
+            getCombinedAuraDataFromLlama(determinedType, currentUsername, quizAnswers),
+            new Promise<never>((_, reject) => {
+              setTimeout(() => {
+                reject(new Error(`İstek zaman aşımına uğradı (${MAX_WAIT_TIME / 1000} saniye)`));
+              }, MAX_WAIT_TIME);
+            })
+          ]);
+          
+          const combinedData = await resultPromise;
+          
+          // Eksik veri kontrolü - tüm alanlar boş ise hata fırlat
+          if (!combinedData.story && !combinedData.strengths && !combinedData.potential && !combinedData.thinkingStyle) {
+            throw new Error("API yanıtı eksik veya boş geldi.");
+          }
+          
+          if (DEBUG_MODE) console.log("[DEBUG] Birleştirilmiş veriler alındı:", combinedData);
+          if (DEBUG_MODE) console.log("[DEBUG] İşlem süresi:", ((Date.now() - startTime) / 1000).toFixed(2), "saniye");
+          
+          // Verileri kontrol et - Eğer "default" kaynağıysa (yani varsayılan değerler kullanıldıysa) tekrar dene
+          if (combinedData.source === 'default' && retryCount < MAX_RETRIES) {
+            if (DEBUG_MODE) console.log("[DEBUG] Varsayılan değerler alındı, tekrar denenecek.");
+            retryCount++;
+            continue;
+          }
+          
+          // Aura hikayesini ayarla
+          setAuraStory(combinedData.story);
           setHasQuickSummary(true);
-          if (DEBUG_MODE) console.log("[DEBUG] Hızlı özet alındı:", quickSummary);
-        }
-        
-        // 2. Aşama: İçgörüleri yükle
-        setIsInsightsLoading(true);
-        try {
-          if (DEBUG_MODE) console.log("[DEBUG] İçgörüler isteniyor");
-          const insightsData = await getAuraInsightsFromLlama(determinedType, currentUsername, answers);
-          if (DEBUG_MODE) console.log("[DEBUG] İçgörüler alındı:", insightsData);
-          setInsights(insightsData);
           
-          // Dinamik aura başlığını güncelle
-          if (insightsData.auraTitle) {
-            setAuraTitle(insightsData.auraTitle);
-          }
-        } catch (insightsError) {
-          console.error("İçgörüler alınırken hata oluştu:", insightsError);
-          if (DEBUG_MODE) console.log("[DEBUG] İçgörüler yüklenirken hata:", insightsError);
-          // Varsayılan içgörüleri kullan
+          // İçgörüleri ayarla
           setInsights({
-            strengths: '',
-            potential: '',
-            thinkingStyle: '',
-            auraTitle: `${determinedType.charAt(0).toUpperCase() + determinedType.slice(1)} Aurası`,
-            source: 'default'
+            strengths: combinedData.strengths,
+            potential: combinedData.potential,
+            thinkingStyle: combinedData.thinkingStyle,
+            auraTitle: combinedData.auraTitle,
+            source: combinedData.source === 'llama' ? 'llama' : 'default'
           });
-        } finally {
-          // İçgörüler yükleme durumunu kapat (animasyonlu görünmesi için kısa gecikme)
-          setTimeout(() => {
-            setIsInsightsLoading(false);
-          }, 1000);
-        }
-        
-        // 3. Aşama: Tam hikaye yükle
-        setIsFullStoryLoading(true);
-        
-        // DeepSeek API'dan tam hikaye alma işlemine başlamadan önce küçük bir bekleme
-        // Bu, kullanıcının en azından hızlı özeti görmesini sağlar
-        setTimeout(async () => {
-          try {
-            if (DEBUG_MODE) console.log("[DEBUG] Tam hikaye isteniyor, cevaplar:", JSON.stringify(answers));
-            const fullStory = await getAuraStoryFromDeepSeek(determinedType, currentUsername, answers);
-            if (DEBUG_MODE) console.log("[DEBUG] Tam hikaye alındı:", fullStory);
-            
-            // Hikaye kaynağını belirleyelim: API, Önbellek, Llama veya Varsayılan
-            let cacheIndicator: 'cache' | 'api' | 'llama' | 'default' = 'api';
-            let cleanStory = fullStory;
-            
-            if (fullStory.includes('__cached__')) {
-              cacheIndicator = 'cache';
-              cleanStory = fullStory.replace('__cached__', '').trim();
-              if (DEBUG_MODE) console.log("[DEBUG] Hikaye önbellekten alındı");
-            } else if (fullStory.includes('__llama__')) {
-              cacheIndicator = 'llama';
-              cleanStory = fullStory.replace('__llama__', '').trim();
-              if (DEBUG_MODE) console.log("[DEBUG] Hikaye Auralize tarafından oluşturuldu");
-            } else if (fullStory.includes('__default__')) {
-              cacheIndicator = 'default';
-              cleanStory = fullStory.replace('__default__', '').trim();
-              if (DEBUG_MODE) console.log("[DEBUG] Hikaye varsayılan olarak oluşturuldu");
-            } else {
-              if (DEBUG_MODE) console.log("[DEBUG] Hikaye DeepSeek AI tarafından oluşturuldu");
+          
+          // Aura başlığını güncelle
+          if (combinedData.auraTitle) {
+            setAuraTitle(combinedData.auraTitle);
+          }
+          
+          // Veri kaynağını belirle
+          setApiCacheStat(combinedData.source === 'llama' ? 'llama' : (combinedData.source === 'api' ? 'api' : 'default'));
+          
+          // Güncellenmiş verileri kaydet
+          if (currentUserId) {
+            try {
+              const updatedAuraData = {
+                auraType: determinedType,
+                story: combinedData.story,
+                strengths: combinedData.strengths,
+                potential: combinedData.potential,
+                thinkingStyle: combinedData.thinkingStyle,
+                auraTitle: combinedData.auraTitle,
+                answers: quizAnswers
+              };
+              
+              await saveAuraStory(currentUserId, updatedAuraData);
+              if (DEBUG_MODE) console.log("[DEBUG] Güncel aura verileri kaydedildi");
+            } catch (saveError) {
+              console.error("Güncel aura verileri kaydedilirken hata:", saveError);
             }
-            
-            setApiCacheStat(cacheIndicator);
-            setAuraStory(cleanStory);
-            
-          } catch (err) {
-            console.error("Tam aura hikayesi alınırken hata oluştu:", err);
-            if (DEBUG_MODE) console.log("[DEBUG] Tam hikaye yüklenirken hata:", err);
-            // Hata durumunda hızlı özet zaten gösteriliyor, kullanıcı deneyimini bozmamak için sessizce devam et
+          }
+          
+          // Başarı durumunu güncelle
+          success = true;
+          
+          // En son, tüm yükleme durumlarını kapat
+          setIsStoryLoading(false);
+          setIsFullStoryLoading(false);
+          setIsInsightsLoading(false);
+          setIsApiReady(true);
+          
+          if (DEBUG_MODE) console.log("[DEBUG] Aura verileri UI'a yüklendi.", new Date().toLocaleTimeString());
+          
+        } catch (error) {
+          console.error("Birleştirilmiş aura verileri alınırken hata oluştu:", error);
+          if (DEBUG_MODE) console.log("[DEBUG] Birleştirilmiş veriler yüklenirken hata:", error);
+          
+          // Son deneme başarısız olursa
+          if (retryCount >= MAX_RETRIES) {
+            // Hata mesajı göster
+            setAuraStory("Verileriniz yüklenirken bir hata oluştu. Lütfen daha sonra tekrar deneyin. (Zaman aşımı)");
             setApiCacheStat('default');
-          } finally {
-            setIsFullStoryLoading(false);
+            setIsApiReady(false); // Paylaşım butonu devre dışı kalsın
+            
+            // Tüm yükleme durumlarını sonlandır, böylece yükleme animasyonu kaybolacak
             setIsStoryLoading(false);
-          }
-        }, 1000);
-        
-      } catch (error) {
-        console.error("Hızlı özet alınırken hata oluştu:", error);
-        if (DEBUG_MODE) console.log("[DEBUG] Hızlı özet alınırken hata:", error);
-        
-        // Hızlı özet alınamazsa doğrudan tam hikayeyi yükleme dene
-        try {
-          if (DEBUG_MODE) console.log("[DEBUG] Direkt tam hikaye yükleniyor");
-          const story = await getAuraStoryFromDeepSeek(determinedType, currentUsername, answers);
-          
-          if (story.includes('__llama__')) {
-            setApiCacheStat('llama');
-            setAuraStory(story.replace('__llama__', '').trim());
-            if (DEBUG_MODE) console.log("[DEBUG] Direkt yüklenen hikaye Llama'dan geldi");
-          } else if (story.includes('__cached__')) {
-            setApiCacheStat('cache');
-            setAuraStory(story.replace('__cached__', '').trim());
-            if (DEBUG_MODE) console.log("[DEBUG] Direkt yüklenen hikaye önbellekten geldi");
-          } else if (story.includes('__default__')) {
-            setApiCacheStat('default');
-            setAuraStory(story.replace('__default__', '').trim());
-            if (DEBUG_MODE) console.log("[DEBUG] Direkt yüklenen hikaye varsayılan olarak oluşturuldu");
-          } else {
-            setApiCacheStat('api');
-            setAuraStory(story);
-            if (DEBUG_MODE) console.log("[DEBUG] Direkt yüklenen hikaye API'den geldi");
+            setIsFullStoryLoading(false);
+            setIsInsightsLoading(false);
+            break;
           }
           
-        } catch (err) {
-          console.error("Aura hikayesi alınırken hata oluştu:", err);
-          if (DEBUG_MODE) console.log("[DEBUG] Hikaye yüklemede tüm yöntemler başarısız:", err);
-          // Hata durumunda varsayılan hikaye göster
-          setAuraStory(auraTypes[determinedType as keyof typeof auraTypes].description);
-          setApiCacheStat('default');
+          // Hata sonrası bir sonraki denemeye geç
+          retryCount++;
         }
-        
-        setIsFullStoryLoading(false);
-        setIsStoryLoading(false);
       }
     };
     
-    // Hikaye yükleme işlemini başlat
-    loadStoryInStages();
+    // Birleştirilmiş veri yükleme işlemini başlat
+    loadCombinedAuraData();
     
     // Oyun istatistiklerini al (varsayılan değerler)
     setGameStats({
@@ -396,7 +534,9 @@ const AuraResult: React.FC = () => {
       clearInterval(loadingInterval);
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [answers]);
+  }, [locationState]);
+  
+  // API yanıtlarını kontrol eden useEffect artık gerekli değil
   
   // Hashtag işleme 
   const handleHashtagInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -497,8 +637,14 @@ const AuraResult: React.FC = () => {
   if (loading) {
     return (
       <div className="loading-screen" style={{ background: '#fafafa' }}>
-        <div className="loader">
-          <div className="loader-circle"></div>
+        <div className="aura-crystal-container">
+          <div className="aura-crystal">
+            <div className="crystal-face face1"></div>
+            <div className="crystal-face face2"></div>
+            <div className="crystal-face face3"></div>
+            <div className="crystal-face face4"></div>
+            <div className="crystal-shadow"></div>
+          </div>
         </div>
         <div className="loading-progress">
           <div className="loading-bar">
@@ -512,7 +658,7 @@ const AuraResult: React.FC = () => {
           </div>
           <p className="loading-percentage">{loadingProgress}%</p>
         </div>
-        <p className="loader-text">Auranız Oluşturuluyor...</p>
+        <p className="loader-text">Auranız Oluşturuluyor</p>
         <p className="loader-subtext">Yapay zeka kişiliğinizi analiz ediyor</p>
       </div>
     );
@@ -521,176 +667,282 @@ const AuraResult: React.FC = () => {
   return (
     <div className="aura-result-container">
       <style>{`
-        .loading-indicator {
+        /* Ana yükleme animasyonu */
+        .aura-crystal-container {
           display: flex;
-          flex-direction: column;
+          justify-content: center;
           align-items: center;
-          gap: 1rem;
+          margin-bottom: 2rem;
+          perspective: 800px;
         }
-
-        .loading-spinner-crystal {
-          width: 50px;
-          height: 50px;
-          position: relative;
-          animation: crystal-rotate 2s infinite linear;
-        }
-
-        .loading-spinner-crystal::before,
-        .loading-spinner-crystal::after {
-          content: '';
-          position: absolute;
-          width: 100%;
-          height: 100%;
-          border-radius: 15%;
-          background: linear-gradient(45deg, #FF61D2, #FE9090);
-          opacity: 0.7;
-        }
-
-        .loading-spinner-crystal::after {
-          animation: crystal-pulse 1s infinite alternate;
-        }
-
-        @keyframes crystal-rotate {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
-        }
-
-        @keyframes crystal-pulse {
-          from { transform: scale(1); opacity: 0.7; }
-          to { transform: scale(1.2); opacity: 0.3; }
-        }
-
-        .loading-text-animated {
-          font-size: 1.1rem;
-          color: #4a4a4a;
-          display: flex;
-          align-items: center;
-          gap: 0.3rem;
-        }
-
-        .loading-dots {
-          display: inline-block;
-          animation: dots 1.4s infinite;
-          width: 1.5em;
-          text-align: left;
-        }
-
-        @keyframes dots {
-          0%, 20% { content: '.'; }
-          40% { content: '..'; }
-          60%, 100% { content: '...'; }
-        }
-
-        .aura-crystal-spinner {
-          width: 60px;
-          height: 60px;
+        
+        .aura-crystal {
+          width: 80px;
+          height: 80px;
           position: relative;
           transform-style: preserve-3d;
-          animation: crystal-3d-spin 3s infinite linear;
+          animation: crystal-rotate 4s infinite linear;
+          transform: rotateX(20deg) rotateY(20deg);
         }
-
+        
         .crystal-face {
           position: absolute;
           width: 100%;
           height: 100%;
-          background: linear-gradient(45deg, #FF61D2, #FE9090);
+          background: linear-gradient(135deg, #FF61D2, #FE9090);
           opacity: 0.7;
           border-radius: 15%;
         }
-
-        .crystal-face:nth-child(1) { transform: rotateY(0deg) translateZ(30px); }
-        .crystal-face:nth-child(2) { transform: rotateY(90deg) translateZ(30px); }
-        .crystal-face:nth-child(3) { transform: rotateY(180deg) translateZ(30px); }
-        .crystal-face:nth-child(4) { transform: rotateY(270deg) translateZ(30px); }
-
-        @keyframes crystal-3d-spin {
-          from { transform: rotateY(0deg) rotateX(45deg); }
-          to { transform: rotateY(360deg) rotateX(45deg); }
+        
+        .face1 { transform: rotateY(0deg) translateZ(40px); }
+        .face2 { transform: rotateY(90deg) translateZ(40px); }
+        .face3 { transform: rotateY(180deg) translateZ(40px); }
+        .face4 { transform: rotateY(270deg) translateZ(40px); }
+        
+        .crystal-shadow {
+          position: absolute;
+          width: 100%;
+          height: 20px;
+          background: rgba(0,0,0,0.2);
+          bottom: -40px;
+          border-radius: 50%;
+          filter: blur(10px);
+          animation: shadow-pulse 2s infinite alternate;
         }
-
-        .aura-loading-container {
+        
+        @keyframes crystal-rotate {
+          from { transform: rotateX(20deg) rotateY(0deg); }
+          to { transform: rotateX(20deg) rotateY(360deg); }
+        }
+        
+        @keyframes shadow-pulse {
+          from { transform: scale(0.8); opacity: 0.2; }
+          to { transform: scale(1); opacity: 0.4; }
+        }
+        
+        /* İçgörü yükleme bileşenleri */
+        .loading-crystal {
           display: flex;
           flex-direction: column;
           align-items: center;
-          gap: 2rem;
-          padding: 2rem;
-        }
-
-        .cache-indicator {
-          margin-top: 1rem;
-          text-align: right;
-        }
-
-        .cache-badge, .llama-badge, .default-badge {
-          padding: 0.4rem 0.8rem;
-          border-radius: 20px;
-          font-size: 0.9rem;
-          background: linear-gradient(45deg, #FF61D2, #FE9090);
-          color: white;
-          box-shadow: 0 2px 10px rgba(254, 144, 144, 0.3);
-        }
-
-        .aura-story-content {
-          opacity: 0;
-          animation: fadeIn 1s forwards;
-        }
-
-        @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
+          gap: 0.8rem;
+          padding: 1rem;
         }
         
-        .insights-pulse-container {
+        .loading-crystal-spinner {
+          width: 40px;
+          height: 40px;
+          border-radius: 30%;
+          position: relative;
+          animation: crystal-spin 2s infinite linear;
+        }
+        
+        .loading-crystal-spinner::before,
+        .loading-crystal-spinner::after {
+          content: '';
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          border-radius: 30%;
+          background: inherit;
+          opacity: 0.7;
+        }
+        
+        .loading-crystal-spinner::after {
+          filter: blur(5px);
+          animation: crystal-pulse 1.5s infinite alternate;
+        }
+        
+        .loading-crystal-text {
+          font-size: 0.9rem;
+          color: #666;
+          display: flex;
+          gap: 0.2rem;
+        }
+        
+        .loading-crystal-dots {
+          position: relative;
+          min-width: 16px;
+        }
+        
+        .loading-crystal-dots::after {
+          content: '...';
+          position: absolute;
+          animation: dots-animation 1.5s infinite;
+          width: 1.5em;
+        }
+        
+        @keyframes crystal-spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+        
+        @keyframes crystal-pulse {
+          from { transform: scale(1); opacity: 0.7; }
+          to { transform: scale(1.3); opacity: 0.3; }
+        }
+        
+        @keyframes dots-animation {
+          0%, 20% { content: '.'; }
+          40% { content: '..'; }
+          60%, 100% { content: '...'; }
+        }
+        
+        /* İçgörü yükleme iskeleti - geliştirilmiş versiyon */
+        .insight-loading-skeleton {
+          padding: 1.5rem;
+          border-radius: 12px;
+          background: rgba(255, 255, 255, 0.7);
+          backdrop-filter: blur(10px);
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+          height: 100%;
+        }
+        
+        .insight-loading-icon-container {
+          display: flex;
+          justify-content: center;
+          margin-bottom: 1rem;
+        }
+        
+        .insight-loading-icon-placeholder {
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: relative;
+          overflow: hidden;
+        }
+        
+        .insight-loading-icon-placeholder::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: inherit;
+          opacity: 0.7;
+          z-index: 1;
+        }
+        
+        .insight-loading-icon-placeholder::after {
+          content: '';
+          position: absolute;
+          top: -50%;
+          left: -50%;
+          right: -50%;
+          bottom: -50%;
+          background: linear-gradient(
+            45deg,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 0.8) 50%,
+            rgba(255, 255, 255, 0) 100%
+          );
+          transform: rotate(45deg);
+          animation: insight-icon-shine 2s infinite;
+          z-index: 2;
+        }
+        
+        .insight-loading-icon {
+          position: relative;
+          z-index: 3;
+          color: white;
+          font-size: 1.2rem;
+          text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+        
+        @keyframes insight-icon-shine {
+          0% { transform: translateX(-100%) rotate(45deg); }
+          100% { transform: translateX(100%) rotate(45deg); }
+        }
+        
+        .insight-loading-title {
+          margin: 0 0 1rem 0;
+          font-size: 1.1rem;
+          color: #333;
+          text-align: center;
+        }
+        
+        .insight-loading-content-placeholder {
           display: flex;
           flex-direction: column;
           align-items: center;
           justify-content: center;
-          min-height: 80px;
+          padding: 1rem;
+          min-height: 100px;
         }
         
-        .insights-pulse {
+        .insight-loading-crystal-container {
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          margin-bottom: 1rem;
+        }
+        
+        .insight-loading-crystal {
           width: 40px;
           height: 40px;
-          border-radius: 50%;
-          background: linear-gradient(45deg, #FF61D2, #FE9090);
-          animation: insight-pulse 1.5s infinite;
+          background: linear-gradient(135deg, #FF61D2, #FE9090);
+          border-radius: 20%;
+          position: relative;
+          animation: crystal-rotate-3d 3s infinite linear;
+          transform-style: preserve-3d;
+          box-shadow: 0 5px 15px rgba(255, 97, 210, 0.3);
         }
         
-        @keyframes insight-pulse {
-          0% { transform: scale(0.8); opacity: 0.5; }
-          50% { transform: scale(1.2); opacity: 0.8; }
-          100% { transform: scale(0.8); opacity: 0.5; }
+        .insight-loading-crystal::before,
+        .insight-loading-crystal::after {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: inherit;
+          border-radius: 20%;
+          opacity: 0.6;
         }
         
-        .insights-loading-text {
-          margin-top: 0.8rem;
+        .insight-loading-crystal::before {
+          transform: rotateX(60deg);
+        }
+        
+        .insight-loading-crystal::after {
+          transform: rotateY(60deg);
+        }
+        
+        @keyframes crystal-rotate-3d {
+          0% { transform: rotate(0deg) rotateX(30deg) rotateY(0deg); }
+          100% { transform: rotate(360deg) rotateX(30deg) rotateY(360deg); }
+        }
+        
+        .insight-loading-text {
           font-size: 0.9rem;
           color: #666;
+          display: flex;
+          align-items: center;
+          gap: 0.2rem;
         }
         
-        .insight-content {
-          animation: fadeInUp 0.6s forwards;
-          opacity: 0;
+        .insight-loading-dots {
+          position: relative;
+          width: 2em;
+          display: inline-block;
         }
         
-        @keyframes fadeInUp {
-          from { 
-            opacity: 0;
-            transform: translateY(10px);
-          }
-          to { 
-            opacity: 1;
-            transform: translateY(0);
-          }
+        .insight-loading-dots::after {
+          content: '...';
+          position: absolute;
+          animation: insight-dots 1.5s infinite steps(4);
+          overflow: hidden;
+          white-space: nowrap;
         }
         
-        .insight-icon-container {
-          animation: bounce 2s infinite;
-        }
-        
-        @keyframes bounce {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-10px); }
+        @keyframes insight-dots {
+          0% { content: ''; width: 0; }
+          100% { content: '...'; width: 3em; }
         }
       `}</style>
       <div className="page-wrapper">
@@ -794,41 +1046,11 @@ const AuraResult: React.FC = () => {
                     <span className="aura-section-icon">📖</span>
                     Aura Hikayen
                   </h2>
-                  {isStoryLoading && !hasQuickSummary && (
-                    <div className="loading-indicator">
-                      <div className="loading-spinner-crystal"></div>
-                      <p className="loading-text-animated">Auran analiz ediliyor<span className="loading-dots">...</span></p>
-                    </div>
-                  )}
-                  
-                  {hasQuickSummary && isFullStoryLoading && (
-                    <div className="loading-indicator">
-                      <div className="loading-spinner-crystal"></div>
-                      {apiCacheStat === 'llama' ? (
-                        <p className="loading-text-animated">Auralize hikayeni oluşturuyor<span className="loading-dots">...</span></p>
-                      ) : apiCacheStat === 'default' ? (
-                        <p className="loading-text-animated">Varsayılan hikaye yükleniyor<span className="loading-dots">...</span></p>
-                      ) : (
-                        <p className="loading-text-animated">Detaylı aura hikayen hazırlanıyor<span className="loading-dots">...</span></p>
-                      )}
-                    </div>
-                  )}
                 </div>
                 <div className="aura-story-box glass-card">
-                  {isStoryLoading && !hasQuickSummary ? (
+                  {isStoryLoading ? (
                     <div className="aura-loading-container">
-                      <div className="aura-crystal-spinner">
-                        <div className="crystal-face"></div>
-                        <div className="crystal-face"></div>
-                        <div className="crystal-face"></div>
-                        <div className="crystal-face"></div>
-                      </div>
-                      <p className="aura-loading-text loading-text-animated">
-                        {isFullStoryLoading 
-                          ? "Auralize hikayeni oluşturuyor" 
-                          : "Aura hikayen hazırlanıyor"}
-                        <span className="loading-dots">...</span>
-                      </p>
+                      <LoadingAnimation text="Aura hikayen hazırlanıyor" color={auraData?.gradient} />
                     </div>
                   ) : (
                     <div className="aura-story-content animate__animated animate__fadeIn">
@@ -899,89 +1121,75 @@ const AuraResult: React.FC = () => {
                     <span className="aura-section-icon">💡</span>
                     Aura İçgörülerin
                   </h2>
-                  {isInsightsLoading && (
-                    <div className="loading-indicator">
-                      <div className="loading-spinner-crystal" style={{ 
-                        background: auraData?.gradient || 'linear-gradient(45deg, #FF61D2, #FE9090)'
-                      }}></div>
-                      <p className="loading-text-animated">
-                        İçgörülerin oluşturuluyor
-                        <span className="loading-dots">...</span>
-                      </p>
-                    </div>
-                  )}
                 </div>
                 <div className="aura-insights-container">
                   <div className="aura-insights-grid">
                     <div className="aura-insight-card glass-card">
-                      <div className="aura-insight-icon insight-icon-container" style={{ background: auraData?.gradient }}>🌟</div>
-                      <h3 className="aura-insight-title">Güçlü Yönlerin</h3>
                       {isInsightsLoading ? (
-                        <div className="insights-pulse-container">
-                          <div className="insights-pulse" style={{ background: auraData?.gradient }}></div>
-                          <p className="insights-loading-text">Güçlü yönlerin analiz ediliyor<span className="loading-dots">...</span></p>
+                        <div className="insight-loading-container">
+                          <LoadingAnimation text="Güçlü yönlerin analiz ediliyor" color={auraData?.gradient} />
                         </div>
                       ) : (
-                        <p className="aura-insight-text insight-content">
-                          {insights.strengths || 
-                           (auraType === 'creative' && 'Yenilikçi düşünme, bağlantılar kurma, sezgisel anlayış') ||
-                           (auraType === 'analytical' && 'Detaylara dikkat, mantıksal düşünme, problem çözme') ||
-                           (auraType === 'empathetic' && 'Duygusal zeka, dinleme, insanları anlama') ||
-                           (auraType === 'energetic' && 'İnitiasif alma, tutkulu çalışma, enerji yayma')
-                          }
-                        </p>
+                        <>
+                          <div className="aura-insight-icon insight-icon-container" style={{ background: auraData?.gradient }}>🌟</div>
+                          <h3 className="aura-insight-title">Güçlü Yönlerin</h3>
+                          <p className="aura-insight-text insight-content">
+                            {insights.strengths}
+                          </p>
+                        </>
                       )}
                     </div>
                     
                     <div className="aura-insight-card glass-card">
-                      <div className="aura-insight-icon insight-icon-container" style={{ background: auraData?.gradient }}>🚀</div>
-                      <h3 className="aura-insight-title">Potansiyelin</h3>
                       {isInsightsLoading ? (
-                        <div className="insights-pulse-container">
-                          <div className="insights-pulse" style={{ background: auraData?.gradient }}></div>
-                          <p className="insights-loading-text">Potansiyelin keşfediliyor<span className="loading-dots">...</span></p>
+                        <div className="insight-loading-container">
+                          <LoadingAnimation text="Potansiyelin analiz ediliyor" color={auraData?.gradient} />
                         </div>
                       ) : (
-                        <p className="aura-insight-text insight-content">
-                          {insights.potential || 
-                           (auraType === 'creative' && 'Benzersiz sanat eserleri, orijinal fikirler, yenilikçi çözümler üretme') ||
-                           (auraType === 'analytical' && 'Karmaşık sistemleri anlama, etkili stratejiler geliştirme, verimli çözümler bulma') ||
-                           (auraType === 'empathetic' && 'Güçlü ilişkiler kurma, insanları motive etme, duygusal destek sağlama') ||
-                           (auraType === 'energetic' && 'Zorlu projeleri tamamlama, ekipleri harekete geçirme, hızlı sonuçlar elde etme')
-                          }
-                        </p>
+                        <>
+                          <div className="aura-insight-icon insight-icon-container" style={{ background: auraData?.gradient }}>🚀</div>
+                          <h3 className="aura-insight-title">Potansiyelin</h3>
+                          <p className="aura-insight-text insight-content">
+                            {insights.potential}
+                          </p>
+                        </>
                       )}
                     </div>
                     
                     <div className="aura-insight-card glass-card">
-                      <div className="aura-insight-icon insight-icon-container" style={{ background: auraData?.gradient }}>🧠</div>
-                      <h3 className="aura-insight-title">Düşünme Tarzın</h3>
                       {isInsightsLoading ? (
-                        <div className="insights-pulse-container">
-                          <div className="insights-pulse" style={{ background: auraData?.gradient }}></div>
-                          <p className="insights-loading-text">Düşünme tarzın belirleniyor<span className="loading-dots">...</span></p>
+                        <div className="insight-loading-container">
+                          <LoadingAnimation text="Düşünme tarzın analiz ediliyor" color={auraData?.gradient} />
                         </div>
                       ) : (
-                        <p className="aura-insight-text insight-content">
-                          {insights.thinkingStyle || 
-                           (auraType === 'creative' && 'Yanal düşünme, bağlantılar kurma, sınırların dışına çıkma') ||
-                           (auraType === 'analytical' && 'Sistematik, yapısal, mantıksal ve detaylı düşünme') ||
-                           (auraType === 'empathetic' && 'Duygusal, sezgisel, ilişkisel ve anlamsal düşünme') ||
-                           (auraType === 'energetic' && 'Pratik, sonuç odaklı, hızlı ve aksiyon bazlı düşünme')
-                          }
-                        </p>
+                        <>
+                          <div className="aura-insight-icon insight-icon-container" style={{ background: auraData?.gradient }}>🧠</div>
+                          <h3 className="aura-insight-title">Düşünme Tarzın</h3>
+                          <p className="aura-insight-text insight-content">
+                            {insights.thinkingStyle}
+                          </p>
+                        </>
                       )}
                     </div>
                   </div>
                   
-                  {insights.source === 'llama' && (
+                  {!isInsightsLoading && insights.source === 'llama' && (
                     <div className="cache-indicator" style={{ textAlign: 'center', marginTop: '1rem' }}>
-                      <span className="llama-badge">Kişiselleştirilmiş içgörüler</span>
-                    </div>
-                  )}
-                  {insights.source === 'default' && (
-                    <div className="cache-indicator" style={{ textAlign: 'center', marginTop: '1rem' }}>
-                      <span className="default-badge">Varsayılan içgörüler</span>
+                      <div className="llama-badge" style={{ 
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        padding: '8px 16px',
+                        borderRadius: '20px',
+                        background: `${auraData?.particleColor}22`,
+                        color: auraData?.particleColor,
+                        fontSize: '14px',
+                        fontWeight: 500,
+                        boxShadow: `0 2px 8px ${auraData?.particleColor}33`
+                      }}>
+                        <span className="llama-icon">🤖</span>
+                        <span>Auralize tarafından oluşturuldu</span>
+                      </div>
                     </div>
                   )}
                 </div>
@@ -1085,9 +1293,15 @@ const AuraResult: React.FC = () => {
                   Testi Tekrarla
                 </Link>
                 <button 
-                  className={`btn ${isShared ? 'btn-success' : 'btn-share'}`}
+                  className={`btn ${isShared ? 'btn-success' : 'btn-share'} ${!isApiReady ? 'btn-disabled' : ''}`}
                   onClick={() => setShowUsernameModal(true)}
-                  disabled={isShared}
+                  disabled={isShared || !isApiReady}
+                  style={!isApiReady ? { 
+                    opacity: 0.5,
+                    cursor: 'not-allowed',
+                    background: '#ccc',
+                    boxShadow: 'none'
+                  } : {}}
                 >
                   <span className="btn-icon">
                     {isShared ? '✓' : (
@@ -1100,7 +1314,7 @@ const AuraResult: React.FC = () => {
                       </svg>
                     )}
                   </span>
-                  {isShared ? 'Paylaşıldı' : 'Galeriye Paylaş'}
+                  {isShared ? 'Paylaşıldı' : isApiReady ? 'Galeriye Paylaş' : 'Analiz tamamlanıyor...'}
                 </button>
               </motion.div>
             </motion.div>

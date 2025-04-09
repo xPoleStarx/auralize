@@ -2271,3 +2271,163 @@
     opacity: 0.6;
   }
 }
+
+/* Quiz Selection Sayfası */
+.quiz-options-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.quiz-option-card {
+  position: relative;
+  overflow: hidden;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  z-index: 1;
+}
+
+.quiz-option-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.2);
+  z-index: -1;
+}
+
+.quiz-option-card:hover {
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+.quiz-option-emoji {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  position: relative;
+  z-index: 2;
+}
+
+.quiz-option-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  position: relative;
+  z-index: 2;
+}
+
+.quiz-option-description {
+  color: rgba(255, 255, 255, 0.95);
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  position: relative;
+  z-index: 2;
+}
+
+.quiz-option-button {
+  background-color: rgba(255, 255, 255, 0.25);
+  color: white;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 50px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+  margin-top: auto;
+  position: relative;
+  z-index: 2;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.quiz-option-button:hover {
+  background-color: rgba(255, 255, 255, 0.35);
+  transform: translateY(-3px);
+}
+
+/* Quiz tiplerine göre aura görselleştirmeleri */
+.aura-glow.creative {
+  background: radial-gradient(circle, rgba(236, 72, 153, 0.6) 0%, rgba(124, 58, 237, 0.6) 50%, rgba(14, 165, 233, 0.2) 100%);
+  box-shadow: 0 0 50px rgba(236, 72, 153, 0.5), 0 0 100px rgba(124, 58, 237, 0.3);
+  animation: pulse-creative 6s infinite alternate;
+}
+
+.aura-glow.mood {
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.6) 0%, rgba(14, 165, 233, 0.6) 50%, rgba(59, 130, 246, 0.2) 100%);
+  box-shadow: 0 0 50px rgba(56, 189, 248, 0.5), 0 0 100px rgba(14, 165, 233, 0.3);
+  animation: pulse-mood 6s infinite alternate;
+}
+
+.aura-glow.personal {
+  background: radial-gradient(circle, rgba(52, 211, 153, 0.6) 0%, rgba(16, 185, 129, 0.6) 50%, rgba(5, 150, 105, 0.2) 100%);
+  box-shadow: 0 0 50px rgba(52, 211, 153, 0.5), 0 0 100px rgba(16, 185, 129, 0.3);
+  animation: pulse-personal 6s infinite alternate;
+}
+
+.aura-glow.career {
+  background: radial-gradient(circle, rgba(251, 146, 60, 0.6) 0%, rgba(249, 115, 22, 0.6) 50%, rgba(234, 88, 12, 0.2) 100%);
+  box-shadow: 0 0 50px rgba(251, 146, 60, 0.5), 0 0 100px rgba(249, 115, 22, 0.3);
+  animation: pulse-career 6s infinite alternate;
+}
+
+@keyframes pulse-creative {
+  0% {
+    opacity: 0.7;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes pulse-mood {
+  0% {
+    opacity: 0.7;
+    transform: scale(0.95) rotate(0deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.05) rotate(5deg);
+  }
+}
+
+@keyframes pulse-personal {
+  0% {
+    opacity: 0.7;
+    transform: scale(0.95) translateY(5px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.05) translateY(-5px);
+  }
+}
+
+@keyframes pulse-career {
+  0% {
+    opacity: 0.7;
+    transform: scale(0.95) rotate(-3deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.05) rotate(3deg);
+  }
+}

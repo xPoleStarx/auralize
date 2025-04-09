@@ -54,7 +54,7 @@ Bu teknolojiler, kullanıcı girdilerini **zengin ve yaratıcı içeriklere** d�
 ### 📋 Gereksinimler
 - **Node.js** (v16 veya üstü)  
 - **Python** (v3.8 veya üstü)  
-- Stable Diffusion, GPT ve AudioLDM modelleri için API erişimi veya yerel kurulum  
+- Stable Diffusion, Llama, GPT ve AudioLDM modelleri için API erişimi veya yerel kurulum  
 
 ### 🚀 Adımlar
 1. Depoyu klonlayın ve çalıştırın:

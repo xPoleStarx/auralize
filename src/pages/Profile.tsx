@@ -5,8 +5,10 @@ import '../styles/Profile.css';
 
 interface UserProfile {
   username: string;
-  userId: string;
-  joinDate: Date;
+  quizzesTaken: number;
+  lastPlayed: Date | null;
+  userId?: string;
+  joinDate?: Date;
 }
 
 interface AuraArt {
@@ -36,6 +38,17 @@ interface GameStats {
   totalGames: number;
   totalScore: number;
   lastPlayed: Date | null;
+}
+
+interface AuraResult {
+  id: string;
+  title: string;
+  userId: string;
+  username: string;
+  auraType: string;
+  createdAt: Date;
+  likes: number;
+  likedBy: string[];
 }
 
 const Profile: React.FC = () => {
@@ -86,8 +99,10 @@ const Profile: React.FC = () => {
       }
       
       setProfile({
-        userId,
         username: username || 'Anonim Kullanıcı',
+        quizzesTaken: 0,
+        lastPlayed: null,
+        userId,
         joinDate
       });
       
@@ -105,8 +120,8 @@ const Profile: React.FC = () => {
           setUserAuras(ownAuras);
           
           // Kullanıcının beğendiği diğerlerinin auraları
-          const liked = allAuras.filter((aura: AuraArt) => 
-            aura.userId !== userId && aura.likedBy.includes(userId)
+          const liked = allAuras.filter((aura: AuraResult) => 
+            aura.userId !== userId && aura.likedBy && aura.likedBy.includes(userId)
           );
           setLikedAuras(liked);
         }
@@ -414,10 +429,10 @@ const Profile: React.FC = () => {
                 <line x1="8" y1="2" x2="8" y2="6"></line>
                 <line x1="3" y1="10" x2="21" y2="10"></line>
               </svg>
-              {new Date(aura.createdAt).toLocaleDateString()}
+              {aura.createdAt ? new Date(aura.createdAt).toLocaleDateString() : 'Tarih bilgisi yok'}
             </div>
             
-            {aura.likes > 0 && (
+            {aura.likes && aura.likes > 0 && (
               <div className="aura-likes" style={{ color: colors.light }}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"></path>

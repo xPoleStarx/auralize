@@ -1,4 +1,5 @@
 import { saveAuraToFile, readAuraFromFile, listUserAuraFiles } from './fileSystemService';
+import { v4 as uuidv4 } from 'uuid';
 
 // Aura verilerini temsil eden tip tanımlamaları
 export interface AuraStory {
@@ -16,58 +17,65 @@ export interface AuraStory {
   isShared: boolean;
 }
 
+interface AuraData {
+  auraType: string;
+  story: string;
+  strengths: string;
+  potential: string;
+  thinkingStyle: string;
+  auraTitle: string;
+  answers: { [key: number]: string };
+}
+
+interface AuraResult {
+  id: string;
+  auraType: string;
+  auraTitle: string;
+  story: string;
+  strengths: string;
+  potential: string;
+  thinkingStyle: string;
+  timestamp: number;
+  answers: { [key: number]: string };
+}
+
 // Aura verilerini kaydetme
-export const saveAuraStory = async (
-  userId: string,
-  auraData: {
-    auraType: string;
-    story: string;
-    strengths: string;
-    potential: string;
-    thinkingStyle: string;
-    auraTitle: string;
-    answers: { [key: number]: string };
-  }
-): Promise<string> => {
+export const saveAuraStory = async (userId: string, auraData: AuraData): Promise<string> => {
   try {
-    // Benzersiz bir aura ID oluştur
-    const auraId = `aura_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    // Benzersiz ID oluştur
+    const auraId = uuidv4();
     
-    // Kullanıcı adını localStorage'dan al
-    const username = localStorage.getItem('auralize_username') || 'Anonim';
+    // LocalStorage'dan mevcut auraları getir veya yeni bir dizi oluştur
+    const auraStorageKey = `auralize_user_auras_${userId}`;
+    const existingAurasJson = localStorage.getItem(auraStorageKey);
+    const existingAuras: AuraResult[] = existingAurasJson ? JSON.parse(existingAurasJson) : [];
     
-    // Tam aura verisini oluştur
-    const fullAuraData: AuraStory = {
+    // Yeni aurayı ekle
+    const newAura: AuraResult = {
       id: auraId,
-      userId,
-      username,
       auraType: auraData.auraType,
-      title: auraData.auraTitle || `${auraData.auraType.charAt(0).toUpperCase() + auraData.auraType.slice(1)} Aurası`,
-      createdAt: new Date(),
+      auraTitle: auraData.auraTitle,
       story: auraData.story,
       strengths: auraData.strengths,
       potential: auraData.potential,
       thinkingStyle: auraData.thinkingStyle,
-      auraTitle: auraData.auraTitle,
-      isShared: false
-    };
-    
-    // Quizden gelen cevapları da ekle
-    const completeData = {
-      ...fullAuraData,
+      timestamp: Date.now(),
       answers: auraData.answers
     };
     
-    // Dosyaya kaydet
-    await saveAuraToFile(userId, auraId, completeData);
+    existingAuras.push(newAura);
     
-    // Ayrıca localStorage'a da yedek olarak kaydedelim
-    localStorage.setItem(`auralize_aura_${auraId}`, JSON.stringify(completeData));
+    // LocalStorage'a kaydet
+    localStorage.setItem(auraStorageKey, JSON.stringify(existingAuras));
+    
+    // En son kaydedilen aurayı da kaydet (önbellek için)
+    const latestKey = `auralize_user_${userId}_latest`;
+    localStorage.setItem(latestKey, JSON.stringify(newAura));
     
     return auraId;
   } catch (error) {
-    console.error('[AuraDataService] Aura kaydedilirken hata:', error);
-    throw error;
+    console.error('Aura kaydedilirken hata oluştu:', error);
+    throw new Error('Aura kaydedilemedi');
   }
 };
 
@@ -106,21 +114,33 @@ export const getAuraStory = async (userId: string, auraId: string): Promise<Aura
 };
 
 // Kullanıcının tüm auralarını getirme
-export const getUserAuraStories = async (userId: string): Promise<AuraStory[]> => {
+export const getUserAuras = async (userId: string): Promise<AuraResult[]> => {
   try {
-    // Kullanıcının tüm aura ID'lerini al
-    const auraIds = await listUserAuraFiles(userId);
+    const auraStorageKey = `auralize_user_auras_${userId}`;
+    const aurasJson = localStorage.getItem(auraStorageKey);
     
-    const auraPromises = auraIds.map(auraId => getAuraStory(userId, auraId));
-    const auras = await Promise.all(auraPromises);
+    if (!aurasJson) {
+      return [];
+    }
     
-    // null değerleri filtrele ve tarihe göre sırala (en yeni üstte)
-    return auras
-      .filter((aura): aura is AuraStory => aura !== null)
-      .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+    const auras: AuraResult[] = JSON.parse(aurasJson);
+    // Tarihe göre sırala (en yeniden en eskiye)
+    return auras.sort((a, b) => b.timestamp - a.timestamp);
   } catch (error) {
-    console.error('[AuraDataService] Kullanıcı auraları alınırken hata:', error);
+    console.error('Kullanıcı auraları getirilirken hata:', error);
     return [];
+  }
+};
+
+// ID'ye göre bir aura getirme
+export const getAuraById = async (userId: string, auraId: string): Promise<AuraResult | null> => {
+  try {
+    const allAuras = await getUserAuras(userId);
+    const aura = allAuras.find(a => a.id === auraId);
+    return aura || null;
+  } catch (error) {
+    console.error('Aura getirilirken hata:', error);
+    return null;
   }
 };
 
