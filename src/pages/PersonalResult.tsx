@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { motion } from 'framer-motion';
-import { getAuraStoryFromDeepSeek, getAuraInsightsFromLlama } from '../services/deepseekService';
+import { getAuraStoryFromOpenAI, getAuraInsightsFromOpenAI } from '../services/openaiService';
 import { saveAuraStory } from '../services/auraDataService';
 import { personalQuizQuestions } from '../pages/Quiz'; // Kişisel Gelişim sorularını import et
 
@@ -73,8 +74,11 @@ const personalGradients = {
 const PersonalResult: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isLoading, setIsLoading] = useState(true);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [loadingProgress, setLoadingProgress] = useState(0);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isAnalysisStarted, setIsAnalysisStarted] = useState(false);
   const [personalStory, setPersonalStory] = useState<string>('');
   const [personalStrengths, setPersonalStrengths] = useState<string>('');
@@ -87,7 +91,7 @@ const PersonalResult: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const [isStoryLoading, setIsStoryLoading] = useState(true);
   const [isInsightsLoading, setIsInsightsLoading] = useState(true);
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -167,9 +171,9 @@ const PersonalResult: React.FC = () => {
         console.log("Detaylı kişisel analiz cevapları:", detailedAnswers);
         
         // İçgörüleri ve hikayeyi paralel olarak yükleyelim
-        const storyPromise = getAuraStoryFromDeepSeek(quizType, username, state.answers);
+        const storyPromise = getAuraStoryFromOpenAI(quizType, username, state.answers);
         // @ts-ignore - detailedAnswers parametresini ekstra olarak geçiyoruz, servisi güncelleyeceğiz
-        const insightsPromise = getAuraInsightsFromLlama(quizType, username, state.answers, detailedAnswers);
+        const insightsPromise = getAuraInsightsFromOpenAI(quizType, username, state.answers, detailedAnswers);
 
         // İçgörüleri elde et
         insightsPromise.then((insights) => {
@@ -250,6 +254,7 @@ const PersonalResult: React.FC = () => {
               console.error("Analiz kaydedilirken hata:", saveError);
             }
             
+            clearTimeout(timerRef.current as ReturnType<typeof setTimeout>);
             setIsLoading(false);
             setLoadingProgress(100);
           }
@@ -263,6 +268,7 @@ const PersonalResult: React.FC = () => {
         setPersonalThinking("Öğrenme ve gelişim stiliniz şu anda görüntülenemiyor.");
         setPersonalTitle("Kişisel Gelişim Analizi");
         
+        clearTimeout(timerRef.current as ReturnType<typeof setTimeout>);
         setIsStoryLoading(false);
         setIsInsightsLoading(false);
         setIsLoading(false);
@@ -279,7 +285,7 @@ const PersonalResult: React.FC = () => {
         clearTimeout(timerRef.current);
       }
     };
-  }, [location, navigate]);
+  }, [location, navigate, personalStory, personalStrengths, personalPotential, personalThinking, personalTitle, isStoryLoading, isInsightsLoading]);
 
   // Analizi paylaşma fonksiyonu
   const handleShareAnalysis = async () => {
@@ -293,6 +299,7 @@ const PersonalResult: React.FC = () => {
   };
 
   // Animasyon varyantları
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const fadeInUp = {
     hidden: { opacity: 0, y: 30 },
     visible: {
@@ -305,6 +312,7 @@ const PersonalResult: React.FC = () => {
     }
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const itemAnimation = {
     hidden: { opacity: 0, y: 20 },
     visible: (i: number) => ({
@@ -319,6 +327,7 @@ const PersonalResult: React.FC = () => {
   };
 
   // Pulse animasyonu
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const pulseAnimation = {
     scale: [1, 1.05, 1],
     opacity: [0.7, 0.9, 0.7],
@@ -812,9 +821,9 @@ const PersonalResult: React.FC = () => {
               <span className="ml-2">✨</span>
             </p>
             <div className="footer-links">
-              <a href="#" className="footer-link">Hakkımızda</a>
-              <a href="#" className="footer-link">Gizlilik</a>
-              <a href="#" className="footer-link">İletişim</a>
+              <a href="/about" className="footer-link">Hakkımızda</a>
+              <a href="/privacy" className="footer-link">Gizlilik</a>
+              <a href="/contact" className="footer-link">İletişim</a>
             </div>
           </div>
         </div>

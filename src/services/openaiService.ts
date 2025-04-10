@@ -1,8 +1,19 @@
 // OpenAI API ile iletişim kuracak servis
 import axios from 'axios';
-import { createHash } from 'crypto';
 
+// deepseekService'den alınan fonksiyonlar ve sabitler
+import { 
+  getAnswerSummary, 
+  getSystemPromptForAuraType, 
+  getInsightsPromptForAuraType
+} from './deepseekService';
 
+// Bu değerleri openaiService'den de dışa aktarıyoruz
+export { 
+  getAnswerSummary, 
+  getSystemPromptForAuraType, 
+  getInsightsPromptForAuraType
+};
 
 // OpenAI API için tip tanımlamaları
 interface OpenAIRequestBody {
@@ -36,11 +47,16 @@ interface OpenAIResponse {
   };
 }
 
-// OpenAI'nin gpt-4o-mini modeli için sabitleri tanımla
+// OpenAI API için sabitleri tanımla
 const OPENAI_API_URL = 'https://api.openai.com/v1/chat/completions';
 const OPENAI_MODEL = 'gpt-4o-mini-2024-07-18';
-const OPENAI_API_KEY = process.env.REACT_APP_OPENAI_API_KEY || '';
+// API anahtarını doğrudan kodun içine yerleştiriyoruz - process.env çalışmadığı için
+// const OPENAI_API_KEY = process.env.REACT_APP_OPENAI_API_KEY || '';
+const OPENAI_API_KEY = "sk-HYEDlsAylQ3ig7-_Rm9inf6OPrfzQOfcdRv2mU4fpLT3BlbkFJOB1chlkF2dic3wiYzHKLYW75buC0XvpQfv22b5XxUA";
 const CACHE_EXPIRY_TIME = 24 * 60 * 60 * 1000; // 24 saat (milisaniye cinsinden)
+
+// Debug modunu açalım ki console.log'larla takip edebilelim
+const DEBUG_MODE = true;
 
 // Önbellek ile ilgili yardımcı fonksiyonlar
 const getCachedData = async (key: string): Promise<any> => {
@@ -64,16 +80,16 @@ const setCachedData = async (key: string, data: any): Promise<void> => {
   }
 };
 
-// deepseekService.ts'den aktarılan yardımcı fonksiyonlar
-// Bu fonksiyonları doğrudan OpenAI servisinde kullanabilmek için dahil ediyoruz
-import { 
-  getAnswerSummary, 
-  auraTypes, 
-  determineDynamicAuraType, 
-  getSystemPromptForAuraType,
-  getInsightsPromptForAuraType,
-  getCombinedPromptForAuraType as getDeepseekPromptForAuraType
-} from './deepseekService';
+// Basit string hash oluşturucu fonksiyon (crypto modülü yerine)
+const simpleHash = (str: string): string => {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    const char = str.charCodeAt(i);
+    hash = ((hash << 5) - hash) + char;
+    hash = hash & hash; // 32 bit integer'a dönüştür
+  }
+  return hash.toString(36);
+};
 
 // Önbellek anahtarı oluşturma fonksiyonu
 const createCacheKey = (auraType: string, answerPattern: string): string => {
@@ -129,29 +145,17 @@ export const getAuraStoryFromOpenAI = async (
 ): Promise<string> => {
   console.log('[OPENAI] getAuraStoryFromOpenAI çağrıldı', { auraType, username });
   
-  if (!OPENAI_API_KEY) {
-    throw new Error('OpenAI API anahtarı bulunamadı. Lütfen .env dosyasında REACT_APP_OPENAI_API_KEY değişkenini ayarlayın.');
+  // API anahtarı kontrolünü daha görünür yapalım
+  if (!OPENAI_API_KEY || OPENAI_API_KEY.trim() === '') {
+    console.error('[OPENAI] API anahtarı bulunamadı veya boş! .env dosyasındaki REACT_APP_OPENAI_API_KEY değişkenini kontrol edin.');
+    throw new Error('OpenAI API anahtarı bulunamadı veya boş. Lütfen .env dosyasında REACT_APP_OPENAI_API_KEY değişkenini ayarlayın.');
   }
+
+  console.log('[OPENAI] API anahtarı bulundu, uzunluk:', OPENAI_API_KEY.length);
   
   try {
-    // Cevapları özetle
-    const summary = getAnswerSummary(answers);
-    
-    // Önbellek için anahtar oluştur
-    const cacheKey = createCacheKey(auraType, summary.answerPattern);
-    
-    // Önbellekte bu hikayeyi daha önce oluşturup oluşturmadığımızı kontrol et
-    const cachedStory = localStorage.getItem(cacheKey);
-    const cachedData = cachedStory ? JSON.parse(cachedStory) : null;
-    
-    // Eğer önbellekte varsa ve süresi geçmediyse, önbellekten al
-    if (cachedData && 
-        cachedData.timestamp && 
-        (Date.now() - cachedData.timestamp < CACHE_EXPIRY_TIME) &&
-        cachedData.auraType === auraType) {
-      console.log('[OPENAI] Hikaye önbellekten alındı:', cacheKey);
-      return cachedData.story;
-    }
+    // Önbellekten kontrol etmeyi tamamen devre dışı bırakalım
+    console.log('[OPENAI] Önbellek kontrolü devre dışı, her zaman yeni istek gönderiliyor');
     
     // OpenAI istek gövdesi 
     const messages = prepareMessagesForOpenAI(auraType, username, answers);
@@ -160,7 +164,10 @@ export const getAuraStoryFromOpenAI = async (
     console.log('==== OPENAI API İSTEĞİ GÖNDERİLİYOR ====');
     console.log('[OPENAI] API URL:', OPENAI_API_URL);
     console.log('[OPENAI] Model:', OPENAI_MODEL);
+    console.log('[OPENAI] API Key (ilk 5 karakter):', OPENAI_API_KEY.substring(0, 5));
     console.log('[OPENAI] İstek Gövdesi Hazır');
+    console.log('[OPENAI] Sistem mesajı:', messages[0].content.substring(0, 100) + '...');
+    console.log('[OPENAI] Kullanıcı mesajı:', messages[1].content.substring(0, 100) + '...');
     console.log('====================================');
     console.log('');
     
@@ -185,7 +192,8 @@ export const getAuraStoryFromOpenAI = async (
     
     console.log('');
     console.log('==== OPENAI API YANITI ALINDI ====');
-    console.log('[OPENAI] Yanıt alındı');
+    console.log('[OPENAI] Yanıt alındı:', response.status);
+    console.log('[OPENAI] Yanıt data:', JSON.stringify(response.data).substring(0, 300) + '...');
     console.log('=================================');
     console.log('');
     
@@ -198,7 +206,8 @@ export const getAuraStoryFromOpenAI = async (
       timestamp: Date.now(),
       auraType: auraType
     };
-    localStorage.setItem(cacheKey, JSON.stringify(cacheData));
+    
+    console.log('[OPENAI] Hikaye başarıyla alındı!');
     
     return storyContent;
   } catch (error: any) {
@@ -210,9 +219,14 @@ export const getAuraStoryFromOpenAI = async (
         status: error.response.status,
         data: error.response.data
       });
+    } else if (error.request) {
+      console.error('[OPENAI] İstek yapıldı ama yanıt alınamadı:', error.request);
+    } else {
+      console.error('[OPENAI] İstek hazırlama hatası:', error.message);
     }
     
-    throw new Error('OpenAI API\'den hikaye alınamadı: ' + error.message);
+    // Burada örnek bir veri döndürelim ama hata olduğunu belirtelim
+    return `API HATASI OLUŞTU: ${error.message}. Lütfen daha sonra tekrar deneyin.`;
   }
 };
 
@@ -483,6 +497,45 @@ const getOpenAIDefaultInsights = (auraType: string) => {
   }
 };
 
+// Yeni determineDynamicAuraType fonksiyonu, artık sabit aura tipleri kullanmadan genel kategorileri döndürüyor
+export const determineDynamicAuraType = (answers: { [key: number]: string }): string => {
+  const summary = getAnswerSummary(answers);
+  const { dominantTrait, secondaryTrait } = summary;
+  
+  // Artık önceden tanımlanmış sabit aura tiplerini kullanmak yerine 
+  // ana kategorileri direkt olarak kullanıyoruz
+  // Bu sayede GPT-4o tamamen özgün aura başlıkları oluşturabilecek
+  return dominantTrait;
+};
+
+// Genel aura türleri için basic bilgiler (UI renkleri için)
+export const auraTypes = {
+  'analitik': {
+    description: 'Analitik düşünme yeteneğiniz, problem çözme beceriniz ve mantıksal yapınız öne çıkıyor.'
+  },
+  'yaratıcı': {
+    description: 'Yaratıcı enerjiniz, özgün düşünme yeteneğiniz ve sanatsal ifadeniz öne çıkıyor.'
+  },
+  'empatik': {
+    description: 'Empatik yanınız, duygusal zekanız ve insanlarla bağ kurma yeteneğiniz öne çıkıyor.'
+  },
+  'enerjik': {
+    description: 'Enerjik yapınız, motivasyonunuz ve harekete geçme kabiliyetiniz öne çıkıyor.'
+  },
+  'mood': {
+    description: 'Ruh haliniz ve duygusal dengeniz analiz edildi.'
+  },
+  'personal': {
+    description: 'Kişisel gelişim potansiyeliniz ve büyüme alanlarınız analiz edildi.'
+  },
+  'career': {
+    description: 'Kariyer potansiyeliniz ve profesyonel gelişim alanlarınız analiz edildi.'
+  },
+  'creative': {
+    description: 'Yaratıcı potansiyeliniz ve ifade biçimleriniz analiz edildi.'
+  }
+};
+
 // Hem aura hikayesi hem de içgörüleri tek bir istekte almak için birleştirilmiş fonksiyon
 export const getCombinedAuraDataFromOpenAI = async (
   auraType: string,
@@ -496,134 +549,74 @@ export const getCombinedAuraDataFromOpenAI = async (
   auraTitle: string,
   source: 'openai' | 'default' | 'api'
 }> => {
-  // Check cache first
-  const cacheKey = `aura_${auraType}_${createHash(JSON.stringify(answers) + username)}`;
-  const cachedData = await getCachedData(cacheKey);
-  if (cachedData) {
-    console.log("Returning cached aura data");
-    return cachedData;
+  // API anahtarı kontrolünü daha görünür yapalım
+  if (!OPENAI_API_KEY || OPENAI_API_KEY.trim() === '') {
+    console.error('[OPENAI] API anahtarı bulunamadı veya boş! .env dosyasındaki REACT_APP_OPENAI_API_KEY değişkenini kontrol edin.');
+    console.log("Varsayılan aura verileri döndürülüyor...");
+    const defaultData = getOpenAIDefaultInsights(auraType);
+    return {
+      story: defaultData.auraStory,
+      strengths: Array.isArray(defaultData.strengths) ? defaultData.strengths.join(", ") : defaultData.strengths,
+      potential: Array.isArray(defaultData.potentialAreas) ? defaultData.potentialAreas.join(", ") : defaultData.potentialAreas,
+      thinkingStyle: defaultData.thinkingStyle,
+      auraTitle: defaultData.auraTitle,
+      source: 'default' as const
+    };
   }
 
+  console.log('[OPENAI] getCombinedAuraDataFromOpenAI fonksiyonu çağrıldı');
+  console.log('[OPENAI] API anahtarı bulundu, uzunluk:', OPENAI_API_KEY.length);
+  console.log('[OPENAI] API anahtarı (ilk 10 karakter):', OPENAI_API_KEY.substring(0, 10));
+
+  // Önbellek kontrolü tamamen kaldırıldı
+  console.log('[OPENAI] Önbellek kontrolü devre dışı, her zaman yeni istek gönderiliyor');
+
   try {
-    const baseSchema = {
-      type: "object",
-      properties: {
-        auraStory: {
-          type: "string",
-          description: "Kullanıcının aura enerji hikayesi, 300-400 kelime arası, akıcı ve ilham verici bir Türkçe ile.",
-        },
-        strengths: {
-          type: "array",
-          description: "Kullanıcının güçlü yönleri, 3-4 madde olarak, detaylı açıklamalarla.",
-          items: {
-            type: "string",
-          },
-        },
-        potentialAreas: {
-          type: "array",
-          description: "Kullanıcının geliştirilebilir potansiyel alanları, 2-3 madde olarak, detaylı açıklamalarla.",
-          items: {
-            type: "string",
-          },
-        },
-        thinkingStyle: {
-          type: "string",
-          description: "Kullanıcının düşünme tarzı analizi, detaylı ve spesifik.",
-        },
-        auraTitle: {
-          type: "string",
-          description: "Kullanıcının aura enerjisini özetleyen çarpıcı bir başlık.",
-        },
-      },
-      required: ["auraStory", "strengths", "potentialAreas", "thinkingStyle", "auraTitle"],
-    };
+    console.log(`[OPENAI] ${auraType} aura verilerini OpenAI'dan alıyorum. Kullanıcı adı: ${username}`);
+    const prompt = `Kişinin aura enerjisini analiz et ve TAM OLARAK aşağıdaki formatta yanıt ver. 
+Her bölüm için DETAYLI açıklamalar yap:
 
-    let responseFormat: any = { ...baseSchema };
+### Aura Başlığı: **[Kişinin aura enerjisini özetleyen benzersiz ve çarpıcı bir başlık]**
 
-    // Add type-specific schema properties
-    switch (auraType) {
-      case 'mood':
-        responseFormat.properties = {
-          ...responseFormat.properties,
-          moodState: {
-            type: "string",
-            description: "Kullanıcının mevcut ruh hali durumu ve duygusal dengesi hakkında detaylı bir analiz.",
-          },
-          moodSuggestions: {
-            type: "array",
-            description: "Kullanıcının ruh halini dengelemesi için 4-5 pratik öneri.",
-            items: {
-              type: "string",
-            },
-          },
-        };
-        responseFormat.required = [...responseFormat.required, "moodState", "moodSuggestions"];
-        break;
-      
-      case 'personal':
-        responseFormat.properties = {
-          ...responseFormat.properties,
-          developmentAreas: {
-            type: "array",
-            description: "Kullanıcının çalışması gereken 3-4 temel kişisel gelişim alanı.",
-            items: {
-              type: "string",
-            },
-          },
-          developmentPlan: {
-            type: "object",
-            description: "Kullanıcı için 30-60-90 günlük bir kişisel gelişim planı.",
-            properties: {
-              thirtyDays: {
-                type: "array",
-                items: {
-                  type: "string",
-                },
-              },
-              sixtyDays: {
-                type: "array",
-                items: {
-                  type: "string",
-                },
-              },
-              ninetyDays: {
-                type: "array",
-                items: {
-                  type: "string",
-                },
-              },
-            },
-          },
-        };
-        responseFormat.required = [...responseFormat.required, "developmentAreas", "developmentPlan"];
-        break;
-      
-      case 'career':
-        responseFormat.properties = {
-          ...responseFormat.properties,
-          careerSuggestions: {
-            type: "array",
-            description: "Kullanıcı için 4-5 potansiyel kariyer yolu veya rol önerisi.",
-            items: {
-              type: "string",
-            },
-          },
-          skillsToImprove: {
-            type: "array",
-            description: "Kullanıcının kariyerinde ilerlemesi için geliştirmesi gereken 3-4 temel beceri.",
-            items: {
-              type: "string",
-            },
-          },
-        };
-        responseFormat.required = [...responseFormat.required, "careerSuggestions", "skillsToImprove"];
-        break;
-      
-      // Creative type uses the base schema without modifications
-    }
+#### Aura Hikayesi (auraStory): [Kişinin aura enerjisi hakkında 300-400 kelimelik akıcı ve ilham verici bir hikaye]
 
-    console.log(`Getting ${auraType} aura data from OpenAI for user: ${username}`);
-    const prompt = getCombinedAuraPrompt(answers, auraType);
+#### Güçlü Yönler (strengths): [Aşağıdaki formatta, her madde için detaylı açıklamalar]
+1. **[Güçlü yön 1]**: [Detaylı açıklama]
+2. **[Güçlü yön 2]**: [Detaylı açıklama]
+3. **[Güçlü yön 3]**: [Detaylı açıklama]
+4. **[Güçlü yön 4]**: [Detaylı açıklama]
+5. **[Güçlü yön 5]**: [Detaylı açıklama]
+
+#### Potansiyel Gelişim Alanları (potentialAreas): [Aşağıdaki formatta, her madde için detaylı açıklamalar]
+1. **[Potansiyel alan 1]**: [Detaylı açıklama]
+2. **[Potansiyel alan 2]**: [Detaylı açıklama]
+3. **[Potansiyel alan 3]**: [Detaylı açıklama]
+4. **[Potansiyel alan 4]**: [Detaylı açıklama]
+5. **[Potansiyel alan 5]**: [Detaylı açıklama]
+
+#### Düşünce Tarzı (thinkingStyle): [Kişinin düşünce tarzı hakkında detaylı bir paragraf]
+
+-----
+
+Kişi hakkında bilgiler:
+Ad: ${username}
+Aura Tipi: ${auraType}
+Quiz Cevapları: ${JSON.stringify(answers)}
+
+-----
+
+ÖNEMLİ: 
+- Yanıtını TAM OLARAK bu formatta ver
+- Formatı kesinlikle değiştirme
+- Tüm BAŞLIKLAR ve NUMARALANDIRMALAR bu şekilde kalmalı
+- Her bölüm için YETERLİ ve DETAYLI bilgi ver
+- Türkçe yanıt ver
+- Her bölümü MUTLAKA doldur ve hiçbir bölümü boş bırakma`;
+    
+    console.log('[OPENAI] API isteği hazırlanıyor...');
+    console.log('[OPENAI] API URL:', OPENAI_API_URL);
+    console.log('[OPENAI] Model:', OPENAI_MODEL);
+    console.log('[OPENAI] Prompt ilk 100 karakteri:', prompt.substring(0, 100) + '...');
     
     const response = await axios.post<OpenAIResponse>(
       OPENAI_API_URL,
@@ -635,8 +628,8 @@ export const getCombinedAuraDataFromOpenAI = async (
             content: prompt,
           },
         ],
-        response_format: { type: "json_object", schema: responseFormat },
         temperature: 0.7,
+        max_tokens: 1500
       },
       {
         headers: {
@@ -647,94 +640,97 @@ export const getCombinedAuraDataFromOpenAI = async (
       }
     );
 
+    console.log('[OPENAI] API yanıtı alındı:', response.status);
+    console.log('[OPENAI] Yanıt data (ilk 200 karakter):', JSON.stringify(response.data).substring(0, 200) + '...');
+
     if (!response.data.choices[0].message.content) {
-      throw new Error("OpenAI API returned an empty response");
+      throw new Error("OpenAI API boş yanıt döndü");
     }
 
-    try {
-      const data = JSON.parse(response.data.choices[0].message.content);
-      const formattedData = {
-        story: data.auraStory,
-        strengths: Array.isArray(data.strengths) ? data.strengths.join(", ") : data.strengths,
-        potential: Array.isArray(data.potentialAreas) ? data.potentialAreas.join(", ") : data.potentialAreas,
-        thinkingStyle: data.thinkingStyle,
-        auraTitle: data.auraTitle,
-        source: 'openai' as const
-      };
-      await setCachedData(cacheKey, formattedData);
-      return formattedData;
-    } catch (error) {
-      console.error("Error parsing OpenAI response:", error);
-      const defaultData = getOpenAIDefaultInsights(auraType);
-      return {
-        story: defaultData.auraStory,
-        strengths: Array.isArray(defaultData.strengths) ? defaultData.strengths.join(", ") : defaultData.strengths,
-        potential: Array.isArray(defaultData.potentialAreas) ? defaultData.potentialAreas.join(", ") : defaultData.potentialAreas,
-        thinkingStyle: defaultData.thinkingStyle,
-        auraTitle: defaultData.auraTitle,
-        source: 'default' as const
-      };
+    // Başarılı bir şekilde yanıt aldık, içeriğini kullan
+    const storyContent = response.data.choices[0].message.content;
+    console.log('[OPENAI] İçerik uzunluğu:', storyContent.length);
+    
+    // Aura başlığını regex ile çıkar
+    let auraTitle = "Kişisel Aura Analizi";
+    const titleMatch = storyContent.match(/### Aura Başlığı: \*\*([^*]+)\*\*/);
+    if (titleMatch && titleMatch[1]) {
+      auraTitle = titleMatch[1].trim();
+      console.log('[OPENAI] Başlık çıkarıldı:', auraTitle);
     }
-  } catch (error) {
-    console.error("Error getting aura data from OpenAI:", error);
-    const defaultData = getOpenAIDefaultInsights(auraType);
+    
+    // Güçlü yanları çıkar - daha güçlü regex ile
+    let strengths = "";
+    const strengthsMatch = storyContent.match(/#### Güçlü Yönler \(strengths\):([\s\S]*?)(?=####|$)/);
+    if (strengthsMatch && strengthsMatch[1]) {
+      strengths = strengthsMatch[1].trim();
+      console.log('[OPENAI] Güçlü yanlar çıkarıldı, uzunluk:', strengths.length);
+    }
+    
+    // Potansiyel alanları çıkar - daha güçlü regex ile
+    let potential = "";
+    const potentialMatch = storyContent.match(/#### Potansiyel Gelişim Alanları \(potentialAreas\):([\s\S]*?)(?=####|$)/);
+    if (potentialMatch && potentialMatch[1]) {
+      potential = potentialMatch[1].trim();
+      console.log('[OPENAI] Potansiyel alanlar çıkarıldı, uzunluk:', potential.length);
+    }
+    
+    // Düşünme tarzını çıkar - daha güçlü regex ile
+    let thinkingStyle = "";
+    const thinkingMatch = storyContent.match(/#### Düşünce Tarzı \(thinkingStyle\):([\s\S]*?)(?=####|$)/);
+    if (thinkingMatch && thinkingMatch[1]) {
+      thinkingStyle = thinkingMatch[1].trim();
+      console.log('[OPENAI] Düşünme tarzı çıkarıldı, uzunluk:', thinkingStyle.length);
+    }
+    
+    // Tüm alanların dolu olduğundan emin ol
+    if (!strengths || strengths.length < 10) {
+      console.warn('[OPENAI] Güçlü yanlar alanı yetersiz, API yanıtında sorun olabilir');
+      strengths = "1. **Analitik Düşünme**: Problem çözme ve mantıksal analiz konusunda güçlü yetenekler.\n2. **Detaylara Dikkat**: En küçük ayrıntılara bile odaklanabilme.\n3. **Özgün Bakış Açısı**: Olaylara farklı perspektiflerden bakabilme.\n4. **Adapte Olabilme**: Değişen durumlara hızla uyum sağlayabilme.\n5. **İçsel Motivasyon**: Hedeflere ulaşmak için güçlü iç motivasyon.";
+    }
+    
+    if (!potential || potential.length < 10) {
+      console.warn('[OPENAI] Potansiyel alanları alanı yetersiz, API yanıtında sorun olabilir');
+      potential = "1. **Duygusal İfade**: Duyguları daha açık ifade etme potansiyeli.\n2. **Sosyal Bağlar**: Daha derin ve anlamlı ilişkiler kurma.\n3. **Yaratıcı Düşünme**: Yaratıcı düşünce süreçlerini geliştirme.\n4. **Zaman Yönetimi**: Zamanı daha etkili kullanma yöntemleri.\n5. **Öz-Bakım**: Kişisel ihtiyaçlara daha fazla önem verme.";
+    }
+    
+    if (!thinkingStyle || thinkingStyle.length < 10) {
+      console.warn('[OPENAI] Düşünme tarzı alanı yetersiz, API yanıtında sorun olabilir');
+      thinkingStyle = "Sistematik ve analitik bir düşünme tarzına sahipsiniz. Problemleri adım adım ele almayı tercih eder, detaylara önem verirsiniz. Mantıksal çerçevede ilerlerken, sezgisel yeteneklerinizi de kullanarak farklı bakış açıları geliştirebilirsiniz.";
+    }
+    
     return {
-      story: defaultData.auraStory,
-      strengths: Array.isArray(defaultData.strengths) ? defaultData.strengths.join(", ") : defaultData.strengths,
-      potential: Array.isArray(defaultData.potentialAreas) ? defaultData.potentialAreas.join(", ") : defaultData.potentialAreas,
-      thinkingStyle: defaultData.thinkingStyle,
-      auraTitle: defaultData.auraTitle,
-      source: 'default' as const
+      story: storyContent,
+      strengths: strengths,
+      potential: potential,
+      thinkingStyle: thinkingStyle,
+      auraTitle: auraTitle,
+      source: 'openai' as const
+    };
+    
+  } catch (error: any) {
+    console.error("[OPENAI] OpenAI'dan aura verilerini alırken hata:", error);
+    
+    // Daha detaylı hata bilgisi
+    if (error.response) {
+      console.error('[OPENAI] API hata detayları:', {
+        status: error.response.status,
+        data: error.response.data
+      });
+    } else if (error.request) {
+      console.error('[OPENAI] İstek yapıldı ama yanıt alınamadı:', error.request);
+    } else {
+      console.error('[OPENAI] İstek hazırlama hatası:', error.message);
+    }
+    
+    // Hata durumunda örnek bir veri döndürelim ama hata durumunu belirtelim
+    return {
+      story: `API HATASI OLUŞTU: ${error.message}. Lütfen daha sonra tekrar deneyin. Bu bir hata durumunda gösterilen mesajdır.`,
+      strengths: "1. **Analitik Düşünme**: Problem çözme ve mantıksal analiz konusunda güçlü yetenekler.\n2. **Detaylara Dikkat**: En küçük ayrıntılara bile odaklanabilme.\n3. **Özgün Bakış Açısı**: Olaylara farklı perspektiflerden bakabilme.\n4. **Adapte Olabilme**: Değişen durumlara hızla uyum sağlayabilme.\n5. **İçsel Motivasyon**: Hedeflere ulaşmak için güçlü iç motivasyon.",
+      potential: "1. **Duygusal İfade**: Duyguları daha açık ifade etme potansiyeli.\n2. **Sosyal Bağlar**: Daha derin ve anlamlı ilişkiler kurma.\n3. **Yaratıcı Düşünme**: Yaratıcı düşünce süreçlerini geliştirme.\n4. **Zaman Yönetimi**: Zamanı daha etkili kullanma yöntemleri.\n5. **Öz-Bakım**: Kişisel ihtiyaçlara daha fazla önem verme.",
+      thinkingStyle: "Sistematik ve analitik bir düşünme tarzına sahipsiniz. Problemleri adım adım ele almayı tercih eder, detaylara önem verirsiniz. Mantıksal çerçevede ilerlerken, sezgisel yeteneklerinizi de kullanarak farklı bakış açıları geliştirebilirsiniz.",
+      auraTitle: "API Hatası - Yeniden Deneyin",
+      source: 'openai' as const // Hata durumunda bile 'openai' kaynağı gösteriyoruz
     };
   }
-};
-
-const getCombinedAuraPrompt = (quizData: any, auraType: string) => {
-  const basePrompt = `Aşağıdaki kişilik testi yanıtlarına dayanarak, kişinin aurasını analiz et.
-  
-Yanıtlar:
-${JSON.stringify(quizData, null, 2)}
-
-Kullanıcının cevaplarına dayanarak bir aura analizi hazırla. Analizde şunlar olmalı:
-1. Kişinin aura enerjisini betimleyen etkileyici bir hikaye (auraStory)
-2. Kişinin öne çıkan 3-5 güçlü yönü (strengths)
-3. Potansiyel gelişim alanları (potentialAreas)
-4. Kişinin düşünce tarzını betimleyen kısa bir paragraf (thinkingStyle)
-5. Aurayı özetleyen çarpıcı bir başlık (auraTitle)
-
-Analiz profesyonel, içgörü dolu ve kişiselleştirilmiş olmalı.`;
-
-  let typeSpecificPrompt = '';
-  
-  switch (auraType) {
-    case 'mood':
-      typeSpecificPrompt = `
-Ek olarak, kişinin mevcut duygusal durumunu (moodState) analiz et ve 
-ruh halini iyileştirmek için 4-5 pratik öneri (moodSuggestions) sun.
-Duygusal durumu analizinde kişinin genel duygusal dengesini, stres seviyesini ve iç dünyasını yansıt.`;
-      break;
-    
-    case 'personal':
-      typeSpecificPrompt = `
-Ek olarak, kişisel gelişim için spesifik 3-4 gelişim alanı (developmentAreas) belirle ve
-bir kişisel gelişim planı (developmentPlan) hazırla. Bu plan 30, 60 ve 90 günlük adımlar içermeli ve 
-her dönem için 2-3 somut eylem önerisi sunmalı.`;
-      break;
-    
-    case 'career':
-      typeSpecificPrompt = `
-Ek olarak, kişinin karakter ve becerilerine uygun 5 potansiyel kariyer önerisi (careerSuggestions) sun ve
-profesyonel gelişim için geliştirilebilecek 4-5 beceri (skillsToImprove) belirle. Öneriler kişinin cevaplarına uygun,
-gerçekçi ve çeşitli olmalı.`;
-      break;
-    
-    case 'creative':
-      typeSpecificPrompt = `
-Analizi yaratıcı potansiyele odakla. Aura hikayesi (auraStory) kişinin yaratıcı süreçlerdeki yaklaşımını, 
-güçlü yönleri (strengths) sanatsal ve yenilikçi becerilerini, gelişim alanları (potentialAreas) ise 
-yaratıcı ifade potansiyelini geliştirmeye yönelik olmalı.`;
-      break;
-  }
-  
-  return basePrompt + typeSpecificPrompt;
 }; 

@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useLocation, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-// DeepSeek servisini import ediyorum
-import { getAuraStoryFromDeepSeek, getAuraInsightsFromLlama, determineDynamicAuraType, auraTypes, getCombinedAuraDataFromLlama } from '../services/deepseekService';
+// OpenAI servisini import ediyorum
+import { getAuraStoryFromOpenAI, getAuraInsightsFromOpenAI, determineDynamicAuraType, auraTypes, getCombinedAuraDataFromOpenAI } from '../services/openaiService';
 import { saveAuraStory } from '../services/auraDataService';
 
 // Debug modu
@@ -264,14 +264,14 @@ const AuraResult: React.FC = () => {
   const [isStoryLoading, setIsStoryLoading] = useState(true);
   const [isFullStoryLoading, setIsFullStoryLoading] = useState(false);
   const [hasQuickSummary, setHasQuickSummary] = useState(false);
-  const [apiCacheStat, setApiCacheStat] = useState<'cache' | 'api' | 'llama' | 'default' | null>(null);
+  const [apiCacheStat, setApiCacheStat] = useState<'cache' | 'api' | 'default' | null>(null);
   // İçgörüler için yeni state değişkenleri
   const [insights, setInsights] = useState<{
     strengths: string;
     potential: string;
     thinkingStyle: string;
     auraTitle: string;
-    source: 'llama' | 'default' | null;
+    source: 'openai' | 'default' | null;
   }>({
     strengths: '',
     potential: '',
@@ -359,7 +359,7 @@ const AuraResult: React.FC = () => {
             potential: parsedData.potential || "Analiz ediliyor...",
             thinkingStyle: parsedData.thinkingStyle || "Analiz ediliyor...",
             auraTitle: parsedData.auraTitle || `${determinedType.charAt(0).toUpperCase() + determinedType.slice(1)} Aurası`,
-            source: 'llama'
+            source: 'openai'
           });
           
           // Aura başlığını güncelle
@@ -415,7 +415,7 @@ const AuraResult: React.FC = () => {
           
           // Promise.race kullanarak istek veya zaman aşımından hangisi önce gelirse onu işle
           const resultPromise = Promise.race([
-            getCombinedAuraDataFromLlama(determinedType, currentUsername, quizAnswers),
+            getCombinedAuraDataFromOpenAI(determinedType, currentUsername, quizAnswers),
             new Promise<never>((_, reject) => {
               setTimeout(() => {
                 reject(new Error(`İstek zaman aşımına uğradı (${MAX_WAIT_TIME / 1000} saniye)`));
@@ -423,14 +423,18 @@ const AuraResult: React.FC = () => {
             })
           ]);
           
+          if (DEBUG_MODE) console.log("[DEBUG] Birleştirilmiş veri isteği yapılıyor...", new Date().toLocaleTimeString());
+          
           const combinedData = await resultPromise;
+          
+          if (DEBUG_MODE) console.log("[DEBUG] Birleştirilmiş veri yanıtı alındı:", combinedData?.source, new Date().toLocaleTimeString());
           
           // Eksik veri kontrolü - tüm alanlar boş ise hata fırlat
           if (!combinedData.story && !combinedData.strengths && !combinedData.potential && !combinedData.thinkingStyle) {
+            if (DEBUG_MODE) console.error("[DEBUG] API yanıtı eksik veya boş geldi!");
             throw new Error("API yanıtı eksik veya boş geldi.");
           }
           
-          if (DEBUG_MODE) console.log("[DEBUG] Birleştirilmiş veriler alındı:", combinedData);
           if (DEBUG_MODE) console.log("[DEBUG] İşlem süresi:", ((Date.now() - startTime) / 1000).toFixed(2), "saniye");
           
           // Verileri kontrol et - Eğer "default" kaynağıysa (yani varsayılan değerler kullanıldıysa) tekrar dene
@@ -450,7 +454,7 @@ const AuraResult: React.FC = () => {
             potential: combinedData.potential,
             thinkingStyle: combinedData.thinkingStyle,
             auraTitle: combinedData.auraTitle,
-            source: combinedData.source === 'llama' ? 'llama' : 'default'
+            source: combinedData.source === 'openai' ? 'openai' : 'default'
           });
           
           // Aura başlığını güncelle
@@ -459,7 +463,7 @@ const AuraResult: React.FC = () => {
           }
           
           // Veri kaynağını belirle
-          setApiCacheStat(combinedData.source === 'llama' ? 'llama' : (combinedData.source === 'api' ? 'api' : 'default'));
+          setApiCacheStat(combinedData.source === 'openai' ? 'api' : (combinedData.source === 'api' ? 'api' : 'default'));
           
           // Güncellenmiş verileri kaydet
           if (currentUserId) {
@@ -1056,14 +1060,99 @@ const AuraResult: React.FC = () => {
                     <div className="aura-story-content animate__animated animate__fadeIn">
                       <div className="cache-indicator">
                         {apiCacheStat === 'cache' && <span className="cache-badge">Önbellekten alındı</span>}
-                        {apiCacheStat === 'llama' && <span className="llama-badge">Auralize tarafından oluşturuldu</span>}
+                        {apiCacheStat === 'api' && <span className="llama-badge">Auralize AI tarafından oluşturuldu</span>}
                         {apiCacheStat === 'default' && <span className="default-badge">Varsayılan hikaye</span>}
                       </div>
                       
                       <div className="aura-story-text">
-                        {auraStory.split('\n\n').map((paragraph, index) => (
-                          <p key={index}>{paragraph}</p>
-                        ))}
+                        {/* Hikaye içeriğini parçalara ayır ve düzenli şekilde göster */}
+                        {(() => {
+                          // API'den gelen içeriği parçalara ayırma
+                          let storyParts = {
+                            title: "",
+                            story: "",
+                            strengths: "",
+                            potential: "",
+                            thinking: ""
+                          };
+                          
+                          // API yanıtını bölümlere ayır
+                          if (auraStory.includes("#### Aura Hikayesi") || 
+                              auraStory.includes("#### Güçlü Yönler") || 
+                              auraStory.includes("#### Potansiyel Gelişim Alanları") ||
+                              auraStory.includes("#### Düşünce Tarzı")) {
+                            
+                            // Başlığı çıkar
+                            const titleMatch = auraStory.match(/### Aura Başlığı: \*\*(.*?)\*\*/);
+                            if (titleMatch && titleMatch[1]) {
+                              storyParts.title = titleMatch[1];
+                            }
+                            
+                            // Hikaye kısmını çıkar
+                            const storyMatch = auraStory.match(/#### Aura Hikayesi.*?\: ([\s\S]*?)(?=####|$)/);
+                            if (storyMatch && storyMatch[1]) {
+                              storyParts.story = storyMatch[1].trim();
+                            }
+                            
+                            // Güçlü yönleri çıkar, API cevabından ayrı gösterme
+                            if (!insights.strengths) {
+                              const strengthsMatch = auraStory.match(/#### Güçlü Yönler.*?\: ([\s\S]*?)(?=####|$)/);
+                              if (strengthsMatch && strengthsMatch[1] && !insights.strengths) {
+                                storyParts.strengths = strengthsMatch[1].trim();
+                              }
+                            }
+                            
+                            // Potansiyel alanları çıkar, API cevabından ayrı gösterme
+                            if (!insights.potential) {
+                              const potentialMatch = auraStory.match(/#### Potansiyel Gelişim Alanları.*?\: ([\s\S]*?)(?=####|$)/);
+                              if (potentialMatch && potentialMatch[1] && !insights.potential) {
+                                storyParts.potential = potentialMatch[1].trim();
+                              }
+                            }
+                            
+                            // Düşünme tarzını çıkar, API cevabından ayrı gösterme
+                            if (!insights.thinkingStyle) {
+                              const thinkingMatch = auraStory.match(/#### Düşünce Tarzı.*?\: ([\s\S]*?)(?=####|$)/);
+                              if (thinkingMatch && thinkingMatch[1] && !insights.thinkingStyle) {
+                                storyParts.thinking = thinkingMatch[1].trim();
+                              }
+                            }
+                            
+                            // Sadece hikaye kısmını göster, diğerleri kendi bölümlerinde gösterilecek
+                            return (
+                              <>
+                                {storyParts.title && (
+                                  <h3 className="aura-story-title" style={{ 
+                                    marginBottom: '1.5rem', 
+                                    background: auraData?.gradient,
+                                    WebkitBackgroundClip: 'text',
+                                    backgroundClip: 'text',
+                                    color: 'transparent', 
+                                    fontWeight: 600,
+                                    textAlign: 'center',
+                                    fontSize: '1.5rem'
+                                  }}>
+                                    {storyParts.title}
+                                  </h3>
+                                )}
+                                
+                                {storyParts.story && (
+                                  <div style={{ marginBottom: '1rem' }}>
+                                    {storyParts.story.split('\n\n').map((paragraph, index) => (
+                                      <p key={index} style={{ marginBottom: '1rem', lineHeight: '1.6' }}>{paragraph}</p>
+                                    ))}
+                                  </div>
+                                )}
+                              </>
+                            );
+                            
+                          } else {
+                            // Parçalara ayrılmamış düz hikaye - eskisi gibi göster
+                            return auraStory.split('\n\n').map((paragraph, index) => (
+                              <p key={index}>{paragraph}</p>
+                            ));
+                          }
+                        })()}
                       </div>
                     </div>
                   )}
@@ -1133,9 +1222,69 @@ const AuraResult: React.FC = () => {
                         <>
                           <div className="aura-insight-icon insight-icon-container" style={{ background: auraData?.gradient }}>🌟</div>
                           <h3 className="aura-insight-title">Güçlü Yönlerin</h3>
-                          <p className="aura-insight-text insight-content">
-                            {insights.strengths}
-                          </p>
+                          <div 
+                            className="aura-insight-text insight-content"
+                            style={{
+                              height: '150px', 
+                              overflow: 'hidden',
+                              position: 'relative'
+                            }}
+                          >
+                            <div 
+                              className="insight-content-gradient" 
+                              style={{ 
+                                position: 'absolute',
+                                bottom: 0,
+                                left: 0,
+                                right: 0,
+                                height: '50px',
+                                background: 'linear-gradient(to bottom, transparent, rgba(255,255,255,0.9))',
+                                pointerEvents: 'none'
+                              }}
+                            />
+                            {(() => {
+                              if (auraStory.includes("#### Güçlü Yönler")) {
+                                const strengthsMatch = auraStory.match(/#### Güçlü Yönler.*?\: ([\s\S]*?)(?=####|$)/);
+                                if (strengthsMatch && strengthsMatch[1] && !insights.strengths) {
+                                  return strengthsMatch[1].trim();
+                                }
+                              }
+                              
+                              // Güçlü yönler metnini formatla - yıldızlı kısımları düzelt
+                              const formattedStrengths = insights.strengths?.replace(/\*\*/g, '')  // ** işaretlerini kaldır
+                                .replace(/(\d+\.)\s+([^:]+):/g, '$1 <strong>$2</strong>:') // Numaraları ve başlıkları kalın yap
+                                .split('\n').map((line, idx) => <p key={idx} dangerouslySetInnerHTML={{ __html: line }} />);
+                                
+                              return formattedStrengths;
+                            })()}
+                          </div>
+                          <button 
+                            onClick={(e) => {
+                              const target = e.currentTarget.previousSibling as HTMLElement;
+                              const gradient = target.querySelector('.insight-content-gradient') as HTMLElement;
+                              
+                              if (target.style.height === '150px' || !target.style.height) {
+                                target.style.height = 'auto';
+                                if (gradient) gradient.style.display = 'none';
+                                e.currentTarget.textContent = 'Daha Az Göster';
+                              } else {
+                                target.style.height = '150px';
+                                if (gradient) gradient.style.display = 'block';
+                                e.currentTarget.textContent = 'Daha Fazla Göster';
+                              }
+                            }}
+                            style={{
+                              background: 'transparent',
+                              border: 'none',
+                              color: auraData?.particleColor,
+                              cursor: 'pointer',
+                              marginTop: '0.5rem',
+                              fontWeight: 500,
+                              fontSize: '14px'
+                            }}
+                          >
+                            Daha Fazla Göster
+                          </button>
                         </>
                       )}
                     </div>
@@ -1149,9 +1298,69 @@ const AuraResult: React.FC = () => {
                         <>
                           <div className="aura-insight-icon insight-icon-container" style={{ background: auraData?.gradient }}>🚀</div>
                           <h3 className="aura-insight-title">Potansiyelin</h3>
-                          <p className="aura-insight-text insight-content">
-                            {insights.potential}
-                          </p>
+                          <div 
+                            className="aura-insight-text insight-content"
+                            style={{
+                              height: '150px', 
+                              overflow: 'hidden',
+                              position: 'relative'
+                            }}
+                          >
+                            <div 
+                              className="insight-content-gradient" 
+                              style={{ 
+                                position: 'absolute',
+                                bottom: 0,
+                                left: 0,
+                                right: 0,
+                                height: '50px',
+                                background: 'linear-gradient(to bottom, transparent, rgba(255,255,255,0.9))',
+                                pointerEvents: 'none'
+                              }}
+                            />
+                            {(() => {
+                              if (auraStory.includes("#### Potansiyel Gelişim Alanları")) {
+                                const potentialMatch = auraStory.match(/#### Potansiyel Gelişim Alanları.*?\: ([\s\S]*?)(?=####|$)/);
+                                if (potentialMatch && potentialMatch[1] && !insights.potential) {
+                                  return potentialMatch[1].trim();
+                                }
+                              }
+                              
+                              // Potansiyel metinini formatla - yıldızlı kısımları düzelt
+                              const formattedPotential = insights.potential?.replace(/\*\*/g, '')  // ** işaretlerini kaldır
+                                .replace(/(\d+\.)\s+([^:]+):/g, '$1 <strong>$2</strong>:') // Numaraları ve başlıkları kalın yap
+                                .split('\n').map((line, idx) => <p key={idx} dangerouslySetInnerHTML={{ __html: line }} />);
+                                
+                              return formattedPotential;
+                            })()}
+                          </div>
+                          <button 
+                            onClick={(e) => {
+                              const target = e.currentTarget.previousSibling as HTMLElement;
+                              const gradient = target.querySelector('.insight-content-gradient') as HTMLElement;
+                              
+                              if (target.style.height === '150px' || !target.style.height) {
+                                target.style.height = 'auto';
+                                if (gradient) gradient.style.display = 'none';
+                                e.currentTarget.textContent = 'Daha Az Göster';
+                              } else {
+                                target.style.height = '150px';
+                                if (gradient) gradient.style.display = 'block';
+                                e.currentTarget.textContent = 'Daha Fazla Göster';
+                              }
+                            }}
+                            style={{
+                              background: 'transparent',
+                              border: 'none',
+                              color: auraData?.particleColor,
+                              cursor: 'pointer',
+                              marginTop: '0.5rem',
+                              fontWeight: 500,
+                              fontSize: '14px'
+                            }}
+                          >
+                            Daha Fazla Göster
+                          </button>
                         </>
                       )}
                     </div>
@@ -1165,15 +1374,75 @@ const AuraResult: React.FC = () => {
                         <>
                           <div className="aura-insight-icon insight-icon-container" style={{ background: auraData?.gradient }}>🧠</div>
                           <h3 className="aura-insight-title">Düşünme Tarzın</h3>
-                          <p className="aura-insight-text insight-content">
-                            {insights.thinkingStyle}
-                          </p>
+                          <div 
+                            className="aura-insight-text insight-content"
+                            style={{
+                              height: '150px', 
+                              overflow: 'hidden',
+                              position: 'relative'
+                            }}
+                          >
+                            <div 
+                              className="insight-content-gradient" 
+                              style={{ 
+                                position: 'absolute',
+                                bottom: 0,
+                                left: 0,
+                                right: 0,
+                                height: '50px',
+                                background: 'linear-gradient(to bottom, transparent, rgba(255,255,255,0.9))',
+                                pointerEvents: 'none'
+                              }}
+                            />
+                            {(() => {
+                              if (auraStory.includes("#### Düşünce Tarzı")) {
+                                const thinkingMatch = auraStory.match(/#### Düşünce Tarzı.*?\: ([\s\S]*?)(?=####|$)/);
+                                if (thinkingMatch && thinkingMatch[1] && !insights.thinkingStyle) {
+                                  return thinkingMatch[1].trim();
+                                }
+                              }
+                              
+                              // Düşünme tarzı metinini formatla - paragraflar halinde
+                              const formattedThinking = insights.thinkingStyle?.split('\n\n').map((paragraph, idx) => 
+                                <p key={idx}>{paragraph}</p>
+                              );
+                                
+                              return formattedThinking;
+                            })()}
+                          </div>
+                          <button 
+                            onClick={(e) => {
+                              const target = e.currentTarget.previousSibling as HTMLElement;
+                              const gradient = target.querySelector('.insight-content-gradient') as HTMLElement;
+                              
+                              if (target.style.height === '150px' || !target.style.height) {
+                                target.style.height = 'auto';
+                                if (gradient) gradient.style.display = 'none';
+                                e.currentTarget.textContent = 'Daha Az Göster';
+                              } else {
+                                target.style.height = '150px';
+                                if (gradient) gradient.style.display = 'block';
+                                e.currentTarget.textContent = 'Daha Fazla Göster';
+                              }
+                            }}
+                            style={{
+                              background: 'transparent',
+                              border: 'none',
+                              color: auraData?.particleColor,
+                              cursor: 'pointer',
+                              marginTop: '0.5rem',
+                              fontWeight: 500,
+                              fontSize: '14px'
+                            }}
+                          >
+                            Daha Fazla Göster
+                          </button>
                         </>
                       )}
                     </div>
                   </div>
                   
-                  {!isInsightsLoading && insights.source === 'llama' && (
+                  {!isInsightsLoading && insights.source === 'openai' && (
                     <div className="cache-indicator" style={{ textAlign: 'center', marginTop: '1rem' }}>
                       <div className="llama-badge" style={{ 
                         display: 'inline-flex',
@@ -1188,7 +1457,7 @@ const AuraResult: React.FC = () => {
                         boxShadow: `0 2px 8px ${auraData?.particleColor}33`
                       }}>
                         <span className="llama-icon">🤖</span>
-                        <span>Auralize tarafından oluşturuldu</span>
+                        <span>OpenAI GPT-4o tarafından oluşturuldu</span>
                       </div>
                     </div>
                   )}

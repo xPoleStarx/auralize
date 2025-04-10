@@ -13,6 +13,8 @@
     "@types/react-dom": "^19.1.1",
     "@types/uuid": "^10.0.0",
     "axios": "^1.8.4",
+    "crypto": "^1.0.1",
+    "crypto-browserify": "^3.12.1",
     "framer-motion": "^12.6.3",
     "openai": "^4.93.0",
     "react": "^19.1.0",
@@ -46,5 +48,18 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@craco/craco": "^7.1.0",
+    "assert": "^2.1.0",
+    "browserify-zlib": "^0.2.0",
+    "buffer": "^6.0.3",
+    "https-browserify": "^1.0.0",
+    "os-browserify": "^0.3.0",
+    "path-browserify": "^1.0.1",
+    "process": "^0.11.10",
+    "stream-browserify": "^3.0.0",
+    "stream-http": "^3.2.0",
+    "url": "^0.11.4"
   }
 }

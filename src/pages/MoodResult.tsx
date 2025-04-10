@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { motion } from 'framer-motion';
 import { getAuraStoryFromDeepSeek, getAuraInsightsFromLlama } from '../services/deepseekService';
 import { saveAuraStory } from '../services/auraDataService';
@@ -73,8 +74,11 @@ const moodGradients = {
 const MoodResult: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isLoading, setIsLoading] = useState(true);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [loadingProgress, setLoadingProgress] = useState(0);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isAnalysisStarted, setIsAnalysisStarted] = useState(false);
   const [moodStory, setMoodStory] = useState<string>('');
   const [moodStrengths, setMoodStrengths] = useState<string>('');
@@ -87,7 +91,7 @@ const MoodResult: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const [isStoryLoading, setIsStoryLoading] = useState(true);
   const [isInsightsLoading, setIsInsightsLoading] = useState(true);
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [expandedCard, setExpandedCard] = useState<string | null>(null);
 
   useEffect(() => {
@@ -253,7 +257,7 @@ const MoodResult: React.FC = () => {
               console.error("Analiz kaydedilirken hata:", saveError);
             }
             
-            clearTimeout(timerRef.current as NodeJS.Timeout);
+            clearTimeout(timerRef.current as ReturnType<typeof setTimeout>);
             setIsLoading(false);
             setLoadingProgress(100);
           }
@@ -267,7 +271,7 @@ const MoodResult: React.FC = () => {
         setMoodThinking("Duygusal tepki stiliniz şu anda görüntülenemiyor.");
         setMoodTitle("Duygu Durum Analizi");
         
-        clearTimeout(timerRef.current as NodeJS.Timeout);
+        clearTimeout(timerRef.current as ReturnType<typeof setTimeout>);
         setIsStoryLoading(false);
         setIsInsightsLoading(false);
         setIsLoading(false);
@@ -284,7 +288,7 @@ const MoodResult: React.FC = () => {
         clearTimeout(timerRef.current);
       }
     };
-  }, [location, navigate]);
+  }, [location, navigate, moodStory, moodStrengths, moodPotential, moodThinking, moodTitle, isStoryLoading, isInsightsLoading]);
 
   // Analizi paylaşma fonksiyonu
   const handleShareAnalysis = async () => {
@@ -298,6 +302,7 @@ const MoodResult: React.FC = () => {
   };
 
   // Animasyon varyantları
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const fadeInUp = {
     hidden: { opacity: 0, y: 30 },
     visible: {
@@ -310,6 +315,7 @@ const MoodResult: React.FC = () => {
     }
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const itemAnimation = {
     hidden: { opacity: 0, y: 20 },
     visible: (i: number) => ({
@@ -324,6 +330,7 @@ const MoodResult: React.FC = () => {
   };
 
   // Pulse animasyonu
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const pulseAnimation = {
     scale: [1, 1.05, 1],
     opacity: [0.7, 0.9, 0.7],
@@ -1023,13 +1030,13 @@ const MoodResult: React.FC = () => {
         <div className="container">
           <div className="text-center text-white">
             <p>
-              &copy; {new Date().getFullYear()} Auralize - Duygusal Sağlığınızı Keşfedin
+              &copy; {new Date().getFullYear()} Auralize - Duygularınızı Keşfedin
               <span className="ml-2">✨</span>
             </p>
             <div className="footer-links">
-              <a href="#" className="footer-link">Hakkımızda</a>
-              <a href="#" className="footer-link">Gizlilik</a>
-              <a href="#" className="footer-link">İletişim</a>
+              <a href="/about" className="footer-link">Hakkımızda</a>
+              <a href="/privacy" className="footer-link">Gizlilik</a>
+              <a href="/contact" className="footer-link">İletişim</a>
             </div>
           </div>
         </div>

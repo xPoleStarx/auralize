@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { motion } from 'framer-motion';
 import { getAuraStoryFromDeepSeek, getAuraInsightsFromLlama } from '../services/deepseekService';
 import { saveAuraStory } from '../services/auraDataService';
@@ -73,8 +74,11 @@ const careerGradients = {
 const CareerResult: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isLoading, setIsLoading] = useState(true);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [loadingProgress, setLoadingProgress] = useState(0);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isAnalysisStarted, setIsAnalysisStarted] = useState(false);
   const [careerStory, setCareerStory] = useState<string>('');
   const [careerStrengths, setCareerStrengths] = useState<string>('');
@@ -87,7 +91,7 @@ const CareerResult: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const [isStoryLoading, setIsStoryLoading] = useState(true);
   const [isInsightsLoading, setIsInsightsLoading] = useState(true);
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -250,7 +254,7 @@ const CareerResult: React.FC = () => {
               console.error("Analiz kaydedilirken hata:", saveError);
             }
             
-            clearTimeout(timerRef.current as NodeJS.Timeout);
+            clearTimeout(timerRef.current as ReturnType<typeof setTimeout>);
             setIsLoading(false);
             setLoadingProgress(100);
           }
@@ -264,7 +268,7 @@ const CareerResult: React.FC = () => {
         setCareerThinking("Çalışma ve liderlik stiliniz şu anda görüntülenemiyor.");
         setCareerTitle("Kariyer Analizi");
         
-        clearTimeout(timerRef.current as NodeJS.Timeout);
+        clearTimeout(timerRef.current as ReturnType<typeof setTimeout>);
         setIsStoryLoading(false);
         setIsInsightsLoading(false);
         setIsLoading(false);
@@ -281,7 +285,7 @@ const CareerResult: React.FC = () => {
         clearTimeout(timerRef.current);
       }
     };
-  }, [location, navigate]);
+  }, [location, navigate, careerStory, careerStrengths, careerPotential, careerThinking, careerTitle, isStoryLoading, isInsightsLoading]);
 
   // Analizi paylaşma fonksiyonu
   const handleShareAnalysis = async () => {
@@ -295,6 +299,7 @@ const CareerResult: React.FC = () => {
   };
 
   // Animasyon varyantları
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const fadeInUp = {
     hidden: { opacity: 0, y: 30 },
     visible: {
@@ -307,6 +312,7 @@ const CareerResult: React.FC = () => {
     }
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const itemAnimation = {
     hidden: { opacity: 0, y: 20 },
     visible: (i: number) => ({
@@ -321,6 +327,7 @@ const CareerResult: React.FC = () => {
   };
 
   // Pulse animasyonu
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const pulseAnimation = {
     scale: [1, 1.05, 1],
     opacity: [0.7, 0.9, 0.7],
@@ -814,9 +821,9 @@ const CareerResult: React.FC = () => {
               <span className="ml-2">✨</span>
             </p>
             <div className="footer-links">
-              <a href="#" className="footer-link">Hakkımızda</a>
-              <a href="#" className="footer-link">Gizlilik</a>
-              <a href="#" className="footer-link">İletişim</a>
+              <a href="/about" className="footer-link">Hakkımızda</a>
+              <a href="/privacy" className="footer-link">Gizlilik</a>
+              <a href="/contact" className="footer-link">İletişim</a>
             </div>
           </div>
         </div>
