@@ -282,6 +282,11 @@ const AuraResult: React.FC = () => {
   const [isInsightsLoading, setIsInsightsLoading] = useState(true);
   const [auraTitle, setAuraTitle] = useState<string>('');
   const [isApiReady, setIsApiReady] = useState(false);
+  // Stil tanımlamaları için yeni state değişkenleri
+  const [openModal, setOpenModal] = useState<string | null>(null);
+  const [modalContent, setModalContent] = useState<React.ReactNode | null>(null);
+  const [modalTitle, setModalTitle] = useState<string>('');
+  const [modalIcon, setModalIcon] = useState<string>('');
   
   // Quiz cevaplarını alıyoruz
   const locationState = location.state as any;
@@ -948,6 +953,52 @@ const AuraResult: React.FC = () => {
           0% { content: ''; width: 0; }
           100% { content: '...'; width: 3em; }
         }
+        
+        /* İçgörü Kartları için Hover Efektleri */
+        .aura-insight-card {
+          transition: all 0.3s ease;
+          cursor: pointer;
+          position: relative;
+          overflow: hidden;
+        }
+        
+        .aura-insight-card:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .aura-insight-card:hover::after {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(to bottom, transparent 80%, rgba(255, 255, 255, 0.2));
+          pointer-events: none;
+        }
+        
+        .aura-insight-card:hover .insight-card-expand-hint {
+          transform: translateY(0);
+          opacity: 1;
+        }
+        
+        .insight-card-expand-hint {
+          transition: all 0.3s ease;
+          transform: translateY(5px);
+          opacity: 0.7;
+        }
+        
+        /* Modal Animasyonları */
+        .insight-modal {
+          animation: modalBounce 0.5s ease-out;
+        }
+        
+        @keyframes modalBounce {
+          0% { transform: scale(0.8); opacity: 0; }
+          50% { transform: scale(1.05); opacity: 1; }
+          100% { transform: scale(1); opacity: 1; }
+        }
       `}</style>
       <div className="page-wrapper">
         <div className="aura-background" style={{ background: auraData?.darkGradient || 'linear-gradient(135deg, #333, #111)' }}></div>
@@ -1213,7 +1264,19 @@ const AuraResult: React.FC = () => {
                 </div>
                 <div className="aura-insights-container">
                   <div className="aura-insights-grid">
-                    <div className="aura-insight-card glass-card">
+                    <div className="aura-insight-card glass-card" 
+                      onClick={() => {
+                        const formattedStrengths = insights.strengths?.replace(/\*\*/g, '')
+                          .replace(/(\d+\.)\s+([^:]+):/g, '$1 <strong>$2</strong>:')
+                          .split('\n').map((line, idx) => <p key={idx} dangerouslySetInnerHTML={{ __html: line }} />);
+                        
+                        setModalContent(formattedStrengths);
+                        setModalTitle('Güçlü Yönlerin');
+                        setModalIcon('🌟');
+                        setOpenModal('strengths');
+                      }}
+                      style={{ cursor: 'pointer' }}
+                    >
                       {isInsightsLoading ? (
                         <div className="insight-loading-container">
                           <LoadingAnimation text="Güçlü yönlerin analiz ediliyor" color={auraData?.gradient} />
@@ -1258,38 +1321,40 @@ const AuraResult: React.FC = () => {
                               return formattedStrengths;
                             })()}
                           </div>
-                          <button 
-                            onClick={(e) => {
-                              const target = e.currentTarget.previousSibling as HTMLElement;
-                              const gradient = target.querySelector('.insight-content-gradient') as HTMLElement;
-                              
-                              if (target.style.height === '150px' || !target.style.height) {
-                                target.style.height = 'auto';
-                                if (gradient) gradient.style.display = 'none';
-                                e.currentTarget.textContent = 'Daha Az Göster';
-                              } else {
-                                target.style.height = '150px';
-                                if (gradient) gradient.style.display = 'block';
-                                e.currentTarget.textContent = 'Daha Fazla Göster';
-                              }
-                            }}
-                            style={{
-                              background: 'transparent',
-                              border: 'none',
-                              color: auraData?.particleColor,
-                              cursor: 'pointer',
-                              marginTop: '0.5rem',
-                              fontWeight: 500,
-                              fontSize: '14px'
-                            }}
-                          >
+                          <div className="insight-card-expand-hint" style={{
+                            textAlign: 'center',
+                            marginTop: '0.5rem', 
+                            color: auraData?.particleColor,
+                            fontWeight: 500,
+                            fontSize: '14px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            gap: '4px'
+                          }}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                              <path d="M15 3h6v6"></path>
+                              <path d="M10 14 21 3"></path>
+                            </svg>
                             Daha Fazla Göster
-                          </button>
+                          </div>
                         </>
                       )}
                     </div>
                     
-                    <div className="aura-insight-card glass-card">
+                    <div className="aura-insight-card glass-card"
+                      onClick={() => {
+                        const formattedPotential = insights.potential?.replace(/\*\*/g, '')
+                          .replace(/(\d+\.)\s+([^:]+):/g, '$1 <strong>$2</strong>:')
+                          .split('\n').map((line, idx) => <p key={idx} dangerouslySetInnerHTML={{ __html: line }} />);
+                        
+                        setModalContent(formattedPotential);
+                        setModalTitle('Potansiyelin');
+                        setModalIcon('🚀');
+                        setOpenModal('potential');
+                      }}
+                      style={{ cursor: 'pointer' }}
+                    >
                       {isInsightsLoading ? (
                         <div className="insight-loading-container">
                           <LoadingAnimation text="Potansiyelin analiz ediliyor" color={auraData?.gradient} />
@@ -1334,38 +1399,40 @@ const AuraResult: React.FC = () => {
                               return formattedPotential;
                             })()}
                           </div>
-                          <button 
-                            onClick={(e) => {
-                              const target = e.currentTarget.previousSibling as HTMLElement;
-                              const gradient = target.querySelector('.insight-content-gradient') as HTMLElement;
-                              
-                              if (target.style.height === '150px' || !target.style.height) {
-                                target.style.height = 'auto';
-                                if (gradient) gradient.style.display = 'none';
-                                e.currentTarget.textContent = 'Daha Az Göster';
-                              } else {
-                                target.style.height = '150px';
-                                if (gradient) gradient.style.display = 'block';
-                                e.currentTarget.textContent = 'Daha Fazla Göster';
-                              }
-                            }}
-                            style={{
-                              background: 'transparent',
-                              border: 'none',
-                              color: auraData?.particleColor,
-                              cursor: 'pointer',
-                              marginTop: '0.5rem',
-                              fontWeight: 500,
-                              fontSize: '14px'
-                            }}
-                          >
+                          <div className="insight-card-expand-hint" style={{
+                            textAlign: 'center',
+                            marginTop: '0.5rem', 
+                            color: auraData?.particleColor,
+                            fontWeight: 500,
+                            fontSize: '14px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            gap: '4px'
+                          }}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                              <path d="M15 3h6v6"></path>
+                              <path d="M10 14 21 3"></path>
+                            </svg>
                             Daha Fazla Göster
-                          </button>
+                          </div>
                         </>
                       )}
                     </div>
                     
-                    <div className="aura-insight-card glass-card">
+                    <div className="aura-insight-card glass-card"
+                      onClick={() => {
+                        const formattedThinking = insights.thinkingStyle?.split('\n\n').map((paragraph, idx) => 
+                          <p key={idx}>{paragraph}</p>
+                        );
+                        
+                        setModalContent(formattedThinking);
+                        setModalTitle('Düşünme Tarzın');
+                        setModalIcon('🧠');
+                        setOpenModal('thinking');
+                      }}
+                      style={{ cursor: 'pointer' }}
+                    >
                       {isInsightsLoading ? (
                         <div className="insight-loading-container">
                           <LoadingAnimation text="Düşünme tarzın analiz ediliyor" color={auraData?.gradient} />
@@ -1410,33 +1477,23 @@ const AuraResult: React.FC = () => {
                               return formattedThinking;
                             })()}
                           </div>
-                          <button 
-                            onClick={(e) => {
-                              const target = e.currentTarget.previousSibling as HTMLElement;
-                              const gradient = target.querySelector('.insight-content-gradient') as HTMLElement;
-                              
-                              if (target.style.height === '150px' || !target.style.height) {
-                                target.style.height = 'auto';
-                                if (gradient) gradient.style.display = 'none';
-                                e.currentTarget.textContent = 'Daha Az Göster';
-                              } else {
-                                target.style.height = '150px';
-                                if (gradient) gradient.style.display = 'block';
-                                e.currentTarget.textContent = 'Daha Fazla Göster';
-                              }
-                            }}
-                            style={{
-                              background: 'transparent',
-                              border: 'none',
-                              color: auraData?.particleColor,
-                              cursor: 'pointer',
-                              marginTop: '0.5rem',
-                              fontWeight: 500,
-                              fontSize: '14px'
-                            }}
-                          >
+                          <div className="insight-card-expand-hint" style={{
+                            textAlign: 'center',
+                            marginTop: '0.5rem', 
+                            color: auraData?.particleColor,
+                            fontWeight: 500,
+                            fontSize: '14px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            gap: '4px'
+                          }}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                              <path d="M15 3h6v6"></path>
+                              <path d="M10 14 21 3"></path>
+                            </svg>
                             Daha Fazla Göster
-                          </button>
+                          </div>
                         </>
                       )}
                     </div>
@@ -1589,6 +1646,118 @@ const AuraResult: React.FC = () => {
             </motion.div>
           </div>
         </main>
+        
+        {/* İçgörü detaylarını gösteren modal */}
+        {openModal && (
+          <motion.div 
+            className="modal-overlay insight-modal-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            style={{ 
+              position: 'fixed', 
+              top: 0, 
+              left: 0, 
+              right: 0, 
+              bottom: 0, 
+              backgroundColor: 'rgba(0, 0, 0, 0.5)', 
+              backdropFilter: 'blur(5px)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              zIndex: 1000,
+              padding: '20px'
+            }}
+            onClick={() => setOpenModal(null)}
+          >
+            <motion.div 
+              className="insight-modal"
+              initial={{ scale: 0.9, y: 20, opacity: 0 }}
+              animate={{ scale: 1, y: 0, opacity: 1 }}
+              transition={{ type: "spring", damping: 25, stiffness: 500 }}
+              onClick={(e) => e.stopPropagation()}
+              style={{ 
+                background: 'white', 
+                borderRadius: '16px',
+                boxShadow: '0 10px 50px rgba(0, 0, 0, 0.15)',
+                width: '100%',
+                maxWidth: '550px',
+                maxHeight: '80vh',
+                overflow: 'hidden',
+                position: 'relative'
+              }}
+            >
+              <div className="insight-modal-header" style={{ 
+                background: auraData?.gradient,
+                padding: '20px 60px 20px 24px',
+                position: 'sticky',
+                top: 0,
+                zIndex: 5,
+                backdropFilter: 'blur(5px)'
+              }}>
+                <div style={{ 
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '16px',
+                }}>
+                  <div style={{
+                    width: '48px',
+                    height: '48px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    borderRadius: '50%',
+                    background: 'rgba(255, 255, 255, 0.2)',
+                    fontSize: '24px'
+                  }}>
+                    {modalIcon}
+                  </div>
+                  <h2 style={{ 
+                    margin: 0, 
+                    color: 'white', 
+                    fontSize: '24px',
+                    fontWeight: 600
+                  }}>
+                    {modalTitle}
+                  </h2>
+                </div>
+                
+                <button
+                  onClick={() => setOpenModal(null)}
+                  style={{
+                    position: 'absolute',
+                    top: '20px',
+                    right: '20px',
+                    background: 'rgba(255, 255, 255, 0.2)',
+                    border: 'none',
+                    borderRadius: '50%',
+                    width: '32px',
+                    height: '32px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    cursor: 'pointer',
+                    color: 'white'
+                  }}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M18 6L6 18"></path>
+                    <path d="M6 6L18 18"></path>
+                  </svg>
+                </button>
+              </div>
+              
+              <div className="insight-modal-content" style={{ 
+                padding: '24px',
+                overflowY: 'auto',
+                maxHeight: 'calc(80vh - 90px)',
+                lineHeight: 1.6
+              }}>
+                {modalContent}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
         
         {/* Kullanıcı adı değiştirme modalı */}
         {showUsernameModal && (
