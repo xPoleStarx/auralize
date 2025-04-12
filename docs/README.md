@@ -423,7 +423,3 @@ auralize/
 Auralize, modern yazılım mimarisi prensipleri ve temiz kod yaklaşımıyla geliştirilmiş, kullanıcı deneyimini ön planda tutan, yapay zekâ destekli bir kişilik keşif platformudur. Modüler yapısı ve esnek servis entegrasyonu sayesinde kolayca genişletilebilir ve sürdürülebilir bir sistem sunar.
 
 ---
-
-3. **Yapı ve Organizasyon**:
-   - OpenAI ve DeepSeek API entegrasyonları, ayrı alt başlıklar altında "Yapay Zekâ API Entegrasyonları" bölümüne eklendi.
-   - Metnin genel yapısı korunarak kullanıcı dostu bir düzen sağlandı.
