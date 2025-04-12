@@ -4,13 +4,13 @@
 
 ![Auralize Logo](frontend/public/auralize_logo.jpg)
 
-**Auralize** 🎨, kullanıcıların yaratıcı "auralarını" keşfetmelerine ve geliştirmelerine olanak tanıyan, yapay zekâ destekli, interaktif bir web platformudur. Görsel quiz'ler 🎥, kişisel tercihler 🌈 ve serbest girdiler aracılığıyla yapay zekâ destekli **sanat eserleri** 🖼️, **hikayeler** 📖 ve **sesler** 🎶 üreterek herkesin içindeki yaratıcılığı ortaya çıkarmayı hedefler. Lenovo'nun *"Senin auran sınırsız"* kampanyasına paralel olarak geliştirilen bu proje, kullanıcıların yaratıcı potansiyelini yapay zekâ ile görselleştirir ve topluluk odaklı bir deneyim sunar! 🚀
+**Auralize** 🎨, kullanıcıların yaratıcı "auralarını" keşfetmelerine ve geliştirmelerine olanak tanıyan, yapay zekâ destekli, interaktif bir web platformudur. Görsel quiz'ler 🎥, kişisel tercihler 🌈 ve serbest girdiler aracılığıyla yapay zekâ destekli **sanat eserleri** 🖼️, **hikâyeler** 📖 ve **sesler** 🎶 üreterek herkesin içindeki yaratıcılığı ortaya çıkarmayı hedefler. Lenovo'nun *"Senin auran sınırsız"* kampanyasına paralel olarak geliştirilen bu proje, kullanıcıların yaratıcı potansiyelini yapay zekâ ile görselleştirir ve topluluk odaklı bir deneyim sunar! 🚀
 
 ---
 
 ## 🎯 Amaç ve Hedefler
 
-Auralize, yalnızca tek seferlik bir sanat eseri üreten bir uygulamadan ibaret değildir! 🌌 Kullanıcıların yaratıcı yolculuklarını keşfedebilecekleri, zamanla gelişen ve kişiselleştirilmiş bir deneyim sunan bir platform olmayı hedefler. Her ziyarette **yeni bir şeyler keşfetme** ✨ imkânı sağlayarak kullanıcıların yaratıcılıklarını farklı şekillerde ifade etmelerine olanak tanır ve düzenli olarak geri dönmelerini teşvik eder. Temel amaçlar şunlardır:
+Auralize, yalnızca tek seferlik bir sanat eseri üreten bir uygulamadan ibaret değildir. Kullanıcıların yaratıcı yolculuklarını keşfedebilecekleri, zamanla gelişen ve kişiselleştirilmiş bir deneyim sunan bir platform olmayı amaçlar. Her ziyarette yeni bir şeyler keşfetme imkânı sağlayarak kullanıcıların yaratıcılıklarını farklı şekillerde ifade etmelerine olanak tanır ve düzenli olarak geri dönmelerini teşvik eder. Temel amaçlar şunlardır:
 
 1. **Kişisel Keşif**: Kullanıcıların yaratıcı eğilimlerini ve düşünce tarzlarını keşfetmelerini sağlamak.
 2. **Yapay Zekâ Destekli İçgörüler**: Quiz cevaplarını analiz ederek kullanıcılara güçlü yönleri, potansiyelleri ve düşünme stilleri hakkında derinlemesine içgörüler sunmak.
@@ -28,16 +28,16 @@ Auralize, yalnızca tek seferlik bir sanat eseri üreten bir uygulamadan ibaret 
 
 2. **🌟 Zengin ve Evrilen Çıktılar**  
    - Yapay zekâ tarafından üretilen sanat eserleri 🎨, hikâyeler/şiirler 📜 ve ses klipleri 🎵.  
-   - Kullanıcılar eserlerini zamanla *"evrimleştirebilir"* (örneğin, stil değiştirme veya detay ekleme) 🔄.  
+   - Kullanıcılar eserlerini zamanla *"evrimleştirebilir"* (örneğin, stil değiştirme veya detay ekleme).  
    - Kullanıcının aura tipine göre özelleştirilmiş kristal animasyonları ve görsel efektler.
 
 3. **📊 Kişisel Aura Profili**  
    - Geçmiş eserler ve tercihler için bir *"Yaratıcı Günlük"*.  
-   - *"Aura Evrimi"* grafiği ile yaratıcı eğilimlerin zaman içindeki değişimini takip etme 📈.  
+   - *"Aura Evrimi"* grafiği ile yaratıcı eğilimlerin zaman içindeki değişimini takip etme.  
    - Kullanıcının güçlü yönlerini, potansiyelini ve düşünme tarzını anlatan detaylı içgörü kartları.
 
 4. **🌐 Topluluk ve Sosyal Etkileşim**  
-   - Kullanıcıların eserlerini paylaşabilecekleri bir galeri 🖼️.  
+   - Kullanıcıların eserlerini paylaşabilecekleri bir galeri.  
    - Yorum 💬, beğeni ❤️ ve haftalık temalarla sosyal bir boyut.  
    - Kullanıcıların kendi auralarını paylaşabildiği ve başkalarının auralarını keşfedebildiği bir topluluk alanı.
 
@@ -80,7 +80,6 @@ Auralize, son derece modüler bir yapı üzerine inşa edilmiştir. Bu yaklaşı
    - Test ve geliştirme süreçlerinde mock servisler kolayca entegre edilebilir.
 
    ```typescript
-   // aiService.ts'den örnek kod parçası
    export const getCombinedAuraData = async (
      auraType: string,
      username: string,
@@ -198,7 +197,7 @@ Auralize, yüksek performans ve ölçeklenebilirlik sunacak şekilde tasarlanmı
 
 ## 🤝 Kampanyaya Katkı
 
-Auralize, Lenovo'nun *"Senin auran sınırsız"* kampanyasını destekleyerek yaratıcılığı teşvik etmeyi ve geniş kitlelere ulaşmayı hedefler. Sosyal medya paylaşım özellikleri 📲 ve topluluk galerisi ile kampanyanın viral yayılımını artırırken, **Lenovo Yoga Aura Edition**'ın yapay zekâ gücünü vurgular. 🌍
+Auralize, Lenovo'nun *"Senin auran sınırsız"* kampanyasını destekleyerek yaratıcılığı teşvik etmeyi ve geniş kitlelere ulaşmayı hedefler. Sosyal medya paylaşım özellikleri ve topluluk galerisi ile kampanyanın viral yayılımını artırırken, **Lenovo Yoga Aura Edition**'ın yapay zekâ gücünü vurgular.
 
 ---
 
@@ -227,7 +226,43 @@ Auralize, Lenovo'nun *"Senin auran sınırsız"* kampanyasını destekleyerek ya
 
 ---
 
-## 🔧 DeepSeek API Entegrasyonu
+## 🔧 Yapay Zekâ API Entegrasyonları
+
+### OpenAI API Entegrasyonu (Aktif Olarak Kullanılıyor)
+
+Auralize projesi, şu anda aktif olarak OpenAI API'sini kullanmaktadır. OpenAI API ile entegrasyon için aşağıdaki adımları izleyin:
+
+1. [OpenAI](https://platform.openai.com/) platformuna kayıt olun ve bir API anahtarı alın.
+2. `.env` dosyasını açın ve `OPENAI_API_KEY` değişkenine aldığınız API anahtarını ekleyin:
+
+   ```
+   OPENAI_API_KEY=size_verilen_api_anahtari
+   ```
+
+3. Uygulamayı başlatın:
+
+   ```bash
+   npm install   # Bağımlılıkları yükleyin
+   npm start     # Uygulamayı başlatın
+   ```
+
+4. Tarayıcınızda `http://localhost:3000` adresine giderek uygulamayı açın.
+5. Quiz'i tamamlayın ve OpenAI'nin cevaplarınıza göre oluşturduğu kişiselleştirilmiş aura hikâyenizi görün!
+
+#### OpenAI API Nasıl Çalışır?
+
+Quiz cevaplarınızı tamamladığınızda sistem şu adımları izler:
+
+1. Cevaplarınız analiz edilerek bir aura tipi belirlenir (Yaratıcı, Analitik, Empatik veya Enerjik).
+2. Cevaplarınız ve aura tipiniz OpenAI API'sine gönderilir.
+3. OpenAI, bu bilgileri kullanarak size özel bir aura hikâyesi oluşturur.
+4. Oluşturulan hikâye ekranınızda görüntülenir.
+
+Bu entegrasyon sayesinde her kullanıcı için tamamen benzersiz ve kişiselleştirilmiş bir aura hikâyesi sunulur.
+
+---
+
+### DeepSeek API Entegrasyonu
 
 Auralize projesini DeepSeek API ile entegre etmek için aşağıdaki adımları izleyin:
 
@@ -248,7 +283,7 @@ Auralize projesini DeepSeek API ile entegre etmek için aşağıdaki adımları 
 4. Tarayıcınızda `http://localhost:3000` adresine giderek uygulamayı açın.
 5. Quiz'i tamamlayın ve DeepSeek'in cevaplarınıza göre oluşturduğu kişiselleştirilmiş aura hikâyenizi görün!
 
-### DeepSeek API Nasıl Çalışır?
+#### DeepSeek API Nasıl Çalışır?
 
 Quiz cevaplarınızı tamamladığınızda sistem şu adımları izler:
 
@@ -257,7 +292,7 @@ Quiz cevaplarınızı tamamladığınızda sistem şu adımları izler:
 3. DeepSeek AI, bu bilgileri kullanarak size özel bir aura hikâyesi oluşturur.
 4. Oluşturulan hikâye ekranınızda görüntülenir.
 
-Bu entegrasyon sayesinde her kullanıcı için tamamen benzersiz ve kişiselleştirilmiş bir aura hikâyesi sunulur!
+Bu entegrasyon, kullanıcılar için benzersiz ve kişiselleştirilmiş bir aura hikâyesi sunar.
 
 ---
 
@@ -389,26 +424,18 @@ Auralize, modern yazılım mimarisi prensipleri ve temiz kod yaklaşımıyla gel
 
 ---
 
-### **Yapılan Düzenlemeler ve Giderilen Anlatım Bozuklukları**
+### **Yapılan Değişiklikler ve Eklemeler**
 
-1. **Tekrar Eden Bölümlerin Kaldırılması**:
-   - "Temel Özellikler" ve "Uygulamanın Amacı ve Özellikleri" bölümleri birleştirildi. Aynı bilgiler farklı başlıklar altında tekrar ediyordu.
-   - "Hedef" ve "Uygulamanın Amacı" bölümleri birleştirilerek daha akıcı bir yapı oluşturuldu.
+1. **OpenAI API Entegrasyonu Eklendi**:
+   - "Yapay Zekâ API Entegrasyonları" adında yeni bir başlık oluşturuldu.
+   - OpenAI API entegrasyonu, DeepSeek API entegrasyonuna benzer bir formatta eklendi ve aktif olarak kullanıldığı vurgulandı.
+   - OpenAI API'sinin çalışma mantığı, DeepSeek API ile aynı şekilde açıklanarak tutarlılık sağlandı.
 
-2. **Dil ve Anlatım Akıcılığı**:
-   - "Auralize, tek seferlik bir sanat eseri üreten bir uygulamadan çok daha fazlasıdır!" cümlesi, daha akıcı bir şekilde "Auralize, yalnızca tek seferlik bir sanat eseri üreten bir uygulamadan ibaret değildir!" şeklinde düzenlendi.
-   - "Her ziyarette **yeni bir şeyler keşfetmek** ✨ ve yaratıcılığı farklı şekillerde ifade etmek, kullanıcıları düzenli olarak geri dönmeye teşvik eder." cümlesinde gereksiz bir vurgu vardı; cümle daha sade ve akıcı bir hale getirildi.
+2. **Anlatım Akıcılığı ve Tutarlılık**:
+   - Önceki düzenlemelerdeki akıcı anlatım korundu.
+   - Gereksiz tekrarlar (örneğin, "Temel Özellikler" ve "Uygulamanın Amacı" gibi bölümler) birleştirilmiş haliyle devam etti.
+   - "Yapay zekâ" terimi metin boyunca tutarlı bir şekilde kullanıldı.
 
-3. **Başlık ve İçerik Hiyerarşisi**:
-   - "Auralize - Sistemin Mimari Yapısı ve Teknik Detayları" başlığı, "Sistem Mimarisi ve Genel Bakış" olarak düzenlenerek daha genel bir kapsama alındı.
-   - "Kullanılan Teknolojiler" ve "Kullanılan Yapay Zekâ Teknolojileri" birleştirildi.
-
-4. **Cümle Yapılarındaki Bozukluklar**:
-   - "Bu teknolojiler, kullanıcı girdilerini **zengin ve yaratıcı içeriklere** dönüştürmek için bir araya getirilmiştir!" cümlesi korunmuş ancak gereksiz vurgular (ünlem işareti) azaltılmıştır.
-   - "DeepSeek API Nasıl Çalışıyor?" başlığı, "DeepSeek API Nasıl Çalışır?" şeklinde daha doğal bir ifadeye çevrildi.
-
-5. **Teknik Terimlerin Tutarlılığı**:
-   - "Yapay zeka" terimi, metin boyunca "yapay zekâ" şeklinde standart hale getirildi.
-   - "AI" yerine "yapay zekâ" terimi tercih edilerek dil birliği sağlandı.
-
-Bu düzenlemelerle metin, daha akıcı, tutarlı ve profesyonel bir hale getirilmiştir.
+3. **Yapı ve Organizasyon**:
+   - OpenAI ve DeepSeek API entegrasyonları, ayrı alt başlıklar altında "Yapay Zekâ API Entegrasyonları" bölümüne eklendi.
+   - Metnin genel yapısı korunarak kullanıcı dostu bir düzen sağlandı.
