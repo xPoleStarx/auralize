@@ -1,0 +1,132 @@
+[
+  {
+    "id": 1,
+    "question": "Bugün kendini nasıl hissediyorsun?",
+    "options": [
+      { "id": "a", "value": "Enerjik ve canlı", "emoji": "⚡" },
+      { "id": "b", "value": "Sakin ve huzurlu", "emoji": "😌" },
+      { "id": "c", "value": "Yorgun ve tükenmiş", "emoji": "😩" },
+      { "id": "d", "value": "Kaygılı ve gergin", "emoji": "😟" }
+    ]
+  },
+  {
+    "id": 2,
+    "question": "Şu an için önceliklerin neler?",
+    "options": [
+      { "id": "a", "value": "Sosyalleşmek ve eğlenmek" },
+      { "id": "b", "value": "Dinlenmek ve rahatlamak" },
+      { "id": "c", "value": "Üretken olmak ve çalışmak" },
+      { "id": "d", "value": "Düşünmek ve plan yapmak" }
+    ]
+  },
+  {
+    "id": 3,
+    "question": "Bugünkü ruh halini en iyi hangi renk yansıtır?",
+    "options": [
+      { "id": "a", "value": "Parlak Sarı", "color": "#FCD34D" },
+      { "id": "b", "value": "Sakin Mavi", "color": "#60A5FA" },
+      { "id": "c", "value": "Pastel Yeşil", "color": "#A7F3D0" },
+      { "id": "d", "value": "Koyu Mor", "color": "#7C3AED" }
+    ]
+  },
+  {
+    "id": 4,
+    "question": "Şu anki ruh halini bir hava durumu olarak tanımlasan ne olurdu?",
+    "options": [
+      { "id": "a", "value": "Güneşli ve açık" },
+      { "id": "b", "value": "Bulutlu ama sakin" },
+      { "id": "c", "value": "Yağmurlu ve kapalı" },
+      { "id": "d", "value": "Fırtınalı ve değişken" }
+    ]
+  },
+  {
+    "id": 5,
+    "question": "Şu an canın ne yapmak istiyor?",
+    "options": [
+      { "id": "a", "value": "Arkadaşlarla vakit geçirmek" },
+      { "id": "b", "value": "Kitap okumak veya film izlemek" },
+      { "id": "c", "value": "Doğada yürüyüş yapmak" },
+      { "id": "d", "value": "Yaratıcı bir şeyler yapmak" }
+    ]
+  },
+  {
+    "id": 6,
+    "question": "Son birkaç günü düşündüğünde, duygusal durumun nasıl değişti?",
+    "options": [
+      { "id": "a", "value": "Daha iyiye gidiyor", "emoji": "📈" },
+      { "id": "b", "value": "Nispeten sabit kaldı", "emoji": "➡️" },
+      { "id": "c", "value": "İnişli çıkışlı oldu", "emoji": "🔄" },
+      { "id": "d", "value": "Daha kötüye gidiyor", "emoji": "📉" }
+    ]
+  },
+  {
+    "id": 7,
+    "question": "Şu anda hangi müzik türünü dinlemek sana iyi gelir?",
+    "options": [
+      { "id": "a", "value": "Hareketli ve enerjik müzik" },
+      { "id": "b", "value": "Akustik ve sakin melodiler" },
+      { "id": "c", "value": "Duygusal ve melankolik şarkılar" },
+      { "id": "d", "value": "Elektronik ve ritmik parçalar" }
+    ]
+  },
+  {
+    "id": 8,
+    "question": "Kendini en çok nerede rahat hissediyorsun?",
+    "options": [
+      { "id": "a", "value": "Doğada, açık havada" },
+      { "id": "b", "value": "Evde, kendi alanımda" },
+      { "id": "c", "value": "Sevdiklerimle herhangi bir yerde" },
+      { "id": "d", "value": "Kalabalık ve enerjik ortamlarda" }
+    ]
+  },
+  {
+    "id": 9,
+    "question": "Şu anda hangi duygu sende baskın?",
+    "options": [
+      { "id": "a", "value": "Merak ve heyecan", "emoji": "🤩" },
+      { "id": "b", "value": "Huzur ve memnuniyet", "emoji": "😊" },
+      { "id": "c", "value": "Endişe ve gerginlik", "emoji": "😰" },
+      { "id": "d", "value": "Melankoli ve düşüncelilik", "emoji": "🤔" }
+    ]
+  },
+  {
+    "id": 10,
+    "question": "Uyku düzenin son zamanlarda nasıl?",
+    "options": [
+      { "id": "a", "value": "Düzenli ve dinlendirici" },
+      { "id": "b", "value": "Bazen iyi, bazen kötü" },
+      { "id": "c", "value": "Yetersiz ve düzensiz" },
+      { "id": "d", "value": "Aşırı uyuma veya uykusuzluk" }
+    ]
+  },
+  {
+    "id": 11,
+    "question": "Bir film seçecek olsan, hangisini tercih ederdin?",
+    "options": [
+      { "id": "a", "value": "Komedi veya aksiyon" },
+      { "id": "b", "value": "Dram veya biyografi" },
+      { "id": "c", "value": "Bilim kurgu veya fantastik" },
+      { "id": "d", "value": "Belgesel veya eğitici içerik" }
+    ]
+  },
+  {
+    "id": 12,
+    "question": "Son zamanlarda seni en çok ne motive ediyor?",
+    "options": [
+      { "id": "a", "value": "Kişisel hedeflerim" },
+      { "id": "b", "value": "Sevdiklerim ve ilişkilerim" },
+      { "id": "c", "value": "Yeni şeyler öğrenmek" },
+      { "id": "d", "value": "Hiçbir şey motive edemiyor" }
+    ]
+  },
+  {
+    "id": 13,
+    "question": "İnsanlarla iletişimin bu aralar nasıl?",
+    "options": [
+      { "id": "a", "value": "Aktif ve sıcak" },
+      { "id": "b", "value": "Seçici ve sınırlı" },
+      { "id": "c", "value": "Mesafeli ve çekingen" },
+      { "id": "d", "value": "Değişken ve duruma bağlı" }
+    ]
+  }
+] 

@@ -1,0 +1,152 @@
+[
+  {
+    "id": 1,
+    "question": "Hayatında geliştirmek istediğin en önemli alan hangisi?",
+    "options": [
+      { "id": "a", "value": "Sosyal ilişkiler" },
+      { "id": "b", "value": "Kariyer ve iş hayatı" },
+      { "id": "c", "value": "Kişisel hobiler ve beceriler" },
+      { "id": "d", "value": "Sağlık ve fiziksel kondisyon" }
+    ]
+  },
+  {
+    "id": 2,
+    "question": "Zorluklarla karşılaştığında genellikle nasıl tepki verirsin?",
+    "options": [
+      { "id": "a", "value": "Çözüm odaklı düşünürüm" },
+      { "id": "b", "value": "Başkalarından yardım isterim" },
+      { "id": "c", "value": "Durup düşünür, sonra harekete geçerim" },
+      { "id": "d", "value": "Duygusal tepki veririm, sonra toparlanırım" }
+    ]
+  },
+  {
+    "id": 3,
+    "question": "Kendinde geliştirmek istediğin en önemli özellik nedir?",
+    "options": [
+      { "id": "a", "value": "Sabır ve tahammül" },
+      { "id": "b", "value": "Özgüven ve kendini ifade etme" },
+      { "id": "c", "value": "Disiplin ve düzen" },
+      { "id": "d", "value": "Yaratıcılık ve esneklik" }
+    ]
+  },
+  {
+    "id": 4,
+    "question": "Yeni bir şey öğrenirken en çok hangi yöntemi tercih edersin?",
+    "options": [
+      { "id": "a", "value": "Okuyarak ve araştırarak" },
+      { "id": "b", "value": "İzleyerek ve gözlemleyerek" },
+      { "id": "c", "value": "Uygulayarak ve deneyimleyerek" },
+      { "id": "d", "value": "Başkalarıyla tartışarak" }
+    ]
+  },
+  {
+    "id": 5,
+    "question": "Hayatında değiştirmek istediğin bir alışkanlık seçmen gerekse, hangisi olurdu?",
+    "options": [
+      { "id": "a", "value": "Erteleme davranışı" },
+      { "id": "b", "value": "Düzensiz uyku düzeni" },
+      { "id": "c", "value": "Fazla sosyal medya kullanımı" },
+      { "id": "d", "value": "Sağlıksız beslenme" }
+    ]
+  },
+  {
+    "id": 6,
+    "question": "Başarılı olduğunda bu başarıyı genellikle neye bağlarsın?",
+    "options": [
+      { "id": "a", "value": "Çaba ve disipline" },
+      { "id": "b", "value": "Doğal yetenek ve zekaya" },
+      { "id": "c", "value": "Şans ve doğru zamanlama" },
+      { "id": "d", "value": "Destek ve iyi yönlendirme" }
+    ]
+  },
+  {
+    "id": 7,
+    "question": "Kendini en çok hangi konuda geliştirmek istiyorsun?",
+    "options": [
+      { "id": "a", "value": "Duygusal zeka ve empati" },
+      { "id": "b", "value": "Pratik beceriler ve teknik bilgi" },
+      { "id": "c", "value": "Liderlik ve ikna kabiliyeti" },
+      { "id": "d", "value": "Yaratıcılık ve sanatsal ifade" }
+    ]
+  },
+  {
+    "id": 8,
+    "question": "Kişisel gelişim için ne kadar zaman ayırıyorsun?",
+    "options": [
+      { "id": "a", "value": "Her gün düzenli olarak" },
+      { "id": "b", "value": "Haftalık belirli saatler" },
+      { "id": "c", "value": "Fırsat buldukça" },
+      { "id": "d", "value": "Şu an yeterince vakit ayıramıyorum" }
+    ]
+  },
+  {
+    "id": 9,
+    "question": "Senin için ideal bir mentor nasıl biri olurdu?",
+    "options": [
+      { "id": "a", "value": "Bilge ve tecrübeli" },
+      { "id": "b", "value": "İlham verici ve motive edici" },
+      { "id": "c", "value": "Sistematik ve analitik" },
+      { "id": "d", "value": "Destekleyici ve anlayışlı" }
+    ]
+  },
+  {
+    "id": 10,
+    "question": "Hayatında en çok neyi başarmak istiyorsun?",
+    "options": [
+      { "id": "a", "value": "Finansal bağımsızlık" },
+      { "id": "b", "value": "Anlamlı ilişkiler" },
+      { "id": "c", "value": "Profesyonel başarı" },
+      { "id": "d", "value": "İç huzur ve tatmin" }
+    ]
+  },
+  {
+    "id": 11,
+    "question": "Geri bildirim almaya karşı tutumun nasıl?",
+    "options": [
+      { "id": "a", "value": "Aktif olarak ararım ve değerlendiririm" },
+      { "id": "b", "value": "Açığım ama savunmaya geçebilirim" },
+      { "id": "c", "value": "Sadece güvendiğim kişilerden alırım" },
+      { "id": "d", "value": "Eleştiriye karşı hassasım" }
+    ]
+  },
+  {
+    "id": 12,
+    "question": "Stresle başa çıkmak için genellikle ne yaparsın?",
+    "options": [
+      { "id": "a", "value": "Egzersiz veya yoga" },
+      { "id": "b", "value": "Meditasyon veya nefes teknikleri" },
+      { "id": "c", "value": "Hobiler veya yaratıcı aktiviteler" },
+      { "id": "d", "value": "Sevdiklerimle zaman geçirmek" }
+    ]
+  },
+  {
+    "id": 13,
+    "question": "Hayatını planlarken genellikle hangi zaman dilimini düşünürsün?",
+    "options": [
+      { "id": "a", "value": "Kısa vadeli günlük hedefler" },
+      { "id": "b", "value": "Orta vadeli 1-5 yıllık planlar" },
+      { "id": "c", "value": "Uzun vadeli hayat planları" },
+      { "id": "d", "value": "Anı yaşarım, çok plan yapmam" }
+    ]
+  },
+  {
+    "id": 14,
+    "question": "Yeni fikirlere karşı tutumun nasıl?",
+    "options": [
+      { "id": "a", "value": "Hemen entegre etmeye çalışırım" },
+      { "id": "b", "value": "Önce araştırır sonra değerlendiririm" },
+      { "id": "c", "value": "Şüpheyle yaklaşırım" },
+      { "id": "d", "value": "Kanıtlanmış fikirleri tercih ederim" }
+    ]
+  },
+  {
+    "id": 15,
+    "question": "Hayatında denge kurmakta en çok zorlandığın alan hangisi?",
+    "options": [
+      { "id": "a", "value": "İş-özel hayat dengesi" },
+      { "id": "b", "value": "Kişisel bakım ve sağlık" },
+      { "id": "c", "value": "İlişkiler ve bağlantılar" },
+      { "id": "d", "value": "Maddi konular ve harcamalar" }
+    ]
+  }
+] 

@@ -1,0 +1,202 @@
+[
+  {
+    "id": 1,
+    "question": "Aşağıdaki resimlerden hangisi seni şu an en çok çekiyor?",
+    "options": [
+      { "id": "a", "value": "Sakin bir okyanus manzarası", "image": "ocean.jpg" },
+      { "id": "b", "value": "Renkli, kaotik bir soyut resim", "image": "abstract.jpg" },
+      { "id": "c", "value": "Karanlık bir orman silueti", "image": "forest.jpg" },
+      { "id": "d", "value": "Minimalist bir geometrik desen", "image": "geometric.jpg" }
+    ]
+  },
+  {
+    "id": 2,
+    "question": "Sana şu an en yakın gelen kelimeyi seç:",
+    "options": [
+      { "id": "a", "value": "Huzur" },
+      { "id": "b", "value": "Tutku" },
+      { "id": "c", "value": "Gizem" },
+      { "id": "d", "value": "Enerji" }
+    ]
+  },
+  {
+    "id": 3,
+    "question": "Bir hikayenin ilk cümlesini seçseydin hangisi olurdu?",
+    "options": [
+      { "id": "a", "value": "Güneş ufukta yavaşça batarken, her şey sessizliğe büründü." },
+      { "id": "b", "value": "Şehrin ışıkları yanıp sönerken, kalabalık bir ritimle dans ediyordu." },
+      { "id": "c", "value": "Tozlu bir yolun sonunda, eski bir kapı gizlice açıldı." },
+      { "id": "d", "value": "Gökyüzü aniden patladı, renkler her yere saçıldı." }
+    ]
+  },
+  {
+    "id": 4,
+    "question": "Kendini bir doğa unsuruyla tanımlasan hangisi olurdun?",
+    "options": [
+      { "id": "a", "value": "Durgun bir göl" },
+      { "id": "b", "value": "Fırtınalı bir rüzgar" },
+      { "id": "c", "value": "Yanan bir ateş" },
+      { "id": "d", "value": "Derin bir mağara" }
+    ]
+  },
+  {
+    "id": 5,
+    "question": "Sana şu an en çok hitap eden rengi seç:",
+    "options": [
+      { "id": "a", "value": "Derin mavi", "color": "#1E3A8A" },
+      { "id": "b", "value": "Canlı kırmızı", "color": "#DC2626" },
+      { "id": "c", "value": "Yumuşak yeşil", "color": "#10B981" },
+      { "id": "d", "value": "Mat siyah", "color": "#1F2937" }
+    ]
+  },
+  {
+    "id": 6,
+    "question": "Bugünkü ruh halini en iyi hangi emoji ifade eder?",
+    "options": [
+      { "id": "a", "value": "😊 Mutlu", "emoji": "😊" },
+      { "id": "b", "value": "🌩️ Fırtınalı", "emoji": "🌩️" },
+      { "id": "c", "value": "✨ Heyecanlı", "emoji": "✨" },
+      { "id": "d", "value": "🤔 Düşünceli", "emoji": "🤔" }
+    ]
+  },
+  {
+    "id": 7,
+    "question": "Şu an bir melodi duysan, hangi tarzda olmasını isterdin?",
+    "options": [
+      { "id": "a", "value": "Sakin piyano notaları" },
+      { "id": "b", "value": "Hızlı elektronik ritimler" },
+      { "id": "c", "value": "Derin ve gizemli koro sesleri" },
+      { "id": "d", "value": "Neşeli akustik gitar" }
+    ]
+  },
+  {
+    "id": 8,
+    "question": "Bir yüzeye dokunsan, nasıl hissetmesini isterdin?",
+    "options": [
+      { "id": "a", "value": "Pürüzsüz ve serin (mermer gibi)" },
+      { "id": "b", "value": "Yumuşak ve sıcak (kadife gibi)" },
+      { "id": "c", "value": "Kaba ve doğal (taş gibi)" },
+      { "id": "d", "value": "Parlak ve kaygan (cam gibi)" }
+    ]
+  },
+  {
+    "id": 9,
+    "question": "Sana en çok ilham veren duygu hangisi?",
+    "options": [
+      { "id": "a", "value": "Sevgi ve mutluluk" },
+      { "id": "b", "value": "Merak ve keşif" },
+      { "id": "c", "value": "Hüzün ve düşünce" },
+      { "id": "d", "value": "Coşku ve heyecan" }
+    ]
+  },
+  {
+    "id": 10,
+    "question": "Basit bir çizim yapabilsen, ne çizerdin?",
+    "options": [
+      { "id": "a", "value": "Bir daire", "shape": "circle" },
+      { "id": "b", "value": "Dalgalı bir çizgi", "shape": "wave", "image": "wave-line.jpg" },
+      { "id": "c", "value": "Keskin bir üçgen", "shape": "triangle" },
+      { "id": "d", "value": "Rastgele bir karalama", "shape": "random", "image": "random-sketch.jpg" }
+    ]
+  },
+  {
+    "id": 11,
+    "question": "Gözlerini kapattığında kendini hangi mekanda hayal ediyorsun?",
+    "options": [
+      { "id": "a", "value": "Uçsuz bucaksız bir sahil" },
+      { "id": "b", "value": "Sıcak ve samimi bir ev" },
+      { "id": "c", "value": "Gizemli bir orman" },
+      { "id": "d", "value": "Kozmik bir uzay boşluğu" }
+    ]
+  },
+  {
+    "id": 12,
+    "question": "Bir ses duysan, ne olmasını isterdin?",
+    "options": [
+      { "id": "a", "value": "Dalga sesleri" },
+      { "id": "b", "value": "Kuş cıvıltıları" },
+      { "id": "c", "value": "Uzak bir fırtına" },
+      { "id": "d", "value": "Hafif bir çan sesi" }
+    ]
+  },
+  {
+    "id": 13,
+    "question": "Kendini hangi zaman diliminde hayal ediyorsun?",
+    "options": [
+      { "id": "a", "value": "Geçmişte (eski bir çağda)" },
+      { "id": "b", "value": "Şu anda" },
+      { "id": "c", "value": "Gelecekte (fütüristik bir dünyada)" },
+      { "id": "d", "value": "Zamansız bir boyutta" }
+    ]
+  },
+  {
+    "id": 14,
+    "question": "Bir hikayede olsan, kim olurdun?",
+    "options": [
+      { "id": "a", "value": "Bilge bir rehber" },
+      { "id": "b", "value": "Cesur bir kaşif" },
+      { "id": "c", "value": "Gizemli bir yabancı" },
+      { "id": "d", "value": "Neşeli bir sanatçı" }
+    ]
+  },
+  {
+    "id": 15,
+    "question": "Bir sanat eseri sende hangi duyguyu uyandırsın isterdin?",
+    "options": [
+      { "id": "a", "value": "Huzur" },
+      { "id": "b", "value": "Heyecan" },
+      { "id": "c", "value": "Merak" },
+      { "id": "d", "value": "Nostalji" }
+    ]
+  },
+  {
+    "id": 16,
+    "question": "Yaratıcı sürecin nasıl ilerlesin isterdin?",
+    "options": [
+      { "id": "a", "value": "Yavaş ve düşünceli" },
+      { "id": "b", "value": "Hızlı ve spontane" },
+      { "id": "c", "value": "Dengeli ve ritmik" },
+      { "id": "d", "value": "Düzensiz ve kaotik" }
+    ]
+  },
+  {
+    "id": 17,
+    "question": "Auranın zamanla nasıl evrilmesini isterdin?",
+    "options": [
+      { "id": "a", "value": "Daha sakin ve derin" },
+      { "id": "b", "value": "Daha canlı ve cesur" },
+      { "id": "c", "value": "Daha gizemli ve karmaşık" },
+      { "id": "d", "value": "Daha sade ve net" }
+    ]
+  },
+  {
+    "id": 18,
+    "question": "Sana en çok ne ilham verir?",
+    "options": [
+      { "id": "a", "value": "Doğa" },
+      { "id": "b", "value": "Teknoloji" },
+      { "id": "c", "value": "İnsan ilişkileri" },
+      { "id": "d", "value": "Hayaller ve rüyalar" }
+    ]
+  },
+  {
+    "id": 19,
+    "question": "Yaratıcı eserini başkalarıyla paylaşır mıydın?",
+    "options": [
+      { "id": "a", "value": "Evet, herkesle" },
+      { "id": "b", "value": "Sadece yakın arkadaşlarımla" },
+      { "id": "c", "value": "Hayır, kendime saklarım" },
+      { "id": "d", "value": "Belki, duruma göre" }
+    ]
+  },
+  {
+    "id": 20,
+    "question": "Auran için son bir kelime veya sembol seçmen gerekse, hangisi olurdu?",
+    "options": [
+      { "id": "a", "value": "Sonsuzluk ∞" },
+      { "id": "b", "value": "Işık ✨" },
+      { "id": "c", "value": "Denge ☯" },
+      { "id": "d", "value": "Özgürlük 🕊️" }
+    ]
+  }
+] 

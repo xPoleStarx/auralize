@@ -1,0 +1,1058 @@
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-11 19:59:56"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-11 19:59:56"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-11 20:01:23"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-11 20:01:23"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-11 21:09:49"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-11 21:09:49"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-11 21:21:46"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-11 21:21:46"}
+{"level":"info","message":"GET /main.3d9908c697d954ffe10a.hot-update.json","service":"auralize-api","timestamp":"2025-04-11 21:29:26"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-11 21:36:09"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-11 21:36:09"}
+{"level":"info","message":"GET /installHook.js.map","service":"auralize-api","timestamp":"2025-04-11 21:43:12"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-11 21:44:36"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-11 21:44:36"}
+{"level":"info","message":"GET /main.4c958d3ad2ef9fe7f7af.hot-update.json","service":"auralize-api","timestamp":"2025-04-11 21:44:36"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-11 21:44:38"}
+{"level":"info","message":"GET /images/forest.jpg","service":"auralize-api","timestamp":"2025-04-11 21:44:38"}
+{"level":"info","message":"GET /images/src/pages/images/ocean.jpg","service":"auralize-api","timestamp":"2025-04-11 21:44:38"}
+{"level":"info","message":"GET /images/abstract.jpg","service":"auralize-api","timestamp":"2025-04-11 21:44:38"}
+{"level":"info","message":"GET /images/geometric.jpg","service":"auralize-api","timestamp":"2025-04-11 21:44:38"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-11 21:44:45"}
+{"level":"info","message":"GET /images/src/pages/images/ocean.jpg","service":"auralize-api","timestamp":"2025-04-11 21:44:46"}
+{"level":"info","message":"GET /images/forest.jpg","service":"auralize-api","timestamp":"2025-04-11 21:44:46"}
+{"level":"info","message":"GET /images/geometric.jpg","service":"auralize-api","timestamp":"2025-04-11 21:44:46"}
+{"level":"info","message":"GET /images/abstract.jpg","service":"auralize-api","timestamp":"2025-04-11 21:44:46"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-11 21:44:49"}
+{"level":"info","message":"GET /images/src/pages/images/ocean.jpg","service":"auralize-api","timestamp":"2025-04-11 21:44:49"}
+{"level":"info","message":"GET /images/forest.jpg","service":"auralize-api","timestamp":"2025-04-11 21:44:49"}
+{"level":"info","message":"GET /images/abstract.jpg","service":"auralize-api","timestamp":"2025-04-11 21:44:49"}
+{"level":"info","message":"GET /images/geometric.jpg","service":"auralize-api","timestamp":"2025-04-11 21:44:49"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-11 21:44:51"}
+{"level":"info","message":"GET /images/src/pages/images/ocean.jpg","service":"auralize-api","timestamp":"2025-04-11 21:44:52"}
+{"level":"info","message":"GET /images/forest.jpg","service":"auralize-api","timestamp":"2025-04-11 21:44:52"}
+{"level":"info","message":"GET /images/geometric.jpg","service":"auralize-api","timestamp":"2025-04-11 21:44:52"}
+{"level":"info","message":"GET /images/abstract.jpg","service":"auralize-api","timestamp":"2025-04-11 21:44:52"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-11 21:44:56"}
+{"level":"info","message":"GET /images/src/pages/images/ocean.jpg","service":"auralize-api","timestamp":"2025-04-11 21:44:56"}
+{"level":"info","message":"GET /images/geometric.jpg","service":"auralize-api","timestamp":"2025-04-11 21:44:56"}
+{"level":"info","message":"GET /images/forest.jpg","service":"auralize-api","timestamp":"2025-04-11 21:44:56"}
+{"level":"info","message":"GET /images/abstract.jpg","service":"auralize-api","timestamp":"2025-04-11 21:44:56"}
+{"level":"info","message":"GET /images/src/pages/images/ocean.jpg","service":"auralize-api","timestamp":"2025-04-11 21:47:13"}
+{"level":"info","message":"GET /images/abstract.jpg","service":"auralize-api","timestamp":"2025-04-11 21:47:13"}
+{"level":"info","message":"GET /images/forest.jpg","service":"auralize-api","timestamp":"2025-04-11 21:47:13"}
+{"level":"info","message":"GET /images/geometric.jpg","service":"auralize-api","timestamp":"2025-04-11 21:47:13"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-11 21:47:22"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-11 21:47:26"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-11 21:47:29"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-11 21:47:32"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-11 21:49:00"}
+{"level":"info","message":"GET /images/src/pages/images/ocean.jpg","service":"auralize-api","timestamp":"2025-04-11 21:49:00"}
+{"level":"info","message":"GET /images/geometric.jpg","service":"auralize-api","timestamp":"2025-04-11 21:49:00"}
+{"level":"info","message":"GET /images/forest.jpg","service":"auralize-api","timestamp":"2025-04-11 21:49:00"}
+{"level":"info","message":"GET /images/abstract.jpg","service":"auralize-api","timestamp":"2025-04-11 21:49:00"}
+{"level":"info","message":"GET /images/src/pages/images/ocean.jpg","service":"auralize-api","timestamp":"2025-04-11 21:50:17"}
+{"level":"info","message":"GET /images/abstract.jpg","service":"auralize-api","timestamp":"2025-04-11 21:50:17"}
+{"level":"info","message":"GET /images/forest.jpg","service":"auralize-api","timestamp":"2025-04-11 21:50:17"}
+{"level":"info","message":"GET /images/geometric.jpg","service":"auralize-api","timestamp":"2025-04-11 21:50:17"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-11 21:50:30"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-11 21:51:15"}
+{"level":"info","message":"GET /images/src/pages/images/ocean.jpg","service":"auralize-api","timestamp":"2025-04-11 21:51:15"}
+{"level":"info","message":"GET /images/abstract.jpg","service":"auralize-api","timestamp":"2025-04-11 21:51:15"}
+{"level":"info","message":"GET /images/forest.jpg","service":"auralize-api","timestamp":"2025-04-11 21:51:15"}
+{"level":"info","message":"GET /images/geometric.jpg","service":"auralize-api","timestamp":"2025-04-11 21:51:15"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-11 21:56:09"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-11 21:56:09"}
+{"level":"info","message":"GET /main.227176c2886307a31673.hot-update.json","service":"auralize-api","timestamp":"2025-04-11 21:56:10"}
+{"level":"info","message":"GET /images/src/pages/images/ocean.jpg","service":"auralize-api","timestamp":"2025-04-11 21:56:11"}
+{"level":"info","message":"GET /images/abstract.jpg","service":"auralize-api","timestamp":"2025-04-11 21:56:11"}
+{"level":"info","message":"GET /images/forest.jpg","service":"auralize-api","timestamp":"2025-04-11 21:56:11"}
+{"level":"info","message":"GET /images/geometric.jpg","service":"auralize-api","timestamp":"2025-04-11 21:56:11"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-11 21:56:43"}
+{"level":"info","message":"GET /images/forest.jpg","service":"auralize-api","timestamp":"2025-04-11 21:56:43"}
+{"level":"info","message":"GET /images/src/pages/images/ocean.jpg","service":"auralize-api","timestamp":"2025-04-11 21:56:43"}
+{"level":"info","message":"GET /images/abstract.jpg","service":"auralize-api","timestamp":"2025-04-11 21:56:43"}
+{"level":"info","message":"GET /images/geometric.jpg","service":"auralize-api","timestamp":"2025-04-11 21:56:43"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-11 22:02:12"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-11 22:02:12"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-11 22:05:22"}
+{"level":"info","message":"GET /images/src/pages/images/ocean.jpg","service":"auralize-api","timestamp":"2025-04-11 22:05:22"}
+{"level":"info","message":"GET /images/geometric.jpg","service":"auralize-api","timestamp":"2025-04-11 22:05:22"}
+{"level":"info","message":"GET /images/abstract.jpg","service":"auralize-api","timestamp":"2025-04-11 22:05:22"}
+{"level":"info","message":"GET /images/forest.jpg","service":"auralize-api","timestamp":"2025-04-11 22:05:22"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-11 22:09:16"}
+{"level":"info","message":"GET /images/src/pages/images/ocean.jpg","service":"auralize-api","timestamp":"2025-04-11 22:09:16"}
+{"level":"info","message":"GET /images/abstract.jpg","service":"auralize-api","timestamp":"2025-04-11 22:09:16"}
+{"level":"info","message":"GET /images/forest.jpg","service":"auralize-api","timestamp":"2025-04-11 22:09:16"}
+{"level":"info","message":"GET /images/geometric.jpg","service":"auralize-api","timestamp":"2025-04-11 22:09:16"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-11 22:09:53"}
+{"level":"info","message":"GET /images/src/pages/images/ocean.jpg","service":"auralize-api","timestamp":"2025-04-11 22:09:53"}
+{"level":"info","message":"GET /images/abstract.jpg","service":"auralize-api","timestamp":"2025-04-11 22:09:53"}
+{"level":"info","message":"GET /images/geometric.jpg","service":"auralize-api","timestamp":"2025-04-11 22:09:53"}
+{"level":"info","message":"GET /images/forest.jpg","service":"auralize-api","timestamp":"2025-04-11 22:09:53"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-11 22:10:24"}
+{"level":"info","message":"GET /images/src/pages/images/ocean.jpg","service":"auralize-api","timestamp":"2025-04-11 22:10:24"}
+{"level":"info","message":"GET /images/forest.jpg","service":"auralize-api","timestamp":"2025-04-11 22:10:24"}
+{"level":"info","message":"GET /images/abstract.jpg","service":"auralize-api","timestamp":"2025-04-11 22:10:24"}
+{"level":"info","message":"GET /images/geometric.jpg","service":"auralize-api","timestamp":"2025-04-11 22:10:24"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-11 22:11:03"}
+{"level":"info","message":"GET /images/src/pages/images/ocean.jpg","service":"auralize-api","timestamp":"2025-04-11 22:11:03"}
+{"level":"info","message":"GET /images/abstract.jpg","service":"auralize-api","timestamp":"2025-04-11 22:11:03"}
+{"level":"info","message":"GET /images/geometric.jpg","service":"auralize-api","timestamp":"2025-04-11 22:11:03"}
+{"level":"info","message":"GET /images/forest.jpg","service":"auralize-api","timestamp":"2025-04-11 22:11:03"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-11 22:11:08"}
+{"level":"info","message":"GET /images/src/pages/images/ocean.jpg","service":"auralize-api","timestamp":"2025-04-11 22:11:08"}
+{"level":"info","message":"GET /images/geometric.jpg","service":"auralize-api","timestamp":"2025-04-11 22:11:08"}
+{"level":"info","message":"GET /images/forest.jpg","service":"auralize-api","timestamp":"2025-04-11 22:11:08"}
+{"level":"info","message":"GET /images/abstract.jpg","service":"auralize-api","timestamp":"2025-04-11 22:11:08"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-11 22:11:12"}
+{"level":"info","message":"GET /images/src/pages/images/ocean.jpg","service":"auralize-api","timestamp":"2025-04-11 22:11:12"}
+{"level":"info","message":"GET /images/forest.jpg","service":"auralize-api","timestamp":"2025-04-11 22:11:12"}
+{"level":"info","message":"GET /images/geometric.jpg","service":"auralize-api","timestamp":"2025-04-11 22:11:12"}
+{"level":"info","message":"GET /images/abstract.jpg","service":"auralize-api","timestamp":"2025-04-11 22:11:12"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-11 22:11:17"}
+{"level":"info","message":"GET /images/forest.jpg","service":"auralize-api","timestamp":"2025-04-11 22:11:17"}
+{"level":"info","message":"GET /images/src/pages/images/ocean.jpg","service":"auralize-api","timestamp":"2025-04-11 22:11:17"}
+{"level":"info","message":"GET /images/geometric.jpg","service":"auralize-api","timestamp":"2025-04-11 22:11:17"}
+{"level":"info","message":"GET /images/abstract.jpg","service":"auralize-api","timestamp":"2025-04-11 22:11:17"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-11 22:11:23"}
+{"level":"info","message":"GET /images/src/pages/images/ocean.jpg","service":"auralize-api","timestamp":"2025-04-11 22:11:23"}
+{"level":"info","message":"GET /images/forest.jpg","service":"auralize-api","timestamp":"2025-04-11 22:11:23"}
+{"level":"info","message":"GET /images/abstract.jpg","service":"auralize-api","timestamp":"2025-04-11 22:11:23"}
+{"level":"info","message":"GET /images/geometric.jpg","service":"auralize-api","timestamp":"2025-04-11 22:11:23"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-11 22:12:33"}
+{"level":"info","message":"GET /images/src/pages/images/ocean.jpg","service":"auralize-api","timestamp":"2025-04-11 22:12:33"}
+{"level":"info","message":"GET /images/abstract.jpg","service":"auralize-api","timestamp":"2025-04-11 22:12:33"}
+{"level":"info","message":"GET /images/forest.jpg","service":"auralize-api","timestamp":"2025-04-11 22:12:33"}
+{"level":"info","message":"GET /images/geometric.jpg","service":"auralize-api","timestamp":"2025-04-11 22:12:33"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-11 22:13:48"}
+{"level":"info","message":"GET /images/src/pages/images/ocean.jpg","service":"auralize-api","timestamp":"2025-04-11 22:13:48"}
+{"level":"info","message":"GET /images/forest.jpg","service":"auralize-api","timestamp":"2025-04-11 22:13:48"}
+{"level":"info","message":"GET /images/geometric.jpg","service":"auralize-api","timestamp":"2025-04-11 22:13:48"}
+{"level":"info","message":"GET /images/abstract.jpg","service":"auralize-api","timestamp":"2025-04-11 22:13:48"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-11 22:15:11"}
+{"level":"info","message":"GET /images/forest.jpg","service":"auralize-api","timestamp":"2025-04-11 22:15:11"}
+{"level":"info","message":"GET /images/src/pages/images/ocean.jpg","service":"auralize-api","timestamp":"2025-04-11 22:15:11"}
+{"level":"info","message":"GET /images/geometric.jpg","service":"auralize-api","timestamp":"2025-04-11 22:15:11"}
+{"level":"info","message":"GET /images/abstract.jpg","service":"auralize-api","timestamp":"2025-04-11 22:15:11"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-11 22:15:19"}
+{"level":"info","message":"GET /images/src/pages/images/ocean.jpg","service":"auralize-api","timestamp":"2025-04-11 22:15:19"}
+{"level":"info","message":"GET /images/forest.jpg","service":"auralize-api","timestamp":"2025-04-11 22:15:19"}
+{"level":"info","message":"GET /images/abstract.jpg","service":"auralize-api","timestamp":"2025-04-11 22:15:19"}
+{"level":"info","message":"GET /images/geometric.jpg","service":"auralize-api","timestamp":"2025-04-11 22:15:19"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-11 22:16:35"}
+{"level":"info","message":"GET /images/src/pages/images/ocean.jpg","service":"auralize-api","timestamp":"2025-04-11 22:16:35"}
+{"level":"info","message":"GET /images/abstract.jpg","service":"auralize-api","timestamp":"2025-04-11 22:16:35"}
+{"level":"info","message":"GET /images/geometric.jpg","service":"auralize-api","timestamp":"2025-04-11 22:16:35"}
+{"level":"info","message":"GET /images/forest.jpg","service":"auralize-api","timestamp":"2025-04-11 22:16:35"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-11 22:16:49"}
+{"level":"info","message":"GET /images/src/pages/images/ocean.jpg","service":"auralize-api","timestamp":"2025-04-11 22:16:49"}
+{"level":"info","message":"GET /images/forest.jpg","service":"auralize-api","timestamp":"2025-04-11 22:16:49"}
+{"level":"info","message":"GET /images/abstract.jpg","service":"auralize-api","timestamp":"2025-04-11 22:16:49"}
+{"level":"info","message":"GET /images/geometric.jpg","service":"auralize-api","timestamp":"2025-04-11 22:16:49"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-11 22:17:08"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-11 22:17:11"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-11 22:17:51"}
+{"level":"info","message":"GET /images/src/pages/images/ocean.jpg","service":"auralize-api","timestamp":"2025-04-11 22:17:51"}
+{"level":"info","message":"GET /images/abstract.jpg","service":"auralize-api","timestamp":"2025-04-11 22:17:51"}
+{"level":"info","message":"GET /images/geometric.jpg","service":"auralize-api","timestamp":"2025-04-11 22:17:51"}
+{"level":"info","message":"GET /images/forest.jpg","service":"auralize-api","timestamp":"2025-04-11 22:17:51"}
+{"level":"info","message":"GET /images/src/pages/images/ocean.jpg","service":"auralize-api","timestamp":"2025-04-11 22:18:36"}
+{"level":"info","message":"GET /images/forest.jpg","service":"auralize-api","timestamp":"2025-04-11 22:18:36"}
+{"level":"info","message":"GET /images/abstract.jpg","service":"auralize-api","timestamp":"2025-04-11 22:18:36"}
+{"level":"info","message":"GET /images/geometric.jpg","service":"auralize-api","timestamp":"2025-04-11 22:18:36"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-11 22:18:41"}
+{"level":"info","message":"GET /images/src/pages/images/ocean.jpg","service":"auralize-api","timestamp":"2025-04-11 22:18:41"}
+{"level":"info","message":"GET /images/abstract.jpg","service":"auralize-api","timestamp":"2025-04-11 22:18:41"}
+{"level":"info","message":"GET /images/geometric.jpg","service":"auralize-api","timestamp":"2025-04-11 22:18:41"}
+{"level":"info","message":"GET /images/forest.jpg","service":"auralize-api","timestamp":"2025-04-11 22:18:41"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-11 22:19:05"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-11 22:20:04"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-11 22:20:46"}
+{"level":"info","message":"GET /images/src/pages/images/ocean.jpg","service":"auralize-api","timestamp":"2025-04-11 22:20:46"}
+{"level":"info","message":"GET /images/abstract.jpg","service":"auralize-api","timestamp":"2025-04-11 22:20:46"}
+{"level":"info","message":"GET /images/forest.jpg","service":"auralize-api","timestamp":"2025-04-11 22:20:46"}
+{"level":"info","message":"GET /images/geometric.jpg","service":"auralize-api","timestamp":"2025-04-11 22:20:46"}
+{"level":"info","message":"GET /images/src/pages/images/ocean.jpg","service":"auralize-api","timestamp":"2025-04-11 22:27:31"}
+{"level":"info","message":"GET /images/abstract.jpg","service":"auralize-api","timestamp":"2025-04-11 22:27:31"}
+{"level":"info","message":"GET /images/forest.jpg","service":"auralize-api","timestamp":"2025-04-11 22:27:31"}
+{"level":"info","message":"GET /images/geometric.jpg","service":"auralize-api","timestamp":"2025-04-11 22:27:31"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-11 23:14:20"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-11 23:14:20"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-11 23:14:26"}
+{"level":"info","message":"GET /images/src/pages/images/ocean.jpg","service":"auralize-api","timestamp":"2025-04-11 23:14:26"}
+{"level":"info","message":"GET /images/forest.jpg","service":"auralize-api","timestamp":"2025-04-11 23:14:26"}
+{"level":"info","message":"GET /images/abstract.jpg","service":"auralize-api","timestamp":"2025-04-11 23:14:26"}
+{"level":"info","message":"GET /images/geometric.jpg","service":"auralize-api","timestamp":"2025-04-11 23:14:26"}
+{"level":"info","message":"GET /installHook.js.map","service":"auralize-api","timestamp":"2025-04-11 23:15:42"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-11 23:15:55"}
+{"level":"info","message":"GET /installHook.js.map","service":"auralize-api","timestamp":"2025-04-11 23:16:10"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 12:31:18"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 12:31:18"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-12 12:31:45"}
+{"level":"info","message":"GET /images/src/pages/images/ocean.jpg","service":"auralize-api","timestamp":"2025-04-12 12:31:45"}
+{"level":"info","message":"GET /images/abstract.jpg","service":"auralize-api","timestamp":"2025-04-12 12:31:45"}
+{"level":"info","message":"GET /images/forest.jpg","service":"auralize-api","timestamp":"2025-04-12 12:31:45"}
+{"level":"info","message":"GET /images/geometric.jpg","service":"auralize-api","timestamp":"2025-04-12 12:31:45"}
+{"level":"info","message":"GET /quiz/installHook.js.map","service":"auralize-api","timestamp":"2025-04-12 12:32:03"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-12 12:32:59"}
+{"level":"info","message":"GET /images/src/pages/images/ocean.jpg","service":"auralize-api","timestamp":"2025-04-12 12:32:59"}
+{"level":"info","message":"GET /images/abstract.jpg","service":"auralize-api","timestamp":"2025-04-12 12:32:59"}
+{"level":"info","message":"GET /images/forest.jpg","service":"auralize-api","timestamp":"2025-04-12 12:32:59"}
+{"level":"info","message":"GET /images/geometric.jpg","service":"auralize-api","timestamp":"2025-04-12 12:32:59"}
+{"level":"info","message":"GET /quiz/installHook.js.map","service":"auralize-api","timestamp":"2025-04-12 12:33:03"}
+{"level":"info","message":"GET /main.8607b6715aace34bd28d.hot-update.json","service":"auralize-api","timestamp":"2025-04-12 12:40:37"}
+{"level":"info","message":"GET /installHook.js.map","service":"auralize-api","timestamp":"2025-04-12 12:40:41"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-12 12:40:44"}
+{"level":"info","message":"GET /images/src/pages/images/ocean.jpg","service":"auralize-api","timestamp":"2025-04-12 12:40:44"}
+{"level":"info","message":"GET /images/forest.jpg","service":"auralize-api","timestamp":"2025-04-12 12:40:44"}
+{"level":"info","message":"GET /images/abstract.jpg","service":"auralize-api","timestamp":"2025-04-12 12:40:44"}
+{"level":"info","message":"GET /images/geometric.jpg","service":"auralize-api","timestamp":"2025-04-12 12:40:44"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-12 12:41:14"}
+{"level":"info","message":"GET /main.7e3140f1e4b953755fb5.hot-update.json","service":"auralize-api","timestamp":"2025-04-12 12:41:43"}
+{"level":"info","message":"GET /main.7e3140f1e4b953755fb5.hot-update.json","service":"auralize-api","timestamp":"2025-04-12 12:41:44"}
+{"level":"info","message":"GET /installHook.js.map","service":"auralize-api","timestamp":"2025-04-12 12:41:44"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 12:41:49"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 12:41:49"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-12 13:11:48"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-12 13:12:01"}
+{"level":"info","message":"GET /results/installHook.js.map","service":"auralize-api","timestamp":"2025-04-12 13:12:16"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-12 13:12:25"}
+{"level":"info","message":"GET /installHook.js.map","service":"auralize-api","timestamp":"2025-04-12 13:12:41"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-12 13:12:42"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-12 13:13:19"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-12 13:13:40"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-12 13:13:49"}
+{"level":"info","message":"GET /images/src/pages/images/ocean.jpg","service":"auralize-api","timestamp":"2025-04-12 13:13:49"}
+{"level":"info","message":"GET /images/abstract.jpg","service":"auralize-api","timestamp":"2025-04-12 13:13:49"}
+{"level":"info","message":"GET /images/forest.jpg","service":"auralize-api","timestamp":"2025-04-12 13:13:49"}
+{"level":"info","message":"GET /images/geometric.jpg","service":"auralize-api","timestamp":"2025-04-12 13:13:49"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 13:16:20"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 13:16:20"}
+{"level":"info","message":"GET /images/abstract.jpg","service":"auralize-api","timestamp":"2025-04-12 13:18:47"}
+{"level":"info","message":"GET /images/forest.jpg","service":"auralize-api","timestamp":"2025-04-12 13:18:47"}
+{"level":"info","message":"GET /images/geometric.jpg","service":"auralize-api","timestamp":"2025-04-12 13:18:47"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 13:19:42"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 13:19:42"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 13:20:06"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 13:20:06"}
+{"level":"info","message":"GET /quiz/installHook.js.map","service":"auralize-api","timestamp":"2025-04-12 13:20:41"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-12 13:21:22"}
+{"level":"info","message":"Loglama isteği alındı: quiz-selected","quizPath":"/quiz/creative","service":"auralize-api","timestamp":"2025-04-12T10:21:22.701Z","userId":"anonim"}
+{"level":"info","message":"GET /quiz/installHook.js.map","service":"auralize-api","timestamp":"2025-04-12 13:21:22"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-12 13:22:04"}
+{"level":"info","message":"Loglama isteği alındı: quiz-selected","quizPath":"/quiz/mood","service":"auralize-api","timestamp":"2025-04-12T10:22:04.267Z","userId":"anonim"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-12 13:22:47"}
+{"level":"info","message":"Loglama isteği alındı: quiz-selected","quizPath":"/quiz/personal","service":"auralize-api","timestamp":"2025-04-12T10:22:47.805Z","userId":"anonim"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-12 13:47:52"}
+{"level":"info","message":"Loglama isteği alındı: quiz-selected","quizPath":"/quiz/creative","service":"auralize-api","timestamp":"2025-04-12T10:47:52.520Z","userId":"anonim"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 13:52:27"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 13:52:27"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 13:52:46"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 13:52:46"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 13:52:48"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 13:52:48"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 13:54:35"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 13:54:35"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 13:54:37"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 13:54:37"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 13:56:06"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 13:56:06"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 13:57:42"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 13:57:42"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 13:57:53"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 13:57:53"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 13:59:24"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 13:59:24"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 13:59:33"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 13:59:33"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 14:02:59"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 14:02:59"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 14:03:16"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 14:03:16"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 14:07:20"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 14:07:20"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 14:07:40"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 14:07:40"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 14:09:20"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 14:09:20"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 14:25:03"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 14:25:03"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 14:26:13"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 14:26:13"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 15:31:23"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 15:31:23"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 15:51:38"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 15:51:38"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 15:52:27"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 15:52:27"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 15:53:06"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 15:53:06"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 19:25:40"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 19:25:40"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 19:33:12"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 19:33:12"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 19:34:26"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 19:34:26"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-12 19:41:12"}
+{"level":"info","message":"Loglama isteği alındı: quiz-selected","quizPath":"/quiz/creative","service":"auralize-api","timestamp":"2025-04-12T16:41:12.560Z","userId":"anonim"}
+{"level":"info","message":"GET /installHook.js.map","service":"auralize-api","timestamp":"2025-04-12 19:41:12"}
+{"level":"info","message":"GET /results/installHook.js.map","service":"auralize-api","timestamp":"2025-04-12 19:43:12"}
+{"level":"info","message":"GET /main.09f67bd8068c721495fd.hot-update.json","service":"auralize-api","timestamp":"2025-04-12 19:47:44"}
+{"level":"info","message":"GET /main.38bff1d101e95adac321.hot-update.json","service":"auralize-api","timestamp":"2025-04-12 19:57:07"}
+{"level":"info","message":"GET /main.c0d187ebc6151d590723.hot-update.json","service":"auralize-api","timestamp":"2025-04-12 19:58:53"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 20:09:59"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 20:09:59"}
+{"level":"info","message":"GET /main.f340b9d5b8a864bfb051.hot-update.json","service":"auralize-api","timestamp":"2025-04-12 20:10:18"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-12 20:10:33"}
+{"level":"info","message":"Loglama isteği alındı: quiz-selected","quizPath":"/quiz/creative","service":"auralize-api","timestamp":"2025-04-12T17:10:33.129Z","userId":"anonim"}
+{"level":"info","message":"GET /results/installHook.js.map","service":"auralize-api","timestamp":"2025-04-12 20:11:27"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 20:15:17"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 20:15:17"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 20:15:38"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 20:15:38"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 20:21:45"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 20:21:45"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 20:22:18"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 20:22:18"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-12 20:22:20"}
+{"level":"info","message":"Loglama isteği alındı: quiz-selected","quizPath":"/quiz/creative","service":"auralize-api","timestamp":"2025-04-12T17:22:20.338Z","userId":"anonim"}
+{"level":"info","message":"GET /quiz/installHook.js.map","service":"auralize-api","timestamp":"2025-04-12 20:22:35"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 20:26:16"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 20:26:16"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 20:27:18"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 20:27:18"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 20:28:26"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 20:28:26"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 20:28:41"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 20:28:41"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 20:50:45"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 20:50:45"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-12 20:53:40"}
+{"level":"info","message":"Loglama isteği alındı: quiz-selected","quizPath":"/quiz/creative","service":"auralize-api","timestamp":"2025-04-12T17:53:40.937Z","userId":"anonim"}
+{"level":"info","message":"GET /quiz/installHook.js.map","service":"auralize-api","timestamp":"2025-04-12 20:53:41"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 20:58:55"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 20:58:55"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 20:59:23"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 20:59:23"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 21:05:12"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 21:05:12"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 21:10:23"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 21:10:23"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-12 21:10:35"}
+{"level":"info","message":"Loglama isteği alındı: quiz-selected","quizPath":"/quiz/creative","service":"auralize-api","timestamp":"2025-04-12T18:10:35.194Z","userId":"anonim"}
+{"level":"info","message":"GET /quiz/installHook.js.map","service":"auralize-api","timestamp":"2025-04-12 21:10:35"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-12 21:10:50"}
+{"level":"info","message":"[API] enerjik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-12 21:10:50"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: enerjik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-12 21:10:50"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-12 21:10:50"}
+{"level":"error","message":"Aura verileri alınırken hata oluştu: ReferenceError: localStorage is not defined","service":"auralize-api","timestamp":"2025-04-12 21:10:50"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-12 21:10:50"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-12 21:10:50"}
+{"level":"info","message":"[API] enerjik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-12 21:10:50"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: enerjik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-12 21:10:50"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-12 21:10:50"}
+{"level":"error","message":"Aura verileri alınırken hata oluştu: ReferenceError: localStorage is not defined","service":"auralize-api","timestamp":"2025-04-12 21:10:50"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-12 21:10:50"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-12 21:10:50"}
+{"level":"info","message":"[API] enerjik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-12 21:10:50"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: enerjik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-12 21:10:50"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-12 21:10:50"}
+{"level":"error","message":"Aura verileri alınırken hata oluştu: ReferenceError: localStorage is not defined","service":"auralize-api","timestamp":"2025-04-12 21:10:50"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-12 21:10:50"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 21:14:11"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 21:14:11"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 21:14:50"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 21:14:50"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 21:15:30"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 21:15:30"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 21:15:59"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 21:15:59"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 21:17:46"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 21:17:46"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 21:18:14"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 21:18:14"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-12 21:18:36"}
+{"level":"info","message":"Loglama isteği alındı: quiz-selected","quizPath":"/quiz/creative","service":"auralize-api","timestamp":"2025-04-12T18:18:36.813Z","userId":"anonim"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-12 21:18:51"}
+{"level":"info","message":"[API] empatik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-12 21:18:51"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: empatik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-12 21:18:51"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-12 21:18:51"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-12 21:18:51"}
+{"level":"info","message":"[API] empatik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-12 21:18:51"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: empatik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-12 21:18:51"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-12 21:18:51"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-12 21:18:51"}
+{"level":"info","message":"[API] empatik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-12 21:18:51"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: empatik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-12 21:18:51"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-12 21:18:51"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_empatik_3a5b7c5d","service":"auralize-api","timestamp":"2025-04-12 21:19:00"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-12 21:19:00"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-12 21:19:00"}
+{"level":"info","message":"[API] empatik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-12 21:19:00"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: empatik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-12 21:19:00"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-12 21:19:00"}
+{"level":"info","message":"Aura verisi önbellekten alındı: auralize_openai_combined_empatik_3a5b7c5d","service":"auralize-api","timestamp":"2025-04-12 21:19:00"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-12 21:19:00"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-12 21:19:00"}
+{"level":"info","message":"[API] empatik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-12 21:19:00"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: empatik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-12 21:19:00"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-12 21:19:00"}
+{"level":"info","message":"Aura verisi önbellekten alındı: auralize_openai_combined_empatik_3a5b7c5d","service":"auralize-api","timestamp":"2025-04-12 21:19:00"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-12 21:19:00"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_empatik_3a5b7c5d","service":"auralize-api","timestamp":"2025-04-12 21:19:01"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-12 21:19:01"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-12 21:19:01"}
+{"level":"info","message":"[API] empatik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-12 21:19:01"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: empatik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-12 21:19:01"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-12 21:19:01"}
+{"level":"info","message":"Aura verisi önbellekten alındı: auralize_openai_combined_empatik_3a5b7c5d","service":"auralize-api","timestamp":"2025-04-12 21:19:01"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-12 21:19:01"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-12 21:19:01"}
+{"level":"info","message":"[API] empatik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-12 21:19:01"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: empatik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-12 21:19:02"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-12 21:19:02"}
+{"level":"info","message":"Aura verisi önbellekten alındı: auralize_openai_combined_empatik_3a5b7c5d","service":"auralize-api","timestamp":"2025-04-12 21:19:02"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-12 21:19:02"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_empatik_3a5b7c5d","service":"auralize-api","timestamp":"2025-04-12 21:19:03"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-12 21:19:03"}
+{"level":"info","message":"GET /results/installHook.js.map","service":"auralize-api","timestamp":"2025-04-12 21:19:44"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 21:30:07"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 21:30:07"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 21:30:17"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 21:30:17"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 21:32:10"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 21:32:10"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-12 21:32:29"}
+{"level":"info","message":"Loglama isteği alındı: quiz-selected","quizPath":"/quiz/creative","service":"auralize-api","timestamp":"2025-04-12T18:32:29.540Z","userId":"anonim"}
+{"level":"info","message":"GET /quiz/installHook.js.map","service":"auralize-api","timestamp":"2025-04-12 21:32:44"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-12 21:32:45"}
+{"level":"info","message":"[API] yaratıcı aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-12 21:32:45"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: yaratıcı, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-12 21:32:45"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-12 21:32:45"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-12 21:32:45"}
+{"level":"info","message":"[API] yaratıcı aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-12 21:32:45"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: yaratıcı, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-12 21:32:45"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-12 21:32:45"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-12 21:32:46"}
+{"level":"info","message":"[API] yaratıcı aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-12 21:32:46"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: yaratıcı, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-12 21:32:46"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-12 21:32:46"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_yaratıcı_5a6b4c5d","service":"auralize-api","timestamp":"2025-04-12 21:33:04"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-12 21:33:04"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-12 21:33:04"}
+{"level":"info","message":"[API] yaratıcı aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-12 21:33:04"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: yaratıcı, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-12 21:33:04"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-12 21:33:04"}
+{"level":"info","message":"Aura verisi önbellekten alındı: auralize_openai_combined_yaratıcı_5a6b4c5d","service":"auralize-api","timestamp":"2025-04-12 21:33:04"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-12 21:33:04"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-12 21:33:04"}
+{"level":"info","message":"[API] yaratıcı aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-12 21:33:04"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: yaratıcı, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-12 21:33:04"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-12 21:33:04"}
+{"level":"info","message":"Aura verisi önbellekten alındı: auralize_openai_combined_yaratıcı_5a6b4c5d","service":"auralize-api","timestamp":"2025-04-12 21:33:04"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-12 21:33:04"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_yaratıcı_5a6b4c5d","service":"auralize-api","timestamp":"2025-04-12 21:33:07"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-12 21:33:07"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_yaratıcı_5a6b4c5d","service":"auralize-api","timestamp":"2025-04-12 21:33:07"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-12 21:33:07"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-12 21:33:07"}
+{"level":"info","message":"[API] yaratıcı aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-12 21:33:07"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: yaratıcı, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-12 21:33:07"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-12 21:33:07"}
+{"level":"info","message":"Aura verisi önbellekten alındı: auralize_openai_combined_yaratıcı_5a6b4c5d","service":"auralize-api","timestamp":"2025-04-12 21:33:07"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-12 21:33:07"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-12 21:33:07"}
+{"level":"info","message":"[API] yaratıcı aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-12 21:33:07"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: yaratıcı, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-12 21:33:07"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-12 21:33:07"}
+{"level":"info","message":"Aura verisi önbellekten alındı: auralize_openai_combined_yaratıcı_5a6b4c5d","service":"auralize-api","timestamp":"2025-04-12 21:33:07"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-12 21:33:07"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 21:35:24"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 21:35:24"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 21:35:46"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 21:35:46"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 21:35:59"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 21:35:59"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 21:36:19"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 21:36:19"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 21:36:55"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 21:36:55"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 21:37:08"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 21:37:08"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-12 21:37:14"}
+{"level":"info","message":"Loglama isteği alındı: quiz-selected","quizPath":"/quiz/creative","service":"auralize-api","timestamp":"2025-04-12T18:37:14.469Z","userId":"anonim"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-12 21:37:29"}
+{"level":"info","message":"[API] empatik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-12 21:37:29"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: empatik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-12 21:37:29"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-12 21:37:29"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-12 21:37:29"}
+{"level":"info","message":"[API] empatik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-12 21:37:29"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: empatik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-12 21:37:29"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-12 21:37:29"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-12 21:37:30"}
+{"level":"info","message":"[API] empatik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-12 21:37:30"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: empatik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-12 21:37:30"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-12 21:37:30"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_empatik_3a5b8c4d","service":"auralize-api","timestamp":"2025-04-12 21:37:47"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-12 21:37:47"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_empatik_3a5b8c4d","service":"auralize-api","timestamp":"2025-04-12 21:37:49"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-12 21:37:49"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_empatik_3a5b8c4d","service":"auralize-api","timestamp":"2025-04-12 21:37:50"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-12 21:37:50"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 21:42:01"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 21:42:01"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 21:42:39"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 21:42:39"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 22:00:30"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 22:00:30"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-12 22:00:43"}
+{"level":"info","message":"Loglama isteği alındı: quiz-selected","quizPath":"/quiz/creative","service":"auralize-api","timestamp":"2025-04-12T19:00:43.349Z","userId":"anonim"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-12 22:00:57"}
+{"level":"info","message":"[API] analitik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-12 22:00:57"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: analitik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-12 22:00:57"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-12 22:00:57"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-12 22:00:57"}
+{"level":"info","message":"[API] analitik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-12 22:00:57"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: analitik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-12 22:00:57"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-12 22:00:57"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-12 22:00:58"}
+{"level":"info","message":"[API] analitik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-12 22:00:58"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: analitik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-12 22:00:58"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-12 22:00:58"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_analitik_6a3b5c6d","service":"auralize-api","timestamp":"2025-04-12 22:01:19"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-12 22:01:19"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_analitik_6a3b5c6d","service":"auralize-api","timestamp":"2025-04-12 22:01:20"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-12 22:01:20"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_analitik_6a3b5c6d","service":"auralize-api","timestamp":"2025-04-12 22:01:21"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-12 22:01:21"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 22:03:18"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 22:03:18"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 22:03:42"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 22:03:42"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 22:04:12"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 22:04:12"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 22:04:38"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 22:04:38"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 22:04:44"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 22:04:44"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-12 22:04:54"}
+{"level":"info","message":"Loglama isteği alındı: quiz-selected","quizPath":"/quiz/creative","service":"auralize-api","timestamp":"2025-04-12T19:04:54.835Z","userId":"anonim"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-12 22:05:07"}
+{"level":"info","message":"[API] empatik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-12 22:05:07"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: empatik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-12 22:05:07"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-12 22:05:07"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-12 22:05:07"}
+{"level":"info","message":"[API] empatik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-12 22:05:07"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: empatik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-12 22:05:07"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-12 22:05:07"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-12 22:05:08"}
+{"level":"info","message":"[API] empatik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-12 22:05:08"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: empatik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-12 22:05:08"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-12 22:05:08"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_empatik_2a5b8c5d","service":"auralize-api","timestamp":"2025-04-12 22:05:22"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-12 22:05:22"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_empatik_2a5b8c5d","service":"auralize-api","timestamp":"2025-04-12 22:05:28"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-12 22:05:28"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_empatik_2a5b8c5d","service":"auralize-api","timestamp":"2025-04-12 22:05:29"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-12 22:05:29"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 22:08:21"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 22:08:21"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 22:08:41"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 22:08:41"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 22:09:30"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 22:09:30"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 22:11:11"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 22:11:11"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 22:11:32"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 22:11:32"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 22:11:53"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 22:11:53"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 22:12:14"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 22:12:14"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-12 22:12:46"}
+{"level":"info","message":"Loglama isteği alındı: quiz-selected","quizPath":"/quiz/creative","service":"auralize-api","timestamp":"2025-04-12T19:12:45.954Z","userId":"anonim"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-12 22:13:01"}
+{"level":"info","message":"[API] analitik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-12 22:13:01"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: analitik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-12 22:13:01"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-12 22:13:01"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-12 22:13:01"}
+{"level":"info","message":"[API] analitik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-12 22:13:01"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: analitik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-12 22:13:01"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-12 22:13:01"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-12 22:13:01"}
+{"level":"info","message":"[API] analitik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-12 22:13:01"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: analitik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-12 22:13:01"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-12 22:13:01"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_analitik_5a5b5c5d","service":"auralize-api","timestamp":"2025-04-12 22:13:27"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-12 22:13:27"}
+{"level":"warn","message":"[API] UYARI: 'analitik' tipi için düşünme stili bölümü boş veya eksik.","service":"auralize-api","timestamp":"2025-04-12 22:13:27"}
+{"level":"info","message":"[API] analitik için prompt uzunluğu: 1381 karakter","service":"auralize-api","timestamp":"2025-04-12 22:13:27"}
+{"level":"info","message":"[API] Düşünme stili bölümü prompt içinde mevcut mu: false","service":"auralize-api","timestamp":"2025-04-12 22:13:27"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_analitik_5a5b5c5d","service":"auralize-api","timestamp":"2025-04-12 22:13:27"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-12 22:13:27"}
+{"level":"warn","message":"[API] UYARI: 'analitik' tipi için düşünme stili bölümü boş veya eksik.","service":"auralize-api","timestamp":"2025-04-12 22:13:27"}
+{"level":"info","message":"[API] analitik için prompt uzunluğu: 1381 karakter","service":"auralize-api","timestamp":"2025-04-12 22:13:27"}
+{"level":"info","message":"[API] Düşünme stili bölümü prompt içinde mevcut mu: false","service":"auralize-api","timestamp":"2025-04-12 22:13:27"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_analitik_5a5b5c5d","service":"auralize-api","timestamp":"2025-04-12 22:13:29"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-12 22:13:29"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 22:18:22"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 22:18:22"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-12 22:22:37"}
+{"level":"info","message":"[API] analitik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-12 22:22:37"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: analitik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-12 22:22:37"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-12 22:22:37"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_analitik_5a5b5c5d","service":"auralize-api","timestamp":"2025-04-12 22:23:08"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-12 22:23:08"}
+{"level":"warn","message":"[API] UYARI: 'analitik' tipi için düşünme stili bölümü boş veya eksik.","service":"auralize-api","timestamp":"2025-04-12 22:23:08"}
+{"level":"info","message":"[API] analitik için prompt uzunluğu: 1381 karakter","service":"auralize-api","timestamp":"2025-04-12 22:23:08"}
+{"level":"info","message":"[API] Düşünme stili bölümü prompt içinde mevcut mu: false","service":"auralize-api","timestamp":"2025-04-12 22:23:08"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-12 22:23:08"}
+{"level":"info","message":"[API] analitik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-12 22:23:08"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: analitik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-12 22:23:08"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-12 22:23:08"}
+{"level":"info","message":"Aura verisi önbellekten alındı: auralize_openai_combined_analitik_5a5b5c5d","service":"auralize-api","timestamp":"2025-04-12 22:23:08"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-12 22:23:08"}
+{"level":"warn","message":"[API] UYARI: 'analitik' tipi için düşünme stili bölümü boş veya eksik.","service":"auralize-api","timestamp":"2025-04-12 22:23:08"}
+{"level":"info","message":"[API] analitik için prompt uzunluğu: 1381 karakter","service":"auralize-api","timestamp":"2025-04-12 22:23:08"}
+{"level":"info","message":"[API] Düşünme stili bölümü prompt içinde mevcut mu: false","service":"auralize-api","timestamp":"2025-04-12 22:23:08"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 22:23:25"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 22:23:25"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 22:24:32"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 22:24:32"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-12 22:24:45"}
+{"level":"info","message":"Loglama isteği alındı: quiz-selected","quizPath":"/quiz/creative","service":"auralize-api","timestamp":"2025-04-12T19:24:45.585Z","userId":"anonim"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-12 22:25:08"}
+{"level":"info","message":"[API] enerjik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-12 22:25:08"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: enerjik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-12 22:25:08"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-12 22:25:08"}
+{"level":"info","message":"openai API isteği başlatılıyor...","service":"auralize-api","timestamp":"2025-04-12 22:25:08"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-12 22:25:08"}
+{"level":"info","message":"[API] enerjik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-12 22:25:08"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: enerjik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-12 22:25:08"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-12 22:25:08"}
+{"level":"info","message":"openai API isteği başlatılıyor...","service":"auralize-api","timestamp":"2025-04-12 22:25:08"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-12 22:25:08"}
+{"level":"info","message":"[API] enerjik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-12 22:25:08"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: enerjik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-12 22:25:08"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-12 22:25:08"}
+{"level":"info","message":"openai API isteği başlatılıyor...","service":"auralize-api","timestamp":"2025-04-12 22:25:08"}
+{"level":"info","message":"openai API yanıtı başarıyla alındı.","service":"auralize-api","timestamp":"2025-04-12 22:25:23"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_enerjik_5a4b4c7d","service":"auralize-api","timestamp":"2025-04-12 22:25:23"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-12 22:25:23"}
+{"level":"warn","message":"[API] UYARI: 'enerjik' tipi için düşünme stili bölümü boş veya eksik.","service":"auralize-api","timestamp":"2025-04-12 22:25:23"}
+{"level":"info","message":"[API] Düşünme stili bölümü için varsayılan değer kullanıldı.","service":"auralize-api","timestamp":"2025-04-12 22:25:23"}
+{"level":"info","message":"openai API yanıtı başarıyla alındı.","service":"auralize-api","timestamp":"2025-04-12 22:25:23"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_enerjik_5a4b4c7d","service":"auralize-api","timestamp":"2025-04-12 22:25:23"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-12 22:25:23"}
+{"level":"warn","message":"[API] UYARI: 'enerjik' tipi için düşünme stili bölümü boş veya eksik.","service":"auralize-api","timestamp":"2025-04-12 22:25:23"}
+{"level":"info","message":"[API] Düşünme stili bölümü için varsayılan değer kullanıldı.","service":"auralize-api","timestamp":"2025-04-12 22:25:23"}
+{"level":"info","message":"openai API yanıtı başarıyla alındı.","service":"auralize-api","timestamp":"2025-04-12 22:25:24"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_enerjik_5a4b4c7d","service":"auralize-api","timestamp":"2025-04-12 22:25:24"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-12 22:25:24"}
+{"level":"warn","message":"[API] UYARI: 'enerjik' tipi için düşünme stili bölümü boş veya eksik.","service":"auralize-api","timestamp":"2025-04-12 22:25:24"}
+{"level":"info","message":"[API] Düşünme stili bölümü için varsayılan değer kullanıldı.","service":"auralize-api","timestamp":"2025-04-12 22:25:24"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 22:27:50"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 22:27:50"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 22:28:42"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 22:28:42"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 22:28:57"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 22:28:57"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 22:29:15"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 22:29:15"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 22:32:19"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 22:32:19"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 22:32:41"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 22:32:41"}
+{"level":"info","message":"GET /main.08c0f60211d26be0b10b.hot-update.json","service":"auralize-api","timestamp":"2025-04-12 22:32:48"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-12 22:32:55"}
+{"level":"info","message":"Loglama isteği alındı: quiz-selected","quizPath":"/quiz/creative","service":"auralize-api","timestamp":"2025-04-12T19:32:55.406Z","userId":"anonim"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-12 22:33:08"}
+{"level":"info","message":"[API] empatik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-12 22:33:08"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: empatik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-12 22:33:08"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-12 22:33:08"}
+{"level":"info","message":"openai API isteği başlatılıyor...","service":"auralize-api","timestamp":"2025-04-12 22:33:08"}
+{"level":"info","message":"openai API yanıtı başarıyla alındı.","service":"auralize-api","timestamp":"2025-04-12 22:33:26"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_empatik_3a2b9c6d","service":"auralize-api","timestamp":"2025-04-12 22:33:26"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-12 22:33:26"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 22:38:16"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 22:38:16"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 22:40:49"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 22:40:49"}
+{"level":"info","message":"GET /main.22b9ac67b75823cdfa9d.hot-update.json","service":"auralize-api","timestamp":"2025-04-12 22:40:56"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-12 22:40:59"}
+{"level":"info","message":"Loglama isteği alındı: quiz-selected","quizPath":"/quiz/creative","service":"auralize-api","timestamp":"2025-04-12T19:40:59.498Z","userId":"anonim"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-12 22:41:13"}
+{"level":"info","message":"[API] analitik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-12 22:41:13"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: analitik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-12 22:41:13"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-12 22:41:13"}
+{"level":"info","message":"openai API isteği başlatılıyor...","service":"auralize-api","timestamp":"2025-04-12 22:41:13"}
+{"level":"info","message":"openai API yanıtı başarıyla alındı.","service":"auralize-api","timestamp":"2025-04-12 22:41:33"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_analitik_7a3b6c4d","service":"auralize-api","timestamp":"2025-04-12 22:41:33"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-12 22:41:33"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 22:48:10"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 22:48:10"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-12 22:48:19"}
+{"level":"info","message":"Loglama isteği alındı: quiz-selected","quizPath":"/quiz/creative","service":"auralize-api","timestamp":"2025-04-12T19:48:19.136Z","userId":"anonim"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-12 22:48:35"}
+{"level":"info","message":"[API] enerjik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-12 22:48:35"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: enerjik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-12 22:48:35"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-12 22:48:35"}
+{"level":"info","message":"openai API isteği başlatılıyor...","service":"auralize-api","timestamp":"2025-04-12 22:48:35"}
+{"level":"info","message":"openai API yanıtı başarıyla alındı.","service":"auralize-api","timestamp":"2025-04-12 22:48:49"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_enerjik_0a7b4c9d","service":"auralize-api","timestamp":"2025-04-12 22:48:49"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-12 22:48:49"}
+{"level":"warn","message":"[API] UYARI: 'enerjik' tipi için düşünme stili bölümü boş veya eksik.","service":"auralize-api","timestamp":"2025-04-12 22:48:49"}
+{"level":"info","message":"[API] Düşünme stili bölümü için varsayılan değer kullanıldı.","service":"auralize-api","timestamp":"2025-04-12 22:48:49"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 22:50:09"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 22:50:09"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 22:50:37"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 22:50:37"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 22:51:44"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 22:51:44"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-12 22:51:54"}
+{"level":"info","message":"Loglama isteği alındı: quiz-selected","quizPath":"/quiz/creative","service":"auralize-api","timestamp":"2025-04-12T19:51:54.582Z","userId":"anonim"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-12 22:52:11"}
+{"level":"info","message":"[API] enerjik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-12 22:52:11"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: enerjik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-12 22:52:11"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-12 22:52:11"}
+{"level":"info","message":"openai API isteği başlatılıyor...","service":"auralize-api","timestamp":"2025-04-12 22:52:11"}
+{"level":"info","message":"openai API yanıtı başarıyla alındı.","service":"auralize-api","timestamp":"2025-04-12 22:52:30"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_enerjik_4a4b5c7d","service":"auralize-api","timestamp":"2025-04-12 22:52:30"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-12 22:52:30"}
+{"level":"warn","message":"[API] UYARI: 'enerjik' tipi için düşünme stili bölümü boş veya eksik.","service":"auralize-api","timestamp":"2025-04-12 22:52:30"}
+{"level":"info","message":"[API] Düşünme stili bölümü için varsayılan değer kullanıldı.","service":"auralize-api","timestamp":"2025-04-12 22:52:30"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 22:53:02"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 22:53:02"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 23:14:37"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 23:14:37"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-12 23:14:53"}
+{"level":"info","message":"Loglama isteği alındı: quiz-selected","quizPath":"/quiz/creative","service":"auralize-api","timestamp":"2025-04-12T20:14:53.502Z","userId":"anonim"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-12 23:15:08"}
+{"level":"info","message":"[API] analitik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-12 23:15:08"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: analitik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-12 23:15:08"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-12 23:15:08"}
+{"level":"info","message":"openai API isteği başlatılıyor...","service":"auralize-api","timestamp":"2025-04-12 23:15:08"}
+{"level":"info","message":"openai API yanıtı başarıyla alındı.","service":"auralize-api","timestamp":"2025-04-12 23:15:32"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-12 23:15:32"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 23:19:27"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 23:19:27"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-12 23:19:27"}
+{"level":"info","message":"[API] analitik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-12 23:19:27"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: analitik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-12 23:19:27"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-12 23:19:27"}
+{"level":"info","message":"openai API isteği başlatılıyor...","service":"auralize-api","timestamp":"2025-04-12 23:19:27"}
+{"level":"info","message":"GET /main.47b975e2fd69eb8ac7a2.hot-update.json","service":"auralize-api","timestamp":"2025-04-12 23:19:34"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-12 23:19:34"}
+{"level":"info","message":"[API] analitik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-12 23:19:34"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: analitik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-12 23:19:34"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-12 23:19:34"}
+{"level":"info","message":"openai API isteği başlatılıyor...","service":"auralize-api","timestamp":"2025-04-12 23:19:34"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-12 23:19:34"}
+{"level":"info","message":"[API] analitik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-12 23:19:34"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: analitik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-12 23:19:34"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-12 23:19:34"}
+{"level":"info","message":"openai API isteği başlatılıyor...","service":"auralize-api","timestamp":"2025-04-12 23:19:34"}
+{"level":"info","message":"openai API yanıtı başarıyla alındı.","service":"auralize-api","timestamp":"2025-04-12 23:19:48"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-12 23:19:48"}
+{"level":"info","message":"openai API yanıtı başarıyla alındı.","service":"auralize-api","timestamp":"2025-04-12 23:19:54"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-12 23:19:54"}
+{"level":"info","message":"openai API yanıtı başarıyla alındı.","service":"auralize-api","timestamp":"2025-04-12 23:19:57"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-12 23:19:57"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-12 23:19:57"}
+{"level":"info","message":"[API] analitik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-12 23:19:57"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: analitik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-12 23:19:57"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-12 23:19:57"}
+{"level":"info","message":"openai API isteği başlatılıyor...","service":"auralize-api","timestamp":"2025-04-12 23:19:57"}
+{"level":"info","message":"openai API yanıtı başarıyla alındı.","service":"auralize-api","timestamp":"2025-04-12 23:20:23"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-12 23:20:23"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-12 23:20:23"}
+{"level":"info","message":"[API] analitik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-12 23:20:23"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: analitik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-12 23:20:23"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-12 23:20:23"}
+{"level":"info","message":"openai API isteği başlatılıyor...","service":"auralize-api","timestamp":"2025-04-12 23:20:23"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 23:25:23"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 23:25:23"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-12 23:25:32"}
+{"level":"info","message":"Loglama isteği alındı: quiz-selected","quizPath":"/quiz/creative","service":"auralize-api","timestamp":"2025-04-12T20:25:32.093Z","userId":"anonim"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-12 23:25:46"}
+{"level":"info","message":"[API] analitik aura tipi için birleştirilmiş veri isteniyor - Timestamp: 1744489546612","service":"auralize-api","timestamp":"2025-04-12 23:25:46"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: analitik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-12 23:25:46"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-12 23:25:46"}
+{"level":"info","message":"openai API isteği başlatılıyor...","service":"auralize-api","timestamp":"2025-04-12 23:25:46"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-12 23:25:47"}
+{"level":"info","message":"[API] analitik aura tipi için birleştirilmiş veri isteniyor - Timestamp: 1744489547104","service":"auralize-api","timestamp":"2025-04-12 23:25:47"}
+{"level":"warn","message":"[API] Rate limit uygulandı: analitik için çok sık istek (0s içinde)","service":"auralize-api","timestamp":"2025-04-12 23:25:47"}
+{"level":"info","message":"openai API yanıtı başarıyla alındı.","service":"auralize-api","timestamp":"2025-04-12 23:26:05"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-12 23:26:05"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-12 23:26:05"}
+{"level":"info","message":"[API] analitik aura tipi için birleştirilmiş veri isteniyor - Timestamp: 1744489565348","service":"auralize-api","timestamp":"2025-04-12 23:26:05"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: analitik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-12 23:26:05"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-12 23:26:05"}
+{"level":"info","message":"openai API isteği başlatılıyor...","service":"auralize-api","timestamp":"2025-04-12 23:26:05"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 23:30:00"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 23:30:00"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-12 23:30:17"}
+{"level":"info","message":"Loglama isteği alındı: quiz-selected","quizPath":"/quiz/creative","service":"auralize-api","timestamp":"2025-04-12T20:30:17.216Z","userId":"anonim"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-12 23:30:30"}
+{"level":"info","message":"[API] analitik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-12 23:30:30"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: analitik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-12 23:30:30"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-12 23:30:30"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-12 23:30:30"}
+{"level":"info","message":"[API] analitik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-12 23:30:30"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: analitik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-12 23:30:30"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-12 23:30:30"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-12 23:30:30"}
+{"level":"info","message":"[API] analitik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-12 23:30:30"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: analitik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-12 23:30:30"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-12 23:30:30"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_analitik_7a2b7c4d","service":"auralize-api","timestamp":"2025-04-12 23:30:47"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-12 23:30:47"}
+{"level":"warn","message":"[API] UYARI: 'analitik' tipi için düşünme stili bölümü boş veya eksik.","service":"auralize-api","timestamp":"2025-04-12 23:30:47"}
+{"level":"info","message":"[API] analitik için prompt uzunluğu: 1381 karakter","service":"auralize-api","timestamp":"2025-04-12 23:30:47"}
+{"level":"info","message":"[API] Düşünme stili bölümü prompt içinde mevcut mu: false","service":"auralize-api","timestamp":"2025-04-12 23:30:47"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_analitik_7a2b7c4d","service":"auralize-api","timestamp":"2025-04-12 23:30:51"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-12 23:30:51"}
+{"level":"warn","message":"[API] UYARI: 'analitik' tipi için düşünme stili bölümü boş veya eksik.","service":"auralize-api","timestamp":"2025-04-12 23:30:51"}
+{"level":"info","message":"[API] analitik için prompt uzunluğu: 1381 karakter","service":"auralize-api","timestamp":"2025-04-12 23:30:51"}
+{"level":"info","message":"[API] Düşünme stili bölümü prompt içinde mevcut mu: false","service":"auralize-api","timestamp":"2025-04-12 23:30:51"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_analitik_7a2b7c4d","service":"auralize-api","timestamp":"2025-04-12 23:30:51"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-12 23:30:51"}
+{"level":"warn","message":"[API] UYARI: 'analitik' tipi için düşünme stili bölümü boş veya eksik.","service":"auralize-api","timestamp":"2025-04-12 23:30:51"}
+{"level":"info","message":"[API] analitik için prompt uzunluğu: 1381 karakter","service":"auralize-api","timestamp":"2025-04-12 23:30:51"}
+{"level":"info","message":"[API] Düşünme stili bölümü prompt içinde mevcut mu: false","service":"auralize-api","timestamp":"2025-04-12 23:30:51"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 23:41:09"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 23:41:09"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-12 23:41:18"}
+{"level":"info","message":"Loglama isteği alındı: quiz-selected","quizPath":"/quiz/creative","service":"auralize-api","timestamp":"2025-04-12T20:41:18.400Z","userId":"anonim"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-12 23:41:34"}
+{"level":"info","message":"[API] empatik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-12 23:41:34"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: empatik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-12 23:41:34"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-12 23:41:34"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_empatik_4a6b8c2d","service":"auralize-api","timestamp":"2025-04-12 23:41:51"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-12 23:41:51"}
+{"level":"warn","message":"[API] UYARI: 'empatik' tipi için düşünme stili bölümü boş veya eksik.","service":"auralize-api","timestamp":"2025-04-12 23:41:51"}
+{"level":"info","message":"[API] empatik için prompt uzunluğu: 1381 karakter","service":"auralize-api","timestamp":"2025-04-12 23:41:51"}
+{"level":"info","message":"[API] Düşünme stili bölümü prompt içinde mevcut mu: false","service":"auralize-api","timestamp":"2025-04-12 23:41:51"}
+{"level":"info","message":"GET /results/installHook.js.map","service":"auralize-api","timestamp":"2025-04-12 23:42:46"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 23:47:27"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 23:47:27"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-12 23:47:45"}
+{"level":"info","message":"Loglama isteği alındı: quiz-selected","quizPath":"/quiz/creative","service":"auralize-api","timestamp":"2025-04-12T20:47:45.012Z","userId":"anonim"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-12 23:47:58"}
+{"level":"info","message":"[API] analitik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-12 23:47:58"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: analitik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-12 23:47:58"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-12 23:47:58"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_analitik_13a0b7c0d","service":"auralize-api","timestamp":"2025-04-12 23:48:18"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-12 23:48:18"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 23:48:56"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 23:48:56"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-12 23:48:56"}
+{"level":"info","message":"[API] analitik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-12 23:48:56"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: analitik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-12 23:48:56"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-12 23:48:56"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_analitik_13a0b7c0d","service":"auralize-api","timestamp":"2025-04-12 23:49:13"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-12 23:49:13"}
+{"level":"warn","message":"[API] UYARI: 'analitik' tipi için düşünme stili bölümü boş veya eksik.","service":"auralize-api","timestamp":"2025-04-12 23:49:13"}
+{"level":"info","message":"[API] analitik için prompt uzunluğu: 1381 karakter","service":"auralize-api","timestamp":"2025-04-12 23:49:13"}
+{"level":"info","message":"[API] Düşünme stili bölümü prompt içinde mevcut mu: false","service":"auralize-api","timestamp":"2025-04-12 23:49:13"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 23:50:52"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 23:50:52"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-12 23:51:07"}
+{"level":"info","message":"Loglama isteği alındı: quiz-selected","quizPath":"/quiz/creative","service":"auralize-api","timestamp":"2025-04-12T20:51:06.972Z","userId":"anonim"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-12 23:51:22"}
+{"level":"info","message":"[API] analitik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-12 23:51:22"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: analitik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-12 23:51:22"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-12 23:51:22"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-12 23:51:22"}
+{"level":"info","message":"[API] analitik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-12 23:51:22"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: analitik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-12 23:51:22"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-12 23:51:22"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-12 23:51:23"}
+{"level":"info","message":"[API] analitik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-12 23:51:23"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: analitik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-12 23:51:23"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-12 23:51:23"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_analitik_11a8b1c0d","service":"auralize-api","timestamp":"2025-04-12 23:51:38"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-12 23:51:38"}
+{"level":"warn","message":"[API] UYARI: 'analitik' tipi için düşünme stili bölümü boş veya eksik.","service":"auralize-api","timestamp":"2025-04-12 23:51:38"}
+{"level":"info","message":"[API] analitik için prompt uzunluğu: 1381 karakter","service":"auralize-api","timestamp":"2025-04-12 23:51:38"}
+{"level":"info","message":"[API] Düşünme stili bölümü prompt içinde mevcut mu: false","service":"auralize-api","timestamp":"2025-04-12 23:51:38"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_analitik_11a8b1c0d","service":"auralize-api","timestamp":"2025-04-12 23:51:38"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-12 23:51:38"}
+{"level":"warn","message":"[API] UYARI: 'analitik' tipi için düşünme stili bölümü boş veya eksik.","service":"auralize-api","timestamp":"2025-04-12 23:51:38"}
+{"level":"info","message":"[API] analitik için prompt uzunluğu: 1381 karakter","service":"auralize-api","timestamp":"2025-04-12 23:51:38"}
+{"level":"info","message":"[API] Düşünme stili bölümü prompt içinde mevcut mu: false","service":"auralize-api","timestamp":"2025-04-12 23:51:38"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_analitik_11a8b1c0d","service":"auralize-api","timestamp":"2025-04-12 23:51:38"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-12 23:51:38"}
+{"level":"warn","message":"[API] UYARI: 'analitik' tipi için düşünme stili bölümü boş veya eksik.","service":"auralize-api","timestamp":"2025-04-12 23:51:38"}
+{"level":"info","message":"[API] analitik için prompt uzunluğu: 1381 karakter","service":"auralize-api","timestamp":"2025-04-12 23:51:38"}
+{"level":"info","message":"[API] Düşünme stili bölümü prompt içinde mevcut mu: false","service":"auralize-api","timestamp":"2025-04-12 23:51:38"}
+{"level":"info","message":"GET /results/installHook.js.map","service":"auralize-api","timestamp":"2025-04-12 23:52:33"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 23:58:55"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 23:58:55"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 23:59:17"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 23:59:17"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-12 23:59:46"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-12 23:59:46"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-13 00:10:07"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-13 00:10:07"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-13 00:10:19"}
+{"level":"info","message":"Loglama isteği alındı: quiz-selected","quizPath":"/quiz/creative","service":"auralize-api","timestamp":"2025-04-12T21:10:19.164Z","userId":"anonim"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-13 00:10:33"}
+{"level":"info","message":"[API] analitik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-13 00:10:33"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: analitik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-13 00:10:33"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-13 00:10:33"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-13 00:10:33"}
+{"level":"info","message":"[API] analitik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-13 00:10:33"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: analitik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-13 00:10:33"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-13 00:10:33"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-13 00:10:34"}
+{"level":"info","message":"[API] analitik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-13 00:10:34"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: analitik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-13 00:10:34"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-13 00:10:34"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_analitik_10a5b4c1d","service":"auralize-api","timestamp":"2025-04-13 00:10:53"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-13 00:10:53"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_analitik_10a5b4c1d","service":"auralize-api","timestamp":"2025-04-13 00:10:54"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-13 00:10:54"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_analitik_10a5b4c1d","service":"auralize-api","timestamp":"2025-04-13 00:10:56"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-13 00:10:56"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-13 00:12:09"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-13 00:12:09"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-13 00:12:43"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-13 00:12:43"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-13 00:12:58"}
+{"level":"info","message":"Loglama isteği alındı: quiz-selected","quizPath":"/quiz/creative","service":"auralize-api","timestamp":"2025-04-12T21:12:58.359Z","userId":"anonim"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-13 00:13:10"}
+{"level":"info","message":"[API] enerjik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-13 00:13:10"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: enerjik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-13 00:13:10"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-13 00:13:10"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-13 00:13:10"}
+{"level":"info","message":"[API] enerjik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-13 00:13:10"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: enerjik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-13 00:13:10"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-13 00:13:10"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-13 00:13:11"}
+{"level":"info","message":"[API] enerjik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-13 00:13:11"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: enerjik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-13 00:13:11"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-13 00:13:11"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_enerjik_1a1b5c13d","service":"auralize-api","timestamp":"2025-04-13 00:13:31"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-13 00:13:31"}
+{"level":"warn","message":"[API] UYARI: 'enerjik' tipi için düşünme stili bölümü boş veya eksik.","service":"auralize-api","timestamp":"2025-04-13 00:13:31"}
+{"level":"info","message":"[API] enerjik için prompt uzunluğu: 1381 karakter","service":"auralize-api","timestamp":"2025-04-13 00:13:31"}
+{"level":"info","message":"[API] Düşünme stili bölümü prompt içinde mevcut mu: false","service":"auralize-api","timestamp":"2025-04-13 00:13:31"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_enerjik_1a1b5c13d","service":"auralize-api","timestamp":"2025-04-13 00:13:36"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-13 00:13:36"}
+{"level":"warn","message":"[API] UYARI: 'enerjik' tipi için düşünme stili bölümü boş veya eksik.","service":"auralize-api","timestamp":"2025-04-13 00:13:36"}
+{"level":"info","message":"[API] enerjik için prompt uzunluğu: 1381 karakter","service":"auralize-api","timestamp":"2025-04-13 00:13:36"}
+{"level":"info","message":"[API] Düşünme stili bölümü prompt içinde mevcut mu: false","service":"auralize-api","timestamp":"2025-04-13 00:13:36"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_enerjik_1a1b5c13d","service":"auralize-api","timestamp":"2025-04-13 00:13:37"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-13 00:13:37"}
+{"level":"warn","message":"[API] UYARI: 'enerjik' tipi için düşünme stili bölümü boş veya eksik.","service":"auralize-api","timestamp":"2025-04-13 00:13:37"}
+{"level":"info","message":"[API] enerjik için prompt uzunluğu: 1381 karakter","service":"auralize-api","timestamp":"2025-04-13 00:13:37"}
+{"level":"info","message":"[API] Düşünme stili bölümü prompt içinde mevcut mu: false","service":"auralize-api","timestamp":"2025-04-13 00:13:37"}
+{"level":"info","message":"GET /results/installHook.js.map","service":"auralize-api","timestamp":"2025-04-13 00:14:02"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-13 00:20:19"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-13 00:20:19"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-13 00:20:30"}
+{"level":"info","message":"Loglama isteği alındı: quiz-selected","quizPath":"/quiz/creative","service":"auralize-api","timestamp":"2025-04-12T21:20:30.499Z","userId":"anonim"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-13 00:20:44"}
+{"level":"info","message":"[API] yaratıcı aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-13 00:20:44"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: yaratıcı, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-13 00:20:44"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-13 00:20:44"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-13 00:20:44"}
+{"level":"info","message":"[API] yaratıcı aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-13 00:20:44"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: yaratıcı, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-13 00:20:44"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-13 00:20:44"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-13 00:20:45"}
+{"level":"info","message":"[API] yaratıcı aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-13 00:20:45"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: yaratıcı, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-13 00:20:45"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-13 00:20:45"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_yaratıcı_1a13b5c1d","service":"auralize-api","timestamp":"2025-04-13 00:20:59"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-13 00:20:59"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_yaratıcı_1a13b5c1d","service":"auralize-api","timestamp":"2025-04-13 00:21:02"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-13 00:21:02"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_yaratıcı_1a13b5c1d","service":"auralize-api","timestamp":"2025-04-13 00:21:04"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-13 00:21:04"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-13 00:21:58"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-13 00:21:58"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-13 00:25:37"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-13 00:25:37"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-13 00:25:52"}
+{"level":"info","message":"Loglama isteği alındı: quiz-selected","quizPath":"/quiz/creative","service":"auralize-api","timestamp":"2025-04-12T21:25:52.653Z","userId":"anonim"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-13 00:26:06"}
+{"level":"info","message":"[API] yaratıcı aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-13 00:26:06"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: yaratıcı, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-13 00:26:06"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-13 00:26:06"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-13 00:26:06"}
+{"level":"info","message":"[API] yaratıcı aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-13 00:26:06"}
+{"level":"warn","message":"[API] Duplicate istek engellendi: yaratıcı","service":"auralize-api","timestamp":"2025-04-13 00:26:06"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_yaratıcı_7a8b1c4d","service":"auralize-api","timestamp":"2025-04-13 00:26:25"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-13 00:26:25"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-13 00:27:04"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-13 00:27:04"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-13 00:29:39"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-13 00:29:39"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-13 00:29:48"}
+{"level":"info","message":"Loglama isteği alındı: quiz-selected","quizPath":"/quiz/creative","service":"auralize-api","timestamp":"2025-04-12T21:29:48.423Z","userId":"anonim"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-13 00:30:02"}
+{"level":"info","message":"[API] empatik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-13 00:30:02"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: empatik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-13 00:30:02"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-13 00:30:02"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-13 00:30:02"}
+{"level":"info","message":"[API] empatik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-13 00:30:02"}
+{"level":"warn","message":"[API] Duplicate istek engellendi: empatik","service":"auralize-api","timestamp":"2025-04-13 00:30:02"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_empatik_5a3b6c6d","service":"auralize-api","timestamp":"2025-04-13 00:30:21"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-13 00:30:21"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-13 00:32:30"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-13 00:32:30"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-13 00:32:41"}
+{"level":"info","message":"Loglama isteği alındı: quiz-selected","quizPath":"/quiz/creative","service":"auralize-api","timestamp":"2025-04-12T21:32:41.844Z","userId":"anonim"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-13 00:32:56"}
+{"level":"info","message":"[API] enerjik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-13 00:32:56"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: enerjik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-13 00:32:56"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-13 00:32:56"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-13 00:32:56"}
+{"level":"info","message":"[API] enerjik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-13 00:32:56"}
+{"level":"warn","message":"[API] Duplicate istek engellendi: enerjik","service":"auralize-api","timestamp":"2025-04-13 00:32:56"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_enerjik_5a4b5c6d","service":"auralize-api","timestamp":"2025-04-13 00:33:21"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-13 00:33:21"}
+{"level":"warn","message":"[API] UYARI: 'enerjik' tipi için düşünme stili bölümü boş veya eksik.","service":"auralize-api","timestamp":"2025-04-13 00:33:21"}
+{"level":"info","message":"[API] enerjik için prompt uzunluğu: 1489 karakter","service":"auralize-api","timestamp":"2025-04-13 00:33:21"}
+{"level":"info","message":"[API] Düşünme stili bölümü prompt içinde mevcut mu: false","service":"auralize-api","timestamp":"2025-04-13 00:33:21"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-13 00:34:32"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-13 00:34:32"}
+{"level":"info","message":"GET /main.437a4af3462c2c16c9da.hot-update.json","service":"auralize-api","timestamp":"2025-04-13 00:34:35"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-13 00:34:36"}
+{"level":"info","message":"[API] enerjik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-13 00:34:36"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: enerjik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-13 00:34:36"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-13 00:34:36"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-13 00:34:36"}
+{"level":"info","message":"[API] enerjik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-13 00:34:36"}
+{"level":"warn","message":"[API] Duplicate istek engellendi: enerjik","service":"auralize-api","timestamp":"2025-04-13 00:34:36"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-13 00:34:46"}
+{"level":"info","message":"Loglama isteği alındı: quiz-selected","quizPath":"/quiz/creative","service":"auralize-api","timestamp":"2025-04-12T21:34:46.046Z","userId":"anonim"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_enerjik_5a4b5c6d","service":"auralize-api","timestamp":"2025-04-13 00:34:55"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-13 00:34:55"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-13 00:35:00"}
+{"level":"info","message":"[API] enerjik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-13 00:35:00"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: enerjik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-13 00:35:00"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-13 00:35:00"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-13 00:35:00"}
+{"level":"info","message":"[API] enerjik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-13 00:35:00"}
+{"level":"warn","message":"[API] Duplicate istek engellendi: enerjik","service":"auralize-api","timestamp":"2025-04-13 00:35:00"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_enerjik_3a4b5c8d","service":"auralize-api","timestamp":"2025-04-13 00:35:15"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-13 00:35:15"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-13 00:38:46"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-13 00:38:46"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-13 00:38:58"}
+{"level":"info","message":"Loglama isteği alındı: quiz-selected","quizPath":"/quiz/creative","service":"auralize-api","timestamp":"2025-04-12T21:38:58.695Z","userId":"anonim"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-13 00:39:14"}
+{"level":"info","message":"[API] analitik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-13 00:39:14"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: analitik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-13 00:39:14"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-13 00:39:14"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-13 00:39:14"}
+{"level":"info","message":"[API] analitik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-13 00:39:14"}
+{"level":"warn","message":"[API] Duplicate istek engellendi: analitik","service":"auralize-api","timestamp":"2025-04-13 00:39:14"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_analitik_10a5b2c3d","service":"auralize-api","timestamp":"2025-04-13 00:39:30"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-13 00:39:30"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-13 00:39:48"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-13 00:39:48"}

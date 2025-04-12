@@ -1,0 +1,152 @@
+[
+  {
+    "id": 1,
+    "question": "Çalışırken seni en çok ne motive eder?",
+    "options": [
+      { "id": "a", "value": "Yaratıcı özgürlük" },
+      { "id": "b", "value": "Finansal güvence" },
+      { "id": "c", "value": "Topluma katkı sağlamak" },
+      { "id": "d", "value": "Tanınma ve başarı hissi" }
+    ]
+  },
+  {
+    "id": 2,
+    "question": "Hangi çalışma ortamında kendini daha iyi hissedersin?",
+    "options": [
+      { "id": "a", "value": "Canlı ve sosyal bir ofis" },
+      { "id": "b", "value": "Sakin ve düzenli bir çalışma alanı" },
+      { "id": "c", "value": "Esnek ve uzaktan çalışma" },
+      { "id": "d", "value": "Dinamik ve değişken bir ortam" }
+    ]
+  },
+  {
+    "id": 3,
+    "question": "Takım çalışması mı, bireysel çalışma mı tercih edersin?",
+    "options": [
+      { "id": "a", "value": "Kesinlikle takım çalışması" },
+      { "id": "b", "value": "Çoğunlukla takım, bazen bireysel" },
+      { "id": "c", "value": "Çoğunlukla bireysel, bazen takım" },
+      { "id": "d", "value": "Kesinlikle bireysel çalışma" }
+    ]
+  },
+  {
+    "id": 4,
+    "question": "Bir işte seni en çok ne tatmin eder?",
+    "options": [
+      { "id": "a", "value": "Yaratıcı işler ortaya koymak" },
+      { "id": "b", "value": "İnsanlara yardım etmek" },
+      { "id": "c", "value": "Problemleri çözmek" },
+      { "id": "d", "value": "Liderlik etmek ve yönetmek" }
+    ]
+  },
+  {
+    "id": 5,
+    "question": "Meslek seçiminde senin için en önemli faktör nedir?",
+    "options": [
+      { "id": "a", "value": "Yüksek gelir" },
+      { "id": "b", "value": "İş-yaşam dengesi" },
+      { "id": "c", "value": "Tutku ve ilgi alanlarınla uyum" },
+      { "id": "d", "value": "Kariyer gelişimi ve ilerleme imkanı" }
+    ]
+  },
+  {
+    "id": 6,
+    "question": "Eleştiriye nasıl yaklaşırsın?",
+    "options": [
+      { "id": "a", "value": "Yapıcı bulur ve değerlendiririm" },
+      { "id": "b", "value": "Savunmacı olabilirim" },
+      { "id": "c", "value": "Analiz eder ve gerekliyse uygularım" },
+      { "id": "d", "value": "Kaynağına göre değerlendiririm" }
+    ]
+  },
+  {
+    "id": 7,
+    "question": "Kariyer hedeflerini nasıl belirlersin?",
+    "options": [
+      { "id": "a", "value": "Uzun vadeli planlar yaparım" },
+      { "id": "b", "value": "Fırsatlara göre değerlendiririm" },
+      { "id": "c", "value": "Tutkularımı takip ederim" },
+      { "id": "d", "value": "Deneyimlerime göre şekillendiririm" }
+    ]
+  },
+  {
+    "id": 8,
+    "question": "İş hayatında önceliğin nedir?",
+    "options": [
+      { "id": "a", "value": "Uzmanlık kazanmak" },
+      { "id": "b", "value": "İyi bir network oluşturmak" },
+      { "id": "c", "value": "Farklı beceriler geliştirmek" },
+      { "id": "d", "value": "Yenilikçi projelerde yer almak" }
+    ]
+  },
+  {
+    "id": 9,
+    "question": "Çalışma tempon nasıldır?",
+    "options": [
+      { "id": "a", "value": "Sistematik ve düzenli" },
+      { "id": "b", "value": "Son dakikada yoğunlaşırım" },
+      { "id": "c", "value": "Esnek ve duruma göre değişken" },
+      { "id": "d", "value": "Yoğun çalışma ve mola döngüleri" }
+    ]
+  },
+  {
+    "id": 10,
+    "question": "Risk alma konusunda tutumun nedir?",
+    "options": [
+      { "id": "a", "value": "Hesaplanmış riskler alırım" },
+      { "id": "b", "value": "Genellikle güvenli yolu tercih ederim" },
+      { "id": "c", "value": "Heyecan verici fırsatları kovalırım" },
+      { "id": "d", "value": "Risk almadan önce çok düşünürüm" }
+    ]
+  },
+  {
+    "id": 11,
+    "question": "Kariyer başarısını nasıl ölçersin?",
+    "options": [
+      { "id": "a", "value": "Maddi kazanç" },
+      { "id": "b", "value": "İç huzur ve tatmin" },
+      { "id": "c", "value": "Tanınma ve prestij" },
+      { "id": "d", "value": "Etki ve kalıcı iz bırakma" }
+    ]
+  },
+  {
+    "id": 12,
+    "question": "Hangi tür işlerde en iyi performansı gösterirsin?",
+    "options": [
+      { "id": "a", "value": "Yaratıcılık gerektiren işler" },
+      { "id": "b", "value": "Analitik düşünme gerektiren işler" },
+      { "id": "c", "value": "İnsanlarla iletişim gerektiren işler" },
+      { "id": "d", "value": "Pratik ve somut işler" }
+    ]
+  },
+  {
+    "id": 13,
+    "question": "İş yerinde değişime yaklaşımın nasıldır?",
+    "options": [
+      { "id": "a", "value": "Değişimi kolayca benimserim" },
+      { "id": "b", "value": "Değişime direnirim" },
+      { "id": "c", "value": "Belli bir adaptasyon süreci gerekir" },
+      { "id": "d", "value": "Değişimi kendim başlatmayı severim" }
+    ]
+  },
+  {
+    "id": 14,
+    "question": "Kendini geliştirmek için neler yapıyorsun?",
+    "options": [
+      { "id": "a", "value": "Düzenli eğitim ve kurslar" },
+      { "id": "b", "value": "Mentorluk ve koçluk" },
+      { "id": "c", "value": "Kendi kendine öğrenme" },
+      { "id": "d", "value": "İş deneyimi yoluyla öğrenme" }
+    ]
+  },
+  {
+    "id": 15,
+    "question": "İdeal kariyerin nasıl görünüyor?",
+    "options": [
+      { "id": "a", "value": "Sürekli yenilik ve değişim" },
+      { "id": "b", "value": "İstikrar ve güvenlik" },
+      { "id": "c", "value": "Özgürlük ve esneklik" },
+      { "id": "d", "value": "Etki ve anlam" }
+    ]
+  }
+] 

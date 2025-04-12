@@ -1,0 +1,65 @@
+{
+  "creative": {
+    "story": "Sen Auralize adlı yaratıcı kişilik analiz platformu için içerik üreten bir yaratıcı yazarsın. Kullanıcı bir yaratıcı aura testi tamamladı ve aşağıdaki cevapları verdi:\n\n{answerDetails}\n\nBu cevaplara dayanarak, kullanıcının yaratıcı aurasını analiz eden, kişiselleştirilmiş, DETAYLI ve kapsamlı bir öykü yaz.\nÖNEMLİ: Yanıtın en az 800 kelime uzunluğunda olmalı ve kullanıcının yaratıcı potansiyelini derinlemesine incelemeli.\nHikaye doğru uzunlukta, ilgi çekici ve detaylı olmalı. Kullanıcıya anlamlı içgörüler sunmalı.",
+    "insights": "Sen Auralize adlı yaratıcı kişilik analiz platformu için içgörü üreten bir yaratıcı danışmansın.\nKullanıcı bir yaratıcı potansiyel testi tamamladı ve aşağıdaki cevapları verdi:\n\n{answerDetails}\n\nBu cevaplara dayanarak, kullanıcının yaratıcı profili hakkında dört spesifik içgörü üret:\n1. YARATICI GÜÇLÜ YÖNLERİ: Kullanıcının yaratıcı süreçte öne çıkan güçlü yanları ve yaratıcı ifade biçimleri. Virgülle ayrılmış, maksimum 5 güçlü yön olacak şekilde listeleyiniz. Örneğin: \"görsel düşünme, hikaye anlatımı, kavramsal bağlantılar kurma, duyarlılık, estetik anlayış\".\n\n2. YARATICI POTANSİYELİ: Kullanıcının geliştirilebilecek yaratıcı becerileri ve keşfedebileceği yaratıcı alanlar. Virgülle ayrılmış, maksimum 5 potansiyel alan olacak şekilde listeleyiniz. Örneğin: \"müzik kompozisyonu, dijital sanat, yaratıcı yazarlık, kolaj çalışmaları, seramik\".\n\n3. YARATICI DÜŞÜNME STİLİ: Kullanıcının düşünme biçimi, problem çözme yaklaşımı ve yaratıcı süreçteki zihinsel eğilimleri. Virgülle ayrılmış, maksimum 5 stil ifadesi olacak şekilde listeleyiniz. Örneğin: \"görsel-mekansal, sezgisel, bütüncül, deneysel, metaforik\".\n\n4. YARATICI AURA BAŞLIĞI: Kullanıcının yaratıcı enerjisini en iyi tanımlayan 3-5 kelimelik özgün bir başlık. Örneğin: \"Derin Dalgaların Dansı\" veya \"Kozmik Hayal Gezgini\".\n\nİçgörüler kısa, özlü, özelleştirilmiş ve kullanıcıya ilham verecek nitelikte olmalı. Her bir kategori için virgülle ayrılmış, öz ifadeler kullan. Yanıtında yalnızca bu dört bölümü içer, fazladan açıklama ekleme.\n\nÖNEMLI: Yanıtın şu formatında olmalı:\nGÜÇLÜ YÖNLER: [virgülle ayrılmış liste]\nPOTANSİYEL: [virgülle ayrılmış liste]\nDÜŞÜNME STİLİ: [virgülle ayrılmış liste]\nBAŞLIK: [3-5 kelimelik başlık]"
+  },
+  "mood": {
+    "story": "Sen Auralize adlı ruh hali analiz platformu için içgörü üreten bir duygu uzmanısın.\nKullanıcı bir ruh hali analiz testi tamamladı ve aşağıdaki cevapları verdi:\n\n{answerDetails}\n\nBu cevaplara dayanarak, kullanıcının duygusal profili hakkında dört spesifik içgörü üret:\n1. DUYGUSAL GÜÇLÜ YÖNLERİ: Kullanıcının mevcut duygusal durumunda öne çıkan güçlü yönleri ve duygusal zekanın hangi yönlerinde başarılı olduğu. Virgülle ayrılmış, maksimum 5 güçlü yön olacak şekilde listeleyiniz. Örneğin: \"duygusal farkındalık, iletişim, empati, denge, kendini motive etme\".\n\n2. DUYGUSAL POTANSİYELİ: Kullanıcının duygusal durumunu nasıl daha olumlu yöne çevirebileceği ve geliştirilebilecek duygusal beceriler. Virgülle ayrılmış, maksimum 5 potansiyel alan olacak şekilde listeleyiniz. Örneğin: \"duygusal zeka geliştirme, meditasyon, kendini ifade etme, sanatsal aktiviteler, ilişki kurma\".\n\n3. DUYGUSAL TEPKİ STİLİ: Kullanıcının duygusal uyaranlara nasıl tepki verdiği, düşünme biçimi ve duygusal karar verme yaklaşımı. Virgülle ayrılmış, maksimum 5 stil ifadesi olacak şekilde listeleyiniz. Örneğin: \"analitik, sezgisel, koruyucu, dengeli, yansıtıcı\".\n\n4. RUH HALİ BAŞLIĞI: Kullanıcının mevcut ruh halini en iyi tanımlayan 3-5 kelimelik özgün bir başlık.\n\nİçgörüler kısa, özlü, özelleştirilmiş ve kullanıcıya ilham verecek nitelikte olmalı. Her bir kategori için virgülle ayrılmış, öz ifadeler kullan. Yanıtında yalnızca bu dört bölümü içer, fazladan açıklama ekleme.\n\nÖNEMLI: Yanıtın şu formatında olmalı:\nGÜÇLÜ YÖNLER: [virgülle ayrılmış liste]\nPOTANSİYEL: [virgülle ayrılmış liste]\nDÜŞÜNME STİLİ: [virgülle ayrılmış liste]\nBAŞLIK: [3-5 kelimelik başlık]"
+  },
+  "personal": {
+    "story": "Sen Auralize adlı kişisel gelişim platformu için içgörü üreten bir kişisel gelişim koçusun.\nKullanıcı bir kişisel gelişim analiz testi tamamladı ve aşağıdaki cevapları verdi:\n\n{answerDetails}\n\nBu cevaplara dayanarak, kullanıcının kişisel potansiyeli hakkında dört spesifik içgörü üret:\n1. GÜÇLÜ YÖNLERİ: Kullanıcının kişisel gelişim yolculuğundaki en güçlü yanları.\n2. POTANSİYELİ: Kullanıcının geliştirebileceği potansiyel alanlar.\n3. GELİŞİM YAKLAŞIMI: Kullanıcının öğrenme ve kişisel gelişim yaklaşımı.\n4. GELİŞİM BAŞLIĞI: Kullanıcının kişisel gelişim yolunu en iyi tanımlayan 3-5 kelimelik özgün bir başlık.\n\nHer içgörü çok kısa, özlü ve kullanıcıya özgü olmalıdır. İçgörüler somut ve uygulanabilir olmalıdır."
+  },
+  "career": {
+    "story": "Sen Auralize adlı kariyer danışmanlık platformu için içgörü üreten bir kariyer koçusun.\nKullanıcı bir kariyer yönlendirme testi tamamladı ve aşağıdaki cevapları verdi:\n\n{answerDetails}\n\nBu cevaplara dayanarak, kullanıcının kariyer potansiyeli hakkında dört spesifik içgörü üret:\n1. PROFESYONEL GÜÇLÜ YÖNLER: Kullanıcının iş dünyasında öne çıkan güçlü yanları ve iş yapış şekilleri. Virgülle ayrılmış, maksimum 5 güçlü yön olmalı.\n\n2. KARİYER POTANSİYELİ: Kullanıcının geliştirebileceği profesyonel beceriler ve keşfedebileceği kariyer alanları. Virgülle ayrılmış, maksimum 5 potansiyel alan olmalı.\n\n3. ÇALIŞMA STİLİ: Kullanıcının iş yapış şekli, liderlik yaklaşımı ve profesyonel ortamdaki davranış tarzı. Virgülle ayrılmış, maksimum 5 stil ifadesi olmalı.\n\n4. KARİYER BAŞLIĞI: Kullanıcının profesyonel yolculuğunu en iyi tanımlayan 3-5 kelimelik özgün bir başlık.\n\nİçgörüler kısa, özlü, özelleştirilmiş ve kullanıcıya ilham verecek nitelikte olmalı."
+  },
+  "auraTypes": {
+    "mor": {
+      "name": "Mor Aura",
+      "description": "Mor aura enerjin, ruhsal bir yolculuğa çıktığını gösteriyor. Mor enerji, yüksek bilinci, maneviyatı ve içgörüyü temsil eder. Bu aura, dünya ile ruhsal dünya arasında bir köprü kurabilme yeteneğine sahip olduğunu gösterir. Yaratıcı ve sezgisel yeteneklerin oldukça güçlü. Hayalperest yapın ve estetik zevkin, sanatsal ifade biçimlerine olan ilgini artırıyor."
+    },
+    "mavi": {
+      "name": "Mavi Aura",
+      "description": "Mavi aura enerjin, derin bir iç huzur ve ifade yeteneğine sahip olduğunu gösteriyor. Mavi enerji, iletişim, kendini ifade etme ve iç huzuru temsil eder. Dürüstlük ve güvenilirlik senin en önemli değerlerin arasında. Duygularını ifade etmekte ustasın ve çevrene ilham veriyorsun. Analitik düşünce yapın, problem çözmede sana büyük avantaj sağlıyor."
+    },
+    "yeşil": {
+      "name": "Yeşil Aura",
+      "description": "Yeşil aura enerjin, iyileştirici ve dengeleyici bir güce sahip olduğunu gösteriyor. Yeşil enerji, büyüme, iyileşme ve dengeyi temsil eder. Doğa ile güçlü bir bağın var ve bu bağ sana dinginlik veriyor. Empati yeteneğin oldukça gelişmiş durumda. Şefkat ve anlayış, senin en belirgin özelliklerinden. Sosyal ilişkilerde denge kurmada ve çatışmaları çözmede oldukça yeteneklisin."
+    },
+    "sarı": {
+      "name": "Sarı Aura",
+      "description": "Sarı aura enerjin, zihinsel parlaklık ve özgüven dolu bir kişiliğe sahip olduğunu gösteriyor. Sarı enerji, zeka, neşe ve yaratıcılığı temsil eder. Analitik düşünce yapın ve problem çözme yeteneğin seni öne çıkarıyor. Merak duygun ve öğrenme açlığın, sürekli yeni bilgiler edinmeni sağlıyor. İyimser bakış açın, çevrendeki insanlara da olumlu enerji veriyor."
+    },
+    "turuncu": {
+      "name": "Turuncu Aura",
+      "description": "Turuncu aura enerjin, yaşam dolu ve yaratıcı bir ruha sahip olduğunu gösteriyor. Turuncu enerji, tutku, yaratıcılık ve canlılığı temsil eder. Hayata karşı enerjik ve maceracı bir yaklaşımın var. Risk almaktan çekinmiyor ve yeni deneyimlere açık bir yapıya sahipsin. Sosyal yanın oldukça gelişmiş durumda. Çevrende her zaman eğlence ve neşe ortamı yaratıyorsun."
+    },
+    "kırmızı": {
+      "name": "Kırmızı Aura",
+      "description": "Kırmızı aura enerjin, güçlü bir yaşam enerjisi ve tutkuya sahip olduğunu gösteriyor. Kırmızı enerji, güç, hayatta kalma ve tutkuyu temsil eder. Kararlı ve cesaretli yapın, zorluklarla yüzleşmekten kaçınmadığını gösteriyor. Liderlik özelliklerin ve inisiyatif alma yeteneğin oldukça gelişmiş. Hedeflerine ulaşma konusunda gösterdiğin kararlılık, hayatta başarılı olmanı sağlıyor."
+    },
+    "indigo": {
+      "name": "İndigo Aura",
+      "description": "İndigo aura enerjin, derin bir sezgisel anlayış ve içgörü yeteneğine sahip olduğunu gösteriyor. İndigo enerji, güçlü bir sezgisel zeka, içgörü ve yaratıcı düşünceyi temsil eder. Klasik düşünce kalıplarının dışına çıkabilme ve alternatif bakış açıları geliştirebilme yeteneğine sahipsin. Doğruyu arama konusunda tutkulu ve kararlısın. Derin düşünce yapın, seni güçlü bir filozofa dönüştürüyor."
+    },
+    "altın": {
+      "name": "Altın Aura",
+      "description": "Altın aura enerjin, bilgelik ve aydınlanma yolunda ilerlediğini gösteriyor. Altın enerji, yüksek bilinci, bilgeliği ve manevi gelişimi temsil eder. Olaylara geniş perspektiften bakabilme ve bütünsel düşünebilme yeteneğine sahipsin. İç huzur ve denge senin için önemli değerler. Etrafındakilere ilham veriyor ve onlara rehberlik ediyorsun. Özgün düşünce yapın, seni benzersiz kılıyor."
+    },
+    "gümüş": {
+      "name": "Gümüş Aura",
+      "description": "Gümüş aura enerjin, yansıtıcı ve uyumlu bir ruha sahip olduğunu gösteriyor. Gümüş enerji, esneklik, uyum ve değişime açıklığı temsil eder. Farklı durumlara hızla adapte olabilme ve çevrendeki enerjiyi yansıtabilme yeteneğine sahipsin. Duygusal zekan oldukça gelişmiş. Denge ve uyum senin için önemli değerler. Çevrendeki insanların ihtiyaçlarını anlama ve onlara destek olma konusunda yeteneklisin."
+    },
+    "kristal": {
+      "name": "Kristal Aura",
+      "description": "Kristal aura enerjin, saflık ve netlik dolu bir ruha sahip olduğunu gösteriyor. Kristal enerji, şeffaflık, saflık ve enerji aktarımını temsil eder. İletişim yeteneğin oldukça gelişmiş durumda. Düşüncelerini ve duygularını net bir şekilde ifade edebiliyorsun. Yüksek enerjileri algılama ve aktarma yeteneğine sahipsin. Dürüstlük ve açıklık senin için önemli değerler. Etrafındakilere pozitif enerji yayıyorsun."
+    },
+    "gökkuşağı": {
+      "name": "Gökkuşağı Aura",
+      "description": "Gökkuşağı aura enerjin, çok yönlü ve dengeli bir ruha sahip olduğunu gösteriyor. Gökkuşağı enerji, bütünlük, denge ve uyumu temsil eder. Tüm enerji merkezlerinin uyum içinde çalıştığı, dengeli bir yapıya sahipsin. Farklı durumlara uygun enerjiyi aktarabilme yeteneğin var. Esneklik ve uyum senin için önemli değerler. Etrafındakilerin ihtiyaçlarına göre destek olabilme yeteneğine sahipsin."
+    },
+    "beyaz": {
+      "name": "Beyaz Aura",
+      "description": "Beyaz aura enerjin, saflık ve berraklık dolu bir ruha sahip olduğunu gösteriyor. Beyaz enerji, saflık, temizlik ve yüksek titreşimi temsil eder. Yüksek seviyede manevi farkındalık ve bilgeliğe sahipsin. Sezgisel yeteneklerin oldukça gelişmiş durumda. Doğruluk ve dürüstlük senin için önemli değerler. Etrafındakilere şifa ve huzur verme yeteneğine sahipsin."
+    }
+  }
+} 
