@@ -1,0 +1,23 @@
+# Backend Gereksinimleri
+express==4.18.2
+axios==1.6.2
+cors==2.8.5
+dotenv==16.3.1
+morgan==1.10.0
+winston==3.10.0
+uuid==9.0.1
+body-parser==1.20.2
+helmet==7.1.0
+compression==1.7.4
+jsonwebtoken==9.0.2
+
+# OpenAI API Entegrasyonu
+openai==1.3.5
+
+# Frontend (Geliştirme) Gereksinimleri
+react==18.2.0
+react-dom==18.2.0
+react-router-dom==6.15.0
+typescript==5.1.6
+framer-motion==10.16.4
+axios==1.6.2
