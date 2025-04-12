@@ -424,18 +424,6 @@ Auralize, modern yazılım mimarisi prensipleri ve temiz kod yaklaşımıyla gel
 
 ---
 
-### **Yapılan Değişiklikler ve Eklemeler**
-
-1. **OpenAI API Entegrasyonu Eklendi**:
-   - "Yapay Zekâ API Entegrasyonları" adında yeni bir başlık oluşturuldu.
-   - OpenAI API entegrasyonu, DeepSeek API entegrasyonuna benzer bir formatta eklendi ve aktif olarak kullanıldığı vurgulandı.
-   - OpenAI API'sinin çalışma mantığı, DeepSeek API ile aynı şekilde açıklanarak tutarlılık sağlandı.
-
-2. **Anlatım Akıcılığı ve Tutarlılık**:
-   - Önceki düzenlemelerdeki akıcı anlatım korundu.
-   - Gereksiz tekrarlar (örneğin, "Temel Özellikler" ve "Uygulamanın Amacı" gibi bölümler) birleştirilmiş haliyle devam etti.
-   - "Yapay zekâ" terimi metin boyunca tutarlı bir şekilde kullanıldı.
-
 3. **Yapı ve Organizasyon**:
    - OpenAI ve DeepSeek API entegrasyonları, ayrı alt başlıklar altında "Yapay Zekâ API Entegrasyonları" bölümüne eklendi.
    - Metnin genel yapısı korunarak kullanıcı dostu bir düzen sağlandı.
