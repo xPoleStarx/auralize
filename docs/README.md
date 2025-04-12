@@ -2,7 +2,7 @@
 
 *[English](docs/README_EN.md) ∙ [Türkçe](README.md) ∙ [中文](docs/README_ZH.md) ∙ [Français](docs/README_FR.md) ∙ [Русский](docs/README_RU.md) ∙ [Español](docs/README_ES.md) ∙ [Italiano](docs/README_IT.md) ∙ [日本語](docs/README_JP.md) ∙ [한국어](docs/README_KR.md) ∙ [العربية](docs/README_AR.md) ∙ [Português](docs/README_PT.md)*
 
-![Auralize Logo](frontend/public/auralize_logo.jpg)
+![Auralize Logo](../frontend/public/auralize_logo.jpg)
 
 **Auralize** 🎨, kullanıcıların yaratıcı "auralarını" keşfetmelerine ve geliştirmelerine olanak tanıyan, yapay zekâ destekli, interaktif bir web platformudur. Görsel quiz'ler 🎥, kişisel tercihler 🌈 ve serbest girdiler aracılığıyla yapay zekâ destekli **sanat eserleri** 🖼️, **hikâyeler** 📖 ve **sesler** 🎶 üreterek herkesin içindeki yaratıcılığı ortaya çıkarmayı hedefler. Lenovo'nun *"Senin auran sınırsız"* kampanyasına paralel olarak geliştirilen bu proje, kullanıcıların yaratıcı potansiyelini yapay zekâ ile görselleştirir ve topluluk odaklı bir deneyim sunar! 🚀
 
@@ -423,7 +423,3 @@ auralize/
 Auralize, modern yazılım mimarisi prensipleri ve temiz kod yaklaşımıyla geliştirilmiş, kullanıcı deneyimini ön planda tutan, yapay zekâ destekli bir kişilik keşif platformudur. Modüler yapısı ve esnek servis entegrasyonu sayesinde kolayca genişletilebilir ve sürdürülebilir bir sistem sunar.
 
 ---
-
-3. **Yapı ve Organizasyon**:
-   - OpenAI ve DeepSeek API entegrasyonları, ayrı alt başlıklar altında "Yapay Zekâ API Entegrasyonları" bölümüne eklendi.
-   - Metnin genel yapısı korunarak kullanıcı dostu bir düzen sağlandı.
