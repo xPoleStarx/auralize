@@ -2,10 +2,14 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { motion } from 'framer-motion';
-import { getAuraStoryFromDeepSeek, getAuraInsightsFromLlama } from '../../services/deepseekService';
+// OpenAI servisini import ediyoruz, DeepSeek ve LLaMA yerine
+import { getCombinedAuraDataFromOpenAI } from '../../services/openaiService';
 import { saveAuraStory } from '../../services/auraDataService';
 // JSON dosyasından ruh hali quiz verilerini doğrudan alıyoruz
 import moodQuizData from '../../data/quizzes/moodQuiz.json';
+
+// Debug modu
+const DEBUG_MODE = true;
 
 // Quiz sorusu ve Quiz cevap seçeneği tipleri
 interface QuizOption {
@@ -71,13 +75,88 @@ const moodGradients = {
   light: '#43C6AC'
 };
 
+// Markdown formatındaki metni HTML'e çeviren fonksiyon
+const parseMarkdown = (text: string) => {
+  if (!text) return '';
+  
+  // Bold metinleri işle (**text** -> <strong>text</strong>)
+  const boldParsed = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+  
+  // İtalik metinleri işle (*text* -> <em>text</em>)
+  const italicParsed = boldParsed.replace(/\*(.*?)\*/g, '<em>$1</em>');
+  
+  // Paragrafları işle (satır sonları -> <br />)
+  return italicParsed.replace(/\n/g, '<br />');
+};
+
+// İçgörülerin ön izlemesini gösteren yardımcı fonksiyon
+const getInsightPreview = (text: string, maxLength: number = 100) => {
+  if (!text) return '';
+  // Markdown işaretlerini temizle
+  const plainText = text.replace(/\*\*(.*?)\*\*/g, '$1');
+  return plainText.length > maxLength 
+    ? plainText.substring(0, maxLength) + '...' 
+    : plainText;
+};
+
+// Modal bileşeni - İçgörüler için - HTML içeriği gösterme desteğiyle güncellendi
+const InsightModal = ({ 
+  isOpen, 
+  onClose, 
+  title, 
+  content, 
+  icon, 
+  explanation,
+  color
+}: { 
+  isOpen: boolean; 
+  onClose: () => void; 
+  title: string; 
+  content: string; 
+  icon: string;
+  explanation: string;
+  color?: string;
+}) => (
+  <>
+    {isOpen && (
+      <div className="insight-modal-overlay" onClick={onClose}>
+        <div 
+          className="insight-modal-content" 
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="insight-modal-header" style={{ background: color || moodGradients.main }}>
+            <div className="insight-modal-icon">{icon}</div>
+            <h2 className="insight-modal-title">{title}</h2>
+            <button className="insight-modal-close" onClick={onClose}>×</button>
+          </div>
+          <div className="insight-modal-body">
+            <div 
+              className="insight-modal-text"
+              dangerouslySetInnerHTML={{ __html: parseMarkdown(content) }}
+            ></div>
+            {explanation && (
+              <div className="insight-modal-explanation">
+                <h3>Bu ne anlama geliyor?</h3>
+                <p>{explanation}</p>
+              </div>
+            )}
+          </div>
+          <div className="insight-modal-footer">
+            <button className="insight-modal-button" onClick={onClose}>
+              Kapat
+            </button>
+          </div>
+        </div>
+      </div>
+    )}
+  </>
+);
+
 // Duygu Durum Analizi Sonuç Sayfası
 const MoodResult: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [isLoading, setIsLoading] = useState(true);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [loading, setLoading] = useState(true);
   const [loadingProgress, setLoadingProgress] = useState(0);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isAnalysisStarted, setIsAnalysisStarted] = useState(false);
@@ -94,6 +173,9 @@ const MoodResult: React.FC = () => {
   const [isInsightsLoading, setIsInsightsLoading] = useState(true);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [expandedCard, setExpandedCard] = useState<string | null>(null);
+  const [isApiReady, setIsApiReady] = useState(false);
+  const [isStoryExpanded, setIsStoryExpanded] = useState(false);
+  const [selectedInsight, setSelectedInsight] = useState<string | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -110,9 +192,18 @@ const MoodResult: React.FC = () => {
 
   // Yükleme animasyonu
   useEffect(() => {
-    // Doğrudan sayfaya yönlendirildiğinde animasyonu 100'e çıkarma
-    // loadingInterval kaldırıldı, doğrudan sayfa üzerinde yükleme gösterilecek
-    setLoadingProgress(100);
+    const loadingInterval = setInterval(() => {
+      setLoadingProgress(prev => {
+        if (prev >= 100) {
+          clearInterval(loadingInterval);
+          setLoading(false);
+          return 100;
+        }
+        return prev + 1;
+      });
+    }, 25);
+    
+    return () => clearInterval(loadingInterval);
   }, []);
 
   // Konum durum verilerini al
@@ -129,27 +220,12 @@ const MoodResult: React.FC = () => {
 
     // Kullanıcı adını localStorage'dan al veya varsayılan
     const username = localStorage.getItem('auralize_username') || 'Seyyah';
+    const userId = localStorage.getItem('auralize_user_id') || Date.now().toString();
 
-    // Timeout kontrolü için
-    let isTimedOut = false;
-    let maxTimeout = 300000; // 5 dakika timeout
+    if (DEBUG_MODE) console.log("Quiz verileri hazırlanıyor:", { userId, username, answers: state.answers, determinedType: quizType });
 
     const generateMoodAnalysis = async () => {
       setIsAnalysisStarted(true);
-      timerRef.current = setTimeout(() => {
-        if (isStoryLoading || isInsightsLoading) {
-          isTimedOut = true;
-          console.warn("Duygu durum analizi zaman aşımına uğradı");
-          setMoodStory("Duygu durum analiziniz için sunucu yanıt vermedi. Bu genellikle geçici bir sorundur. Lütfen daha sonra tekrar deneyin.");
-          setMoodStrengths("Zaman aşımı nedeniyle duygusal güçlü yönleriniz yüklenemedi.");
-          setMoodPotential("Zaman aşımı nedeniyle duygusal potansiyeliniz yüklenemedi.");
-          setMoodThinking("Zaman aşımı nedeniyle duygusal tepki stiliniz yüklenemedi.");
-          setMoodTitle("Duygu Durum Analizi (Oluşturulamadı)");
-          setIsStoryLoading(false);
-          setIsInsightsLoading(false);
-          setIsLoading(false);
-        }
-      }, maxTimeout);
       
       try {
         // Quiz cevaplarını daha detaylı bir formata dönüştür
@@ -170,126 +246,107 @@ const MoodResult: React.FC = () => {
           };
         }).filter(Boolean) as DetailedAnswer[]; // null değerleri filtrele ve tip ataması yap
         
-        console.log("Detaylı ruh hali analiz cevapları:", detailedAnswers);
+        if (DEBUG_MODE) console.log("Detaylı ruh hali analiz cevapları:", detailedAnswers);
         
-        // İçgörüleri ve hikayeyi paralel olarak yükleyelim
-        const storyPromise = getAuraStoryFromDeepSeek(quizType, username, state.answers);
-        // @ts-ignore - detailedAnswers parametresini ekstra olarak geçiyoruz, servisi güncelleyeceğiz
-        const insightsPromise = getAuraInsightsFromLlama(quizType, username, state.answers, detailedAnswers);
-
-        // İçgörüleri elde et
-        insightsPromise.then((insights) => {
-          if (isTimedOut) return;
+        // Maksimum bekleme süresi (milisaniye)
+        const MAX_WAIT_TIME = 180000; // 3 dakika
+        const startTime = Date.now();
+        
+        // Tek istekle tüm verileri alma
+        if (DEBUG_MODE) console.log("[DEBUG] Birleştirilmiş veri isteniyor");
+        
+        // Promise.race kullanarak istek veya zaman aşımından hangisi önce gelirse onu işle
+        const resultPromise = Promise.race([
+          getCombinedAuraDataFromOpenAI(quizType, username, state.answers),
+          new Promise<never>((_, reject) => {
+            setTimeout(() => {
+              reject(new Error(`İstek zaman aşımına uğradı (${MAX_WAIT_TIME / 1000} saniye)`));
+            }, MAX_WAIT_TIME);
+          })
+        ]);
+        
+        if (DEBUG_MODE) console.log("[DEBUG] Birleştirilmiş veri isteği yapılıyor...", new Date().toLocaleTimeString());
+        
+        const combinedData = await resultPromise;
+        
+        if (DEBUG_MODE) console.log("[DEBUG] Birleştirilmiş veri yanıtı alındı:", combinedData?.source, new Date().toLocaleTimeString());
+        
+        // Eksik veri kontrolü - tüm alanlar boş ise hata fırlat
+        if (!combinedData.story && !combinedData.strengths && !combinedData.potential && !combinedData.thinkingStyle) {
+          if (DEBUG_MODE) console.error("[DEBUG] API yanıtı eksik veya boş geldi!");
+          throw new Error("API yanıtı eksik veya boş geldi.");
+        }
+        
+        if (DEBUG_MODE) console.log("[DEBUG] İşlem süresi:", ((Date.now() - startTime) / 1000).toFixed(2), "saniye");
+        
+        // Aura hikayesini ayarla
+        setMoodStory(combinedData.story);
+        
+        // İçgörüleri ayarla
+        setMoodStrengths(combinedData.strengths);
+        setMoodPotential(combinedData.potential);
+        setMoodThinking(combinedData.thinkingStyle);
+        setMoodTitle(combinedData.auraTitle || "Ruh Hali Analizi");
+        
+        // Yükleme durumlarını güncelle
+        setIsStoryLoading(false);
+        setIsInsightsLoading(false);
+        setIsApiReady(true);
+        
+        // Analiz verilerini kaydet
+        try {
+          const savedAuraId = await saveAuraStory(userId, {
+            auraType: quizType,
+            story: combinedData.story || "Hikaye yüklenemedi",
+            strengths: combinedData.strengths || "Güçlü yönler yüklenemedi",
+            potential: combinedData.potential || "Potansiyel yüklenemedi",
+            thinkingStyle: combinedData.thinkingStyle || "Düşünme stili yüklenemedi",
+            auraTitle: combinedData.auraTitle || "Ruh Hali Analizi",
+            answers: state.answers
+          });
           
-          setMoodStrengths(insights.strengths);
-          setMoodPotential(insights.potential);
-          setMoodThinking(insights.thinkingStyle);
-          setMoodTitle(insights.auraTitle);
-          setIsInsightsLoading(false);
-
-          // İlerleme çubuğunu güncelle
-          setLoadingProgress(prev => Math.min(prev + 5, 95));
-        }).catch((error) => {
-          console.error("İçgörüler alınırken hata:", error);
-          setMoodStrengths("Duygusal güçlü yönleriniz şu anda görüntülenemiyor.");
-          setMoodPotential("Duygusal potansiyeliniz şu anda görüntülenemiyor.");
-          setMoodThinking("Duygusal tepki stiliniz şu anda görüntülenemiyor.");
-          setMoodTitle("Duygu Durum Analizi");
-          setIsInsightsLoading(false);
-        });
-
-        // Hikayeyi elde et
-        storyPromise.then((story) => {
-          if (isTimedOut) return;
-          
-          // "__llama__" ön ekini kontrol et ve kaldır
-          const cleanedStory = story.replace(/^__llama__/, '');
-          setMoodStory(cleanedStory);
-          setIsStoryLoading(false);
-
-          // İlerleme çubuğunu güncelle
-          setLoadingProgress(prev => Math.min(prev + 5, 95));
-        }).catch((error) => {
-          console.error("Hikaye alınırken hata:", error);
-          
-          // Network hatası mı kontrol et
-          if (error instanceof Error) {
-            if ('message' in error && typeof error.message === 'string') {
-              if (error.message.includes('network') || error.message.includes('Network') || 
-                  error.message.includes('timeout') || error.message.includes('Timeout')) {
-                setMoodStory("Sunucuyla iletişim kurarken bir ağ hatası oluştu. İnternet bağlantınızı kontrol edip tekrar deneyin.");
-              } else {
-                setMoodStory("Duygu durum analiziniz oluşturulurken teknik bir sorun yaşandı. Lütfen daha sonra tekrar deneyin.");
-              }
-            } else {
-              setMoodStory("Duygu durum analiziniz oluşturulurken bir sorun yaşandı. Lütfen daha sonra tekrar deneyin.");
-            }
-          } else {
-            setMoodStory("Duygu durum analiziniz oluşturulurken bir sorun yaşandı. Lütfen daha sonra tekrar deneyin.");
+          if (savedAuraId) {
+            setAuraId(savedAuraId);
+            setShowShareButton(true);
+            console.log("Varsayılan aura verileri kaydedildi");
           }
-          
-          setIsStoryLoading(false);
-        });
-
-        // Her iki işlem tamamlandığında veya hata verdiğinde
-        Promise.allSettled([storyPromise, insightsPromise]).then(async (results) => {
-          if (isTimedOut) return;
-
-          // Her iki işlemden biri başarılı olduysa analizin tamamlandığını işaretle
-          if (results[0].status === 'fulfilled' || results[1].status === 'fulfilled') {
-            // Analiz verilerini kaydet
-            const userId = localStorage.getItem('auralize_user_id') || Date.now().toString();
-            localStorage.setItem('auralize_user_id', userId);
-
-            try {
-              const savedAuraId = await saveAuraStory(userId, {
-                auraType: quizType,
-                story: moodStory || "Hikaye yüklenemedi",
-                strengths: moodStrengths || "Güçlü yönler yüklenemedi",
-                potential: moodPotential || "Potansiyel yüklenemedi",
-                thinkingStyle: moodThinking || "Düşünme stili yüklenemedi",
-                auraTitle: moodTitle || "Duygu Durum Analizi",
-                answers: state.answers
-              });
-              
-              setAuraId(savedAuraId);
-              setShowShareButton(true);
-            } catch (saveError) {
-              console.error("Analiz kaydedilirken hata:", saveError);
-            }
-            
-            clearTimeout(timerRef.current as ReturnType<typeof setTimeout>);
-            setIsLoading(false);
-            setLoadingProgress(100);
-          }
-        });
+        } catch (err) {
+          console.error("Aura kaydedilirken hata:", err);
+        }
+        
+        // İlerlemeyi tamamla
+        setLoadingProgress(100);
+        
       } catch (error) {
-        console.error("Duygu analizi oluşturulurken hata:", error);
+        console.error("Analiz oluşturulurken hata:", error);
         
-        setMoodStory("Bir hata oluştu. Lütfen daha sonra tekrar deneyin.");
+        // Hata durumunda bilgi mesajları
+        setMoodStory("Ruh hali analiziniz oluşturulurken bir sorun yaşandı. Lütfen daha sonra tekrar deneyin.");
         setMoodStrengths("Duygusal güçlü yönleriniz şu anda görüntülenemiyor.");
         setMoodPotential("Duygusal potansiyeliniz şu anda görüntülenemiyor.");
         setMoodThinking("Duygusal tepki stiliniz şu anda görüntülenemiyor.");
-        setMoodTitle("Duygu Durum Analizi");
+        setMoodTitle("Ruh Hali Analizi");
         
-        clearTimeout(timerRef.current as ReturnType<typeof setTimeout>);
-        setIsStoryLoading(false);
-        setIsInsightsLoading(false);
-        setIsLoading(false);
+        // Yükleme durumlarını açık tutarak kristal yükleme animasyonunun görünmesini sağla
+        // setIsStoryLoading(false);
+        // setIsInsightsLoading(false);
+        setIsApiReady(false);
+        
+        // İlerlemeyi tamamla
         setLoadingProgress(100);
       }
     };
 
-    // İlk yükleme hemen başlasın
+    // Analizi başlat
     generateMoodAnalysis();
-    
-    // Cleanup fonksiyonu
+
+    // Temizleme fonksiyonu
     return () => {
       if (timerRef.current) {
         clearTimeout(timerRef.current);
       }
     };
-  }, [location, navigate, moodStory, moodStrengths, moodPotential, moodThinking, moodTitle, isStoryLoading, isInsightsLoading]);
+  }, [navigate, location.state]);
 
   // Analizi paylaşma fonksiyonu
   const handleShareAnalysis = async () => {
@@ -351,24 +408,126 @@ const MoodResult: React.FC = () => {
     }
   };
 
-  // Detaylı açıklamalar için yardımcı fonksiyon - gerçek açıklamaları buraya ekleyin
+  // Hikaye için kısaltma ve genişletme fonksiyonu
+  const toggleStoryExpansion = () => {
+    setIsStoryExpanded(!isStoryExpanded);
+  };
+
+  // Hikayeyi kısaltma fonksiyonu (ilk 250 karakter)
+  const getShortStory = (story: string) => {
+    if (!story) return "";
+    return story.length > 250 ? story.substring(0, 250) + "..." : story;
+  };
+
+  // Kart açıklama içeriği getirme fonksiyonu
   const getDetailedExplanation = (cardId: string): string => {
-    switch (cardId) {
+    switch(cardId) {
       case 'strengths':
-        return `Duygusal güçlü yönleriniz, sizin en benzersiz duygusal niteliklerinizi temsil eder. Bu güçlü yönler, zorlukları aşmanıza ve duygusal olarak zengin bir yaşam sürmenize yardımcı olur. Her biri kişiliğinizin temel taşlarını oluşturur ve duygusal dengenizi bulmanızda size rehberlik eder.`;
+        return "Duygusal güçlü yönleriniz, sizin en çok öne çıkan duygusal özelliklerinizi temsil eder. Bu alanlar, duygusal zekânızın ve ifade biçimlerinizin en gelişmiş olduğu kısımlardır.";
       case 'potential':
-        return `Duygusal potansiyeliniz, henüz tam olarak keşfedilmemiş veya geliştirilmemiş duygusal yetkinliklerinizi gösterir. Bu alanlar, gelişim fırsatlarınızı temsil eder ve üzerinde çalışıldığında duygusal zekanızı güçlendirebilir, ilişkilerinizi iyileştirebilir ve genel mutluluğunuzu artırabilir.`;
+        return "Duygusal potansiyeliniz, duygusal zekânızı daha da geliştirmeniz için çalışabileceğiniz alanları gösterir. Bu alanlar üzerinde çalışarak duygusal tepkilerinizi ve ifadelerinizi daha da iyileştirebilirsiniz.";
       case 'thinking':
-        return `Duygusal tepki stiliniz, duyguları nasıl işlediğinizi ve onlara nasıl tepki verdiğinizi gösterir. Bu bilişsel süreçler, duyguları tanımlama, anlama ve düzenleme biçiminizi şekillendirir. Tepki stilinizi anlamak, duygusal durumlarla daha etkili bir şekilde başa çıkmanıza yardımcı olabilir.`;
+        return "Duygusal tepki stiliniz, duygularınızı nasıl işlediğinizi ve bunlara nasıl tepki verdiğinizi gösterir. Bu stil, duygusal durumlarla nasıl başa çıktığınızı ve duygularınızı nasıl yönettiğinizi yansıtır.";
       default:
-        return '';
+        return "";
     }
   };
+
+  // Modal açma/kapama fonksiyonu
+  const openInsightModal = (insightId: string) => {
+    setSelectedInsight(insightId);
+  };
+
+  const closeInsightModal = () => {
+    setSelectedInsight(null);
+  };
+
+  if (loading) {
+    return (
+      <div className="loading-screen" style={{ background: '#fafafa' }}>
+        <div className="aura-crystal-container">
+          <div className="aura-crystal">
+            <div className="crystal-face face1"></div>
+            <div className="crystal-face face2"></div>
+            <div className="crystal-face face3"></div>
+            <div className="crystal-face face4"></div>
+            <div className="crystal-shadow"></div>
+          </div>
+        </div>
+        <div className="loading-progress">
+          <div className="loading-bar">
+            <div 
+              className="loading-fill" 
+              style={{ 
+                width: `${loadingProgress}%`,
+                background: `${moodGradients.main}`
+              }}
+            ></div>
+          </div>
+          <p className="loading-percentage">{loadingProgress}%</p>
+        </div>
+        <p className="loader-text">Ruh Hali Analiziniz Oluşturuluyor</p>
+        <p className="loader-subtext">Yapay zeka duygusal durumunuzu analiz ediyor</p>
+      </div>
+    );
+  }
 
   return (
     <div className="mood-result-container">
       <style>{`
         /* Ana yükleme animasyonu */
+        .loading-screen {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          background: #fafafa;
+          z-index: 1000;
+        }
+        
+        .loading-progress {
+          width: 200px;
+          margin: 20px 0;
+        }
+        
+        .loading-bar {
+          height: 6px;
+          background: #eee;
+          border-radius: 3px;
+          overflow: hidden;
+        }
+        
+        .loading-fill {
+          height: 100%;
+          background: ${moodGradients.main};
+          border-radius: 3px;
+          transition: width 0.3s ease;
+        }
+        
+        .loading-percentage {
+          text-align: center;
+          margin-top: 8px;
+          font-size: 14px;
+          color: #666;
+        }
+        
+        .loader-text {
+          font-size: 24px;
+          font-weight: 600;
+          margin-bottom: 8px;
+          color: #333;
+        }
+        
+        .loader-subtext {
+          font-size: 16px;
+          color: #777;
+        }
+        
         .aura-crystal-container {
           display: flex;
           justify-content: center;
@@ -410,6 +569,69 @@ const MoodResult: React.FC = () => {
           filter: blur(10px);
           animation: shadow-pulse 2s infinite alternate;
         }
+
+        /* Hikaye kartı */
+        .story-card {
+          background: white;
+          border-radius: 12px;
+          padding: 1.5rem;
+          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+          margin-bottom: 2rem;
+          position: relative;
+          overflow: hidden;
+          transition: all 0.3s ease;
+        }
+        
+        .story-card.expanded {
+          box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        .story-content {
+          position: relative;
+        }
+        
+        .story-gradient-overlay {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          height: 60px;
+          background: linear-gradient(transparent, white);
+          pointer-events: none;
+          opacity: 1;
+          transition: opacity 0.3s ease;
+        }
+        
+        .story-card.expanded .story-gradient-overlay {
+          opacity: 0;
+        }
+        
+        .story-toggle-btn {
+          background: ${moodGradients.main};
+          color: white;
+          border: none;
+          padding: 8px 16px;
+          border-radius: 20px;
+          font-size: 14px;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin: 1rem auto 0;
+          transition: all 0.2s ease;
+        }
+        
+        .story-toggle-btn:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .story-toggle-btn .icon {
+          margin-left: 6px;
+          font-size: 18px;
+        }
+        
+        /* Devam eden varolan stilleri sakla */
         
         @keyframes crystal-rotate {
           from { transform: rotateX(20deg) rotateY(0deg); }
@@ -419,6 +641,49 @@ const MoodResult: React.FC = () => {
         @keyframes shadow-pulse {
           from { transform: scale(0.8); opacity: 0.2; }
           to { transform: scale(1); opacity: 0.4; }
+        }
+        
+        /* Ana yükleme animasyonu */
+        .aura-crystal-container {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-bottom: 2rem;
+          perspective: 800px;
+        }
+        
+        .aura-crystal {
+          width: 80px;
+          height: 80px;
+          position: relative;
+          transform-style: preserve-3d;
+          animation: crystal-rotate 4s infinite linear;
+          transform: rotateX(20deg) rotateY(20deg);
+        }
+        
+        .crystal-face {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          background: ${moodGradients.main};
+          opacity: 0.7;
+          border-radius: 15%;
+        }
+        
+        .face1 { transform: rotateY(0deg) translateZ(40px); }
+        .face2 { transform: rotateY(90deg) translateZ(40px); }
+        .face3 { transform: rotateY(180deg) translateZ(40px); }
+        .face4 { transform: rotateY(270deg) translateZ(40px); }
+        
+        .crystal-shadow {
+          position: absolute;
+          width: 100%;
+          height: 20px;
+          background: rgba(0,0,0,0.2);
+          bottom: -40px;
+          border-radius: 50%;
+          filter: blur(10px);
+          animation: shadow-pulse 2s infinite alternate;
         }
         
         /* İçgörü yükleme bileşenleri */
@@ -775,6 +1040,266 @@ const MoodResult: React.FC = () => {
         .mood-insight-close:hover {
           background: rgba(255, 255, 255, 0.9);
         }
+
+        /* Modal Stilleri */
+        .insight-modal-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: rgba(0, 0, 0, 0.6);
+          backdrop-filter: blur(3px);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          z-index: 1000;
+          padding: 20px;
+        }
+        
+        .insight-modal-content {
+          background: white;
+          border-radius: 16px;
+          width: 90%;
+          max-width: 600px;
+          max-height: 85vh;
+          overflow-y: auto;
+          box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+          animation: modal-slide-in 0.3s ease-out;
+        }
+        
+        @keyframes modal-slide-in {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        
+        .insight-modal-header {
+          display: flex;
+          align-items: center;
+          padding: 1.5rem;
+          background: ${moodGradients.main};
+          border-radius: 16px 16px 0 0;
+          color: white;
+          position: relative;
+        }
+        
+        .insight-modal-icon {
+          font-size: 1.8rem;
+          margin-right: 1rem;
+          background: rgba(255, 255, 255, 0.2);
+          width: 40px;
+          height: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 50%;
+        }
+        
+        .insight-modal-title {
+          font-size: 1.4rem;
+          margin: 0;
+          flex-grow: 1;
+        }
+        
+        .insight-modal-close {
+          background: rgba(255, 255, 255, 0.2);
+          border: none;
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 1.4rem;
+          color: white;
+          cursor: pointer;
+          transition: all 0.2s ease;
+        }
+        
+        .insight-modal-close:hover {
+          background: rgba(255, 255, 255, 0.3);
+          transform: scale(1.1);
+        }
+        
+        .insight-modal-body {
+          padding: 1.5rem;
+        }
+        
+        .insight-modal-text {
+          margin: 0 0 1.5rem 0;
+          line-height: 1.6;
+          font-size: 1.1rem;
+          white-space: pre-line;
+        }
+        
+        .insight-modal-explanation {
+          background: rgba(0, 0, 0, 0.03);
+          padding: 1.2rem;
+          border-radius: 12px;
+          margin-top: 1.5rem;
+          border-left: 4px solid ${moodGradients.light};
+        }
+        
+        .insight-modal-explanation h3 {
+          margin-top: 0;
+          font-size: 1.1rem;
+          opacity: 0.8;
+        }
+        
+        .insight-modal-footer {
+          padding: 1rem 1.5rem;
+          display: flex;
+          justify-content: flex-end;
+          border-top: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .insight-modal-button {
+          background: ${moodGradients.main};
+          color: white;
+          border: none;
+          padding: 0.8rem 1.5rem;
+          border-radius: 30px;
+          font-size: 1rem;
+          font-weight: 500;
+          cursor: pointer;
+          transition: all 0.2s ease;
+        }
+        
+        .insight-modal-button:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* İçgörü Kartları için Güncelleme */
+        .mood-insight-card {
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+        
+        .mood-insight-card:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Hikaye kartı stilinde değişiklik */
+        .story-card {
+          padding: 1.5rem;
+          border-radius: 12px;
+          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+          background: white;
+          margin-bottom: 2rem;
+        }
+        
+        .story-text p {
+          margin-bottom: 1rem;
+          line-height: 1.6;
+        }
+        
+        /* Hata durumunda yükleme animasyonu için stiller */
+        .error-loading-container {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          padding: 2rem;
+          text-align: center;
+        }
+        
+        .crystal-loading-animation {
+          margin-bottom: 1.5rem;
+        }
+        
+        .crystal-container {
+          position: relative;
+          width: 80px;
+          height: 80px;
+          perspective: 800px;
+          margin: 0 auto;
+        }
+        
+        .crystal {
+          width: 100%;
+          height: 100%;
+          position: relative;
+          transform-style: preserve-3d;
+          animation: crystal-rotate 4s infinite linear;
+          transform: rotateX(20deg) rotateY(20deg);
+        }
+        
+        .crystal-face {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          background: inherit;
+          opacity: 0.7;
+          border-radius: 15%;
+        }
+        
+        .crystal-shadow {
+          position: absolute;
+          width: 100%;
+          height: 20px;
+          background: rgba(0,0,0,0.2);
+          bottom: -40px;
+          border-radius: 50%;
+          filter: blur(10px);
+          animation: shadow-pulse 2s infinite alternate;
+        }
+        
+        .error-message {
+          font-size: 1rem;
+          color: #666;
+          margin-bottom: 1.5rem;
+          max-width: 400px;
+        }
+        
+        .retry-button {
+          background: ${moodGradients.main};
+          color: white;
+          border: none;
+          padding: 0.7rem 1.5rem;
+          border-radius: 30px;
+          font-size: 0.9rem;
+          cursor: pointer;
+          transition: all 0.2s ease;
+        }
+        
+        .retry-button:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Hikaye kartı için durum ekleyelim */
+        .story-card.error-state {
+          border: 1px solid rgba(255, 0, 0, 0.1);
+        }
+        
+        .mood-insight-content {
+          color: #555;
+          font-size: 0.95rem;
+          margin-top: 0.5rem;
+          line-height: 1.4;
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        
+        /* Modal içindeki HTML içeriği için stiller */
+        .insight-modal-text strong {
+          font-weight: 600;
+        }
+        
+        .insight-modal-text em {
+          font-style: italic;
+        }
       `}</style>
       
       {/* Header */}
@@ -797,24 +1322,24 @@ const MoodResult: React.FC = () => {
       
       <main className="main-content mood-result-content">
         <div className="container">
-          <h1 className="mood-result-title">{moodTitle || 'Duygu Durum Analizi'}</h1>
+          <h1 className="mood-result-title">{moodTitle || 'Ruh Hali Analizi'}</h1>
           
-          {/* Hikaye Bölümü */}
+          {/* Hikaye Bölümü - Artık tam gösterim */}
           <section className="mood-section">
             <div className="mood-section-header">
               <h2 className="mood-section-title">
-                <span className="mood-section-icon">📝</span> Duygu Durum Hikayeniz
+                <span className="mood-section-icon">✨</span> Ruh Hali Hikayen
               </h2>
             </div>
             
-            <div className="mood-story-box glass-card">
+            <div className="story-card">
               {isStoryLoading ? (
                 <div className="aura-loading-container">
-                  <LoadingAnimation text="Duygu hikayeniz hazırlanıyor" color={moodGradients.main} />
+                  <LoadingAnimation text="Ruh hali analiziniz hazırlanıyor" color={moodGradients.main} />
                 </div>
               ) : (
-                <div className="mood-story-content animate__animated animate__fadeIn">
-                  <div className="mood-story-text">
+                <div className="story-content">
+                  <div className="story-text">
                     {moodStory.split('\n\n').map((paragraph, index) => (
                       <p key={index}>{paragraph}</p>
                     ))}
@@ -824,173 +1349,80 @@ const MoodResult: React.FC = () => {
             </div>
           </section>
           
-          {/* İçgörüler Bölümü */}
+          {/* İçgörüler Bölümü - Modal İle */}
           <section className="mood-section">
             <div className="mood-section-header">
               <h2 className="mood-section-title">
-                <span className="mood-section-icon">💡</span> Duygusal İçgörüleriniz
+                <span className="mood-section-icon">💎</span> Duygusal İçgörülerin
               </h2>
             </div>
             
             <div className="mood-insights-grid">
-              <motion.div 
-                className={`mood-insight-card ${expandedCard === 'strengths' ? 'expanded' : ''}`} 
-                onClick={() => !isInsightsLoading && toggleCardExpansion('strengths')}
-                whileHover={{ scale: isInsightsLoading ? 1 : 1.02 }}
-                transition={{ duration: 0.2 }}
+              {/* Duygusal Güçlü Yönler Kartı */}
+              <div 
+                className="mood-insight-card"
+                onClick={() => !isInsightsLoading && openInsightModal('strengths')}
               >
                 {isInsightsLoading ? (
                   <InsightLoadingSkeleton 
-                    icon="🌟" 
-                    title="Duygusal Güçlü Yönleriniz" 
+                    icon="💪" 
+                    title="Duygusal Güçlü Yönlerin" 
                     color={moodGradients.main}
                   />
                 ) : (
                   <>
-                    <div className="mood-insight-icon" style={{ background: moodGradients.main }}>🌟</div>
-                    <h3 className="mood-insight-title">Duygusal Güçlü Yönleriniz</h3>
-                    <div className="mood-insight-text">
-                      {moodStrengths && moodStrengths.trim() !== '' ? 
-                        moodStrengths.split(',').map((strength, index) => (
-                          <motion.div 
-                            key={index}
-                            className="mood-insight-item"
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.1 * index, duration: 0.5 }}
-                          >
-                            <span className="mood-insight-bullet">•</span>
-                            <span>{strength.trim()}</span>
-                          </motion.div>
-                        )) : 
-                        <p className="mood-insight-error">Duygusal güçlü yönleriniz yüklenirken bir hata oluştu.</p>
-                      }
-                    </div>
-                    
-                    {/* Genişletilmiş açıklama */}
-                    {expandedCard === 'strengths' && (
-                      <motion.div 
-                        className="mood-insight-explanation"
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: 'auto' }}
-                        exit={{ opacity: 0, height: 0 }}
-                        transition={{ duration: 0.3 }}
-                      >
-                        <p>{getDetailedExplanation('strengths')}</p>
-                        <button className="mood-insight-close" onClick={(e) => { e.stopPropagation(); setExpandedCard(null); }}>
-                          <span>Kapat</span>
-                        </button>
-                      </motion.div>
-                    )}
+                    <div className="mood-insight-icon" style={{ background: moodGradients.main }}>💪</div>
+                    <h3 className="mood-insight-title">Duygusal Güçlü Yönlerin</h3>
+                    <p className="mood-insight-content">
+                      {getInsightPreview(moodStrengths)}
+                    </p>
                   </>
                 )}
-              </motion.div>
+              </div>
               
-              <motion.div 
-                className={`mood-insight-card ${expandedCard === 'potential' ? 'expanded' : ''}`} 
-                onClick={() => !isInsightsLoading && toggleCardExpansion('potential')}
-                whileHover={{ scale: isInsightsLoading ? 1 : 1.02 }}
-                transition={{ duration: 0.2 }}
+              {/* Duygusal Potansiyel Kartı */}
+              <div 
+                className="mood-insight-card"
+                onClick={() => !isInsightsLoading && openInsightModal('potential')}
               >
                 {isInsightsLoading ? (
                   <InsightLoadingSkeleton 
-                    icon="🚀" 
-                    title="Duygusal Potansiyeliniz" 
+                    icon="🌱" 
+                    title="Duygusal Potansiyelin" 
                     color={moodGradients.main}
                   />
                 ) : (
                   <>
-                    <div className="mood-insight-icon" style={{ background: moodGradients.main }}>🚀</div>
-                    <h3 className="mood-insight-title">Duygusal Potansiyeliniz</h3>
-                    <div className="mood-insight-text">
-                      {moodPotential && moodPotential.trim() !== '' ? 
-                        moodPotential.split(',').map((potential, index) => (
-                          <motion.div 
-                            key={index}
-                            className="mood-insight-item"
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.1 * index, duration: 0.5 }}
-                          >
-                            <span className="mood-insight-bullet">•</span>
-                            <span>{potential.trim()}</span>
-                          </motion.div>
-                        )) : 
-                        <p className="mood-insight-error">Duygusal potansiyeliniz yüklenirken bir hata oluştu.</p>
-                      }
-                    </div>
-                    
-                    {/* Genişletilmiş açıklama */}
-                    {expandedCard === 'potential' && (
-                      <motion.div 
-                        className="mood-insight-explanation"
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: 'auto' }}
-                        exit={{ opacity: 0, height: 0 }}
-                        transition={{ duration: 0.3 }}
-                      >
-                        <p>{getDetailedExplanation('potential')}</p>
-                        <button className="mood-insight-close" onClick={(e) => { e.stopPropagation(); setExpandedCard(null); }}>
-                          <span>Kapat</span>
-                        </button>
-                      </motion.div>
-                    )}
+                    <div className="mood-insight-icon" style={{ background: moodGradients.main }}>🌱</div>
+                    <h3 className="mood-insight-title">Duygusal Potansiyelin</h3>
+                    <p className="mood-insight-content">
+                      {getInsightPreview(moodPotential)}
+                    </p>
                   </>
                 )}
-              </motion.div>
+              </div>
               
-              <motion.div 
-                className={`mood-insight-card ${expandedCard === 'thinking' ? 'expanded' : ''}`} 
-                onClick={() => !isInsightsLoading && toggleCardExpansion('thinking')}
-                whileHover={{ scale: isInsightsLoading ? 1 : 1.02 }}
-                transition={{ duration: 0.2 }}
+              {/* Duygusal Tepki Stili Kartı */}
+              <div 
+                className="mood-insight-card"
+                onClick={() => !isInsightsLoading && openInsightModal('thinking')}
               >
                 {isInsightsLoading ? (
                   <InsightLoadingSkeleton 
                     icon="🧠" 
-                    title="Duygusal Tepki Stiliniz" 
+                    title="Duygusal Tepki Stilin" 
                     color={moodGradients.main}
                   />
                 ) : (
                   <>
                     <div className="mood-insight-icon" style={{ background: moodGradients.main }}>🧠</div>
-                    <h3 className="mood-insight-title">Duygusal Tepki Stiliniz</h3>
-                    <div className="mood-insight-text">
-                      {moodThinking && moodThinking.trim() !== '' ? 
-                        moodThinking.split(',').map((style, index) => (
-                          <motion.div 
-                            key={index}
-                            className="mood-insight-item"
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.1 * index, duration: 0.5 }}
-                          >
-                            <span className="mood-insight-bullet">•</span>
-                            <span>{style.trim()}</span>
-                          </motion.div>
-                        )) : 
-                        <p className="mood-insight-error">Duygusal tepki stiliniz yüklenirken bir hata oluştu.</p>
-                      }
-                    </div>
-                    
-                    {/* Genişletilmiş açıklama */}
-                    {expandedCard === 'thinking' && (
-                      <motion.div 
-                        className="mood-insight-explanation"
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: 'auto' }}
-                        exit={{ opacity: 0, height: 0 }}
-                        transition={{ duration: 0.3 }}
-                      >
-                        <p>{getDetailedExplanation('thinking')}</p>
-                        <button className="mood-insight-close" onClick={(e) => { e.stopPropagation(); setExpandedCard(null); }}>
-                          <span>Kapat</span>
-                        </button>
-                      </motion.div>
-                    )}
+                    <h3 className="mood-insight-title">Duygusal Tepki Stilin</h3>
+                    <p className="mood-insight-content">
+                      {getInsightPreview(moodThinking)}
+                    </p>
                   </>
                 )}
-              </motion.div>
+              </div>
             </div>
           </section>
           
@@ -1026,6 +1458,37 @@ const MoodResult: React.FC = () => {
           </div>
         </div>
       </main>
+      
+      {/* İçgörü Modalleri */}
+      <InsightModal
+        isOpen={selectedInsight === 'strengths'}
+        onClose={closeInsightModal}
+        title="Duygusal Güçlü Yönlerin"
+        content={moodStrengths}
+        icon="💪"
+        explanation={getDetailedExplanation('strengths')}
+        color={moodGradients.main}
+      />
+      
+      <InsightModal
+        isOpen={selectedInsight === 'potential'}
+        onClose={closeInsightModal}
+        title="Duygusal Potansiyelin"
+        content={moodPotential}
+        icon="🌱"
+        explanation={getDetailedExplanation('potential')}
+        color={moodGradients.main}
+      />
+      
+      <InsightModal
+        isOpen={selectedInsight === 'thinking'}
+        onClose={closeInsightModal}
+        title="Duygusal Tepki Stilin"
+        content={moodThinking}
+        icon="🧠"
+        explanation={getDetailedExplanation('thinking')}
+        color={moodGradients.main}
+      />
       
       <footer className="py-6 px-4 gradient-footer" style={{ background: moodGradients.dark }}>
         <div className="container">

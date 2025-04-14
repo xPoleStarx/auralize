@@ -2,10 +2,14 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { motion } from 'framer-motion';
-import { getAuraStoryFromOpenAI, getAuraInsightsFromOpenAI } from '../../services/openaiService';
+// OpenAI servisini import ediyoruz, DeepSeek ve LLaMA yerine
+import { getCombinedAuraDataFromOpenAI } from '../../services/openaiService';
 import { saveAuraStory } from '../../services/auraDataService';
-// JSON dosyasından kişisel gelişim quiz verilerini doğrudan alıyoruz
+// JSON dosyasından kişilik quiz verilerini doğrudan alıyoruz
 import personalQuizData from '../../data/quizzes/personalQuiz.json';
+
+// Debug modu
+const DEBUG_MODE = true;
 
 // Quiz sorusu ve Quiz cevap seçeneği tipleri
 interface QuizOption {
@@ -71,13 +75,88 @@ const personalGradients = {
   light: '#00B4DB'
 };
 
-// Kişisel Gelişim Analizi Sonuç Sayfası
+// Markdown formatındaki metni HTML'e çeviren fonksiyon
+const parseMarkdown = (text: string) => {
+  if (!text) return '';
+  
+  // Bold metinleri işle (**text** -> <strong>text</strong>)
+  const boldParsed = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+  
+  // İtalik metinleri işle (*text* -> <em>text</em>)
+  const italicParsed = boldParsed.replace(/\*(.*?)\*/g, '<em>$1</em>');
+  
+  // Paragrafları işle (satır sonları -> <br />)
+  return italicParsed.replace(/\n/g, '<br />');
+};
+
+// İçgörülerin ön izlemesini gösteren yardımcı fonksiyon
+const getInsightPreview = (text: string, maxLength: number = 100) => {
+  if (!text) return '';
+  // Markdown işaretlerini temizle
+  const plainText = text.replace(/\*\*(.*?)\*\*/g, '$1');
+  return plainText.length > maxLength 
+    ? plainText.substring(0, maxLength) + '...' 
+    : plainText;
+};
+
+// Modal bileşeni - İçgörüler için - HTML içeriği gösterme desteğiyle güncellendi
+const InsightModal = ({ 
+  isOpen, 
+  onClose, 
+  title, 
+  content, 
+  icon, 
+  explanation,
+  color
+}: { 
+  isOpen: boolean; 
+  onClose: () => void; 
+  title: string; 
+  content: string; 
+  icon: string;
+  explanation: string;
+  color?: string;
+}) => (
+  <>
+    {isOpen && (
+      <div className="insight-modal-overlay" onClick={onClose}>
+        <div 
+          className="insight-modal-content" 
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="insight-modal-header" style={{ background: color || personalGradients.main }}>
+            <div className="insight-modal-icon">{icon}</div>
+            <h2 className="insight-modal-title">{title}</h2>
+            <button className="insight-modal-close" onClick={onClose}>×</button>
+          </div>
+          <div className="insight-modal-body">
+            <div 
+              className="insight-modal-text"
+              dangerouslySetInnerHTML={{ __html: parseMarkdown(content) }}
+            ></div>
+            {explanation && (
+              <div className="insight-modal-explanation">
+                <h3>Bu ne anlama geliyor?</h3>
+                <p>{explanation}</p>
+              </div>
+            )}
+          </div>
+          <div className="insight-modal-footer">
+            <button className="insight-modal-button" onClick={onClose}>
+              Kapat
+            </button>
+          </div>
+        </div>
+      </div>
+    )}
+  </>
+);
+
+// Kişilik Analizi Sonuç Sayfası
 const PersonalResult: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [isLoading, setIsLoading] = useState(true);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [loading, setLoading] = useState(true);
   const [loadingProgress, setLoadingProgress] = useState(0);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isAnalysisStarted, setIsAnalysisStarted] = useState(false);
@@ -93,6 +172,47 @@ const PersonalResult: React.FC = () => {
   const [isStoryLoading, setIsStoryLoading] = useState(true);
   const [isInsightsLoading, setIsInsightsLoading] = useState(true);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [expandedCard, setExpandedCard] = useState<string | null>(null);
+  const [isApiReady, setIsApiReady] = useState(false);
+  const [selectedInsight, setSelectedInsight] = useState<string | null>(null);
+  
+  // personalValues değişkenini personalThinking üzerinden kullanacağız
+  const personalValues = personalThinking;
+
+  // Hikaye için kısaltma ve genişletme fonksiyonu
+  const [isStoryExpanded, setIsStoryExpanded] = useState(false);
+  const toggleStoryExpansion = () => {
+    setIsStoryExpanded(!isStoryExpanded);
+  };
+
+  // Hikayeyi kısaltma fonksiyonu (ilk 250 karakter)
+  const getShortStory = (story: string) => {
+    if (!story) return "";
+    return story.length > 250 ? story.substring(0, 250) + "..." : story;
+  };
+  
+  // Kart açıklama içeriği getirme fonksiyonu
+  const getDetailedExplanation = (cardId: string): string => {
+    switch(cardId) {
+      case 'strengths':
+        return "Kişisel güçlü yönleriniz, karakterinizin en olumlu ve etkili özelliklerini temsil eder. Bu alanlar, hayatınızda başarıya ulaşmanızı sağlayan ve ilişkilerinizi güçlendiren temel özelliklerinizdir.";
+      case 'potential':
+        return "Kişisel gelişim potansiyeliniz, gelecekte geliştirerek yaşam kalitenizi artırabileceğiniz alanları gösterir. Bu potansiyeli keşfetmek, kişisel büyümeniz için önemli bir adımdır.";
+      case 'values':
+        return "Temel değerleriniz, kararlarınızı ve davranışlarınızı yönlendiren en önemli ilkelerinizdir. Bu değerler, hayatınızda neye önem verdiğinizi ve neyi önceliklendirdiğinizi yansıtır.";
+      default:
+        return "";
+    }
+  };
+  
+  // Kartları açıp kapatmak için
+  const toggleCardExpansion = (cardId: string) => {
+    if (expandedCard === cardId) {
+      setExpandedCard(null);
+    } else {
+      setExpandedCard(cardId);
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -109,9 +229,18 @@ const PersonalResult: React.FC = () => {
 
   // Yükleme animasyonu
   useEffect(() => {
-    // Doğrudan sayfaya yönlendirildiğinde animasyonu 100'e çıkarma
-    // loadingInterval kaldırıldı, doğrudan sayfa üzerinde yükleme gösterilecek
-    setLoadingProgress(100);
+    const loadingInterval = setInterval(() => {
+      setLoadingProgress(prev => {
+        if (prev >= 100) {
+          clearInterval(loadingInterval);
+          setLoading(false);
+          return 100;
+        }
+        return prev + 1;
+      });
+    }, 25);
+    
+    return () => clearInterval(loadingInterval);
   }, []);
 
   // Konum durum verilerini al
@@ -128,37 +257,22 @@ const PersonalResult: React.FC = () => {
 
     // Kullanıcı adını localStorage'dan al veya varsayılan
     const username = localStorage.getItem('auralize_username') || 'Seyyah';
+    const userId = localStorage.getItem('auralize_user_id') || Date.now().toString();
 
-    // Timeout kontrolü için
-    let isTimedOut = false;
-    let maxTimeout = 600000; // 10 dakika timeout
+    if (DEBUG_MODE) console.log("Quiz verileri hazırlanıyor:", { userId, username, answers: state.answers, determinedType: quizType });
 
     const generatePersonalAnalysis = async () => {
       setIsAnalysisStarted(true);
-      timerRef.current = setTimeout(() => {
-        if (isStoryLoading || isInsightsLoading) {
-          isTimedOut = true;
-          console.warn("Kişisel gelişim analizi zaman aşımına uğradı");
-          setPersonalStory("Kişisel gelişim analiziniz için sunucu yanıt vermedi. Bu genellikle geçici bir sorundur. Lütfen daha sonra tekrar deneyin.");
-          setPersonalStrengths("Zaman aşımı nedeniyle kişisel güçlü yönleriniz yüklenemedi.");
-          setPersonalPotential("Zaman aşımı nedeniyle gelişim potansiyeliniz yüklenemedi.");
-          setPersonalThinking("Zaman aşımı nedeniyle öğrenme ve gelişim stiliniz yüklenemedi.");
-          setPersonalTitle("Kişisel Gelişim Analizi (Oluşturulamadı)");
-          setIsStoryLoading(false);
-          setIsInsightsLoading(false);
-          setIsLoading(false);
-        }
-      }, maxTimeout);
       
       try {
         // Quiz cevaplarını daha detaylı bir formata dönüştür
         const detailedAnswers = Object.entries(state.answers).map(([questionId, answerId]) => {
           // personalQuizData dizisinden ilgili soruyu bul
-          const question = personalQuizData.find((q: QuizQuestion) => q.id === parseInt(questionId));
+          const question = personalQuizData.find((q: any) => q.id === parseInt(questionId));
           if (!question) return null;
           
           // Sorunun cevap seçeneklerinden kullanıcının seçtiğini bul
-          const selectedOption = question.options.find((opt: QuizOption) => opt.id === answerId);
+          const selectedOption = question.options.find((opt: any) => opt.id === answerId);
           if (!selectedOption) return null;
           
           return {
@@ -167,126 +281,109 @@ const PersonalResult: React.FC = () => {
             answerId: answerId,
             answerText: selectedOption.value
           };
-        }).filter(Boolean) as DetailedAnswer[]; // null değerleri filtrele ve tip ataması yap
+        }).filter(Boolean); // null değerleri filtrele
         
-        console.log("Detaylı kişisel analiz cevapları:", detailedAnswers);
+        if (DEBUG_MODE) console.log("Detaylı kişilik analiz cevapları:", detailedAnswers);
         
-        // İçgörüleri ve hikayeyi paralel olarak yükleyelim
-        const storyPromise = getAuraStoryFromOpenAI(quizType, username, state.answers);
-        // @ts-ignore - detailedAnswers parametresini ekstra olarak geçiyoruz, servisi güncelleyeceğiz
-        const insightsPromise = getAuraInsightsFromOpenAI(quizType, username, state.answers, detailedAnswers);
-
-        // İçgörüleri elde et
-        insightsPromise.then((insights) => {
-          if (isTimedOut) return;
-          
-          setPersonalStrengths(insights.strengths);
-          setPersonalPotential(insights.potential);
-          setPersonalThinking(insights.thinkingStyle);
-          setPersonalTitle(insights.auraTitle);
-          setIsInsightsLoading(false);
-
-          // İlerleme çubuğunu güncelle
-          setLoadingProgress(prev => Math.min(prev + 5, 95));
-        }).catch((error) => {
-          console.error("İçgörüler alınırken hata:", error);
-          setPersonalStrengths("Kişisel güçlü yönleriniz şu anda görüntülenemiyor.");
-          setPersonalPotential("Gelişim potansiyeliniz şu anda görüntülenemiyor.");
-          setPersonalThinking("Öğrenme ve gelişim stiliniz şu anda görüntülenemiyor.");
-          setPersonalTitle("Kişisel Gelişim Analizi");
-          setIsInsightsLoading(false);
-        });
-
-        // Hikayeyi elde et
-        storyPromise.then((story) => {
-          if (isTimedOut) return;
-          
-          setPersonalStory(story);
-          setIsStoryLoading(false);
-
-          // İlerleme çubuğunu güncelle
-          setLoadingProgress(prev => Math.min(prev + 5, 95));
-        }).catch((error) => {
-          console.error("Hikaye alınırken hata:", error);
-          
-          // Network hatası mı kontrol et
-          if (error instanceof Error) {
-            if ('message' in error && typeof error.message === 'string') {
-              if (error.message.includes('network') || error.message.includes('Network') || 
-                  error.message.includes('timeout') || error.message.includes('Timeout')) {
-                setPersonalStory("Sunucuyla iletişim kurarken bir ağ hatası oluştu. İnternet bağlantınızı kontrol edip tekrar deneyin.");
-              } else {
-                setPersonalStory("Kişisel gelişim analiziniz oluşturulurken teknik bir sorun yaşandı. Lütfen daha sonra tekrar deneyin.");
-              }
-            } else {
-              setPersonalStory("Kişisel gelişim analiziniz oluşturulurken bir sorun yaşandı. Lütfen daha sonra tekrar deneyin.");
-            }
-          } else {
-            setPersonalStory("Kişisel gelişim analiziniz oluşturulurken bir sorun yaşandı. Lütfen daha sonra tekrar deneyin.");
-          }
-          
-          setIsStoryLoading(false);
-        });
-
-        // Her iki işlem tamamlandığında veya hata verdiğinde
-        Promise.allSettled([storyPromise, insightsPromise]).then(async (results) => {
-          if (isTimedOut) return;
-
-          // Her iki işlemden biri başarılı olduysa analizin tamamlandığını işaretle
-          if (results[0].status === 'fulfilled' || results[1].status === 'fulfilled') {
-            // Analiz verilerini kaydet
-            const userId = localStorage.getItem('auralize_user_id') || Date.now().toString();
-            localStorage.setItem('auralize_user_id', userId);
-
-            try {
-              const savedAuraId = await saveAuraStory(userId, {
-                auraType: quizType,
-                story: personalStory || "Hikaye yüklenemedi",
-                strengths: personalStrengths || "Güçlü yönler yüklenemedi",
-                potential: personalPotential || "Potansiyel yüklenemedi",
-                thinkingStyle: personalThinking || "Düşünme stili yüklenemedi",
-                auraTitle: personalTitle || "Kişisel Gelişim Analizi",
-                answers: state.answers
-              });
-              
-              setAuraId(savedAuraId);
-              setShowShareButton(true);
-            } catch (saveError) {
-              console.error("Analiz kaydedilirken hata:", saveError);
-            }
-            
-            clearTimeout(timerRef.current as ReturnType<typeof setTimeout>);
-            setIsLoading(false);
-            setLoadingProgress(100);
-          }
-        });
-      } catch (error) {
-        console.error("Kişisel gelişim analizi oluşturulurken hata:", error);
+        // Maksimum bekleme süresi (milisaniye)
+        const MAX_WAIT_TIME = 180000; // 3 dakika
+        const startTime = Date.now();
         
-        setPersonalStory("Bir hata oluştu. Lütfen daha sonra tekrar deneyin.");
-        setPersonalStrengths("Kişisel güçlü yönleriniz şu anda görüntülenemiyor.");
-        setPersonalPotential("Gelişim potansiyeliniz şu anda görüntülenemiyor.");
-        setPersonalThinking("Öğrenme ve gelişim stiliniz şu anda görüntülenemiyor.");
-        setPersonalTitle("Kişisel Gelişim Analizi");
+        // Tek istekle tüm verileri alma
+        if (DEBUG_MODE) console.log("[DEBUG] Birleştirilmiş veri isteniyor");
         
-        clearTimeout(timerRef.current as ReturnType<typeof setTimeout>);
+        // Promise.race kullanarak istek veya zaman aşımından hangisi önce gelirse onu işle
+        const resultPromise = Promise.race([
+          getCombinedAuraDataFromOpenAI(quizType, username, state.answers),
+          new Promise<never>((_, reject) => {
+            setTimeout(() => {
+              reject(new Error(`İstek zaman aşımına uğradı (${MAX_WAIT_TIME / 1000} saniye)`));
+            }, MAX_WAIT_TIME);
+          })
+        ]);
+        
+        if (DEBUG_MODE) console.log("[DEBUG] Birleştirilmiş veri isteği yapılıyor...", new Date().toLocaleTimeString());
+        
+        const combinedData = await resultPromise;
+        
+        if (DEBUG_MODE) console.log("[DEBUG] Birleştirilmiş veri yanıtı alındı:", combinedData?.source, new Date().toLocaleTimeString());
+        
+        // Eksik veri kontrolü - tüm alanlar boş ise hata fırlat
+        if (!combinedData.story && !combinedData.strengths && !combinedData.potential && !combinedData.thinkingStyle) {
+          if (DEBUG_MODE) console.error("[DEBUG] API yanıtı eksik veya boş geldi!");
+          throw new Error("API yanıtı eksik veya boş geldi.");
+        }
+        
+        if (DEBUG_MODE) console.log("[DEBUG] İşlem süresi:", ((Date.now() - startTime) / 1000).toFixed(2), "saniye");
+        
+        // Aura hikayesini ayarla
+        setPersonalStory(combinedData.story);
+        
+        // İçgörüleri ayarla
+        setPersonalStrengths(combinedData.strengths);
+        setPersonalPotential(combinedData.potential);
+        setPersonalThinking(combinedData.thinkingStyle);
+        setPersonalTitle(combinedData.auraTitle || "Kişilik Analizi");
+        
+        // Yükleme durumlarını güncelle
         setIsStoryLoading(false);
         setIsInsightsLoading(false);
-        setIsLoading(false);
+        setIsApiReady(true);
+        
+        // Analiz verilerini kaydet
+        try {
+          const savedAuraId = await saveAuraStory(userId, {
+            auraType: quizType,
+            story: combinedData.story || "Hikaye yüklenemedi",
+            strengths: combinedData.strengths || "Güçlü yönler yüklenemedi",
+            potential: combinedData.potential || "Potansiyel yüklenemedi",
+            thinkingStyle: combinedData.thinkingStyle || "Düşünme stili yüklenemedi",
+            auraTitle: combinedData.auraTitle || "Kişilik Analizi",
+            answers: state.answers
+          });
+          
+          if (savedAuraId) {
+            setAuraId(savedAuraId);
+            setShowShareButton(true);
+            console.log("Varsayılan aura verileri kaydedildi");
+          }
+        } catch (err) {
+          console.error("Aura kaydedilirken hata:", err);
+        }
+        
+        // İlerlemeyi tamamla
+        setLoadingProgress(100);
+        
+      } catch (error) {
+        console.error("Analiz oluşturulurken hata:", error);
+        
+        // Hata durumunda bilgi mesajları
+        setPersonalStory("Kişilik analiziniz oluşturulurken bir sorun yaşandı. Lütfen daha sonra tekrar deneyin.");
+        setPersonalStrengths("Kişilik güçlü yönleriniz şu anda görüntülenemiyor.");
+        setPersonalPotential("Kişilik potansiyeliniz şu anda görüntülenemiyor.");
+        setPersonalThinking("Düşünme stiliniz şu anda görüntülenemiyor.");
+        setPersonalTitle("Kişilik Analizi");
+        
+        // Yükleme durumlarını açık tutarak kristal yükleme animasyonunun görünmesini sağla
+        // setIsStoryLoading(false);
+        // setIsInsightsLoading(false);
+        setIsApiReady(false);
+        
+        // İlerlemeyi tamamla
         setLoadingProgress(100);
       }
     };
 
-    // İlk yükleme hemen başlasın
+    // Analizi başlat
     generatePersonalAnalysis();
-    
-    // Cleanup fonksiyonu
+
+    // Temizleme fonksiyonu
     return () => {
       if (timerRef.current) {
         clearTimeout(timerRef.current);
       }
     };
-  }, [location, navigate, personalStory, personalStrengths, personalPotential, personalThinking, personalTitle, isStoryLoading, isInsightsLoading]);
+  }, [navigate, location.state]);
 
   // Analizi paylaşma fonksiyonu
   const handleShareAnalysis = async () => {
@@ -339,74 +436,84 @@ const PersonalResult: React.FC = () => {
     }
   };
 
+  // Modal açma/kapama fonksiyonu
+  const openInsightModal = (insightId: string) => {
+    setSelectedInsight(insightId);
+  };
+
+  const closeInsightModal = () => {
+    setSelectedInsight(null);
+  };
+
+  // Tam ekran yükleme ekranı
+  if (loading) {
+    return (
+      <div className="loading-screen" style={{ background: '#fafafa' }}>
+        <div className="aura-crystal-container">
+          <div className="aura-crystal">
+            <div className="crystal-face face1"></div>
+            <div className="crystal-face face2"></div>
+            <div className="crystal-face face3"></div>
+            <div className="crystal-face face4"></div>
+            <div className="crystal-shadow"></div>
+          </div>
+        </div>
+        <div className="loading-progress">
+          <div className="loading-bar">
+            <div 
+              className="loading-fill" 
+              style={{ 
+                width: `${loadingProgress}%`,
+                background: `${personalGradients.main}`
+              }}
+            ></div>
+          </div>
+          <p className="loading-percentage">{loadingProgress}%</p>
+        </div>
+        <p className="loader-text">Kişilik Analiziniz Oluşturuluyor</p>
+        <p className="loader-subtext">Yapay zeka kişilik özelliklerinizi analiz ediyor</p>
+      </div>
+    );
+  }
+
   return (
     <div className="personal-result-container">
       <style>{`
         /* Ana yükleme animasyonu */
-        .aura-crystal-container {
+        .loading-screen {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          background: #fafafa;
+          z-index: 1000;
+        }
+        
+        /* Yükleme animasyonu container'ı için stil */
+        .aura-loading-container {
           display: flex;
           justify-content: center;
           align-items: center;
-          margin-bottom: 2rem;
-          perspective: 800px;
-        }
-        
-        .aura-crystal {
-          width: 80px;
-          height: 80px;
-          position: relative;
-          transform-style: preserve-3d;
-          animation: crystal-rotate 4s infinite linear;
-          transform: rotateX(20deg) rotateY(20deg);
-        }
-        
-        .crystal-face {
-          position: absolute;
+          min-height: 180px;
           width: 100%;
-          height: 100%;
-          background: ${personalGradients.main};
-          opacity: 0.7;
-          border-radius: 15%;
         }
         
-        .face1 { transform: rotateY(0deg) translateZ(40px); }
-        .face2 { transform: rotateY(90deg) translateZ(40px); }
-        .face3 { transform: rotateY(180deg) translateZ(40px); }
-        .face4 { transform: rotateY(270deg) translateZ(40px); }
-        
-        .crystal-shadow {
-          position: absolute;
-          width: 100%;
-          height: 20px;
-          background: rgba(0,0,0,0.2);
-          bottom: -40px;
-          border-radius: 50%;
-          filter: blur(10px);
-          animation: shadow-pulse 2s infinite alternate;
-        }
-        
-        @keyframes crystal-rotate {
-          from { transform: rotateX(20deg) rotateY(0deg); }
-          to { transform: rotateX(20deg) rotateY(360deg); }
-        }
-        
-        @keyframes shadow-pulse {
-          from { transform: scale(0.8); opacity: 0.2; }
-          to { transform: scale(1); opacity: 0.4; }
-        }
-        
-        /* İçgörü yükleme bileşenleri */
+        /* Kristal yükleme animasyonu için stiller */
         .loading-crystal {
           display: flex;
           flex-direction: column;
           align-items: center;
-          gap: 0.8rem;
-          padding: 1rem;
+          gap: 1rem;
         }
         
         .loading-crystal-spinner {
-          width: 40px;
-          height: 40px;
+          width: 60px;
+          height: 60px;
           border-radius: 30%;
           position: relative;
           animation: crystal-spin 2s infinite linear;
@@ -429,7 +536,7 @@ const PersonalResult: React.FC = () => {
         }
         
         .loading-crystal-text {
-          font-size: 0.9rem;
+          font-size: 1rem;
           color: #666;
           display: flex;
           gap: 0.2rem;
@@ -463,7 +570,7 @@ const PersonalResult: React.FC = () => {
           60%, 100% { content: '...'; }
         }
         
-        /* İçgörü yükleme iskeleti - geliştirilmiş versiyon */
+        /* İçgörü yükleme iskeleti stillerini geliştir */
         .insight-loading-skeleton {
           padding: 1.5rem;
           border-radius: 12px;
@@ -471,6 +578,9 @@ const PersonalResult: React.FC = () => {
           backdrop-filter: blur(10px);
           box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
           height: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
         }
         
         .insight-loading-icon-container {
@@ -559,7 +669,7 @@ const PersonalResult: React.FC = () => {
         .insight-loading-crystal {
           width: 40px;
           height: 40px;
-          background: ${personalGradients.main};
+          background: linear-gradient(135deg, #00B4DB, #0083B0);
           border-radius: 20%;
           position: relative;
           animation: crystal-rotate-3d 3s infinite linear;
@@ -597,7 +707,6 @@ const PersonalResult: React.FC = () => {
           font-size: 0.9rem;
           color: #666;
           display: flex;
-          align-items: center;
           gap: 0.2rem;
         }
         
@@ -620,30 +729,113 @@ const PersonalResult: React.FC = () => {
           100% { content: '...'; width: 3em; }
         }
         
-        .personal-section {
-          margin-bottom: 2rem;
+        .loading-progress {
+          width: 200px;
+          margin: 20px 0;
         }
         
-        .personal-section-header {
-          margin-bottom: 1.5rem;
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
+        .loading-bar {
+          height: 6px;
+          background: #eee;
+          border-radius: 3px;
+          overflow: hidden;
         }
         
-        .personal-section-title {
-          font-size: 1.5rem;
+        .loading-fill {
+          height: 100%;
+          background: ${personalGradients.main};
+          border-radius: 3px;
+          transition: width 0.3s ease;
+        }
+        
+        .loading-percentage {
+          text-align: center;
+          margin-top: 8px;
+          font-size: 14px;
+          color: #666;
+        }
+        
+        .loader-text {
+          font-size: 24px;
           font-weight: 600;
+          margin-bottom: 8px;
           color: #333;
         }
         
-        .personal-insights-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-          gap: 1.5rem;
-          margin-bottom: 2rem;
+        .loader-subtext {
+          font-size: 16px;
+          color: #777;
         }
         
+        /* Hikaye kartı */
+        .story-card {
+          background: white;
+          border-radius: 12px;
+          padding: 1.5rem;
+          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+          margin-bottom: 2rem;
+          position: relative;
+          overflow: hidden;
+          transition: all 0.3s ease;
+        }
+        
+        .story-card.expanded {
+          box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        .story-content {
+          position: relative;
+        }
+        
+        .story-gradient-overlay {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          height: 60px;
+          background: linear-gradient(transparent, white);
+          pointer-events: none;
+          opacity: 1;
+          transition: opacity 0.3s ease;
+        }
+        
+        .story-card.expanded .story-gradient-overlay {
+          opacity: 0;
+        }
+        
+        .story-toggle-btn {
+          background: ${personalGradients.main};
+          color: white;
+          border: none;
+          padding: 8px 16px;
+          border-radius: 20px;
+          font-size: 14px;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin: 1rem auto 0;
+          transition: all 0.2s ease;
+        }
+        
+        .story-toggle-btn:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .story-toggle-btn .icon {
+          margin-left: 6px;
+          font-size: 18px;
+        }
+        
+        /* İçgörü kartları için yeni stil */
+        .personal-insights-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+          gap: 20px;
+          margin-bottom: 2rem;
+        }
+
         .personal-insight-card {
           background: rgba(255, 255, 255, 0.8);
           backdrop-filter: blur(10px);
@@ -654,18 +846,224 @@ const PersonalResult: React.FC = () => {
           min-height: 200px;
           display: flex;
           flex-direction: column;
-          gap: 1rem;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          position: relative;
         }
         
-        .personal-result-title {
-          background: ${personalGradients.main};
-          -webkit-background-clip: text;
-          background-clip: text;
-          color: transparent;
-          font-size: 2.5rem;
-          font-weight: 700;
-          text-align: center;
+        .personal-insight-card:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 12px 36px rgba(0, 0, 0, 0.1);
+        }
+        
+        .personal-insight-icon {
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 1.5rem;
           margin-bottom: 1rem;
+          color: white;
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .personal-insight-title {
+          font-size: 1.2rem;
+          font-weight: 600;
+          color: #333;
+          margin-bottom: 1rem;
+        }
+        
+        .personal-insight-content {
+          color: #555;
+          font-size: 0.95rem;
+          line-height: 1.6;
+          flex-grow: 1;
+          height: 150px;
+          overflow: hidden;
+          position: relative;
+        }
+        
+        .insight-content-gradient {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          height: 50px;
+          background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.9));
+          pointer-events: none;
+        }
+        
+        .insight-card-expand-hint {
+          text-align: center;
+          margin-top: 0.5rem;
+          color: ${personalGradients.light};
+          font-weight: 500;
+          font-size: 14px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 4px;
+        }
+
+        /* Modal Stilleri */
+        .insight-modal-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: rgba(0, 0, 0, 0.6);
+          backdrop-filter: blur(3px);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          z-index: 1000;
+          padding: 20px;
+        }
+        
+        .insight-modal-content {
+          background: white;
+          border-radius: 16px;
+          width: 90%;
+          max-width: 600px;
+          max-height: 85vh;
+          overflow-y: auto;
+          box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+          animation: modal-slide-in 0.3s ease-out;
+        }
+        
+        @keyframes modal-slide-in {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        
+        .insight-modal-header {
+          display: flex;
+          align-items: center;
+          padding: 1.5rem;
+          background: ${personalGradients.main};
+          border-radius: 16px 16px 0 0;
+          color: white;
+          position: relative;
+        }
+        
+        .insight-modal-icon {
+          font-size: 1.8rem;
+          margin-right: 1rem;
+          background: rgba(255, 255, 255, 0.2);
+          width: 40px;
+          height: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 50%;
+        }
+        
+        .insight-modal-title {
+          font-size: 1.4rem;
+          margin: 0;
+          flex-grow: 1;
+        }
+        
+        .insight-modal-close {
+          background: rgba(255, 255, 255, 0.2);
+          border: none;
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 1.4rem;
+          color: white;
+          cursor: pointer;
+          transition: all 0.2s ease;
+        }
+        
+        .insight-modal-close:hover {
+          background: rgba(255, 255, 255, 0.3);
+          transform: scale(1.1);
+        }
+        
+        .insight-modal-body {
+          padding: 1.5rem;
+        }
+        
+        .insight-modal-text {
+          margin: 0 0 1.5rem 0;
+          line-height: 1.6;
+          font-size: 1.1rem;
+          white-space: pre-line;
+        }
+        
+        .insight-modal-explanation {
+          background: rgba(0, 0, 0, 0.03);
+          padding: 1.2rem;
+          border-radius: 12px;
+          margin-top: 1.5rem;
+          border-left: 4px solid ${personalGradients.light};
+        }
+        
+        .insight-modal-explanation h3 {
+          margin-top: 0;
+          font-size: 1.1rem;
+          opacity: 0.8;
+        }
+        
+        .insight-modal-footer {
+          padding: 1rem 1.5rem;
+          display: flex;
+          justify-content: flex-end;
+          border-top: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .insight-modal-button {
+          background: ${personalGradients.main};
+          color: white;
+          border: none;
+          padding: 0.8rem 1.5rem;
+          border-radius: 30px;
+          font-size: 1rem;
+          font-weight: 500;
+          cursor: pointer;
+          transition: all 0.2s ease;
+        }
+        
+        .insight-modal-button:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Hikaye kartı stilinde değişiklik */
+        .story-card {
+          padding: 1.5rem;
+          border-radius: 12px;
+          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+          background: white;
+          margin-bottom: 2rem;
+        }
+        
+        .story-text p {
+          margin-bottom: 1rem;
+          line-height: 1.6;
+        }
+        
+        /* Modal içindeki HTML içeriği için stiller */
+        .insight-modal-text strong {
+          font-weight: 600;
+        }
+        
+        .insight-modal-text em {
+          font-style: italic;
         }
       `}</style>
       
@@ -689,24 +1087,24 @@ const PersonalResult: React.FC = () => {
       
       <main className="main-content personal-result-content">
         <div className="container">
-          <h1 className="personal-result-title">{personalTitle || 'Kişisel Gelişim Analizi'}</h1>
+          <h1 className="personal-result-title">{personalTitle || 'Kişilik Analizi'}</h1>
           
-          {/* Hikaye Bölümü */}
+          {/* Hikaye Bölümü - Artık tam gösterim */}
           <section className="personal-section">
             <div className="personal-section-header">
               <h2 className="personal-section-title">
-                <span className="personal-section-icon">📚</span> Kişisel Gelişim Yolculuğunuz
+                <span className="personal-section-icon">💫</span> Kişilik Portreniz
               </h2>
             </div>
             
-            <div className="personal-story-box glass-card">
+            <div className="story-card">
               {isStoryLoading ? (
                 <div className="aura-loading-container">
-                  <LoadingAnimation text="Kişisel gelişim analiziniz hazırlanıyor" color={personalGradients.main} />
+                  <LoadingAnimation text="Kişilik analiziniz hazırlanıyor" color={personalGradients.main} />
                 </div>
               ) : (
-                <div className="personal-story-content animate__animated animate__fadeIn">
-                  <div className="personal-story-text">
+                <div className="story-content">
+                  <div className="story-text">
                     {personalStory.split('\n\n').map((paragraph, index) => (
                       <p key={index}>{paragraph}</p>
                     ))}
@@ -716,65 +1114,98 @@ const PersonalResult: React.FC = () => {
             </div>
           </section>
           
-          {/* İçgörüler Bölümü */}
+          {/* İçgörüler Bölümü - Modal İle */}
           <section className="personal-section">
             <div className="personal-section-header">
               <h2 className="personal-section-title">
-                <span className="personal-section-icon">💡</span> Kişisel Gelişim İçgörüleriniz
+                <span className="personal-section-icon">💎</span> Kişilik İçgörüleriniz
               </h2>
             </div>
             
             <div className="personal-insights-grid">
-              <div className="personal-insight-card">
+              <div 
+                className="personal-insight-card"
+                onClick={() => !isInsightsLoading && openInsightModal('strengths')}
+              >
                 {isInsightsLoading ? (
                   <InsightLoadingSkeleton 
-                    icon="🌟" 
+                    icon="⭐" 
                     title="Kişisel Güçlü Yönleriniz" 
                     color={personalGradients.main}
                   />
                 ) : (
                   <>
-                    <div className="personal-insight-icon" style={{ background: personalGradients.main }}>🌟</div>
+                    <div className="personal-insight-icon" style={{ background: personalGradients.main }}>⭐</div>
                     <h3 className="personal-insight-title">Kişisel Güçlü Yönleriniz</h3>
-                    <p className="personal-insight-text">
-                      {personalStrengths || "Kişisel güçlü yönleriniz yüklenirken bir hata oluştu."}
-                    </p>
+                    <div className="personal-insight-content">
+                      {getInsightPreview(personalStrengths)}
+                      <div className="insight-content-gradient"></div>
+                    </div>
+                    <div className="insight-card-expand-hint">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M15 3h6v6"></path>
+                        <path d="M10 14 21 3"></path>
+                      </svg>
+                      Daha Fazla Göster
+                    </div>
                   </>
                 )}
               </div>
               
-              <div className="personal-insight-card">
+              <div 
+                className="personal-insight-card"
+                onClick={() => !isInsightsLoading && openInsightModal('potential')}
+              >
                 {isInsightsLoading ? (
                   <InsightLoadingSkeleton 
-                    icon="🚀" 
+                    icon="🌱" 
                     title="Gelişim Potansiyeliniz" 
                     color={personalGradients.main}
                   />
                 ) : (
                   <>
-                    <div className="personal-insight-icon" style={{ background: personalGradients.main }}>🚀</div>
+                    <div className="personal-insight-icon" style={{ background: personalGradients.main }}>🌱</div>
                     <h3 className="personal-insight-title">Gelişim Potansiyeliniz</h3>
-                    <p className="personal-insight-text">
-                      {personalPotential || "Gelişim potansiyeliniz yüklenirken bir hata oluştu."}
-                    </p>
+                    <div className="personal-insight-content">
+                      {getInsightPreview(personalPotential)}
+                      <div className="insight-content-gradient"></div>
+                    </div>
+                    <div className="insight-card-expand-hint">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M15 3h6v6"></path>
+                        <path d="M10 14 21 3"></path>
+                      </svg>
+                      Daha Fazla Göster
+                    </div>
                   </>
                 )}
               </div>
               
-              <div className="personal-insight-card">
+              <div 
+                className="personal-insight-card"
+                onClick={() => !isInsightsLoading && openInsightModal('values')}
+              >
                 {isInsightsLoading ? (
                   <InsightLoadingSkeleton 
-                    icon="🧠" 
-                    title="Öğrenme ve Gelişim Stiliniz" 
+                    icon="❤️" 
+                    title="Temel Değerleriniz" 
                     color={personalGradients.main}
                   />
                 ) : (
                   <>
-                    <div className="personal-insight-icon" style={{ background: personalGradients.main }}>🧠</div>
-                    <h3 className="personal-insight-title">Öğrenme ve Gelişim Stiliniz</h3>
-                    <p className="personal-insight-text">
-                      {personalThinking || "Öğrenme ve gelişim stiliniz yüklenirken bir hata oluştu."}
-                    </p>
+                    <div className="personal-insight-icon" style={{ background: personalGradients.main }}>❤️</div>
+                    <h3 className="personal-insight-title">Temel Değerleriniz</h3>
+                    <div className="personal-insight-content">
+                      {getInsightPreview(personalValues)}
+                      <div className="insight-content-gradient"></div>
+                    </div>
+                    <div className="insight-card-expand-hint">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M15 3h6v6"></path>
+                        <path d="M10 14 21 3"></path>
+                      </svg>
+                      Daha Fazla Göster
+                    </div>
                   </>
                 )}
               </div>
@@ -814,11 +1245,42 @@ const PersonalResult: React.FC = () => {
         </div>
       </main>
       
+      {/* İçgörü Modalleri */}
+      <InsightModal
+        isOpen={selectedInsight === 'strengths'}
+        onClose={closeInsightModal}
+        title="Kişisel Güçlü Yönleriniz"
+        content={personalStrengths}
+        icon="⭐"
+        explanation={getDetailedExplanation('strengths')}
+        color={personalGradients.main}
+      />
+      
+      <InsightModal
+        isOpen={selectedInsight === 'potential'}
+        onClose={closeInsightModal}
+        title="Gelişim Potansiyeliniz"
+        content={personalPotential}
+        icon="🌱"
+        explanation={getDetailedExplanation('potential')}
+        color={personalGradients.main}
+      />
+      
+      <InsightModal
+        isOpen={selectedInsight === 'values'}
+        onClose={closeInsightModal}
+        title="Temel Değerleriniz"
+        content={personalValues}
+        icon="❤️"
+        explanation={getDetailedExplanation('values')}
+        color={personalGradients.main}
+      />
+      
       <footer className="py-6 px-4 gradient-footer" style={{ background: personalGradients.dark }}>
         <div className="container">
           <div className="text-center text-white">
             <p>
-              &copy; {new Date().getFullYear()} Auralize - Potansiyelinizi Keşfedin
+              &copy; {new Date().getFullYear()} Auralize - Kişiliğinizi Keşfedin
               <span className="ml-2">✨</span>
             </p>
             <div className="footer-links">
