@@ -17420,3 +17420,205 @@
 {"level":"warn","message":"[API] Duplicate istek engellendi: yaratıcı","service":"auralize-api","timestamp":"2025-04-15 00:47:30"}
 {"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_yaratıcı_4a6b6c4d","service":"auralize-api","timestamp":"2025-04-15 00:47:51"}
 {"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-15 00:47:51"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-15 00:48:40"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-15 00:48:40"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-15 00:50:25"}
+{"level":"info","message":"Loglama isteği alındı: quiz-selected","quizPath":"/quiz/career","service":"auralize-api","timestamp":"2025-04-14T21:50:25.119Z","userId":"anonim"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-15 00:52:29"}
+{"level":"info","message":"[API] career aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-15 00:52:29"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: career, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-15 00:52:29"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-15 00:52:29"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-15 00:52:29"}
+{"level":"info","message":"[API] career aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-15 00:52:29"}
+{"level":"warn","message":"[API] Duplicate istek engellendi: career","service":"auralize-api","timestamp":"2025-04-15 00:52:29"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_career_4a4b4c3d","service":"auralize-api","timestamp":"2025-04-15 00:52:48"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-15 00:52:48"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-15 00:54:42"}
+{"level":"info","message":"Loglama isteği alındı: quiz-selected","quizPath":"/quiz/creative","service":"auralize-api","timestamp":"2025-04-14T21:54:42.476Z","userId":"anonim"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-15 00:55:33"}
+{"level":"info","message":"Loglama isteği alındı: quiz-selected","quizPath":"/quiz/career","service":"auralize-api","timestamp":"2025-04-14T21:55:33.953Z","userId":"anonim"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-15 00:58:36"}
+{"level":"info","message":"[API] career aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-15 00:58:36"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: career, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-15 00:58:36"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-15 00:58:36"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-15 00:58:36"}
+{"level":"info","message":"[API] career aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-15 00:58:36"}
+{"level":"warn","message":"[API] Duplicate istek engellendi: career","service":"auralize-api","timestamp":"2025-04-15 00:58:36"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_career_2a2b6c5d","service":"auralize-api","timestamp":"2025-04-15 00:58:56"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-15 00:58:56"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-15 01:03:04"}
+{"level":"info","message":"Loglama isteği alındı: quiz-selected","quizPath":"/quiz/creative","service":"auralize-api","timestamp":"2025-04-14T22:03:04.164Z","userId":"anonim"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-15 01:07:58"}
+{"level":"info","message":"[API] enerjik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-15 01:07:58"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: enerjik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-15 01:07:58"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-15 01:07:58"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-15 01:07:58"}
+{"level":"info","message":"[API] enerjik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-15 01:07:58"}
+{"level":"warn","message":"[API] Duplicate istek engellendi: enerjik","service":"auralize-api","timestamp":"2025-04-15 01:07:58"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_enerjik_4a6b1c9d","service":"auralize-api","timestamp":"2025-04-15 01:08:17"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-15 01:08:17"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-15 01:12:32"}
+{"level":"info","message":"Loglama isteği alındı: quiz-selected","quizPath":"/quiz/mood","service":"auralize-api","timestamp":"2025-04-14T22:12:32.756Z","userId":"anonim"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-15 01:15:37"}
+{"level":"info","message":"[API] mood aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-15 01:15:37"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: mood, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-15 01:15:37"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-15 01:15:37"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-15 01:15:37"}
+{"level":"info","message":"[API] mood aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-15 01:15:37"}
+{"level":"warn","message":"[API] Duplicate istek engellendi: mood","service":"auralize-api","timestamp":"2025-04-15 01:15:37"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_mood_7a2b3c1d","service":"auralize-api","timestamp":"2025-04-15 01:15:55"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-15 01:15:55"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-15 01:20:09"}
+{"level":"info","message":"Loglama isteği alındı: quiz-selected","quizPath":"/quiz/personal","service":"auralize-api","timestamp":"2025-04-14T22:20:09.279Z","userId":"anonim"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-15 01:24:39"}
+{"level":"info","message":"[API] personal aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-15 01:24:39"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: personal, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-15 01:24:39"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-15 01:24:39"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-15 01:24:39"}
+{"level":"info","message":"[API] personal aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-15 01:24:39"}
+{"level":"warn","message":"[API] Duplicate istek engellendi: personal","service":"auralize-api","timestamp":"2025-04-15 01:24:39"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_personal_4a2b5c4d","service":"auralize-api","timestamp":"2025-04-15 01:24:54"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-15 01:24:54"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-15 10:13:08"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-15 10:13:08"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-15 10:13:22"}
+{"level":"info","message":"Loglama isteği alındı: quiz-selected","quizPath":"/quiz/mood","service":"auralize-api","timestamp":"2025-04-15T07:13:22.393Z","userId":"anonim"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-15 10:13:46"}
+{"level":"info","message":"[API] mood aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-15 10:13:46"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: mood, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-15 10:13:46"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-15 10:13:46"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-15 10:13:46"}
+{"level":"info","message":"[API] mood aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-15 10:13:46"}
+{"level":"warn","message":"[API] Duplicate istek engellendi: mood","service":"auralize-api","timestamp":"2025-04-15 10:13:46"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_mood_2a5b3c3d","service":"auralize-api","timestamp":"2025-04-15 10:14:09"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-15 10:14:09"}
+{"level":"warn","message":"[API] UYARI: 'mood' tipi için düşünme stili bölümü boş veya eksik.","service":"auralize-api","timestamp":"2025-04-15 10:14:09"}
+{"level":"info","message":"[API] mood için prompt uzunluğu: 1499 karakter","service":"auralize-api","timestamp":"2025-04-15 10:14:09"}
+{"level":"info","message":"[API] Düşünme stili bölümü prompt içinde mevcut mu: false","service":"auralize-api","timestamp":"2025-04-15 10:14:09"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-15 10:14:47"}
+{"level":"info","message":"Loglama isteği alındı: quiz-selected","quizPath":"/quiz/creative","service":"auralize-api","timestamp":"2025-04-15T07:14:47.147Z","userId":"anonim"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-15 10:15:16"}
+{"level":"info","message":"[API] enerjik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-15 10:15:16"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: enerjik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-15 10:15:16"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-15 10:15:16"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-15 10:15:16"}
+{"level":"info","message":"[API] enerjik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-15 10:15:16"}
+{"level":"warn","message":"[API] Duplicate istek engellendi: enerjik","service":"auralize-api","timestamp":"2025-04-15 10:15:16"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_enerjik_3a5b5c7d","service":"auralize-api","timestamp":"2025-04-15 10:15:43"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-15 10:15:43"}
+{"level":"info","message":"GET /results/installHook.js.map","service":"auralize-api","timestamp":"2025-04-15 10:16:23"}
+{"level":"info","message":"GET /results/installHook.js.map","service":"auralize-api","timestamp":"2025-04-15 10:16:57"}
+{"level":"info","message":"GET /results/installHook.js.map","service":"auralize-api","timestamp":"2025-04-15 10:17:23"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-15 10:52:06"}
+{"level":"info","message":"Loglama isteği alındı: quiz-selected","quizPath":"/quiz/creative","service":"auralize-api","timestamp":"2025-04-15T07:52:06.896Z","userId":"anonim"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-15 10:53:54"}
+{"level":"info","message":"[API] enerjik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-15 10:53:54"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: enerjik, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-15 10:53:54"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-15 10:53:54"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-15 10:53:54"}
+{"level":"info","message":"[API] enerjik aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-15 10:53:54"}
+{"level":"warn","message":"[API] Duplicate istek engellendi: enerjik","service":"auralize-api","timestamp":"2025-04-15 10:53:54"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_enerjik_5a4b4c7d","service":"auralize-api","timestamp":"2025-04-15 10:54:15"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-15 10:54:15"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-15 11:03:41"}
+{"level":"info","message":"Loglama isteği alındı: quiz-selected","quizPath":"/quiz/mood","service":"auralize-api","timestamp":"2025-04-15T08:03:41.644Z","userId":"anonim"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-15 11:03:50"}
+{"level":"info","message":"[API] mood aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-15 11:03:50"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: mood, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-15 11:03:50"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-15 11:03:50"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-15 11:03:50"}
+{"level":"info","message":"[API] mood aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-15 11:03:50"}
+{"level":"warn","message":"[API] Duplicate istek engellendi: mood","service":"auralize-api","timestamp":"2025-04-15 11:03:50"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_mood_3a3b5c2d","service":"auralize-api","timestamp":"2025-04-15 11:04:12"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-15 11:04:12"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-16 17:57:40"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-16 17:57:40"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-16 17:57:49"}
+{"level":"info","message":"Loglama isteği alındı: quiz-selected","quizPath":"/quiz/creative","service":"auralize-api","timestamp":"2025-04-16T14:57:49.614Z","userId":"anonim"}
+{"level":"info","message":"POST /api/aura/combined-data","service":"auralize-api","timestamp":"2025-04-16 17:58:07"}
+{"level":"info","message":"POST /api/aura/combined-data","service":"auralize-api","timestamp":"2025-04-16 17:58:07"}
+{"level":"info","message":"GET /results/installHook.js.map","service":"auralize-api","timestamp":"2025-04-16 17:58:15"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-16 18:01:32"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-16 18:01:32"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-16 18:01:39"}
+{"level":"info","message":"Loglama isteği alındı: quiz-selected","quizPath":"/quiz/creative","service":"auralize-api","timestamp":"2025-04-16T15:01:39.835Z","userId":"anonim"}
+{"level":"info","message":"POST /api/aura/combined-data","service":"auralize-api","timestamp":"2025-04-16 18:01:53"}
+{"level":"info","message":"POST /api/aura/combined-data","service":"auralize-api","timestamp":"2025-04-16 18:01:53"}
+{"level":"info","message":"GET /results/installHook.js.map","service":"auralize-api","timestamp":"2025-04-16 18:02:49"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-16 18:05:23"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-16 18:05:23"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-16 18:05:39"}
+{"level":"info","message":"Loglama isteği alındı: quiz-selected","quizPath":"/quiz/creative","service":"auralize-api","timestamp":"2025-04-16T15:05:39.160Z","userId":"anonim"}
+{"level":"info","message":"POST /api/aura/combined-data","service":"auralize-api","timestamp":"2025-04-16 18:05:56"}
+{"level":"info","message":"POST /api/aura/combined-data","service":"auralize-api","timestamp":"2025-04-16 18:05:56"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-16 18:10:36"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-16 18:10:36"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-16 18:10:48"}
+{"level":"info","message":"Loglama isteği alındı: quiz-selected","quizPath":"/quiz/creative","service":"auralize-api","timestamp":"2025-04-16T15:10:48.787Z","userId":"anonim"}
+{"level":"info","message":"POST /api/aura/combined-data","service":"auralize-api","timestamp":"2025-04-16 18:11:07"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-16 18:16:12"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-16 18:16:12"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-16 18:16:20"}
+{"level":"info","message":"Loglama isteği alındı: quiz-selected","quizPath":"/quiz/creative","service":"auralize-api","timestamp":"2025-04-16T15:16:20.468Z","userId":"anonim"}
+{"level":"info","message":"POST /api/aura/combined-data","service":"auralize-api","timestamp":"2025-04-16 18:16:37"}
+{"level":"info","message":"GET /results/installHook.js.map","service":"auralize-api","timestamp":"2025-04-16 18:17:53"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-16 18:28:00"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-16 18:28:00"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-16 18:28:19"}
+{"level":"info","message":"Loglama isteği alındı: quiz-selected","quizPath":"/quiz/creative","service":"auralize-api","timestamp":"2025-04-16T15:28:19.209Z","userId":"anonim"}
+{"level":"info","message":"POST /api/aura/combined-data","service":"auralize-api","timestamp":"2025-04-16 18:28:37"}
+{"level":"info","message":"GET /results/installHook.js.map","service":"auralize-api","timestamp":"2025-04-16 18:29:53"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-16 18:34:17"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-16 18:34:17"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-16 18:34:25"}
+{"level":"info","message":"Loglama isteği alındı: quiz-selected","quizPath":"/quiz/creative","service":"auralize-api","timestamp":"2025-04-16T15:34:25.038Z","userId":"anonim"}
+{"level":"info","message":"POST /api/aura/combined-data","service":"auralize-api","timestamp":"2025-04-16 18:34:40"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-16 18:39:01"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-16 18:39:01"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-16 18:39:12"}
+{"level":"info","message":"Loglama isteği alındı: quiz-selected","quizPath":"/quiz/creative","service":"auralize-api","timestamp":"2025-04-16T15:39:12.310Z","userId":"anonim"}
+{"level":"info","message":"POST /api/aura/combined-data","service":"auralize-api","timestamp":"2025-04-16 18:39:30"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-16 18:40:53"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-16 18:40:53"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-16 18:56:35"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-16 18:56:35"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-16 18:56:45"}
+{"level":"info","message":"Loglama isteği alındı: quiz-selected","quizPath":"/quiz/career","service":"auralize-api","timestamp":"2025-04-16T15:56:45.114Z","userId":"anonim"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-16 18:56:57"}
+{"level":"info","message":"[API] career aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-16 18:56:57"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: career, Kullanıcı: Seyyah","service":"auralize-api","timestamp":"2025-04-16 18:56:57"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-16 18:56:57"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-16 18:56:57"}
+{"level":"info","message":"[API] career aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-16 18:56:57"}
+{"level":"warn","message":"[API] Duplicate istek engellendi: career","service":"auralize-api","timestamp":"2025-04-16 18:56:57"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_career_2a5b4c4d","service":"auralize-api","timestamp":"2025-04-16 18:57:22"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-16 18:57:22"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-16 18:57:50"}
+{"level":"info","message":"Loglama isteği alındı: quiz-selected","quizPath":"/quiz/mood","service":"auralize-api","timestamp":"2025-04-16T15:57:50.912Z","userId":"anonim"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-16 18:59:21"}
+{"level":"info","message":"[API] mood aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-16 18:59:21"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: mood, Kullanıcı: Seyyah","service":"auralize-api","timestamp":"2025-04-16 18:59:21"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-16 18:59:21"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-16 18:59:21"}
+{"level":"info","message":"[API] mood aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-16 18:59:21"}
+{"level":"warn","message":"[API] Duplicate istek engellendi: mood","service":"auralize-api","timestamp":"2025-04-16 18:59:21"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_mood_3a7b1c2d","service":"auralize-api","timestamp":"2025-04-16 18:59:37"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-16 18:59:37"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-16 19:07:05"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-16 19:07:05"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-16 19:07:33"}
+{"level":"info","message":"Loglama isteği alındı: quiz-selected","quizPath":"/quiz/creative","service":"auralize-api","timestamp":"2025-04-16T16:07:33.857Z","userId":"anonim"}
+{"level":"info","message":"POST /api/aura/combined-data","service":"auralize-api","timestamp":"2025-04-16 19:07:50"}
+{"level":"info","message":"Server running on port 3001","service":"auralize-api","timestamp":"2025-04-16 20:49:53"}
+{"level":"info","message":"http://localhost:3001","service":"auralize-api","timestamp":"2025-04-16 20:49:53"}
+{"level":"info","message":"POST /api/log/quiz-selected","service":"auralize-api","timestamp":"2025-04-16 20:51:10"}
+{"level":"info","message":"Loglama isteği alındı: quiz-selected","quizPath":"/quiz/creative","service":"auralize-api","timestamp":"2025-04-16T17:51:10.674Z","userId":"anonim"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-16 20:51:26"}
+{"level":"info","message":"[API] yaratıcı aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-16 20:51:26"}
+{"level":"info","message":"getCombinedAuraData fonksiyonu çağrıldı. Aura tipi: yaratıcı, Kullanıcı: polestar","service":"auralize-api","timestamp":"2025-04-16 20:51:26"}
+{"level":"info","message":"OpenAI servisi kullanılıyor","service":"auralize-api","timestamp":"2025-04-16 20:51:26"}
+{"level":"info","message":"POST /api/aura/combined","service":"auralize-api","timestamp":"2025-04-16 20:51:26"}
+{"level":"info","message":"[API] yaratıcı aura tipi için birleştirilmiş veri isteniyor","service":"auralize-api","timestamp":"2025-04-16 20:51:26"}
+{"level":"warn","message":"[API] Duplicate istek engellendi: yaratıcı","service":"auralize-api","timestamp":"2025-04-16 20:51:26"}
+{"level":"info","message":"Aura verisi önbelleğe kaydedildi: auralize_openai_combined_yaratıcı_6a8b3c3d","service":"auralize-api","timestamp":"2025-04-16 20:51:41"}
+{"level":"info","message":"Birleştirilmiş veriler başarıyla oluşturuldu","service":"auralize-api","timestamp":"2025-04-16 20:51:41"}
